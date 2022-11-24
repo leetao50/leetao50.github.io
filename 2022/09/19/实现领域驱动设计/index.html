@@ -20,26 +20,26 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"leetao50.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="从github下载nvm仓库到 ~&#x2F;目录  地址：https:&#x2F;&#x2F;github.com&#x2F;nvm-sh&#x2F;nvm.git git clone https:&#x2F;&#x2F;github.com&#x2F;nvm-sh&#x2F;nvm.git 进入 nvm目录中执行install.sh 等待执行完成 sh install.sh 配置nvm环境变量将下述代码复制到 ~&#x2F;.bash_profilevim ~&amp;#x2F">
+    <meta name="description" content="实现领域驱动设计 写代码非常简单,但是写简单的代码却非常难  随着应用程序的变化,有时候,为了节省开发时间会违反一些本应遵守的规则,使得代码变得复杂且难以维护.短期来看确实节省了开发时间,但是后期可能需要花费更多的时间为之前的偷懒而买单.无法对原有的代码进行维护,导致大量的逻辑都需要进行重写. 什么是领域驱动设计?领域驱动设计(DDD)是一种将实现与持续进化的模型连接在一起来满足复杂需求的软件开发">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mac 安装 nvm">
-<meta property="og:url" content="https://leetao50.github.io/2022/09/06/Mac-%E5%AE%89%E8%A3%85-nvm/index.html">
+<meta property="og:title" content="实现领域驱动设计">
+<meta property="og:url" content="https://leetao50.github.io/2022/09/19/%E5%AE%9E%E7%8E%B0%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/index.html">
 <meta property="og:site_name" content="InfoPool">
-<meta property="og:description" content="从github下载nvm仓库到 ~&#x2F;目录  地址：https:&#x2F;&#x2F;github.com&#x2F;nvm-sh&#x2F;nvm.git git clone https:&#x2F;&#x2F;github.com&#x2F;nvm-sh&#x2F;nvm.git 进入 nvm目录中执行install.sh 等待执行完成 sh install.sh 配置nvm环境变量将下述代码复制到 ~&#x2F;.bash_profilevim ~&amp;#x2F">
+<meta property="og:description" content="实现领域驱动设计 写代码非常简单,但是写简单的代码却非常难  随着应用程序的变化,有时候,为了节省开发时间会违反一些本应遵守的规则,使得代码变得复杂且难以维护.短期来看确实节省了开发时间,但是后期可能需要花费更多的时间为之前的偷懒而买单.无法对原有的代码进行维护,导致大量的逻辑都需要进行重写. 什么是领域驱动设计?领域驱动设计(DDD)是一种将实现与持续进化的模型连接在一起来满足复杂需求的软件开发">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-09-06T10:51:30.000Z">
-<meta property="article:modified_time" content="2022-09-07T07:40:13.595Z">
+<meta property="article:published_time" content="2022-09-19T10:17:57.000Z">
+<meta property="article:modified_time" content="2022-09-19T10:39:27.722Z">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://leetao50.github.io/2022/09/06/Mac-%E5%AE%89%E8%A3%85-nvm/">
+<link rel="canonical" href="https://leetao50.github.io/2022/09/19/%E5%AE%9E%E7%8E%B0%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leetao50.github.io/2022/09/06/Mac-%E5%AE%89%E8%A3%85-nvm/","path":"2022/09/06/Mac-安装-nvm/","title":"Mac 安装 nvm"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leetao50.github.io/2022/09/19/%E5%AE%9E%E7%8E%B0%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/","path":"2022/09/19/实现领域驱动设计/","title":"实现领域驱动设计"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>Mac 安装 nvm | InfoPool</title>
+<title>实现领域驱动设计 | InfoPool</title>
   
 
 
@@ -95,7 +95,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-overview-active">
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -108,6 +108,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.</span> <span class="nav-text">实现领域驱动设计</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%98%AF%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1"><span class="nav-number">1.1.</span> <span class="nav-text">什么是领域驱动设计?</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -160,7 +161,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2022/09/06/Mac-%E5%AE%89%E8%A3%85-nvm/">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2022/09/19/%E5%AE%9E%E7%8E%B0%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -173,12 +174,12 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="Mac 安装 nvm | InfoPool">
+      <meta itemprop="name" content="实现领域驱动设计 | InfoPool">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          Mac 安装 nvm
+          实现领域驱动设计
         </h1>
 
         <div class="post-meta-container">
@@ -188,15 +189,9 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
+      
 
-      <time title="创建时间：2022-09-06 18:51:30" itemprop="dateCreated datePublished" datetime="2022-09-06T18:51:30+08:00">2022-09-06</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-09-07 15:40:13" itemprop="dateModified" datetime="2022-09-07T15:40:13+08:00">2022-09-07</time>
+      <time title="创建时间：2022-09-19 18:17:57 / 修改时间：18:39:27" itemprop="dateCreated datePublished" datetime="2022-09-19T18:17:57+08:00">2022-09-19</time>
     </span>
 
   
@@ -209,28 +204,30 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <ol>
-<li>从github下载nvm仓库到 ~&#x2F;目录  地址：<a target="_blank" rel="noopener" href="https://github.com/nvm-sh/nvm.git">https://github.com/nvm-sh/nvm.git</a><br> git clone <a target="_blank" rel="noopener" href="https://github.com/nvm-sh/nvm.git">https://github.com/nvm-sh/nvm.git</a></li>
-<li>进入 nvm目录中执行install.sh 等待执行完成<br> sh install.sh</li>
-<li>配置nvm环境变量将下述代码复制到 ~&#x2F;.bash_profile<br>vim ~&#x2F;.bash_profile</li>
-</ol>
-<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> <span class="attribute">NVM_DIR</span>=<span class="string">&quot;<span class="variable">$HOME</span>/.nvm&quot;</span></span><br><span class="line"> </span><br><span class="line">[ -s <span class="string">&quot;<span class="variable">$NVM_DIR</span>/nvm.sh&quot;</span> ] &amp;&amp; \. <span class="string">&quot;<span class="variable">$NVM_DIR</span>/nvm.sh&quot;</span> </span><br><span class="line"> </span><br><span class="line"> # This loads nvm</span><br><span class="line"> </span><br><span class="line">[ -s <span class="string">&quot;<span class="variable">$NVM_DIR</span>/bash_completion&quot;</span> ] &amp;&amp; \. <span class="string">&quot;<span class="variable">$NVM_DIR</span>/bash_completion&quot;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># This loads nvm bash_completion</span></span><br></pre></td></tr></table></figure>
-<ol start="4">
-<li>执行source  ~&#x2F;.bash_profile</li>
-<li>执行nvm –version是否可以正常输出，若不行则重启终端再次尝试</li>
-<li>nvm操作<br>①：使用  nvm install  node版本号  也可直接输入nvm install node 最新版本<br>②：使用 nvm list  或  nvm ls  可查看当前安装的node版本<br>③：使用 nvm use node版本 可以切换当前使用的node<br>④：使用 nvm alias default node版本  可以指定默认打开终端时的node版本</li>
-</ol>
-<p><strong>问题</strong></p>
-<p>每开一次终端，要 source ~&#x2F;.bash_profile 环境变量才生效。</p>
-<p><strong>原因</strong></p>
-<blockquote>
-<p>MacOS Catalina(10.15)，macOS的默认终端从bash变成了zsh。<br>Mac10.15以下版本,默认shell环境是bash，系统环境变量的配置文件是 &#x2F;etc&#x2F;profile 文件。<br>Mac10.15以上版本,默认shell环境是zsh，系统环境变量的配置文件是 &#x2F;etc&#x2F;zshrc 文件。</p>
+        <h1 id="实现领域驱动设计"><a href="#实现领域驱动设计" class="headerlink" title="实现领域驱动设计"></a>实现领域驱动设计</h1><blockquote>
+<p>写代码非常简单,但是写简单的代码却非常难</p>
 </blockquote>
-<p><strong>解决方法</strong></p>
-<p>编辑个人主目录下的.zshrc 这个文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.zshrc</span><br></pre></td></tr></table></figure>
-<p>在最后一行少添加一句：source ~&#x2F;.bash_profile</p>
-<p>这样每次打开新窗口或标签页就自动执行了source ~&#x2F;.bash_profile，环境变量就有了</p>
+<p>随着应用程序的变化,有时候,为了节省开发时间会违反一些本应遵守的规则,使得代码变得复杂且难以维护.短期来看确实节省了开发时间,但是后期可能需要花费更多的时间为之前的偷懒而买单.无法对原有的代码进行维护,导致大量的逻辑都需要进行重写.</p>
+<h2 id="什么是领域驱动设计"><a href="#什么是领域驱动设计" class="headerlink" title="什么是领域驱动设计?"></a>什么是领域驱动设计?</h2><p>领域驱动设计(DDD)是一种将实现与持续进化的模型连接在一起来满足复杂需求的软件开发方法.</p>
+<p>DDD适用于复杂领域或较大规模的系统,而不是简单的CRUD程序.它着重于核心领域逻辑,而不是基础架构.这样有助于构建一个灵活,模块化,可维护的代码库.</p>
+<p><strong>核心构建组成</strong><br>DDD的关注点在领域层和应用层上,而展现层和基础设施层则视为细节(这个词原文太抽象,自己体会吧),业务层不应依赖它们.</p>
+<p>这并不意味着展现层和基础设施层不重要.它们非常重要,但UI框架 和 数据库提供程序 需要你自己定义规则和总结最佳实践.这些不在DDD的讨论范围中.</p>
+<p>本节将介绍领域层和应用层的基本构建组件.</p>
+<p><strong>领域层构建组成</strong></p>
+<ul>
+<li>实体(Entity): 实体是种领域对象,它有自己的属性(状态,数据)和执行业务逻辑的方法.实体由唯一标识符(Id)表示,不同ID的两个实体被视为不同的实体.</li>
+<li>值对象(Value Object): 值对象是另外一种类型的领域对象,使用值对象的属性来判断两个值对象是否相同,而非使用ID判断.如果两个值对象的属性值全部相同就被视为同一对象.值对象通常是不可变的,大多数情况下它比实体简单.</li>
+<li>聚合(Aggregate) 和 聚合根(Aggregate Root): 聚合是由聚合根包裹在一起的一组对象(实体和值对象).聚合根是一种具有特定职责的实体.</li>
+<li>仓储(Repository) (接口): 仓储是被领域层或应用层调用的数据库持久化接口.它隐藏了DBMS的复杂性,领域层中只定义仓储接口,而非实现.</li>
+<li>领域服务(Domain Service): 领域服务是一种无状态的服务,它依赖多个聚合(实体)或外部服务来实现该领域的核心业务逻辑.<br>规约(Specification): 规约是一种强命名,可重用,可组合,可测试的实体过滤器.</li>
+<li>领域事件(Domain Event): 领域事件是当领域某个事件发生时,通知其它领域服务的方式,为了解耦领域服务间的依赖.</li>
+</ul>
+<p><strong>应用层构建组成</strong></p>
+<ul>
+<li>应用服务(Application Service): 应用服务是为实现用例的无状态服务.展现层调用应用服务获取DTO.应用服务调用多个领域服务实现用例.用例通常被视为一个工作单元.</li>
+<li>数据传输对象(DTO): DTO是一个不含业务逻辑的简单对象,用于应用服务层与展现层间的数据传输.</li>
+<li>工作单元(UOW): 工作单元是事务的原子操作.UOW内所有操作,当成功时全部提交,失败时全部回滚.</li>
+</ul>
 
     </div>
 
@@ -244,13 +241,13 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2022/04/12/hello-world/" rel="prev" title="声明">
-                  <i class="fa fa-chevron-left"></i> 声明
+                <a href="/2022/09/15/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/" rel="prev" title="领域驱动设计">
+                  <i class="fa fa-chevron-left"></i> 领域驱动设计
                 </a>
             </div>
             <div class="post-nav-item">
-                <a href="/2022/09/15/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/" rel="next" title="领域驱动设计">
-                  领域驱动设计 <i class="fa fa-chevron-right"></i>
+                <a href="/2022/11/18/%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%9E%8B/" rel="next" title="创建模型">
+                  创建模型 <i class="fa fa-chevron-right"></i>
                 </a>
             </div>
           </div>
