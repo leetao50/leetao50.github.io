@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leetao50.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="仓储在领域层和数据映射层之间进行中介,使用类似集合的接口来操作领域对象。实际上,仓储用于领域对象对数据库的操作, 通常每个 聚合根 或实体会创建各自对应的仓储. 通用仓储ABP为每个聚合根和实体提供了默认的仓储。 你可以在服务中注入IRepository&lt;TEntity, TKey&gt;执行标准的CRUD操作。默认通用仓储用法示例: 1234567891011121314151617181">
+<meta property="og:type" content="article">
+<meta property="og:title" content="仓储">
+<meta property="og:url" content="https://leetao50.github.io/2022/12/13/%E4%BB%93%E5%82%A8/index.html">
+<meta property="og:site_name" content="InfoPool">
+<meta property="og:description" content="仓储在领域层和数据映射层之间进行中介,使用类似集合的接口来操作领域对象。实际上,仓储用于领域对象对数据库的操作, 通常每个 聚合根 或实体会创建各自对应的仓储. 通用仓储ABP为每个聚合根和实体提供了默认的仓储。 你可以在服务中注入IRepository&lt;TEntity, TKey&gt;执行标准的CRUD操作。默认通用仓储用法示例: 1234567891011121314151617181">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-12-13T14:50:27.000Z">
+<meta property="article:modified_time" content="2022-12-14T00:58:52.291Z">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://leetao50.github.io/2022/12/13/%E4%BB%93%E5%82%A8/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leetao50.github.io/2022/12/13/%E4%BB%93%E5%82%A8/","path":"2022/12/13/仓储/","title":"仓储"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>仓储 | InfoPool</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">InfoPool</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">私人信息记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%93%E5%82%A8"><span class="nav-number">1.</span> <span class="nav-text">仓储</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%80%9A%E7%94%A8%E4%BB%93%E5%82%A8"><span class="nav-number">1.1.</span> <span class="nav-text">通用仓储</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E4%BB%93%E5%82%A8%E6%96%B9%E6%B3%95"><span class="nav-number">1.1.1.</span> <span class="nav-text">标准仓储方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9C%A8%E5%AD%98%E5%82%A8%E4%B8%8A%E4%BD%BF%E7%94%A8LINQ"><span class="nav-number">1.1.2.</span> <span class="nav-text">在存储上使用LINQ</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%89%B9%E9%87%8F%E6%93%8D%E4%BD%9C"><span class="nav-number">1.1.3.</span> <span class="nav-text">批量操作</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF-x2F-%E7%A1%AC%E5%88%A0%E9%99%A4"><span class="nav-number">1.1.4.</span> <span class="nav-text">软&#x2F;硬删除</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%A1%AE%E4%BF%9D%E5%AE%9E%E4%BD%93%E5%AD%98%E5%9C%A8"><span class="nav-number">1.1.5.</span> <span class="nav-text">确保实体存在</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E9%80%9A%E7%94%A8%E4%BB%93%E5%82%A8%E7%B1%BB%E5%9E%8B"><span class="nav-number">1.2.</span> <span class="nav-text">其他通用仓储类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%9F%BA%E7%A1%80%E4%BB%93%E5%82%A8"><span class="nav-number">1.2.1.</span> <span class="nav-text">基础仓储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8F%AA%E8%AF%BB%E4%BB%93%E5%82%A8"><span class="nav-number">1.2.2.</span> <span class="nav-text">只读仓储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E4%B8%BB%E9%94%AE%E7%9A%84%E9%80%9A%E7%94%A8-%E6%B3%9B%E5%9E%8B-%E4%BB%93%E5%82%A8"><span class="nav-number">1.2.3.</span> <span class="nav-text">无主键的通用(泛型)仓储</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BB%93%E5%82%A8"><span class="nav-number">1.2.4.</span> <span class="nav-text">自定义仓储</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#IQueryable-amp-%E5%BC%82%E6%AD%A5%E6%93%8D%E4%BD%9C"><span class="nav-number">1.3.</span> <span class="nav-text">IQueryable &amp; 异步操作</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E9%A1%B9-1-%E5%BC%95%E7%94%A8EF-Core"><span class="nav-number">1.3.1.</span> <span class="nav-text">选项-1: 引用EF Core</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E9%A1%B9-2-%E4%BD%BF%E7%94%A8IRepository%E5%BC%82%E6%AD%A5%E6%89%A9%E5%B1%95%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.2.</span> <span class="nav-text">选项-2: 使用IRepository异步扩展方法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E9%A1%B9-3-IAsyncQueryableExecuter"><span class="nav-number">1.3.3.</span> <span class="nav-text">选项-3: IAsyncQueryableExecuter</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%80%89%E9%A1%B9-4-%E8%87%AA%E5%AE%9A%E4%B9%89%E4%BB%93%E5%82%A8%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.4.</span> <span class="nav-text">选项-4: 自定义仓储方法</span></a></li></ol></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description">记录信息来源网络，内容只为方便查找，非公开信息，非请勿入</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2022/12/13/%E4%BB%93%E5%82%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="仓储 | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          仓储
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-12-13 22:50:27" itemprop="dateCreated datePublished" datetime="2022-12-13T22:50:27+08:00">2022-12-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-12-14 08:58:52" itemprop="dateModified" datetime="2022-12-14T08:58:52+08:00">2022-12-14</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="仓储"><a href="#仓储" class="headerlink" title="仓储"></a>仓储</h1><p>在领域层和数据映射层之间进行中介,使用类似集合的接口来操作领域对象。<br>实际上,仓储用于领域对象对数据库的操作, 通常每个 聚合根 或实体会创建各自对应的仓储.</p>
+<h2 id="通用仓储"><a href="#通用仓储" class="headerlink" title="通用仓储"></a>通用仓储</h2><p>ABP为每个聚合根和实体提供了默认的仓储。 你可以在服务中注入<code>IRepository&lt;TEntity, TKey&gt;</code>执行标准的<code>CRUD</code>操作。<br>默认通用仓储用法示例:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">PersonAppService</span> : <span class="title">ApplicationService</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> IRepository&lt;Person, Guid&gt; _personRepository;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PersonAppService</span>(<span class="params">IRepository&lt;Person, Guid&gt; personRepository</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        _personRepository = personRepository;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">CreateAsync</span>(<span class="params">CreatePersonDto input</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> person = <span class="keyword">new</span> Person(input.Name);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">await</span> _personRepository.InsertAsync(person);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task&lt;<span class="built_in">int</span>&gt; <span class="title">GetCountAsync</span>(<span class="params"><span class="built_in">string</span> filter</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">await</span> _personRepository.CountAsync(p =&gt; p.Name.Contains(filter));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中;</p>
+<ul>
+<li><code>PersonAppService</code> 在它的构造函数中注入了<code>IRepository&lt;Person, Guid&gt;</code> 。</li>
+<li><code>CreateAsync</code> 方法使用了 InsertAsync 创建并保存新的实体。</li>
+<li><code>GetCountAsync</code> 方法用来从数据库中获取符合指定条件的的人员的数量。</li>
+</ul>
+<h3 id="标准仓储方法"><a href="#标准仓储方法" class="headerlink" title="标准仓储方法"></a>标准仓储方法</h3><p>通用仓储提供了一些开箱即用的标准CRUD功能:</p>
+<ul>
+<li>GetAsync: 根据指定的Id或断言(lambda表达式)返回实体。<ul>
+<li>将在指定的实体不存在时，抛出异常 EntityNotFoundException</li>
+<li>如果指定的条件存在多个实体时，抛出异常 InvalidOperationException</li>
+</ul>
+</li>
+<li>FindAsync: 根据指定的Id或断言(lambda表达式)返回实体。<ul>
+<li>如果指定的实体不存在时，返回 null 。</li>
+<li>如果指定的条件存在多个实体时，抛出异常 InvalidOperationException</li>
+</ul>
+</li>
+<li>InsertAsync: 在数据库里插入一个新的实体。</li>
+<li>UpdateAsync: 在数据库里更新一个已经存在的实体。</li>
+<li>DeleteAsync: 从数据库里删除指定的实体。<ul>
+<li>这个方法还有一个重载根据指定的断言(lambda表达式)来删除满足条件的多个实体。</li>
+</ul>
+</li>
+<li>GetListAsync: 返回数据库里的所有实体。</li>
+<li>GetPagedListAsync: 返回一个指定长度的实体列表。 他拥有 skipCount, maxResultCount and sorting 参数.</li>
+<li>GetCountAsync: 获取数据库里所有实体的数量</li>
+</ul>
+<p>这些方法还有还一些重载。</p>
+<ul>
+<li>提供 UpdateAsync 和 DeleteAsync 方法根据实体对象或者id来更新或者删除实体。</li>
+<li>提供 DeleteAsync 方法用来删除符合指定条件的多个实体。</li>
+</ul>
+<h3 id="在存储上使用LINQ"><a href="#在存储上使用LINQ" class="headerlink" title="在存储上使用LINQ"></a>在存储上使用<code>LINQ</code></h3><p>仓储提供了一个<code>GetQueryableAsync</code>方法来获取一个<code>IQueryable&lt;TEntity&gt;</code>对象。你可以通过这个对象来对实体执行<code>LINQ</code>查询以操作数据库。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">async</span> Task&lt;List&lt;PersonDto&gt;&gt; GetListAsync(<span class="built_in">string</span> filter)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 获取 IQueryable&lt;Person&gt;</span></span><br><span class="line">            IQueryable&lt;Person&gt; queryable = <span class="keyword">await</span> _personRepository.GetQueryableAsync();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 创建一个查询</span></span><br><span class="line">            <span class="keyword">var</span> query = <span class="keyword">from</span> person <span class="keyword">in</span> queryable</span><br><span class="line">                <span class="keyword">where</span> person.Name == filter</span><br><span class="line">                <span class="keyword">orderby</span> person.Name</span><br><span class="line">                <span class="keyword">select</span> person;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 执行查询</span></span><br><span class="line">            <span class="keyword">var</span> people = query.ToList();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 转DTO并返回给客户端</span></span><br><span class="line">            <span class="keyword">return</span> people.Select(p =&gt; <span class="keyword">new</span> PersonDto &#123;Name = p.Name&#125;).ToList();</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p>你也可以使用LINQ扩展方法:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">async</span> Task&lt;List&lt;PersonDto&gt;&gt; GetListAsync(<span class="built_in">string</span> filter)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 获取 IQueryable&lt;Person&gt;</span></span><br><span class="line">    IQueryable&lt;Person&gt; queryable = <span class="keyword">await</span> _personRepository.GetQueryableAsync();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建一个查询</span></span><br><span class="line">    <span class="keyword">var</span> people = queryable</span><br><span class="line">        .Where(p =&gt; p.Name.Contains(filter))</span><br><span class="line">        .OrderBy(p =&gt; p.Name)</span><br><span class="line">        .ToList();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 转DTO并返回给客户端</span></span><br><span class="line">    <span class="keyword">return</span> people.Select(p =&gt; <span class="keyword">new</span> PersonDto &#123;Name = p.Name&#125;).ToList();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你可以使用仓储返回的IQueryable 配合标准LINQ方法自由查询。</p>
+<h3 id="批量操作"><a href="#批量操作" class="headerlink" title="批量操作"></a>批量操作</h3><p>下面这些方法可以用来对数据库执行批量操作;</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">InsertManyAsync</span><br><span class="line">UpdateManyAsync</span><br><span class="line">DeleteManyAsync</span><br></pre></td></tr></table></figure>
+<p>这些方法可以操作多个实体，如果底层数据库提供程序支持，则可以进行批量操作。</p>
+<h3 id="软-x2F-硬删除"><a href="#软-x2F-硬删除" class="headerlink" title="软&#x2F;硬删除"></a>软&#x2F;硬删除</h3><p>如果一个实体是软删除实体（即实现了ISoftDelete接口），则仓储的DeleteSync方法不会删除该实体，而是在数据库中标记为“已删除”。数据过滤器系统确保不会从数据库中正常检索软删除的实体。</p>
+<p>如果您的实体是软删除实体，如果您需要物理删除这个实体，您可以使用HardDeleteAsync方法强制删除。</p>
+<h3 id="确保实体存在"><a href="#确保实体存在" class="headerlink" title="确保实体存在"></a>确保实体存在</h3><p><code>EnsureExistsAsync</code>扩展方法通过实体id或实体查询表达式来确保实体存在，如果其不存在，它将抛出<code>EntityNotFoundException</code>异常。</p>
+<h2 id="其他通用仓储类型"><a href="#其他通用仓储类型" class="headerlink" title="其他通用仓储类型"></a>其他通用仓储类型</h2><p><code>IRepository&lt;TEntity, TKey&gt;</code> 接口 导出 了标准 <code>IQueryable&lt;TEntity&gt;</code> 你可以使用标准<code>LINQ</code>方法自由查询。这对于大多数应用程序都很好。但是，某些ORM提供程序或数据库系统可能不支持<code>IQueryable</code>接口。如果您想使用这样的提供者，就不能依赖<code>IQueryable</code>。</p>
+<h3 id="基础仓储"><a href="#基础仓储" class="headerlink" title="基础仓储"></a>基础仓储</h3><p>ABP提供了<code>IBasicRepository&lt;TEntity, TPrimaryKey&gt;</code> 和 <code>IBasicRepository&lt;TEntity&gt;</code> 接口来支持这样的场景. 你可以扩展这些接口（并可选择性地从<code>BasicRepositoryBase</code>派生）为你的实体创建自定义存储库.</p>
+<p>依赖于 <code>IBasicRepository</code> 而不是依赖 <code>IRepository</code>有一个优点, 即使它们不支持 <code>IQueryable</code> 也可以使用所有的数据源。</p>
+<p>但主要的供应商, 像 <code>Entity Framework, NHibernate 或 MongoDb</code> 已经支持了 <code>IQueryable</code>.</p>
+<p>因此, 使用 <code>IRepository</code> 是典型应用程序的 建议方法. 但是可重用的模块开发人员可能会考虑使用 <code>IBasicRepository</code> 来支持广泛的数据源.</p>
+<h3 id="只读仓储"><a href="#只读仓储" class="headerlink" title="只读仓储"></a>只读仓储</h3><p>对于想要使用只读仓储的开发者,我们提供了<code>IReadOnlyRepository&lt;TEntity, TKey&gt;</code> 与 <code>IReadOnlyBasicRepository&lt;Tentity, TKey&gt;</code>接口。</p>
+<h3 id="无主键的通用-泛型-仓储"><a href="#无主键的通用-泛型-仓储" class="headerlink" title="无主键的通用(泛型)仓储"></a>无主键的通用(泛型)仓储</h3><p>如果你的实体没有id主键 (例如, 它可能具有复合主键) 那么你不能使用上面定义的 <code>IRepository&lt;TEntity, TKey&gt;</code>, 在这种情况下你可以仅使用实体(类型)注入 <code>IRepository&lt;TEntity&gt;</code>。</p>
+<p><code>IRepository&lt;TEntity&gt;</code> 有一些缺失的方法, 通常与实体的 Id 属性一起使用. 由于实体在这种情况下没有 Id 属性, 因此这些方法不可用. 比如 Get 方法通过id获取具有指定id的实体. 不过, 你仍然可以使用<code>IQueryable&lt;TEntity&gt;</code>的功能通过标准LINQ方法查询实体。</p>
+<h3 id="自定义仓储"><a href="#自定义仓储" class="headerlink" title="自定义仓储"></a>自定义仓储</h3><p>ABP不会强制你实现任何接口或从存储库的任何基类继承。它可以只是一个简单的POCO类。 但是建议继承现有的仓储接口和类，获得开箱即用的标准方法使你的工作更轻松。<br>首先在领域层定义一个仓储接口:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">IPersonRepository</span> : <span class="title">IRepository</span>&lt;<span class="title">Person</span>, <span class="title">Guid</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function">Task&lt;Person&gt; <span class="title">FindByNameAsync</span>(<span class="params"><span class="built_in">string</span> name</span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此接口扩展了 IRepository&lt;Person, Guid&gt; 以使用已有的通用仓储功能。<br>自定义存储库依赖于你使用的数据访问工具。 在此示例中, 我们将使用Entity Framework Core:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">PersonRepository</span> : <span class="title">EfCoreRepository</span>&lt;<span class="title">MyDbContext</span>, <span class="title">Person</span>, <span class="title">Guid</span>&gt;, <span class="title">IPersonRepository</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PersonRepository</span>(<span class="params">IDbContextProvider&lt;TestAppDbContext&gt; dbContextProvider</span>) </span></span><br><span class="line"><span class="function">        : <span class="title">base</span>(<span class="params">dbContextProvider</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task&lt;Person&gt; <span class="title">FindByNameAsync</span>(<span class="params"><span class="built_in">string</span> name</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> dbContext = <span class="keyword">await</span> GetDbContextAsync();</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">await</span> dbContext.Set&lt;Person&gt;()</span><br><span class="line">            .Where(p =&gt; p.Name == name)</span><br><span class="line">            .FirstOrDefaultAsync();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="IQueryable-amp-异步操作"><a href="#IQueryable-amp-异步操作" class="headerlink" title="IQueryable &amp; 异步操作"></a>IQueryable &amp; 异步操作</h2><p><code>IRepository</code>提供<code>GetQueryableAsync()</code>来获取<code>IQueryable</code>，这意味着您可以直接在其上使用<code>LINQ</code>扩展方法</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> queryable = <span class="keyword">await</span> _personRepository.GetQueryableAsync();</span><br><span class="line"><span class="keyword">var</span> people = queryable</span><br><span class="line">    .Where(p =&gt; p.Name.Contains(nameFilter))</span><br><span class="line">    .ToList();</span><br></pre></td></tr></table></figure>
+<p>.ToList, Count()… 是在 System.Linq 命名空间下定义的扩展方法.<br>你通常想要使用 .ToListAsync(), .CountAsync()…. 来编写真正的异步代码.</p>
+<p>但在你使用标准的应用程序启动模板时会发现无法在应用层或领域层使用这些异步扩展方法,因为:</p>
+<ul>
+<li><p>这里异步方法不是标准LINQ方法,它们定义在Microsoft.EntityFrameworkCoreNuget包中.</p>
+</li>
+<li><p>标准模板应用层与领域层不引用EF Core 包以实现数据库提供程序独立.<br>强烈建议使用异步方法! 在执行数据库查询时不要使用同步LINQ方法,以便能够开发可伸缩的应用程序.</p>
+<h3 id="选项-1-引用EF-Core"><a href="#选项-1-引用EF-Core" class="headerlink" title="选项-1: 引用EF Core"></a>选项-1: 引用EF Core</h3><p>最简单的方法是在你想要使用异步方法的项目直接引用EF Core包.<br>添加Volo.Abp.EntityFrameworkCoreNuGet包到你的项目间接引用EF Core包. 这可以确保你的应用程序其余部分兼容正确版本的EF Core.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> queryable = <span class="keyword">await</span> _personRepository.GetQueryableAsync();</span><br><span class="line"><span class="keyword">var</span> people = queryable</span><br><span class="line">    .Where(p =&gt; p.Name.Contains(nameFilter))</span><br><span class="line">    .ToListAsync();</span><br></pre></td></tr></table></figure>
+<p>当以下情况时，这个方法是推荐的：</p>
+</li>
+<li><p>如果你正在开发一个应用程序并且不打算在将来 更新FE Core，或者如果以后真的需要更改，你也能容忍它。我们认为，如果您正在开发最终应用程序，这是合理的。</p>
+<h3 id="选项-2-使用IRepository异步扩展方法"><a href="#选项-2-使用IRepository异步扩展方法" class="headerlink" title="选项-2: 使用IRepository异步扩展方法"></a>选项-2: 使用IRepository异步扩展方法</h3><p>ABP框架为仓储提供异步扩展方法，与异步LINQ扩展方法类似。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> countAll = <span class="keyword">await</span> _personRepository</span><br><span class="line">    .CountAsync();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> count = <span class="keyword">await</span> _personRepository</span><br><span class="line">    .CountAsync(x =&gt; x.Name.StartsWith(<span class="string">&quot;A&quot;</span>));</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> book1984 = <span class="keyword">await</span> _bookRepository</span><br><span class="line">    .FirstOrDefaultAsync(x =&gt; x.Name == <span class="string">&quot;John&quot;</span>);    </span><br></pre></td></tr></table></figure>
+<p>这种方法仍有局限性。您需要直接在存储库对象上调用扩展方法。例如，以下用法不受支持：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> queryable = <span class="keyword">await</span> _bookRepository.GetQueryableAsync();</span><br><span class="line"><span class="keyword">var</span> count = <span class="keyword">await</span> queryable.Where(x =&gt; x.Name.Contains(<span class="string">&quot;A&quot;</span>)).CountAsync();</span><br></pre></td></tr></table></figure>
+<p>这是因为本例中的CountAsync()方法是在IQueryable接口上调用的，而不是在存储库对象上调用的。请参见此类情况的其他选项。</p>
+<h3 id="选项-3-IAsyncQueryableExecuter"><a href="#选项-3-IAsyncQueryableExecuter" class="headerlink" title="选项-3: IAsyncQueryableExecuter"></a>选项-3: IAsyncQueryableExecuter</h3><p>IAsyncQueryableExecuter 是一个用于异步执行 IQueryable<T> 对象的服务,不依赖于实际的数据库提供程序.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">AbpDemo</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ProductAppService</span> : <span class="title">ApplicationService</span>, <span class="title">IProductAppService</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> IRepository&lt;Product, Guid&gt; _productRepository;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> IAsyncQueryableExecuter _asyncExecuter;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">ProductAppService</span>(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function">            IRepository&lt;Product, Guid&gt; productRepository,</span></span></span><br><span class="line"><span class="params"><span class="function">            IAsyncQueryableExecuter asyncExecuter</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            _productRepository = productRepository;</span><br><span class="line">            _asyncExecuter = asyncExecuter;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">async</span> Task&lt;ListResultDto&lt;ProductDto&gt;&gt; GetListAsync(<span class="built_in">string</span> name)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//Obtain the IQueryable&lt;T&gt;</span></span><br><span class="line">            <span class="keyword">var</span> queryable = <span class="keyword">await</span> _productRepository.GetQueryableAsync();</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//Create the query</span></span><br><span class="line">            <span class="keyword">var</span> query = queryable</span><br><span class="line">                .Where(p =&gt; p.Name.Contains(name))</span><br><span class="line">                .OrderBy(p =&gt; p.Name);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//Run the query asynchronously</span></span><br><span class="line">            List&lt;Product&gt; products = <span class="keyword">await</span> _asyncExecuter.ToListAsync(query);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//...</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ApplicationService 和 DomainService 基类已经预属性注入了 AsyncExecuter 属性,所以你可直接使用.</p>
+</li>
+</ul>
+<p>ABP框架使用实际数据库提供程序的API异步执行查询。虽然这不是执行查询的常见方式，但它是使用异步API而不依赖于数据库提供者的最佳方式。</p>
+<p>当以下情况时，这个方法是推荐的：</p>
+<ul>
+<li>如果您想开发应用程序代码而不依赖数据库提供程序。</li>
+<li>如果你正在构建一个没有数据库提供程序集成包的可重用库,但是在某些情况下需要执行 IQueryable<T>对象.<br>例如,ABP框架在 CrudAppService 基类中(参阅应用程序文档)使用 IAsyncQueryableExecuter.</li>
+</ul>
+<h3 id="选项-4-自定义仓储方法"><a href="#选项-4-自定义仓储方法" class="headerlink" title="选项-4: 自定义仓储方法"></a>选项-4: 自定义仓储方法</h3><p>当以下情况时，这个方法是推荐的：</p>
+<ul>
+<li>如果你想完全隔离你的领域和应用层和数据库提供程序.</li>
+<li>如果你开发可重用的应用模块,并且不想强制使用特定的数据库提供程序,这应该作为一种最佳实践.</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/12/13/%E5%AE%9E%E4%BD%93%E4%B8%8E%E8%81%9A%E5%90%88%E6%A0%B9/" rel="prev" title="实体与聚合根">
+                  <i class="fa fa-chevron-left"></i> 实体与聚合根
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2022</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
