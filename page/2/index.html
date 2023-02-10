@@ -20,26 +20,24 @@
 
 <script class="next-config" data-name="main" type="application/json">{"hostname":"leetao50.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
-    <meta name="description" content="创建并配置模型Entity Framework Core 使用一组约定来根据实体类的形状生成模型。 可指定其他配置以补充和&#x2F;或替代约定的内容。 使用 fluent API 配置模型Fluent API 配置具有最高优先级，并将替代约定和数据注释。 12345678910111213141516171819internal class MyContext : DbContext&amp;#123;">
-<meta property="og:type" content="article">
-<meta property="og:title" content="创建模型">
-<meta property="og:url" content="https://leetao50.github.io/2022/11/18/%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%9E%8B/index.html">
+    <meta name="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+<meta property="og:type" content="website">
+<meta property="og:title" content="InfoPool">
+<meta property="og:url" content="https://leetao50.github.io/page/2/index.html">
 <meta property="og:site_name" content="InfoPool">
-<meta property="og:description" content="创建并配置模型Entity Framework Core 使用一组约定来根据实体类的形状生成模型。 可指定其他配置以补充和&#x2F;或替代约定的内容。 使用 fluent API 配置模型Fluent API 配置具有最高优先级，并将替代约定和数据注释。 12345678910111213141516171819internal class MyContext : DbContext&amp;#123;">
+<meta property="og:description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
 <meta property="og:locale" content="zh_CN">
-<meta property="article:published_time" content="2022-11-18T09:19:56.000Z">
-<meta property="article:modified_time" content="2022-11-29T01:40:45.349Z">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://leetao50.github.io/2022/11/18/%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%9E%8B/">
+<link rel="canonical" href="https://leetao50.github.io/page/2/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leetao50.github.io/2022/11/18/%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%9E%8B/","path":"2022/11/18/创建模型/","title":"创建模型"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":true,"isPost":false,"lang":"zh-CN","comments":"","permalink":"","path":"page/2/index.html","title":""}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
-<title>创建模型 | InfoPool</title>
+<title>InfoPool</title>
   
 
 
@@ -66,7 +64,7 @@
 
     <a href="/" class="brand" rel="start">
       <i class="logo-line"></i>
-      <p class="site-title">InfoPool</p>
+      <h1 class="site-title">InfoPool</h1>
       <i class="logo-line"></i>
     </a>
       <p class="site-subtitle" itemprop="description">私人信息记录</p>
@@ -95,7 +93,7 @@
 
   <aside class="sidebar">
 
-    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+    <div class="sidebar-inner sidebar-overview-active">
       <ul class="sidebar-nav">
         <li class="sidebar-nav-toc">
           文章目录
@@ -108,7 +106,6 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%B9%B6%E9%85%8D%E7%BD%AE%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.</span> <span class="nav-text">创建并配置模型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8-fluent-API-%E9%85%8D%E7%BD%AE%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.1.</span> <span class="nav-text">使用 fluent API 配置模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%BB%84%E9%85%8D%E7%BD%AE"><span class="nav-number">1.2.</span> <span class="nav-text">分组配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E6%95%B0%E6%8D%AE%E6%B3%A8%E9%87%8A%E6%9D%A5%E9%85%8D%E7%BD%AE%E6%A8%A1%E5%9E%8B"><span class="nav-number">1.3.</span> <span class="nav-text">使用数据注释来配置模型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E4%BD%93%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">实体类型</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9C%A8%E6%A8%A1%E5%9E%8B%E4%B8%AD%E5%8C%85%E5%90%AB%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.1.</span> <span class="nav-text">在模型中包含类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%8E%E6%A8%A1%E5%9E%8B%E4%B8%AD%E6%8E%92%E9%99%A4%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.2.</span> <span class="nav-text">从模型中排除类型</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8E%E8%BF%81%E7%A7%BB%E4%B8%AD%E6%8E%92%E9%99%A4"><span class="nav-number">2.2.1.</span> <span class="nav-text">从迁移中排除</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E5%90%8D%E7%A7%B0"><span class="nav-number">2.3.</span> <span class="nav-text">表名称</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E6%9E%B6%E6%9E%84"><span class="nav-number">2.4.</span> <span class="nav-text">表架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%86%E5%9B%BE%E6%98%A0%E5%B0%84"><span class="nav-number">2.5.</span> <span class="nav-text">视图映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E5%80%BC%E5%87%BD%E6%95%B0%E6%98%A0%E5%B0%84"><span class="nav-number">2.6.</span> <span class="nav-text">表值函数映射</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A1%A8%E6%B3%A8%E9%87%8A"><span class="nav-number">2.7.</span> <span class="nav-text">表注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E7%B1%BB%E5%9E%8B%E5%AE%9E%E4%BD%93%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.8.</span> <span class="nav-text">共享类型实体类型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E4%BD%93%E5%B1%9E%E6%80%A7"><span class="nav-number">3.</span> <span class="nav-text">实体属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B7%B2%E5%8C%85%E5%90%AB%E5%92%8C%E5%B7%B2%E6%8E%92%E9%99%A4%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="nav-number">3.1.</span> <span class="nav-text">已包含和已排除的属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%97%E5%90%8D"><span class="nav-number">3.2.</span> <span class="nav-text">列名</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%97%E6%95%B0%E6%8D%AE%E7%B1%BB%E5%9E%8B"><span class="nav-number">3.3.</span> <span class="nav-text">列数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%A4%A7%E9%95%BF%E5%BA%A6"><span class="nav-number">3.4.</span> <span class="nav-text">最大长度</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B2%BE%E5%BA%A6%E5%92%8C%E5%B0%8F%E6%95%B0%E4%BD%8D%E6%95%B0"><span class="nav-number">3.5.</span> <span class="nav-text">精度和小数位数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#Unicode"><span class="nav-number">3.6.</span> <span class="nav-text">Unicode</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BF%85%E9%9C%80%E5%92%8C%E5%8F%AF%E9%80%89%E5%B1%9E%E6%80%A7"><span class="nav-number">3.7.</span> <span class="nav-text">必需和可选属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%A6%E5%AE%9A"><span class="nav-number">3.7.1.</span> <span class="nav-text">约定</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%BE%E5%BC%8F%E9%85%8D%E7%BD%AE"><span class="nav-number">3.7.2.</span> <span class="nav-text">显式配置</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%97%E6%8E%92%E5%BA%8F%E8%A7%84%E5%88%99"><span class="nav-number">3.8.</span> <span class="nav-text">列排序规则</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%97%E6%B3%A8%E9%87%8A"><span class="nav-number">3.9.</span> <span class="nav-text">列注释</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%97%E9%A1%BA%E5%BA%8F"><span class="nav-number">3.10.</span> <span class="nav-text">列顺序</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%94%AE"><span class="nav-number">4.</span> <span class="nav-text">键</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E4%B8%BB%E9%94%AE"><span class="nav-number">4.1.</span> <span class="nav-text">配置主键</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E9%80%A0%E4%BB%B7%E5%80%BC"><span class="nav-number">4.1.1.</span> <span class="nav-text">创造价值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E9%94%AE%E5%90%8D%E7%A7%B0"><span class="nav-number">4.1.2.</span> <span class="nav-text">主键名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%94%AE%E7%B1%BB%E5%9E%8B%E5%92%8C%E5%80%BC"><span class="nav-number">4.1.3.</span> <span class="nav-text">键类型和值</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%87%E7%94%A8%E9%94%AE"><span class="nav-number">4.1.4.</span> <span class="nav-text">备用键</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%94%9F%E6%88%90%E7%9A%84%E5%80%BC"><span class="nav-number">5.</span> <span class="nav-text">生成的值</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%BB%98%E8%AE%A4%E5%80%BC"><span class="nav-number">5.1.</span> <span class="nav-text">默认值</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%A1%E7%AE%97%E5%88%97"><span class="nav-number">5.2.</span> <span class="nav-text">计算列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BB%E9%94%AE"><span class="nav-number">5.3.</span> <span class="nav-text">主键</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%98%BE%E5%BC%8F%E9%85%8D%E7%BD%AE%E5%80%BC%E7%94%9F%E6%88%90"><span class="nav-number">5.3.1.</span> <span class="nav-text">显式配置值生成</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A5%E6%9C%9F-x2F-%E6%97%B6%E9%97%B4%E5%80%BC%E7%94%9F%E6%88%90"><span class="nav-number">5.4.</span> <span class="nav-text">日期&#x2F;时间值生成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%97%B6%E9%97%B4%E6%88%B3"><span class="nav-number">5.4.1.</span> <span class="nav-text">创建时间戳</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%9B%B4%E6%96%B0%E6%97%B6%E9%97%B4%E6%88%B3"><span class="nav-number">5.4.2.</span> <span class="nav-text">更新时间戳</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9B%BF%E4%BB%A3%E5%80%BC%E7%94%9F%E6%88%90"><span class="nav-number">5.5.</span> <span class="nav-text">替代值生成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%A0%E5%80%BC%E7%94%9F%E6%88%90"><span class="nav-number">5.6.</span> <span class="nav-text">无值生成</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%98%B4%E5%BD%B1%E5%92%8C%E7%B4%A2%E5%BC%95%E5%99%A8%E5%B1%9E%E6%80%A7"><span class="nav-number">6.</span> <span class="nav-text">阴影和索引器属性</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%96%E9%94%AE%E9%98%B4%E5%BD%B1%E5%B1%9E%E6%80%A7"><span class="nav-number">6.1.</span> <span class="nav-text">外键阴影属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E9%98%B4%E5%BD%B1%E5%B1%9E%E6%80%A7"><span class="nav-number">6.2.</span> <span class="nav-text">配置阴影属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%AE%BF%E9%97%AE%E9%98%B4%E5%BD%B1%E5%B1%9E%E6%80%A7"><span class="nav-number">6.3.</span> <span class="nav-text">访问阴影属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E7%B4%A2%E5%BC%95%E5%99%A8%E5%B1%9E%E6%80%A7"><span class="nav-number">6.4.</span> <span class="nav-text">配置索引器属性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E5%8C%85%E5%AE%9E%E4%BD%93%E7%B1%BB%E5%9E%8B"><span class="nav-number">6.5.</span> <span class="nav-text">属性包实体类型</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%B3%E7%B3%BB"><span class="nav-number">7.</span> <span class="nav-text">关系</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BA%A6%E5%AE%9A-1"><span class="nav-number">7.1.</span> <span class="nav-text">约定</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%8C%E5%85%A8%E5%AE%9A%E4%B9%89%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">7.1.1.</span> <span class="nav-text">完全定义的关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%97%A0%E5%A4%96%E9%94%AE%E5%B1%9E%E6%80%A7"><span class="nav-number">7.1.2.</span> <span class="nav-text">无外键属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E4%B8%AA%E5%AF%BC%E8%88%AA%E5%B1%9E%E6%80%A7"><span class="nav-number">7.1.3.</span> <span class="nav-text">单个导航属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%99%90%E5%88%B6"><span class="nav-number">7.1.4.</span> <span class="nav-text">限制</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%A7%E8%81%94%E5%88%A0%E9%99%A4"><span class="nav-number">7.1.5.</span> <span class="nav-text">级联删除</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%89%8B%E5%8A%A8%E9%85%8D%E7%BD%AE"><span class="nav-number">7.2.</span> <span class="nav-text">手动配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%95%E4%B8%AA%E5%AF%BC%E8%88%AA%E5%B1%9E%E6%80%A7-1"><span class="nav-number">7.2.1.</span> <span class="nav-text">单个导航属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%AF%BC%E8%88%AA%E5%B1%9E%E6%80%A7"><span class="nav-number">7.3.</span> <span class="nav-text">配置导航属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%96%E9%94%AE"><span class="nav-number">7.3.1.</span> <span class="nav-text">外键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BD%B1%E5%AD%90%E5%A4%96%E9%94%AE"><span class="nav-number">7.3.2.</span> <span class="nav-text">影子外键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F%E5%90%8D%E7%A7%B0"><span class="nav-number">7.3.3.</span> <span class="nav-text">外键约束名称</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B2%A1%E6%9C%89%E5%AF%BC%E8%88%AA%E5%B1%9E%E6%80%A7"><span class="nav-number">7.3.4.</span> <span class="nav-text">没有导航属性</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BB%E4%BD%93%E9%94%AE"><span class="nav-number">7.3.5.</span> <span class="nav-text">主体键</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BF%85%E9%9C%80%E5%85%B3%E7%B3%BB%E5%92%8C%E5%8F%AF%E9%80%89%E5%85%B3%E7%B3%BB"><span class="nav-number">7.3.6.</span> <span class="nav-text">必需关系和可选关系</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%BA%A7%E8%81%94%E5%88%A0%E9%99%A4-1"><span class="nav-number">7.3.7.</span> <span class="nav-text">级联删除</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B6%E4%BB%96%E5%85%B3%E7%B3%BB%E6%A8%A1%E5%BC%8F"><span class="nav-number">7.4.</span> <span class="nav-text">其他关系模式</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%80%E5%AF%B9%E4%B8%80"><span class="nav-number">7.4.1.</span> <span class="nav-text">一对一</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%A4%9A%E5%AF%B9%E5%A4%9A"><span class="nav-number">7.4.2.</span> <span class="nav-text">多对多</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%81%94%E6%8E%A5%E5%AE%9E%E4%BD%93%E7%B1%BB%E5%9E%8B%E9%85%8D%E7%BD%AE"><span class="nav-number">7.4.2.1.</span> <span class="nav-text">联接实体类型配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E8%81%94%E6%8E%A5%E5%85%B3%E7%B3%BB%E9%85%8D%E7%BD%AE"><span class="nav-number">7.4.2.2.</span> <span class="nav-text">联接关系配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E9%97%B4%E6%8E%A5%E5%A4%9A%E5%AF%B9%E5%A4%9A%E5%85%B3%E7%B3%BB"><span class="nav-number">7.4.2.3.</span> <span class="nav-text">间接多对多关系</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95"><span class="nav-number">8.</span> <span class="nav-text">索引</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%8D%E5%90%88%E7%B4%A2%E5%BC%95"><span class="nav-number">8.1.</span> <span class="nav-text">复合索引</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E5%94%AF%E4%B8%80%E6%80%A7"><span class="nav-number">8.2.</span> <span class="nav-text">索引唯一性</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E6%8E%92%E5%BA%8F%E9%A1%BA%E5%BA%8F"><span class="nav-number">8.3.</span> <span class="nav-text">索引排序顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E5%90%8D%E7%A7%B0"><span class="nav-number">8.4.</span> <span class="nav-text">索引名称</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%B4%A2%E5%BC%95%E7%AD%9B%E9%80%89%E5%99%A8"><span class="nav-number">8.5.</span> <span class="nav-text">索引筛选器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%8C%85%E5%90%AB%E5%88%97"><span class="nav-number">8.6.</span> <span class="nav-text">包含列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A3%80%E6%9F%A5%E7%BA%A6%E6%9D%9F"><span class="nav-number">8.7.</span> <span class="nav-text">检查约束</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%A7%E6%89%BF"><span class="nav-number">9.</span> <span class="nav-text">继承</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BD%93%E7%B1%BB%E5%9E%8B%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84%E6%98%A0%E5%B0%84-TPH"><span class="nav-number">9.1.</span> <span class="nav-text">实体类型层次结构映射(TPH)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%8F%E4%B8%AA%E5%B1%82%E6%AC%A1%E7%BB%93%E6%9E%84%E4%B8%80%E5%BC%A0%E8%A1%A8%E5%92%8C%E9%89%B4%E5%88%AB%E5%99%A8%E9%85%8D%E7%BD%AE-TPT"><span class="nav-number">9.2.</span> <span class="nav-text">每个层次结构一张表和鉴别器配置(TPT)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B1%E4%BA%AB%E5%88%97"><span class="nav-number">9.3.</span> <span class="nav-text">共享列</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%8F%E4%B8%AA%E7%B1%BB%E5%9E%8B%E4%B8%80%E5%BC%A0%E8%A1%A8%E9%85%8D%E7%BD%AE"><span class="nav-number">9.4.</span> <span class="nav-text">每个类型一张表配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%AF%8F%E4%B8%AA%E5%85%B7%E4%BD%93%E8%A1%A8%E7%B1%BB%E5%9E%8B-TPC"><span class="nav-number">9.5.</span> <span class="nav-text">每个具体表类型(TPC)</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#TPC-%E6%95%B0%E6%8D%AE%E5%BA%93%E6%9E%B6%E6%9E%84"><span class="nav-number">9.6.</span> <span class="nav-text">TPC 数据库架构</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AF%86%E9%92%A5%E7%94%9F%E6%88%90"><span class="nav-number">9.7.</span> <span class="nav-text">密钥生成</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%96%E9%94%AE%E7%BA%A6%E6%9D%9F"><span class="nav-number">9.8.</span> <span class="nav-text">外键约束</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%91%98%E8%A6%81%E5%92%8C%E6%8C%87%E5%8D%97"><span class="nav-number">9.9.</span> <span class="nav-text">摘要和指南</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BA%8F%E5%88%97"><span class="nav-number">10.</span> <span class="nav-text">序列</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%9F%BA%E6%9C%AC%E7%94%A8%E6%B3%95"><span class="nav-number">10.1.</span> <span class="nav-text">基本用法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%BA%8F%E5%88%97%E8%AE%BE%E7%BD%AE"><span class="nav-number">10.2.</span> <span class="nav-text">配置序列设置</span></a></li></ol></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -154,17 +151,279 @@
 </noscript>
 
 
-    <div class="main-inner post posts-expand">
+    <div class="main-inner index posts-expand">
 
-
-  
+    
 
 
 <div class="post-block">
   
   
 
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2022/12/13/%E5%AE%9E%E4%BD%93%E4%B8%8E%E8%81%9A%E5%90%88%E6%A0%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/12/13/%E5%AE%9E%E4%BD%93%E4%B8%8E%E8%81%9A%E5%90%88%E6%A0%B9/" class="post-title-link" itemprop="url">实体与聚合根</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-12-13 15:56:39" itemprop="dateCreated datePublished" datetime="2022-12-13T15:56:39+08:00">2022-12-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-12-15 16:35:44" itemprop="dateModified" datetime="2022-12-15T16:35:44+08:00">2022-12-15</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="实体"><a href="#实体" class="headerlink" title="实体"></a>实体</h1><p>实体通常映射成关系数据库中的表。</p>
+<h2 id="实体类"><a href="#实体类" class="headerlink" title="实体类"></a>实体类</h2><p>实体派生于<code>Entity&lt;TKey&gt;</code>类，如下所示：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Book</span> : <span class="title">Entity</span>&lt;<span class="title">Guid</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> Name &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">float</span> Price &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果你不想从基类<code>Entity&lt;TKey&gt;</code>派生你自己的实体，你也可以直接实现<code>IEntity&lt;TKey&gt;</code>接口。</p>
+<p><code>Entity&lt;TKey&gt;</code>类只定义了一个Id属性，用作主键。在上面的例子中是<code>Guid</code>。主键也可以是其他类型，比如<code>string, int, long</code>，或者任何你需要的类型。</p>
+<h3 id="Guid主键的实体"><a href="#Guid主键的实体" class="headerlink" title="Guid主键的实体"></a>Guid主键的实体</h3><p>如果你的实体主键是Guid，这里有一些好的实践方法</p>
+<ul>
+<li>创建一个构造函数，将Id作为参数获取并传递给基类。<ul>
+<li>如果你没有设置Guid主键值，ABP框架在保存时设置。但是在将实体保存到数据库之前，最好在实体上有一个有效的Id值。</li>
+</ul>
+</li>
+<li>如果你的实体创建了带有参数的构造函数，也要创建私有或受保护的空构造函数。空构造函数在您的数据库提供者从数据库(反序列化)读取您的实体时使用。</li>
+<li>不要使用Guid.NewGuid()来设置Id值!使用IGuidGenerator服务来为实体创建Id值。通过优化IGuidGenerator，他可以生成连续的Guid值，这对于关系数据库中的聚集索引至关重要。</li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Book</span> : <span class="title">Entity</span>&lt;<span class="title">Guid</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> Name &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">float</span> Price &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">Book</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Book</span>(<span class="params">Guid id</span>)</span></span><br><span class="line"><span class="function">     : <span class="title">base</span>(<span class="params">id</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="具有复合键的实体"><a href="#具有复合键的实体" class="headerlink" title="具有复合键的实体"></a>具有复合键的实体</h3><p>有些实体可能需要 复合键 .在这种情况下,可以从非泛型Entity类派生实体.如:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">UserRole</span> : <span class="title">Entity</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> Guid UserId &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Guid RoleId &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> DateTime CreationTime &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UserRole</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">            </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="built_in">object</span>[] <span class="title">GetKeys</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">object</span>[] &#123; UserId, RoleId &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的例子中,复合键由UserId和RoleId组成.在关系数据库中,它是相关表的复合主键. 具有复合键的实体应当实现上面代码中所示的GetKeys()方法.</p>
+<h2 id="聚合根"><a href="#聚合根" class="headerlink" title="聚合根"></a>聚合根</h2><p>“聚合是域驱动设计中的一种模式.DDD的聚合是一组可以作为一个单元处理的域对象.例如,订单及订单系列的商品,这些是独立的对象,但将订单(连同订单系列的商品)视为一个聚合通常是很有用的”</p>
+<p><code>AggregateRoot&lt;TKey&gt;</code>类继承自<code>Entity&lt;TKey&gt;</code>类,所以默认有<code>Id</code>这个属性.</p>
+<p><strong>注意ABP框架只为聚合根创建默认的存储，当然也可以手动为所有实体创建存储</strong></p>
+<p>ABP不强制你使用聚合根,实际上你可以使用上面定义的Entity类,当然,如果你想实现领域驱动设计并且创建聚合根,这里有一些最佳实践仅供参考:</p>
+<ul>
+<li>聚合根需要维护自身的完整性,所有的实体也是这样.但是聚合根也要维护子实体的完整性.所以,聚合根必须一直有效。</li>
+<li>使用Id引用聚合根,而不使用导航属性</li>
+<li>聚合根被视为一个单元.它是作为一个单元检索和更新的.它通常被认为是一个交易边界.</li>
+<li>不单独修改聚合根中的子实体<h3 id="聚合根例子"><a href="#聚合根例子" class="headerlink" title="聚合根例子"></a>聚合根例子</h3>这是一个具有子实体集合的聚合根例子:<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Order</span> : <span class="title">AggregateRoot</span>&lt;<span class="title">Guid</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">virtual</span> <span class="built_in">string</span> ReferenceNo &#123; <span class="keyword">get</span>; <span class="keyword">protected</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">virtual</span> <span class="built_in">int</span> TotalItemCount &#123; <span class="keyword">get</span>; <span class="keyword">protected</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">virtual</span> DateTime CreationTime &#123; <span class="keyword">get</span>; <span class="keyword">protected</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">virtual</span> List&lt;OrderLine&gt; OrderLines &#123; <span class="keyword">get</span>; <span class="keyword">protected</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">Order</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Order</span>(<span class="params">Guid id, <span class="built_in">string</span> referenceNo</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        Check.NotNull(referenceNo, <span class="keyword">nameof</span>(referenceNo));</span><br><span class="line">        </span><br><span class="line">        Id = id;</span><br><span class="line">        ReferenceNo = referenceNo;</span><br><span class="line">        </span><br><span class="line">        OrderLines = <span class="keyword">new</span> List&lt;OrderLine&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">AddProduct</span>(<span class="params">Guid productId, <span class="built_in">int</span> count</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (count &lt;= <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentException(</span><br><span class="line">                <span class="string">&quot;You can not add zero or negative count of products!&quot;</span>,</span><br><span class="line">                <span class="keyword">nameof</span>(count)</span><br><span class="line">            );</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> existingLine = OrderLines.FirstOrDefault(ol =&gt; ol.ProductId == productId);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (existingLine == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            OrderLines.Add(<span class="keyword">new</span> OrderLine(<span class="keyword">this</span>.Id, productId, count));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            existingLine.ChangeCount(existingLine.Count + count);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        TotalItemCount += count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">OrderLine</span> : <span class="title">Entity</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">virtual</span> Guid OrderId &#123; <span class="keyword">get</span>; <span class="keyword">protected</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">virtual</span> Guid ProductId &#123; <span class="keyword">get</span>; <span class="keyword">protected</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">virtual</span> <span class="built_in">int</span> Count &#123; <span class="keyword">get</span>; <span class="keyword">protected</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">OrderLine</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">internal</span> <span class="title">OrderLine</span>(<span class="params">Guid orderId, Guid productId, <span class="built_in">int</span> count</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        OrderId = orderId;</span><br><span class="line">        ProductId = productId;</span><br><span class="line">        Count = count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">internal</span> <span class="keyword">void</span> <span class="title">ChangeCount</span>(<span class="params"><span class="built_in">int</span> newCount</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        Count = newCount;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="built_in">object</span>[] <span class="title">GetKeys</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Object[] &#123;OrderId, ProductId&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+如果你不想你的聚合根继承AggregateRoot<TKey>类,你可以直接实现IAggregateRoot<TKey>接口</li>
+</ul>
+<p>Order是一个具有Guid类型Id属性的 聚合根.它有一个OrderLine实体集合.OrderLine是一个具有组合键(OrderId和 ProductId)的实体.</p>
+<p>虽然这个示例可能无法实现聚合根的所有最佳实践,但它仍然遵循良好的实践:</p>
+<ul>
+<li>Order有一个公共的构造函数,它需要 minimal requirements 来构造一个”订单”实例.因此,在没有Id和referenceNo的时候是无法创建订单的.protected&#x2F;private的构造函数只有从数据库读取对象时 反序列化 才需要.</li>
+<li>OrderLine的构造函数是internal的,所以它只能由领域层来创建.在Order.AddProduct这个方法的内部被使用.</li>
+<li>Order.AddProduct实现了业务规则将商品添加到订单中</li>
+<li>所有属性都有protected的set.这是为了防止实体在实体外部任意改变.因此,在没有向订单中添加新产品的情况下设置 TotalItemCount将是危险的.它的值由AddProduct方法维护.</li>
+</ul>
+<h3 id="带有组合键的聚合根"><a href="#带有组合键的聚合根" class="headerlink" title="带有组合键的聚合根"></a>带有组合键的聚合根</h3><p>虽然这种聚合根并不常见(也不建议使用),但实际上可以按照与上面提到的跟实体相同的方式定义复合键.在这种情况下,要使用非泛型的AggregateRoot基类.</p>
+<h3 id="BasicAggregateRoot类"><a href="#BasicAggregateRoot类" class="headerlink" title="BasicAggregateRoot类"></a>BasicAggregateRoot类</h3><p>AggregateRoot 类实现了 IHasExtraProperties 和 IHasConcurrencyStamp 接口,这为派生类带来了两个属性. IHasExtraProperties 使实体可扩展(请参见下面的 额外的属性部分) 和 IHasConcurrencyStamp 添加了由ABP框架管理的 ConcurrencyStamp 属性实现乐观并发. 在大多数情况下,这些是聚合根需要的功能.</p>
+<p>但是,如果你不需要这些功能,你的聚合根可以继承 BasicAggregateRoot<TKey>(或BasicAggregateRoot).</p>
+<h2 id="额外的属性"><a href="#额外的属性" class="headerlink" title="额外的属性"></a>额外的属性</h2><p>ABP定义了 IHasExtraProperties 接口,可以由实体实现,以便能够动态地设置和获取的实体属性. AggregateRoot 基类已经实现了 IHasExtraProperties 接口. 如果你从这个类(或者上面定义的一个相关审计类)派生,那么你可以直接使用API​.</p>
+<h3 id="GetProperty-和-SetProperty-扩展方法"><a href="#GetProperty-和-SetProperty-扩展方法" class="headerlink" title="GetProperty 和 SetProperty 扩展方法"></a>GetProperty 和 SetProperty 扩展方法</h3><p>这些扩展方法是获取和设置实体数据的推荐方法. 例:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ExtraPropertiesDemoService</span> : <span class="title">ITransientDependency</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> IIdentityUserRepository _identityUserRepository;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ExtraPropertiesDemoService</span>(<span class="params">IIdentityUserRepository identityUserRepository</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        _identityUserRepository = identityUserRepository;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">SetTitle</span>(<span class="params">Guid userId, <span class="built_in">string</span> title</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> user = <span class="keyword">await</span> _identityUserRepository.GetAsync(userId);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//SET A PROPERTY</span></span><br><span class="line">        user.SetProperty(<span class="string">&quot;Title&quot;</span>, title);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">await</span> _identityUserRepository.UpdateAsync(user);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task&lt;<span class="built_in">string</span>&gt; <span class="title">GetTitle</span>(<span class="params">Guid userId</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> user = <span class="keyword">await</span> _identityUserRepository.GetAsync(userId);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//GET A PROPERTY</span></span><br><span class="line">        <span class="keyword">return</span> user.GetProperty&lt;<span class="built_in">string</span>&gt;(<span class="string">&quot;Title&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="值对象"><a href="#值对象" class="headerlink" title="值对象"></a>值对象</h1><p>一个对象,表示领域的描述方面,没有概念上的身份被称为 值对象.</p>
+<p>两个具有相同属性但id不同的实体被认为是不同的实体。但是，值对象没有id，如果它们具有相同的属性值，则它们被视为相等的。</p>
+<h2 id="值对象的类"><a href="#值对象的类" class="headerlink" title="值对象的类"></a>值对象的类</h2><p>值对象是一个抽象类,可以继承它来创建值对象类</p>
+<p>示例: An Address class</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Address</span> : <span class="title">ValueObject</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> Guid CityId &#123; <span class="keyword">get</span>; <span class="keyword">private</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> Street &#123; <span class="keyword">get</span>; <span class="keyword">private</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> Number &#123; <span class="keyword">get</span>; <span class="keyword">private</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Address</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Address</span>(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function">        Guid cityId,</span></span></span><br><span class="line"><span class="params"><span class="function">        <span class="built_in">string</span> street,</span></span></span><br><span class="line"><span class="params"><span class="function">        <span class="built_in">int</span> number</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        CityId = cityId;</span><br><span class="line">        Street = street;</span><br><span class="line">        Number = number;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> IEnumerable&lt;<span class="built_in">object</span>&gt; <span class="title">GetAtomicValues</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">yield</span> <span class="keyword">return</span> Street;</span><br><span class="line">        <span class="keyword">yield</span> <span class="keyword">return</span> CityId;</span><br><span class="line">        <span class="keyword">yield</span> <span class="keyword">return</span> Number;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>值对象类必须实现 GetAtomicValues()方法来返回原始值</li>
+</ul>
+<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><ul>
+<li>如果没有充分的理由将值对象设计为可变的,则将其设计为不可变（如上面的地址）.</li>
+<li>构成一个值对象的属性应该形成一个概念整体.例如：CityId,Street和Number不应是个人实体的单独属性.这也使Person实体更简</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>当实体属性，没有业务规则或其他限制条件时，属性应该设置为 public；</li>
+<li>当实体属性，只有简单的限制条件时(不需要根据数据库或其他实体判断)，属性应该设置为 private；在实体上创建修改方法，不要在领域层中创建；</li>
+<li>当实体属性，有复杂业务规则限制时，属性应该设置为 interal；在领域层，创建修改方法；</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2022/12/12/%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1%E7%AB%AF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/12/12/%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1%E7%AB%AF/" class="post-title-link" itemprop="url">创建服务端</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-12-12 16:00:09" itemprop="dateCreated datePublished" datetime="2022-12-12T16:00:09+08:00">2022-12-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-12-13 15:56:47" itemprop="dateModified" datetime="2022-12-13T15:56:47+08:00">2022-12-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="创建服务端"><a href="#创建服务端" class="headerlink" title="创建服务端"></a>创建服务端</h1><h2 id="创建领域层"><a href="#创建领域层" class="headerlink" title="创建领域层"></a>创建领域层</h2><p>启动模板中的领域层分为两个项目:</p>
+<ul>
+<li><code>XXX.Domain</code>包含你的实体, 领域服务和其他核心域对象.</li>
+<li><code>XXX.Domain.Shared</code>包含可与客户共享的常量,枚举或其他域相关对象.</li>
+</ul>
+<p>在解决方案的<code>领域层</code>(<code>XXX.Domain</code>项目)中定义你的实体.</p>
+<p>该应用程序的主要实体是<code>Book</code>. 在<code>XXX.Domain</code>项目中创建一个<code>Books</code>文件夹(命名空间),并在其中添加名为<code>Book</code>的类,如下所示:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> Volo.Abp.Domain.Entities.Auditing;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Acme.BookStore.Books</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Book</span> : <span class="title">AuditedAggregateRoot</span>&lt;<span class="title">Guid</span>&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">string</span> Name &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> BookType Type &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> DateTime PublishDate &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">float</span> Price &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>ABP</code>为实体提供了两个基本的基类:<code>AggregateRoot</code>和<code>Entity</code>.<code>Aggregate Root</code>是领域驱动设计概念之一. 可以视为直接查询和处理的根实体(请参阅实体文档).</li>
+<li><code>Book</code>实体继承了<code>AuditedAggregateRoot</code>,<code>AuditedAggregateRoot</code>类在<code>AggregateRoot</code>类的基础上添加了一些基础审计属性(例如<code>CreationTime, CreatorId, LastModificationTime</code>等).<code>ABP</code>框架自动为你管理这些属性.</li>
+<li><code>Guid</code>是<code>Book</code>实体的主键类型.</li>
+</ul>
+<h3 id="BookType枚举"><a href="#BookType枚举" class="headerlink" title="BookType枚举"></a>BookType枚举</h3><p><code>Book</code>实体使用了<code>BookType</code>枚举. 在<code>XXX.Domain.Shared</code>项目中创建<code>Books</code>文件夹(命名空间),并在其中添加<code>BookType</code>:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">Acme.BookStore.Books</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">enum</span> BookType</span><br><span class="line">    &#123;</span><br><span class="line">        Undefined,</span><br><span class="line">        Adventure,</span><br><span class="line">        Biography,</span><br><span class="line">        Dystopia,</span><br><span class="line">        Fantastic,</span><br><span class="line">        Horror,</span><br><span class="line">        Science,</span><br><span class="line">        ScienceFiction,</span><br><span class="line">        Poetry</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="将Book实体添加到DbContext中"><a href="#将Book实体添加到DbContext中" class="headerlink" title="将Book实体添加到DbContext中"></a>将Book实体添加到DbContext中</h3><p><code>EF Core</code>需要你将实体和<code>DbContext</code>建立关联.最简单的做法是在<code>XXX.EntityFrameworkCore</code>项目的<code>BookStoreDbContext</code>类中添加<code>DbSet</code>属性.如下所示:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">BookStoreDbContext</span> : <span class="title">AbpDbContext</span>&lt;<span class="title">BookStoreDbContext</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> DbSet&lt;Book&gt; Books &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="创建应用程序"><a href="#创建应用程序" class="headerlink" title="创建应用程序"></a>创建应用程序</h2><p>应用程序层由两个分离的项目组成:<br><code>XXX.Application.Contracts</code>包含你的<code>DTO</code>和应用服务接口.<br><code>XXX.Application</code>包含你的应用服务实现.<br>在本部分中,你将创建一个应用程序服务,使用<code>ABP Framework</code>的<code>CrudAppService</code>基类来获取,创建,更新和删除书籍.</p>
+<h3 id="BookDto"><a href="#BookDto" class="headerlink" title="BookDto"></a>BookDto</h3><p><code>CrudAppService</code> 基类需要定义实体的基本<code>DTO</code>. 在 <code>XXX.Application.Contracts</code>项目中创建<code>Books</code>文件夹(命名空间), 并在其中添加名为<code>BookDto</code>的DTO类:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> Volo.Abp.Application.Dtos;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">Acme.BookStore.Books</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">BookDto</span> : <span class="title">AuditedEntityDto</span>&lt;<span class="title">Guid</span>&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">string</span> Name &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> BookType Type &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> DateTime PublishDate &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="built_in">float</span> Price &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>DTO</code>类被用来在<code>表示层</code>和<code>应用层</code>传递数据.参阅DTO文档.</li>
+<li>为了在用户界面上展示书籍信息,<code>BookDto</code>被用来将书籍数据传递到表示层.</li>
+<li><code>BookDto</code>继承自<code>AuditedEntityDto&lt;Guid&gt;</code>.与上面定义的<code>Book</code>实体一样具有一些审计属性.</li>
+</ul>
+<h3 id="IBookAppService"><a href="#IBookAppService" class="headerlink" title="IBookAppService"></a>IBookAppService</h3><p>下一步是为应用程序定义接口,在<code>XXX.Application.Contracts</code>项目创建<code>Books</code>文件夹(命名空间),并在其中添加名为<code>IBookAppService</code>的接口:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">Acme.BookStore.Books</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">IBookAppService</span> :</span><br><span class="line">        <span class="title">ICrudAppService</span>&lt; //<span class="title">Defines</span> <span class="title">CRUD</span> <span class="title">methods</span></span><br><span class="line">            <span class="title">BookDto</span>, //<span class="title">Used</span> <span class="title">to</span> <span class="title">show</span> <span class="title">books</span></span><br><span class="line">            <span class="title">Guid</span>, //<span class="title">Primary</span> <span class="title">key</span> <span class="title">of</span> <span class="title">the</span> <span class="title">book</span> <span class="title">entity</span></span><br><span class="line">            <span class="title">PagedAndSortedResultRequestDto</span>, //<span class="title">Used</span> <span class="title">for</span> <span class="title">paging</span>/<span class="title">sorting</span></span><br><span class="line">            <span class="title">CreateUpdateBookDto</span>&gt; <span class="comment">//Used to create/update a book</span></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>框架定义应用程序服务的接口不是必需的. 但是,它被建议作为最佳实践.</li>
+<li><code>ICrudAppService</code>定义了常见的<code>CRUD</code>方法:<code>GetAsync,GetListAsync,CreateAsync,UpdateAsync和DeleteAsync</code>. 从这个接口扩展不是必需的,你可以从空的<code>IApplicationService</code>接口继承并手动定义自己的方法(将在下一部分中完成).</li>
+<li><code>ICrudAppService</code>有一些变体, 你可以在每个方法中使用单独的<code>DTO</code>(例如使用不同的<code>DTO</code>进行创建和更新).</li>
+</ul>
+<h3 id="BookAppService"><a href="#BookAppService" class="headerlink" title="BookAppService"></a>BookAppService</h3><p>是时候实现<code>IBookAppService</code>接口了在<code>XXX.Application</code>项目中创建<code>Books</code>文件夹(命名空间),并在其中添加名为 <code>BookAppService</code>的类:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">BookAppService</span> :</span><br><span class="line">        <span class="title">CrudAppService</span>&lt;</span><br><span class="line">            <span class="title">Book</span>, //<span class="title">The</span> <span class="title">Book</span> <span class="title">entity</span></span><br><span class="line">            <span class="title">BookDto</span>, //<span class="title">Used</span> <span class="title">to</span> <span class="title">show</span> <span class="title">books</span></span><br><span class="line">            <span class="title">Guid</span>, //<span class="title">Primary</span> <span class="title">key</span> <span class="title">of</span> <span class="title">the</span> <span class="title">book</span> <span class="title">entity</span></span><br><span class="line">            <span class="title">PagedAndSortedResultRequestDto</span>, //<span class="title">Used</span> <span class="title">for</span> <span class="title">paging</span>/<span class="title">sorting</span></span><br><span class="line">            <span class="title">CreateUpdateBookDto</span>&gt;, <span class="comment">//Used to create/update a book</span></span><br><span class="line">        <span class="title">IBookAppService</span> <span class="comment">//implement the IBookAppService</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">BookAppService</span>(<span class="params">IRepository&lt;Book, Guid&gt; repository</span>)</span></span><br><span class="line"><span class="function">            : <span class="title">base</span>(<span class="params">repository</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li><code>BookAppService</code>继承了<code>CrudAppService&lt;...&gt;</code>.它实现了<code>ICrudAppService</code>定义的<code>CRUD</code>方法.</li>
+<li><code>BookAppService</code>注入<code>IRepository &lt;Book,Guid&gt;</code>,这是<code>Book</code>实体的默认仓储.<code>ABP</code>自动为每个聚合根(或实体)创建默认仓储. 请参阅仓储文档</li>
+<li><code>BookAppService</code>使用<code>IObjectMapper</code>将<code>Book</code>对象转换为<code>BookDto</code>对象, 将<code>CreateUpdateBookDto</code>对象转换为<code>Book</code>对象. 启动模板使用<code>AutoMapper</code>库作为对象映射提供程序. 我们之前定义了映射, 因此它将按预期工作.</li>
+</ul>
+<h3 id="自动生成API-Controllers"><a href="#自动生成API-Controllers" class="headerlink" title="自动生成API Controllers"></a>自动生成API Controllers</h3><p>在典型的<code>ASP.NET Core</code>应用程序中,你创建<code>API Controller</code>以将应用程序服务公开为<code>HTTP API</code>端点. 这将允许浏览器或第三方客户端通过<code>HTTP</code>调用它们.</p>
+<p><code>ABP</code>可以自动按照约定将你的应用程序服务配置为<code>MVC API</code>控制器.</p>
+<h1 id="图书列表页面"><a href="#图书列表页面" class="headerlink" title="图书列表页面"></a>图书列表页面</h1><h2 id="本地化"><a href="#本地化" class="headerlink" title="本地化"></a>本地化</h2><p>本地化文本位于<code>XXX.Domain.Shared</code>项目的<code>Localization/BookStore</code>文件夹下:</p>
+<p><strong>简体中文翻译请打开zh-Hans.json文件 ,并将”Texts”对象中对应的值替换为中文.</strong></p>
+<ul>
+<li>本地化关键字名称是任意的. 你可以设置任何名称. 对于特定的文本类型,我们更喜欢遵循一些约定:</li>
+<li>为按钮项添加 Menu: 前缀.</li>
+<li>使用 Enum:<enum-type>:<enum-name> 或 <enum-type>.<enum-name> 或 <enum-name> 命名约定来本地化枚举成员. 当您这样做时ABP可以在某些适当的情况下自动将枚举本地化.</li>
+<li>如果未在本地化文件中定义文本,则文本将回退到本地化键(ASP.NET Core的标准行为).</li>
+</ul>
+<h2 id="生成服务代理"><a href="#生成服务代理" class="headerlink" title="生成服务代理"></a>生成服务代理</h2><p><code>ABP CLI</code> 提供 <code>generate-proxy</code> 命令为<code>HTTP APIs</code>生成客户端代理.有了这些代理,在客户端使用<code>HTTP APIs</code>变得更加方便. 运行<code>generate-proxy</code>命令前, 你的<code>host</code>必须正在运行.<br>启动host应用程序后,在 angular 文件夹下运行以下命令:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">abp generate-proxy -t ng</span><br></pre></td></tr></table></figure>
+
+<h2 id="创建新书籍"><a href="#创建新书籍" class="headerlink" title="创建新书籍"></a>创建新书籍</h2><h1 id="集成测试"><a href="#集成测试" class="headerlink" title="集成测试"></a>集成测试</h1><h1 id="授权"><a href="#授权" class="headerlink" title="授权"></a>授权</h1>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2022/11/18/%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%9E%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -178,13 +437,13 @@
     </span>
 
     <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="创建模型 | InfoPool">
+      <meta itemprop="name" content="undefined | InfoPool">
       <meta itemprop="description" content="">
     </span>
       <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          创建模型
-        </h1>
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/11/18/%E5%88%9B%E5%BB%BA%E6%A8%A1%E5%9E%8B/" class="post-title-link" itemprop="url">创建模型</a>
+        </h2>
 
         <div class="post-meta-container">
           <div class="post-meta">
@@ -214,7 +473,7 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <h1 id="创建并配置模型"><a href="#创建并配置模型" class="headerlink" title="创建并配置模型"></a>创建并配置模型</h1><p>Entity Framework Core 使用一组约定来根据实体类的形状生成模型。 可指定其他配置以补充和&#x2F;或替代约定的内容。</p>
+          <h1 id="创建并配置模型"><a href="#创建并配置模型" class="headerlink" title="创建并配置模型"></a>创建并配置模型</h1><p>Entity Framework Core 使用一组约定来根据实体类的形状生成模型。 可指定其他配置以补充和&#x2F;或替代约定的内容。</p>
 <h2 id="使用-fluent-API-配置模型"><a href="#使用-fluent-API-配置模型" class="headerlink" title="使用 fluent API 配置模型"></a>使用 fluent API 配置模型</h2><p>Fluent API 配置具有最高优先级，并将替代约定和数据注释。</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">internal</span> <span class="keyword">class</span> <span class="title">MyContext</span> : <span class="title">DbContext</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DbSet</span>&lt;<span class="title">Blog</span>&gt; Blogs</span> &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">#<span class="keyword">region</span> Required</span></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">OnModelCreating</span>(<span class="params">ModelBuilder modelBuilder</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        modelBuilder.Entity&lt;Blog&gt;()</span><br><span class="line">            .Property(b =&gt; b.Url)</span><br><span class="line">            .IsRequired();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">#<span class="keyword">endregion</span></span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Blog</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> BlogId &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> Url &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="分组配置"><a href="#分组配置" class="headerlink" title="分组配置"></a>分组配置</h2><p>为了减小 <code>OnModelCreating</code> 方法的大小，可以将实体类型的所有配置提取到实现 <code>IEntityTypeConfiguration&lt;TEntity&gt;</code> 的单独类中。</p>
@@ -500,6 +759,7 @@
 
 
 
+      
     </div>
 
     
@@ -507,21 +767,8 @@
     
 
     <footer class="post-footer">
-
-        
-
-          <div class="post-nav">
-            <div class="post-nav-item">
-                <a href="/2022/09/19/%E5%AE%9E%E7%8E%B0%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/" rel="prev" title="实现领域驱动设计">
-                  <i class="fa fa-chevron-left"></i> 实现领域驱动设计
-                </a>
-            </div>
-            <div class="post-nav-item">
-                <a href="/2022/12/12/%E5%88%9B%E5%BB%BA%E6%9C%8D%E5%8A%A1%E7%AB%AF/" rel="next" title="创建服务端">
-                  创建服务端 <i class="fa fa-chevron-right"></i>
-                </a>
-            </div>
-          </div>
+        <div class="post-eof"></div>
+      
     </footer>
   </article>
 </div>
@@ -529,7 +776,491 @@
 
 
 
+    
 
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2022/09/19/%E5%AE%9E%E7%8E%B0%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/09/19/%E5%AE%9E%E7%8E%B0%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/" class="post-title-link" itemprop="url">实现领域驱动设计</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-09-19 18:17:57 / 修改时间：18:39:27" itemprop="dateCreated datePublished" datetime="2022-09-19T18:17:57+08:00">2022-09-19</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="实现领域驱动设计"><a href="#实现领域驱动设计" class="headerlink" title="实现领域驱动设计"></a>实现领域驱动设计</h1><blockquote>
+<p>写代码非常简单,但是写简单的代码却非常难</p>
+</blockquote>
+<p>随着应用程序的变化,有时候,为了节省开发时间会违反一些本应遵守的规则,使得代码变得复杂且难以维护.短期来看确实节省了开发时间,但是后期可能需要花费更多的时间为之前的偷懒而买单.无法对原有的代码进行维护,导致大量的逻辑都需要进行重写.</p>
+<h2 id="什么是领域驱动设计"><a href="#什么是领域驱动设计" class="headerlink" title="什么是领域驱动设计?"></a>什么是领域驱动设计?</h2><p>领域驱动设计(DDD)是一种将实现与持续进化的模型连接在一起来满足复杂需求的软件开发方法.</p>
+<p>DDD适用于复杂领域或较大规模的系统,而不是简单的CRUD程序.它着重于核心领域逻辑,而不是基础架构.这样有助于构建一个灵活,模块化,可维护的代码库.</p>
+<p><strong>核心构建组成</strong><br>DDD的关注点在领域层和应用层上,而展现层和基础设施层则视为细节(这个词原文太抽象,自己体会吧),业务层不应依赖它们.</p>
+<p>这并不意味着展现层和基础设施层不重要.它们非常重要,但UI框架 和 数据库提供程序 需要你自己定义规则和总结最佳实践.这些不在DDD的讨论范围中.</p>
+<p>本节将介绍领域层和应用层的基本构建组件.</p>
+<p><strong>领域层构建组成</strong></p>
+<ul>
+<li>实体(Entity): 实体是种领域对象,它有自己的属性(状态,数据)和执行业务逻辑的方法.实体由唯一标识符(Id)表示,不同ID的两个实体被视为不同的实体.</li>
+<li>值对象(Value Object): 值对象是另外一种类型的领域对象,使用值对象的属性来判断两个值对象是否相同,而非使用ID判断.如果两个值对象的属性值全部相同就被视为同一对象.值对象通常是不可变的,大多数情况下它比实体简单.</li>
+<li>聚合(Aggregate) 和 聚合根(Aggregate Root): 聚合是由聚合根包裹在一起的一组对象(实体和值对象).聚合根是一种具有特定职责的实体.</li>
+<li>仓储(Repository) (接口): 仓储是被领域层或应用层调用的数据库持久化接口.它隐藏了DBMS的复杂性,领域层中只定义仓储接口,而非实现.</li>
+<li>领域服务(Domain Service): 领域服务是一种无状态的服务,它依赖多个聚合(实体)或外部服务来实现该领域的核心业务逻辑.<br>规约(Specification): 规约是一种强命名,可重用,可组合,可测试的实体过滤器.</li>
+<li>领域事件(Domain Event): 领域事件是当领域某个事件发生时,通知其它领域服务的方式,为了解耦领域服务间的依赖.</li>
+</ul>
+<p><strong>应用层构建组成</strong></p>
+<ul>
+<li>应用服务(Application Service): 应用服务是为实现用例的无状态服务.展现层调用应用服务获取DTO.应用服务调用多个领域服务实现用例.用例通常被视为一个工作单元.</li>
+<li>数据传输对象(DTO): DTO是一个不含业务逻辑的简单对象,用于应用服务层与展现层间的数据传输.</li>
+<li>工作单元(UOW): 工作单元是事务的原子操作.UOW内所有操作,当成功时全部提交,失败时全部回滚.</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2022/09/15/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/09/15/%E9%A2%86%E5%9F%9F%E9%A9%B1%E5%8A%A8%E8%AE%BE%E8%AE%A1/" class="post-title-link" itemprop="url">领域驱动设计</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-09-15 18:16:09" itemprop="dateCreated datePublished" datetime="2022-09-15T18:16:09+08:00">2022-09-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-09-16 17:46:38" itemprop="dateModified" datetime="2022-09-16T17:46:38+08:00">2022-09-16</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h2 id="领域驱动设计"><a href="#领域驱动设计" class="headerlink" title="领域驱动设计"></a>领域驱动设计</h2><blockquote>
+<p><strong>领域驱动设计(DDD)</strong> 是一种通过将实现连接到持续进化的模型来满足复杂需求的软件开发方法. 领域驱动设计的前提是:</p>
+<ul>
+<li>把项目的主要重点放在核心领域和领域逻辑上</li>
+<li>把复杂的设计放在领域模型上</li>
+<li>发起技术专家和领域专家之间的创造性协作,以迭代方式完善解决特定领域问题的概念模型</li>
+</ul>
+</blockquote>
+<h3 id="分层"><a href="#分层" class="headerlink" title="分层"></a>分层</h3><p>ABP框架遵循DDD原则和模式去实现分层应用程序模型,该模型由四个基本层组成:</p>
+<ul>
+<li><strong>表示层:</strong> 为用户提供接口. 使用应用层实现与用户交互.</li>
+<li><strong>应用层:</strong> 表示层与领域层的中介,编排业务对象执行特定的应用程序任务. 使用应用程序逻辑实现用例.</li>
+<li><strong>领域层:</strong> 包含业务对象以及业务规则. 是应用程序的核心.</li>
+<li><strong>基础设施层:</strong> 提供通用的技术功能,支持更高的层,主要使用第三方类库.</li>
+</ul>
+<h3 id="领域层"><a href="#领域层" class="headerlink" title="领域层"></a>领域层</h3><h4 id="实体"><a href="#实体" class="headerlink" title="实体"></a>实体</h4><p>实体通常映射到关系型数据库的表中.<br>实体都继承自Entity<TKey>类,如下所示:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Book</span> : <span class="title">Entity</span>&lt;<span class="title">Guid</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> Name &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">float</span> Price &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">Book</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Book</span>(<span class="params">Guid id</span>)</span></span><br><span class="line"><span class="function">     : <span class="title">base</span>(<span class="params">id</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>如果你不想继承基类<code>Entity&lt;TKey&gt;</code>,也可以直接实现<code>IEntity&lt;TKey&gt;</code>接口</p>
+</blockquote>
+<p><code>Entity&lt;TKey&gt;</code>类只是用给定的主 键类型定义了一个Id属性,在上面的示例中是Guid类型.可以是其他类型如<code>string, int, long</code>或其他你需要的类型.</p>
+<p><strong>Guid主键的实体</strong></p>
+<ul>
+<li>创建一个构造函数,获取ID作为参数传递给基类.如果没有为<code>GUID Id</code>赋值,ABP框架会在保存时设置它,但是在将实体保存到数据库之前最好在实体上有一个有效的<code>Id</code>.</li>
+<li>如果使用带参数的构造函数创建实体,那么还要创建一个 <code>private</code> 或 <code>protected</code> 构造函数. 当数据库提供程序从数据库读取你的实体时(反序列化时)将使用它.</li>
+<li>不要使用 <code>Guid.NewGuid()</code> 来设置<code>Id</code>! 在创建实体的代码中使用<code>IGuidGenerator</code>服务 传递Id参数. <code>IGuidGenerator</code>经过优化可以产生连续的<code>GUID</code>.这对于关系数据库中的聚集索引非常重要.</li>
+</ul>
+<p><strong>具有复合键的实体</strong><br>有些实体可能需要 <strong>复合键</strong> .在这种情况下,可以从非泛型<code>Entity</code>类派生实体.如:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">UserRole</span> : <span class="title">Entity</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> Guid UserId &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Guid RoleId &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> DateTime CreationTime &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UserRole</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">            </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="built_in">object</span>[] <span class="title">GetKeys</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">object</span>[] &#123; UserId, RoleId &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的例子中,复合键由<code>UserId和RoleId</code>组成.在关系数据库中,它是相关表的复合主键. 具有复合键的实体应当实现上面代码中所示的<code>GetKeys()</code>方法.</p>
+<blockquote>
+<p>需要注意,复合主键实体不可以使用 <code>IRepository&lt;TEntity, TKey&gt; </code>接口,因为它需要一个唯一的<code>Id</code>属性. 但你可以使用<code>IRepository&lt;TEntity&gt;</code>.</p>
+</blockquote>
+<h4 id="聚合根"><a href="#聚合根" class="headerlink" title="聚合根"></a>聚合根</h4><p><code>AggregateRoot&lt;TKey&gt;</code>类继承自<code>Entity&lt;TKey&gt;</code>类,所以默认有<code>Id</code>这个属性</p>
+<blockquote>
+<p>值得注意的是 ABP 会默认为聚合根创建仓储,当然,ABP也可以为所有的实体创建仓储</p>
+</blockquote>
+<p><strong>聚合根例子</strong><br>这是一个具有子实体集合的聚合根例子:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Order</span> : <span class="title">AggregateRoot</span>&lt;<span class="title">Guid</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">virtual</span> <span class="built_in">string</span> ReferenceNo &#123; <span class="keyword">get</span>; <span class="keyword">protected</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">virtual</span> <span class="built_in">int</span> TotalItemCount &#123; <span class="keyword">get</span>; <span class="keyword">protected</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">virtual</span> DateTime CreationTime &#123; <span class="keyword">get</span>; <span class="keyword">protected</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">virtual</span> List&lt;OrderLine&gt; OrderLines &#123; <span class="keyword">get</span>; <span class="keyword">protected</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">Order</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Order</span>(<span class="params">Guid id, <span class="built_in">string</span> referenceNo</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        Check.NotNull(referenceNo, <span class="keyword">nameof</span>(referenceNo));</span><br><span class="line">        </span><br><span class="line">        Id = id;</span><br><span class="line">        ReferenceNo = referenceNo;</span><br><span class="line">        </span><br><span class="line">        OrderLines = <span class="keyword">new</span> List&lt;OrderLine&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">AddProduct</span>(<span class="params">Guid productId, <span class="built_in">int</span> count</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (count &lt;= <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentException(</span><br><span class="line">                <span class="string">&quot;You can not add zero or negative count of products!&quot;</span>,</span><br><span class="line">                <span class="keyword">nameof</span>(count)</span><br><span class="line">            );</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> existingLine = OrderLines.FirstOrDefault(ol =&gt; ol.ProductId == productId);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (existingLine == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            OrderLines.Add(<span class="keyword">new</span> OrderLine(<span class="keyword">this</span>.Id, productId, count));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            existingLine.ChangeCount(existingLine.Count + count);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        TotalItemCount += count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">OrderLine</span> : <span class="title">Entity</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">virtual</span> Guid OrderId &#123; <span class="keyword">get</span>; <span class="keyword">protected</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">virtual</span> Guid ProductId &#123; <span class="keyword">get</span>; <span class="keyword">protected</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">virtual</span> <span class="built_in">int</span> Count &#123; <span class="keyword">get</span>; <span class="keyword">protected</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">OrderLine</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">internal</span> <span class="title">OrderLine</span>(<span class="params">Guid orderId, Guid productId, <span class="built_in">int</span> count</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        OrderId = orderId;</span><br><span class="line">        ProductId = productId;</span><br><span class="line">        Count = count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">internal</span> <span class="keyword">void</span> <span class="title">ChangeCount</span>(<span class="params"><span class="built_in">int</span> newCount</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        Count = newCount;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="built_in">object</span>[] <span class="title">GetKeys</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Object[] &#123;OrderId, ProductId&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>如果你不想你的聚合根继承<code>AggregateRoot&lt;TKey&gt;</code>类,你可以直接实现<code>IAggregateRoot&lt;TKey&gt;</code>接口</p>
+</blockquote>
+<p><code>Order</code>是一个具有<code>Guid</code>类型<code>Id</code>属性的 <strong>聚合根</strong>.它有一个<code>OrderLine</code>实体集合.<code>OrderLine</code>是一个具有组合键(<code>OrderId和 ProductId</code>)的实体.</p>
+<p>虽然这个示例可能无法实现聚合根的所有最佳实践,但它仍然遵循良好的实践:</p>
+<ul>
+<li><code>Order</code>有一个公共的构造函数,它需要 minimal requirements 来构造一个”订单”实例.因此,在没有<code>Id</code>和<code>referenceNo</code>的时候是无法创建订单的.<code>protected/private</code>的构造函数只有从数据库读取对象时 <strong>反序列化</strong> 才需要.</li>
+<li><code>OrderLine</code>的构造函数是<code>internal</code>的,所以它只能由领域层来创建.在<code>Order.AddProduct</code>这个方法的内部被使用.</li>
+<li><code>Order.AddProduct</code>实现了业务规则将商品添加到订单中<br>所有属性都有<code>protected的set</code>.这是为了防止实体在实体外部任意改变.因此,在没有向订单中添加新产品的情况下设置 <code>TotalItemCount</code>将是危险的.它的值由<code>AddProduct</code>方法维护.</li>
+</ul>
+<p><strong>带有组合键的聚合根</strong><br>虽然这种聚合根并不常见(也不建议使用),但实际上可以按照与上面提到的跟实体相同的方式定义复合键.在这种情况下,要使用非泛型的<code>AggregateRoot</code>基类.</p>
+<p><strong>BasicAggregateRoot类</strong><br><code>AggregateRoot</code> 类实现了 <code>IHasExtraProperties 和 IHasConcurrencyStamp</code> 接口,这为派生类带来了两个属性. <code>IHasExtraProperties</code> 使实体可扩展(请参见下面的 额外的属性部分) 和 <code>IHasConcurrencyStamp</code> 添加了由ABP框架管理的 <code>ConcurrencyStamp</code> 属性实现乐观并发. 在大多数情况下,这些是聚合根需要的功能.</p>
+<p>但是,如果你不需要这些功能,你的聚合根可以继承 <code>BasicAggregateRoot&lt;TKey&gt;(或BasicAggregateRoot)</code>.</p>
+<h4 id="值对象"><a href="#值对象" class="headerlink" title="值对象"></a>值对象</h4><p>值对象类必须实现 <code>GetAtomicValues()</code>方法来返回原始值</p>
+<h4 id="仓储"><a href="#仓储" class="headerlink" title="仓储"></a>仓储</h4><p>仓储用于领域对象在数据库中的操作, 通常每个 聚合根 或不同的实体创建对应的仓储.</p>
+<p><strong>通用(泛型)仓储</strong><br>ABP为每个聚合根或实体提供了 默认的通用(泛型)仓储 . 你可以在服务中注入 <code>IRepository&lt;TEntity, TKey&gt;</code> 使用标准的CRUD操作.</p>
+<p>默认通用仓储用法示例:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">PersonAppService</span> : <span class="title">ApplicationService</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> IRepository&lt;Person, Guid&gt; _personRepository;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PersonAppService</span>(<span class="params">IRepository&lt;Person, Guid&gt; personRepository</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        _personRepository = personRepository;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">Create</span>(<span class="params">CreatePersonDto input</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> person = <span class="keyword">new</span> Person &#123; Name = input.Name, Age = input.Age &#125;;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">await</span> _personRepository.InsertAsync(person);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> List&lt;PersonDto&gt; <span class="title">GetList</span>(<span class="params"><span class="built_in">string</span> nameFilter</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> people = _personRepository</span><br><span class="line">            .Where(p =&gt; p.Name.Contains(nameFilter))</span><br><span class="line">            .ToList();</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> people</span><br><span class="line">            .Select(p =&gt; <span class="keyword">new</span> PersonDto &#123;Id = p.Id, Name = p.Name, Age = p.Age&#125;)</span><br><span class="line">            .ToList();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>在这个例子中</p>
+<ul>
+<li><code>PersonAppService</code> 在它的构造函数中注入了 <code>IRepository&lt;Person, Guid&gt;</code> .</li>
+<li><code>Create</code> 方法使用了 <code>InsertAsync</code> 创建并保存新的实体.</li>
+<li><code>GetList</code> 方法使用标准<code>LINQ Where 和 ToList </code>方法在数据源中过滤并获取<code>People</code>集合.</li>
+</ul>
+<p>通用仓储提供了一些开箱即用的标准CRUD功能:</p>
+<ul>
+<li>提供 <code>Insert</code> 方法用于保存新实体.</li>
+<li>提供 <code>Update 和 Delete</code> 方法通过实体或实体<code>id</code>更新或删除实体.</li>
+<li>提供 <code>Delete</code> 方法使用条件表达式过滤删除多个实体.</li>
+<li>实现了 <code>IQueryable&lt;TEntity&gt;</code>, 所以你可以使用<code>LINQ</code>和扩展方法 <code>FirstOrDefault, Where, OrderBy, ToList</code> 等…</li>
+<li>所有方法都具有 <code>sync(同步) 和 async(异步)</code> 版本</li>
+</ul>
+<p><strong>只读仓储</strong></p>
+<p>对于想要使用只读仓储的开发者,我们提供了<code>IReadOnlyRepository&lt;TEntity, TKey&gt; 与 IReadOnlyBasicRepository&lt;Tentity, TKey&gt;</code>接口.</p>
+<p><strong>无主键的通用(泛型)仓储</strong></p>
+<p>如果你的实体没有<code>id</code>主键 (例如, 它可能具有复合主键) 那么你不能使用上面定义的 <code>IRepository&lt;TEntity, TKey&gt;</code>, 在这种情况下你可以仅使用实体(类型)注入 <code>IRepository&lt;TEntity&gt;</code>.</p>
+<blockquote>
+<p><code>IRepository&lt;TEntity&gt;</code> 有一些缺失的方法, 通常与实体的 <code>Id</code> 属性一起使用. 由于实体在这种情况下没有 <code>Id</code> 属性, 因此这些方法不可用. 比如 <code>Get</code> 方法通过<code>id</code>获取具有指定<code>id</code>的实体. 不过, 你仍然可以使用<code>IQueryable&lt;TEntity&gt;</code>的功能通过标准<code>LINQ</code>方法查询实体.</p>
+</blockquote>
+<p><strong>自定义仓储</strong></p>
+<p>对于大多数情况, 默认通用仓储就足够了. 但是, 你可能会需要为实体创建自定义仓储类.</p>
+<p>自定义仓储接口,首先在领域层定义一个仓储接口:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">IPersonRepository</span> : <span class="title">IRepository</span>&lt;<span class="title">Person</span>, <span class="title">Guid</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function">Task&lt;Person&gt; <span class="title">FindByNameAsync</span>(<span class="params"><span class="built_in">string</span> name</span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此接口扩展了 <code>IRepository&lt;Person, Guid&gt; </code>以使用已有的通用仓储功能.</p>
+<p>自定义存储库依赖于你使用的数据访问工具. 在此示例中, 我们将使用<code>Entity Framework Core</code>:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">PersonRepository</span> : <span class="title">EfCoreRepository</span>&lt;<span class="title">MyDbContext</span>, <span class="title">Person</span>, <span class="title">Guid</span>&gt;, <span class="title">IPersonRepository</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PersonRepository</span>(<span class="params">IDbContextProvider&lt;TestAppDbContext&gt; dbContextProvider</span>) </span></span><br><span class="line"><span class="function">        : <span class="title">base</span>(<span class="params">dbContextProvider</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task&lt;Person&gt; <span class="title">FindByNameAsync</span>(<span class="params"><span class="built_in">string</span> name</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> dbContext = <span class="keyword">await</span> GetDbContextAsync();</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">await</span> dbContext.Set&lt;Person&gt;()</span><br><span class="line">            .Where(p =&gt; p.Name == name)</span><br><span class="line">            .FirstOrDefaultAsync();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>你可以直接使用数据库访问提供程序 (本例中是 DbContext ) 来执行操作.</p>
+<p><strong>IAsyncQueryableExecuter</strong><br><code>IAsyncQueryableExecuter</code> 是一个用于异步执行 <code>IQueryable&lt;T&gt;</code>对象的服务,不依赖于实际的数据库提供程序.</p>
+<p><strong>示例:</strong><br>注入并使用<code>IAsyncQueryableExecuter.ToListAsync()</code>方法</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Collections.Generic;</span><br><span class="line"><span class="keyword">using</span> System.Linq;</span><br><span class="line"><span class="keyword">using</span> System.Threading.Tasks;</span><br><span class="line"><span class="keyword">using</span> Volo.Abp.Application.Dtos;</span><br><span class="line"><span class="keyword">using</span> Volo.Abp.Application.Services;</span><br><span class="line"><span class="keyword">using</span> Volo.Abp.Domain.Repositories;</span><br><span class="line"><span class="keyword">using</span> Volo.Abp.Linq;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">AbpDemo</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ProductAppService</span> : <span class="title">ApplicationService</span>, <span class="title">IProductAppService</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> IRepository&lt;Product, Guid&gt; _productRepository;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> IAsyncQueryableExecuter _asyncExecuter;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">ProductAppService</span>(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function">            IRepository&lt;Product, Guid&gt; productRepository,</span></span></span><br><span class="line"><span class="params"><span class="function">            IAsyncQueryableExecuter asyncExecuter</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            _productRepository = productRepository;</span><br><span class="line">            _asyncExecuter = asyncExecuter;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">async</span> Task&lt;ListResultDto&lt;ProductDto&gt;&gt; GetListAsync(<span class="built_in">string</span> name)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//Create the query</span></span><br><span class="line">            <span class="keyword">var</span> query = _productRepository</span><br><span class="line">                .Where(p =&gt; p.Name.Contains(name))</span><br><span class="line">                .OrderBy(p =&gt; p.Name);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//Run the query asynchronously</span></span><br><span class="line">            List&lt;Product&gt; products = <span class="keyword">await</span> _asyncExecuter.ToListAsync(query);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//...</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>ABP框架使用实际数据库提供程序的API异步执行查询.虽然这不是执行查询的常见方式,但它是使用异步API而不依赖于数据库提供者的最佳方式.</p>
+<h4 id="领域服务"><a href="#领域服务" class="headerlink" title="领域服务"></a>领域服务</h4><p>在<strong>领域驱动设计(DDD)</strong> 解决方案中,核心业务逻辑通常在聚合(实体)和领域服务中实现. </p>
+<p>在以下情况下特别需要创建领域服务</p>
+<ul>
+<li>你实现了依赖于某些服务（如存储库或其他外部服务）的核心域逻辑.</li>
+<li>你需要实现的逻辑与多个聚合&#x2F;实体相关,因此它不适合任何聚合.</li>
+</ul>
+<p>领域服务是简单的无状态类. 虽然你不必从任何服务或接口派生,但<code>ABP</code>框架提供了一些有用的基类和约定.</p>
+<p><code>DomainService</code> 和 <code>IDomainService</code><br>从<code>DomainService</code>基类派生领域服务或直接实现 <code>IDomainService</code>接口.</p>
+<p><strong>示例:</strong><br>创建从<code>DomainService</code>基类派生的领域服务.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> Volo.Abp.Domain.Services;</span><br><span class="line"><span class="keyword">namespace</span> <span class="title">MyProject.Issues</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">IssueManager</span> : <span class="title">DomainService</span></span><br><span class="line">    &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当你这样做时:<code>ABP</code>框架自动将类注册为瞬态生命周期到依赖注入系统.<br>你可以直接使用一些常用服务作为基础属性,而无需手动注入 (例如<code>ILogger and IGuidGenerator</code>).</p>
+<blockquote>
+<p>建议使用<code>Manager</code> 或 <code>Service</code> 后缀命名领域服务. 我们通常使用如上面示例中的 <code>Manager</code> 后缀. </p>
+</blockquote>
+<p><strong>示例:</strong><br>实现将问题分配给用户的领域逻辑</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">IssueManager</span> : <span class="title">DomainService</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> IRepository&lt;Issue, Guid&gt; _issueRepository;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">IssueManager</span>(<span class="params">IRepository&lt;Issue, Guid&gt; issueRepository</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        _issueRepository = issueRepository;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">AssignAsync</span>(<span class="params">Issue issue, AppUser user</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> currentIssueCount = <span class="keyword">await</span> _issueRepository</span><br><span class="line">            .CountAsync(i =&gt; i.AssignedUserId == user.Id);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//Implementing a core business validation</span></span><br><span class="line">        <span class="keyword">if</span> (currentIssueCount &gt;= <span class="number">3</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IssueAssignmentException(user.UserName);</span><br><span class="line">        &#125;</span><br><span class="line">        issue.AssignedUserId = user.Id;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>问题是定义如下所示的 聚合根:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Issue</span> : <span class="title">AggregateRoot</span>&lt;<span class="title">Guid</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> Guid? AssignedUserId &#123; <span class="keyword">get</span>; <span class="keyword">internal</span> <span class="keyword">set</span>; &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用<code>internal</code>的<code>set</code>确保外层调用者不能直接在调用 <code>set</code>,并强制始终使用<code>IssueManager</code>为<code>User</code>分配 <code>Issue</code>.</p>
+<p><strong>应用程序服务与领域服务</strong><br>虽然<code>应用服务</code>和<code>领域服务</code>都实现了业务规则,但存在根本的逻辑和形式差异:</p>
+<ul>
+<li>应用程序服务实现应用程序的用例(典型Web应用程序中的用户交互),而领域服务实现核心的、用例独立的领域逻辑.</li>
+<li>应用程序服务获取&#x2F;返回 数据传输对象,领域服务方法通常获取和返回领域对象(实体,值对象).</li>
+<li>领域服务通常由应用程序服务或其他领域服务使用,而应用程序服务由表示层或客户端应用程序使用.</li>
+</ul>
+<p><strong>生命周期</strong><br>领域服务的生命周期是<code>瞬态</code>的,它们会自动注册到依赖注入服务.</p>
+<h4 id="规约"><a href="#规约" class="headerlink" title="规约"></a>规约</h4><p>规约模式用于为实体和其他业务对象定义 命名、可复用、可组合和可测试的过滤器 .<br>你可以创建一个由<code>Specification&lt;Customer&gt;</code>派生的新规约类.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> System;</span><br><span class="line"><span class="keyword">using</span> System.Linq.Expressions;</span><br><span class="line"><span class="keyword">using</span> Volo.Abp.Specifications;</span><br><span class="line"><span class="keyword">namespace</span> <span class="title">MyProject</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Age18PlusCustomerSpecification</span> : <span class="title">Specification</span>&lt;<span class="title">Customer</span>&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">override</span> Expression&lt;Func&lt;Customer, <span class="built_in">bool</span>&gt;&gt; ToExpression()</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> c =&gt; c.Age &gt;= <span class="number">18</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>你也可以直接实现<code>ISpecification&lt;T&gt;</code>接口,但是基类<code>Specification&lt;T&gt;</code>做了大量简化.</p>
+</blockquote>
+<p>虽然规约模式通常与<code>C#</code>的<code>lambda</code>表达式相比较,算是一种更老的方式.一些开发人员可能认为不再需要它,我们可以直接将表达式传入到仓储或领域服务中,如下所示:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> count = <span class="keyword">await</span> _customerRepository.CountAsync(c =&gt; c.Balance &gt; <span class="number">100000</span> &amp;&amp; c.Age =&gt; <span class="number">18</span>);</span><br></pre></td></tr></table></figure>
+<p>自从<code>ABP</code>的仓储支持表达式,这是一个完全有效的用法.你不必在应用程序中定义或使用任何规约,可以直接使用表达式.</p>
+<p>所以,规约的意义是什么?为什么或者应该在什么时候考虑去使用它?</p>
+<p><strong>何时使用?</strong><br>使用规约的一些好处:</p>
+<ul>
+<li>可复用:假设你在代码库的许多地方都需要用到优质顾客过滤器.如果使用表达式而不创建规约,那么如果以后更改“优质顾客”的定义会发生什么?假设你想将最低余额从100000美元更改为250000美元,并添加另一个条件,成为顾客超过3年.如果使用了规约,只需修改一个类.如果在任何其他地方重复（复制&#x2F;粘贴）相同的表达式,则需要更改所有的表达式.</li>
+<li>可组合:可以组合多个规约来创建新规约.这是另一种可复用性.<br>命名:<code>PremiumCustomerSpecification</code>更好地解释了为什么使用规约,而不是复杂的表达式.因此,如果在你的业务中使用了一个有意义的表达式,请考虑使用规约.</li>
+<li>可测试:规约是一个单独（且易于）测试的对象.</li>
+</ul>
+<p><strong>什么时侯不要使用?</strong></p>
+<ul>
+<li>没有业务含义的表达式:不要对与业务无关的表达式和操作使用规约.</li>
+<li>报表:如果只是创建报表,不要创建规约,而是直接使用<code>IQueryable 和LINQ</code>表达式.你甚至可以使用普通<code>SQL</code>、视图或其他工具生成报表.DDD不关心报表,因此从性能角度来看,查询底层数据存储的方式可能很重要.</li>
+</ul>
+<h3 id="应用服务层"><a href="#应用服务层" class="headerlink" title="应用服务层"></a>应用服务层</h3><h4 id="应用服务"><a href="#应用服务" class="headerlink" title="应用服务"></a>应用服务</h4><p>应用服务实现应用程序的用例, 将领域层逻辑公开给表示层.从表示层调用应用服务,DTO作为参数. 返回DTO给表示层.</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2022/09/06/Mac/Mac-%E5%AE%89%E8%A3%85-nvm/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/09/06/Mac/Mac-%E5%AE%89%E8%A3%85-nvm/" class="post-title-link" itemprop="url">Mac 安装 nvm</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-09-06 18:51:30" itemprop="dateCreated datePublished" datetime="2022-09-06T18:51:30+08:00">2022-09-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-01-17 16:11:49" itemprop="dateModified" datetime="2023-01-17T16:11:49+08:00">2023-01-17</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <ol>
+<li>从github下载nvm仓库到 ~&#x2F;目录  地址：<a target="_blank" rel="noopener" href="https://github.com/nvm-sh/nvm.git">https://github.com/nvm-sh/nvm.git</a><br> git clone <a target="_blank" rel="noopener" href="https://github.com/nvm-sh/nvm.git">https://github.com/nvm-sh/nvm.git</a></li>
+<li>进入 nvm目录中执行install.sh 等待执行完成<br> sh install.sh</li>
+<li>配置nvm环境变量将下述代码复制到 ~&#x2F;.bash_profile<br>vim ~&#x2F;.bash_profile</li>
+</ol>
+<figure class="highlight routeros"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">export</span> <span class="attribute">NVM_DIR</span>=<span class="string">&quot;<span class="variable">$HOME</span>/.nvm&quot;</span></span><br><span class="line"> </span><br><span class="line">[ -s <span class="string">&quot;<span class="variable">$NVM_DIR</span>/nvm.sh&quot;</span> ] &amp;&amp; \. <span class="string">&quot;<span class="variable">$NVM_DIR</span>/nvm.sh&quot;</span> </span><br><span class="line"> </span><br><span class="line"> # This loads nvm</span><br><span class="line"> </span><br><span class="line">[ -s <span class="string">&quot;<span class="variable">$NVM_DIR</span>/bash_completion&quot;</span> ] &amp;&amp; \. <span class="string">&quot;<span class="variable">$NVM_DIR</span>/bash_completion&quot;</span></span><br><span class="line"> </span><br><span class="line"><span class="comment"># This loads nvm bash_completion</span></span><br></pre></td></tr></table></figure>
+<ol start="4">
+<li>执行source  ~&#x2F;.bash_profile</li>
+<li>执行nvm –version是否可以正常输出，若不行则重启终端再次尝试</li>
+<li>nvm操作<br>①：使用  nvm install  node版本号  也可直接输入nvm install node 最新版本<br>②：使用 nvm list  或  nvm ls  可查看当前安装的node版本<br>③：使用 nvm use node版本 可以切换当前使用的node<br>④：使用 nvm alias default node版本  可以指定默认打开终端时的node版本</li>
+</ol>
+<p><strong>问题</strong></p>
+<p>每开一次终端，要 source ~&#x2F;.bash_profile 环境变量才生效。</p>
+<p><strong>原因</strong></p>
+<blockquote>
+<p>MacOS Catalina(10.15)，macOS的默认终端从bash变成了zsh。<br>Mac10.15以下版本,默认shell环境是bash，系统环境变量的配置文件是 &#x2F;etc&#x2F;profile 文件。<br>Mac10.15以上版本,默认shell环境是zsh，系统环境变量的配置文件是 &#x2F;etc&#x2F;zshrc 文件。</p>
+</blockquote>
+<p><strong>解决方法</strong></p>
+<p>编辑个人主目录下的.zshrc 这个文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim ~/.zshrc</span><br></pre></td></tr></table></figure>
+<p>在最后一行少添加一句：source ~&#x2F;.bash_profile</p>
+<p>这样每次打开新窗口或标签页就自动执行了source ~&#x2F;.bash_profile，环境变量就有了</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2022/04/12/hello-world/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/04/12/hello-world/" class="post-title-link" itemprop="url">声明</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-04-12 00:00:00" itemprop="dateCreated datePublished" datetime="2022-04-12T00:00:00+08:00">2022-04-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2022-09-06 15:19:06" itemprop="dateModified" datetime="2022-09-06T15:19:06+08:00">2022-09-06</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <blockquote>
+<p>您浏览到的信息，来源于网络，网站中的内容只为个人研究记录，对于信息真实性本站点概不负责，如有侵权，请留意联系，谢谢！</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+  <nav class="pagination">
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span>
+  </nav>
 
 </div>
   </main>

@@ -1,0 +1,546 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leetao50.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="标准查询运算符是组成 LINQ 模式的方法。 这些方法中的大多数都作用于序列；其中序列指其类型实现 IEnumerable 接口或 IQueryable 接口的对象。 标准查询运算符提供包括筛选、投影、聚合、排序等在内的查询功能。 共有两组 LINQ 标准查询运算符，一组作用于类型 IEnumerable 的对象，另一组作用于类型 IQueryable 的对象。  构成每个集合的方法分别是 Enu">
+<meta property="og:type" content="article">
+<meta property="og:title" content="标准查询运算符">
+<meta property="og:url" content="https://leetao50.github.io/2023/01/20/linq/%E6%A0%87%E5%87%86%E6%9F%A5%E8%AF%A2%E8%BF%90%E7%AE%97%E7%AC%A6/index.html">
+<meta property="og:site_name" content="InfoPool">
+<meta property="og:description" content="标准查询运算符是组成 LINQ 模式的方法。 这些方法中的大多数都作用于序列；其中序列指其类型实现 IEnumerable 接口或 IQueryable 接口的对象。 标准查询运算符提供包括筛选、投影、聚合、排序等在内的查询功能。 共有两组 LINQ 标准查询运算符，一组作用于类型 IEnumerable 的对象，另一组作用于类型 IQueryable 的对象。  构成每个集合的方法分别是 Enu">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-01-20T05:58:14.000Z">
+<meta property="article:modified_time" content="2023-01-31T10:29:13.226Z">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://leetao50.github.io/2023/01/20/linq/%E6%A0%87%E5%87%86%E6%9F%A5%E8%AF%A2%E8%BF%90%E7%AE%97%E7%AC%A6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leetao50.github.io/2023/01/20/linq/%E6%A0%87%E5%87%86%E6%9F%A5%E8%AF%A2%E8%BF%90%E7%AE%97%E7%AC%A6/","path":"2023/01/20/linq/标准查询运算符/","title":"标准查询运算符"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>标准查询运算符 | InfoPool</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">InfoPool</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">私人信息记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E6%9F%A5%E8%AF%A2%E8%BF%90%E7%AE%97%E7%AC%A6%E7%9A%84%E6%9F%A5%E8%AF%A2%E8%A1%A8%E8%BE%BE%E5%BC%8F%E8%AF%AD%E6%B3%95"><span class="nav-number">1.</span> <span class="nav-text">标准查询运算符的查询表达式语法</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E6%9F%A5%E8%AF%A2%E8%BF%90%E7%AE%97%E7%AC%A6%E6%8C%89%E6%89%A7%E8%A1%8C%E6%96%B9%E5%BC%8F%E7%9A%84%E5%88%86%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">标准查询运算符按执行方式的分类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%8D%B3%E6%97%B6"><span class="nav-number">2.1.</span> <span class="nav-text">即时</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%8E%A8%E8%BF%9F"><span class="nav-number">2.2.</span> <span class="nav-text">推迟</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%B5%81%E5%BC%8F%E5%A4%84%E7%90%86"><span class="nav-number">2.2.1.</span> <span class="nav-text">流式处理</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E9%9D%9E%E6%B5%81%E5%BC%8F%E5%A4%84%E7%90%86"><span class="nav-number">2.3.</span> <span class="nav-text">非流式处理</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%86%E7%B1%BB%E8%A1%A8"><span class="nav-number">3.</span> <span class="nav-text">分类表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Aggregate"><span class="nav-number">3.1.</span> <span class="nav-text">Aggregate</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ALL"><span class="nav-number">3.2.</span> <span class="nav-text">ALL</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Any"><span class="nav-number">3.3.</span> <span class="nav-text">Any</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#AsEnumerable"><span class="nav-number">3.4.</span> <span class="nav-text">AsEnumerable</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Average"><span class="nav-number">3.5.</span> <span class="nav-text">Average</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Cast"><span class="nav-number">3.6.</span> <span class="nav-text">Cast</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Concat"><span class="nav-number">3.7.</span> <span class="nav-text">Concat</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ElementAtOrDefault"><span class="nav-number">3.8.</span> <span class="nav-text">ElementAtOrDefault</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Empty"><span class="nav-number">3.9.</span> <span class="nav-text">Empty</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#Except"><span class="nav-number">3.10.</span> <span class="nav-text">Except</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#First"><span class="nav-number">3.11.</span> <span class="nav-text">First</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#FirstOrDefault"><span class="nav-number">3.12.</span> <span class="nav-text">FirstOrDefault</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GroupBy"><span class="nav-number">3.13.</span> <span class="nav-text">GroupBy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#GroupJoin"><span class="nav-number">3.14.</span> <span class="nav-text">GroupJoin</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description">记录信息来源网络，内容只为方便查找，非公开信息，非请勿入</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/01/20/linq/%E6%A0%87%E5%87%86%E6%9F%A5%E8%AF%A2%E8%BF%90%E7%AE%97%E7%AC%A6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="标准查询运算符 | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          标准查询运算符
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-01-20 13:58:14" itemprop="dateCreated datePublished" datetime="2023-01-20T13:58:14+08:00">2023-01-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-01-31 18:29:13" itemprop="dateModified" datetime="2023-01-31T18:29:13+08:00">2023-01-31</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>标准查询运算符是组成 LINQ 模式的方法。 这些方法中的大多数都作用于序列；其中序列指其类型实现 IEnumerable<T> 接口或 IQueryable<T> 接口的对象。 标准查询运算符提供包括筛选、投影、聚合、排序等在内的查询功能。</p>
+<p>共有两组 LINQ 标准查询运算符，一组作用于类型 IEnumerable<T> 的对象，另一组作用于类型 IQueryable<T> 的对象。 </p>
+<p>构成每个集合的方法分别是 Enumerable 和 Queryable 类的静态成员。 这些方法被定义为作为方法运行目标的类型的扩展方法。 </p>
+<p>各个标准查询运算符在执行时间上有所不同，具体情况取决于它们是返回单一值还是值序列。 返回单一实例值的这些方法（例如 Average 和 Sum）立即执行。 返回序列的方法会延迟查询执行，并返回一个可枚举的对象。</p>
+<p>对于在内存中集合上运行的方法（即扩展 IEnumerable<T> 的那些方法），返回的可枚举对象将捕获传递到方法的参数。 在枚举该对象时，将使用查询运算符的逻辑，并返回查询结果。</p>
+<p>相反，扩展 IQueryable<T> 的方法不会实现任何查询行为。 它们生成一个表示要执行的查询的表达式树。 源 IQueryable<T> 对象执行查询处理。</p>
+<p>查询语法和方法语法在语义上是相同的，但是许多人发现查询语法更简单且更易于阅读。 某些查询必须表示为方法调用。</p>
+<p>下面的示例演示一个简单查询表达式以及编写为基于方法的查询的语义上等效的查询。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">QueryVMethodSyntax</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span>[] numbers = &#123; <span class="number">5</span>, <span class="number">10</span>, <span class="number">8</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">12</span>&#125;;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//Query syntax:</span></span><br><span class="line">        IEnumerable&lt;<span class="built_in">int</span>&gt; numQuery1 =</span><br><span class="line">            <span class="keyword">from</span> num <span class="keyword">in</span> numbers</span><br><span class="line">            <span class="keyword">where</span> num % <span class="number">2</span> == <span class="number">0</span></span><br><span class="line">            <span class="keyword">orderby</span> num</span><br><span class="line">            <span class="keyword">select</span> num;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//Method syntax:</span></span><br><span class="line">        IEnumerable&lt;<span class="built_in">int</span>&gt; numQuery2 = numbers.Where(num =&gt; num % <span class="number">2</span> == <span class="number">0</span>).OrderBy(n =&gt; n);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">foreach</span> (<span class="built_in">int</span> i <span class="keyword">in</span> numQuery1)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.Write(i + <span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        Console.WriteLine(System.Environment.NewLine);</span><br><span class="line">        <span class="keyword">foreach</span> (<span class="built_in">int</span> i <span class="keyword">in</span> numQuery2)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.Write(i + <span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Keep the console open in debug mode.</span></span><br><span class="line">        Console.WriteLine(System.Environment.NewLine);</span><br><span class="line">        Console.WriteLine(<span class="string">&quot;Press any key to exit&quot;</span>);</span><br><span class="line">        Console.ReadKey();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    Output:</span></span><br><span class="line"><span class="comment">    6 8 10 12</span></span><br><span class="line"><span class="comment">    6 8 10 12</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
+<p> 这两个示例的输出是相同的。 可以看到查询变量的类型在两种形式中是相同的：IEnumerable<T>。</p>
+<h2 id="标准查询运算符的查询表达式语法"><a href="#标准查询运算符的查询表达式语法" class="headerlink" title="标准查询运算符的查询表达式语法"></a>标准查询运算符的查询表达式语法</h2><table>
+<thead>
+<tr>
+<th>方法</th>
+<th>查询表达式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Cast</td>
+<td>使用显式类型化范围变量，例如：from int i in numbers</td>
+</tr>
+<tr>
+<td>GroupBy</td>
+<td>group … by - 或 - group … by … into</td>
+</tr>
+<tr>
+<td>GroupJoin&lt;TOuter,TInner,TKey,TResult&gt;(IEnumerable<TOuter>, IEnumerable<TInner>, Func&lt;TOuter,TKey&gt;, Func&lt;TInner,TKey&gt;, Func&lt;TOuter,IEnumerable<TInner>, TResult&gt;)</td>
+<td>join … in … on … equals … into …</td>
+</tr>
+<tr>
+<td>Join&lt;TOuter,TInner,TKey,TResult&gt;(IEnumerable<TOuter>, IEnumerable<TInner>, Func&lt;TOuter,TKey&gt;, Func&lt;TInner,TKey&gt;, Func&lt;TOuter,TInner,TResult&gt;)</td>
+<td>join … in … on … equals …</td>
+</tr>
+<tr>
+<td>OrderBy&lt;TSource,TKey&gt;(IEnumerable<TSource>, Func&lt;TSource,TKey&gt;)</td>
+<td>orderby</td>
+</tr>
+<tr>
+<td>OrderByDescending&lt;TSource,TKey&gt;(IEnumerable<TSource>, Func&lt;TSource,TKey&gt;)</td>
+<td>orderby … descending</td>
+</tr>
+<tr>
+<td>Select</td>
+<td>select</td>
+</tr>
+<tr>
+<td>SelectMany</td>
+<td>多个 from 子句</td>
+</tr>
+<tr>
+<td>ThenBy&lt;TSource,TKey&gt;(IOrderedEnumerable<TSource>, Func&lt;TSource,TKey&gt;)</td>
+<td>orderby …, …</td>
+</tr>
+<tr>
+<td>ThenByDescending&lt;TSource,TKey&gt;(IOrderedEnumerable<TSource>, Func&lt;TSource,TKey&gt;)</td>
+<td>orderby …, … descending</td>
+</tr>
+<tr>
+<td>Where</td>
+<td>where</td>
+</tr>
+</tbody></table>
+<h2 id="标准查询运算符按执行方式的分类"><a href="#标准查询运算符按执行方式的分类" class="headerlink" title="标准查询运算符按执行方式的分类"></a>标准查询运算符按执行方式的分类</h2><p>标准查询运算符方法的 <code>LINQ to Objects</code> 实现主要通过两种方法之一执行：立即执行和延迟执行。 使用延迟执行的查询运算符可以进一步分为两种类别：流式处理和非流式处理。 </p>
+<h3 id="即时"><a href="#即时" class="headerlink" title="即时"></a>即时</h3><p>立即执行指的是读取数据源并执行一次运算。 返回标量结果的所有标准查询运算符都立即执行。 </p>
+<p>可以使用 Enumerable.ToList 或 Enumerable.ToArray 方法强制查询立即执行。</p>
+<p>立即执行可重用查询结果，而不是查询声明。 结果被检索一次，然后存储以供将来使用。</p>
+<h3 id="推迟"><a href="#推迟" class="headerlink" title="推迟"></a>推迟</h3><p>延迟执行指的是不在代码中声明查询的位置执行运算。 仅当对查询变量进行枚举时才执行运算，例如通过使用 foreach 语句执行。 </p>
+<p>这意味着，查询的执行结果取决于执行查询而非定义查询时的数据源内容。 </p>
+<p>如果多次枚举查询变量，则每次结果可能都不同。 </p>
+<p>几乎所有返回类型为 IEnumerable<T> 或 IOrderedEnumerable<TElement> 的标准查询运算符皆以延迟方式执行。 </p>
+<p>延迟执行提供了查询重用功能，因为在每次循环访问查询结果时，查询都会从数据源中提取更新的数据。</p>
+<h4 id="流式处理"><a href="#流式处理" class="headerlink" title="流式处理"></a>流式处理</h4><p>流式处理运算符不需要在生成元素前读取所有源数据。 在执行时，流式处理运算符一边读取每个源元素，一边对该源元素执行运算，并在可行时生成元素。 </p>
+<p>流式处理运算符将持续读取源元素直到可以生成结果元素。 这意味着可能要读取多个源元素才能生成一个结果元素。</p>
+<h3 id="非流式处理"><a href="#非流式处理" class="headerlink" title="非流式处理"></a>非流式处理</h3><p>非流式处理运算符必须先读取所有源数据，然后才能生成结果元素。 </p>
+<p>排序或分组等运算均属于此类别。 在执行时，非流式处理查询运算符将读取所有源数据，将其放入数据结构，执行运算，然后生成结果元素。</p>
+<h2 id="分类表"><a href="#分类表" class="headerlink" title="分类表"></a>分类表</h2><table>
+<thead>
+<tr>
+<th>标准查询运算符</th>
+<th>返回类型</th>
+<th>立即执行</th>
+<th>延迟的流式处理执行</th>
+<th>延迟非流式处理执行</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Aggregate</td>
+<td>TSource</td>
+<td>X</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>All</td>
+<td>Boolen</td>
+<td>X</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Any</td>
+<td>Boolen</td>
+<td>X</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>AsEnumerable</td>
+<td><code>IEnumerable&lt;T&gt;</code></td>
+<td></td>
+<td>X</td>
+<td></td>
+</tr>
+<tr>
+<td>Average</td>
+<td>单个数值</td>
+<td>X</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Cast</td>
+<td><code>IEnumerable&lt;T&gt;</code></td>
+<td></td>
+<td>X</td>
+<td></td>
+</tr>
+<tr>
+<td>Concat</td>
+<td><code>IEnumerable&lt;T&gt;</code></td>
+<td></td>
+<td>X</td>
+<td></td>
+</tr>
+<tr>
+<td>Contains</td>
+<td>Boolen</td>
+<td>X</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Count</td>
+<td>Int32</td>
+<td>X</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>DefaultIfEmpty</td>
+<td><code>IEnumerable&lt;T&gt;</code></td>
+<td></td>
+<td>X</td>
+<td></td>
+</tr>
+<tr>
+<td>Distinct</td>
+<td><code>IEnumerable&lt;T&gt;</code></td>
+<td></td>
+<td>X</td>
+<td></td>
+</tr>
+<tr>
+<td>ElementAt</td>
+<td>TSource</td>
+<td>X</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>ElementAtOrDefault</td>
+<td>TSource</td>
+<td>X</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Empty</td>
+<td>TSource</td>
+<td>X</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>Except</td>
+<td>TSource</td>
+<td></td>
+<td>X</td>
+<td>X</td>
+</tr>
+<tr>
+<td>First</td>
+<td>TSource</td>
+<td>X</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>FirstOrDefault</td>
+<td>TSource</td>
+<td>X</td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>GroupBy</td>
+<td>TSource</td>
+<td></td>
+<td></td>
+<td>X</td>
+</tr>
+<tr>
+<td>GroupJoin</td>
+<td>TSource</td>
+<td></td>
+<td>X</td>
+<td>X</td>
+</tr>
+</tbody></table>
+<h3 id="Aggregate"><a href="#Aggregate" class="headerlink" title="Aggregate"></a>Aggregate</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TResult <span class="title">Aggregate</span>&lt;<span class="title">TSource</span>,<span class="title">TAccumulate</span>,<span class="title">TResult</span>&gt; (<span class="params"><span class="keyword">this</span> System.Collections.Generic.IEnumerable&lt;TSource&gt; source, TAccumulate seed, Func&lt;TAccumulate,TSource,TAccumulate&gt; func, Func&lt;TAccumulate,TResult&gt; resultSelector</span>)</span>;</span><br></pre></td></tr></table></figure>
+<p>对序列应用累加器函数。 将指定的种子值用作累加器的初始值，并使用指定的函数选择结果值。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TAccumulate <span class="title">Aggregate</span>&lt;<span class="title">TSource</span>,<span class="title">TAccumulate</span>&gt; (<span class="params"><span class="keyword">this</span> System.Collections.Generic.IEnumerable&lt;TSource&gt; source, TAccumulate seed, Func&lt;TAccumulate,TSource,TAccumulate&gt; func</span>)</span>;</span><br></pre></td></tr></table></figure>
+<p>对序列应用累加器函数。 将指定的种子值用作累加器初始值。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TSource <span class="title">Aggregate</span>&lt;<span class="title">TSource</span>&gt; (<span class="params"><span class="keyword">this</span> System.Collections.Generic.IEnumerable&lt;TSource&gt; source, Func&lt;TSource,TSource,TSource&gt; func</span>)</span>;</span><br></pre></td></tr></table></figure>
+<p>对序列应用累加器函数。</p>
+<h3 id="ALL"><a href="#ALL" class="headerlink" title="ALL"></a>ALL</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">bool</span> <span class="title">All</span>&lt;<span class="title">TSource</span>&gt; (<span class="params"><span class="keyword">this</span> System.Collections.Generic.IEnumerable&lt;TSource&gt; source, Func&lt;TSource,<span class="built_in">bool</span>&gt; predicate</span>)</span>;</span><br></pre></td></tr></table></figure>
+<p>确定序列中的所有元素是否都满足条件。如果源序列中的每个元素都通过指定谓词中的测试，或者序列为空，则为 true；否则为 false。</p>
+<h3 id="Any"><a href="#Any" class="headerlink" title="Any"></a>Any</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">bool</span> <span class="title">Any</span>&lt;<span class="title">TSource</span>&gt; (<span class="params"><span class="keyword">this</span> System.Collections.Generic.IEnumerable&lt;TSource&gt; source</span>)</span>;</span><br></pre></td></tr></table></figure>
+<p>确定序列是否包含任何元素。<br>此方法不返回集合中的任何一个元素， 而是确定集合是否包含任何元素。</p>
+<p>一旦可以确定结果，就会停止枚举 source 。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">bool</span> <span class="title">Any</span>&lt;<span class="title">TSource</span>&gt; (<span class="params"><span class="keyword">this</span> System.Collections.Generic.IEnumerable&lt;TSource&gt; source, Func&lt;TSource,<span class="built_in">bool</span>&gt; predicate</span>)</span>;</span><br></pre></td></tr></table></figure>
+<p>确定序列中是否存在任意一个元素满足条件。</p>
+<p>如果源序列不为空，并且至少有一个元素通过指定谓词中的测试，则为 true；否则为 false。</p>
+<h3 id="AsEnumerable"><a href="#AsEnumerable" class="headerlink" title="AsEnumerable"></a>AsEnumerable</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> System.Collections.Generic.<span class="function"><span class="title">IEnumerable</span>&lt;<span class="title">TSource</span>&gt; <span class="title">AsEnumerable</span>&lt;<span class="title">TSource</span>&gt; (<span class="params"><span class="keyword">this</span> System.Collections.Generic.IEnumerable&lt;TSource&gt; source</span>)</span>;</span><br></pre></td></tr></table></figure>
+
+<p>返回类型化为 <code>IEnumerable&lt;T&gt;</code> 的输入。</p>
+<h3 id="Average"><a href="#Average" class="headerlink" title="Average"></a>Average</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">float</span> <span class="title">Average</span> (<span class="params"><span class="keyword">this</span> System.Collections.Generic.IEnumerable&lt;<span class="built_in">float</span>&gt; source</span>)</span>;</span><br></pre></td></tr></table></figure>
+<p>计算 Single 值序列的平均值。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">double</span>? Average&lt;TSource&gt; (<span class="keyword">this</span> System.Collections.Generic.IEnumerable&lt;TSource&gt; source, Func&lt;TSource,<span class="built_in">int</span>?&gt; selector);</span><br></pre></td></tr></table></figure>
+<p>计算可以为 null 的 Int32 值序列的平均值，这些值可通过对输入序列的每个元素调用转换函数获得。</p>
+<p>如果源序列为空或仅包含为 null 的值，则为null；否则为值序列的平均值。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span>[] fruits = &#123; <span class="string">&quot;apple&quot;</span>, <span class="string">&quot;banana&quot;</span>, <span class="string">&quot;mango&quot;</span>, <span class="string">&quot;orange&quot;</span>, <span class="string">&quot;passionfruit&quot;</span>, <span class="string">&quot;grape&quot;</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">double</span> average = fruits.Average(s =&gt; s.Length);</span><br><span class="line"></span><br><span class="line">Console.WriteLine(<span class="string">&quot;The average string length is &#123;0&#125;.&quot;</span>, average);</span><br><span class="line"></span><br><span class="line"><span class="comment">// This code produces the following output:</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// The average string length is 6.5.</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="Cast"><a href="#Cast" class="headerlink" title="Cast"></a>Cast</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> System.Collections.Generic.<span class="function"><span class="title">IEnumerable</span>&lt;<span class="title">TResult</span>&gt; <span class="title">Cast</span>&lt;<span class="title">TResult</span>&gt; (<span class="params"><span class="keyword">this</span> System.Collections.IEnumerable source</span>)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>将 IEnumerable 的元素强制转换为指定的类型。</p>
+<h3 id="Concat"><a href="#Concat" class="headerlink" title="Concat"></a>Concat</h3><p>连接两个序列。</p>
+<h3 id="ElementAtOrDefault"><a href="#ElementAtOrDefault" class="headerlink" title="ElementAtOrDefault"></a>ElementAtOrDefault</h3><p>返回序列中指定索引处的元素；如果索引超出范围，则返回默认值。</p>
+<h3 id="Empty"><a href="#Empty" class="headerlink" title="Empty"></a>Empty</h3><p>返回具有指定类型参数的空 <code>IEnumerable&lt;T&gt;</code>。</p>
+<h3 id="Except"><a href="#Except" class="headerlink" title="Except"></a>Except</h3><p>生成两个序列的差集。</p>
+<h3 id="First"><a href="#First" class="headerlink" title="First"></a>First</h3><p>返回序列中的第一个元素。</p>
+<h3 id="FirstOrDefault"><a href="#FirstOrDefault" class="headerlink" title="FirstOrDefault"></a>FirstOrDefault</h3><p>返回序列中的第一个元素；如果未找到该元素，则返回默认值。</p>
+<h3 id="GroupBy"><a href="#GroupBy" class="headerlink" title="GroupBy"></a>GroupBy</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> System.Collections.Generic.<span class="function"><span class="title">IEnumerable</span>&lt;<span class="title">TResult</span>&gt; <span class="title">GroupBy</span>&lt;<span class="title">TSource</span>,<span class="title">TKey</span>,<span class="title">TElement</span>,<span class="title">TResult</span>&gt; (<span class="params"><span class="keyword">this</span> System.Collections.Generic.IEnumerable&lt;TSource&gt; source, Func&lt;TSource,TKey&gt; keySelector, Func&lt;TSource,TElement&gt; elementSelector, Func&lt;TKey,System.Collections.Generic.IEnumerable&lt;TElement&gt;,TResult&gt; resultSelector</span>)</span>;</span><br></pre></td></tr></table></figure>
+<p>根据指定的键选择器函数对序列中的元素进行分组，并且从每个组及其键中创建结果值。 通过使用指定的函数对每个组的元素进行投影。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GroupBy&lt;TSource,TKey,TElement,TResult&gt;(IEnumerable&lt;TSource&gt;, Func&lt;TSource, TKey&gt;, Func&lt;TSource,TElement&gt;, Func&lt;TKey,IEnumerable&lt;TElement&gt;, TResult&gt;, IEqualityComparer&lt;TKey&gt;)</span><br></pre></td></tr></table></figure>
+
+
+<h3 id="GroupJoin"><a href="#GroupJoin" class="headerlink" title="GroupJoin"></a>GroupJoin</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GroupJoin&lt;TOuter,TInner,TKey,TResult&gt;(IEnumerable&lt;TOuter&gt;, IEnumerable&lt;TInner&gt;, Func&lt;TOuter,TKey&gt;, Func&lt;TInner,TKey&gt;, Func&lt;TOuter,IEnumerable&lt;TInner&gt;, TResult&gt;, IEqualityComparer&lt;TKey&gt;)</span><br></pre></td></tr></table></figure>
+<p>基于键值等同性对两个序列的元素进行关联，并对结果进行分组。使用指定的 <code>IEqualityComparer&lt;T&gt;</code> 对键进行比较。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/12/17/linq/LINQ%E6%9F%A5%E8%AF%A2%E7%AE%80%E4%BB%8B/" rel="prev" title="post">
+                  <i class="fa fa-chevron-left"></i> post
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/02/08/angular/%E8%A1%A8%E5%8D%95/" rel="next" title="表单">
+                  表单 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

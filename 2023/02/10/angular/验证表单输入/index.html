@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leetao50.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在模板驱动表单中验证输入为了往模板驱动表单中添加验证机制，你要添加一些验证属性，就像原生的 HTML 表单验证器一样。 Angular 会用指令来匹配这些具有验证功能的指令。 每当表单控件中的值发生变化时，Angular 就会进行验证，并生成一个验证错误的列表（对应着 INVALID 状态）或者 null（对应着 VALID 状态）。 你可以通过把 ngModel 导出成局部模板变量来查看该控件的">
+<meta property="og:type" content="article">
+<meta property="og:title" content="验证表单输入">
+<meta property="og:url" content="https://leetao50.github.io/2023/02/10/angular/%E9%AA%8C%E8%AF%81%E8%A1%A8%E5%8D%95%E8%BE%93%E5%85%A5/index.html">
+<meta property="og:site_name" content="InfoPool">
+<meta property="og:description" content="在模板驱动表单中验证输入为了往模板驱动表单中添加验证机制，你要添加一些验证属性，就像原生的 HTML 表单验证器一样。 Angular 会用指令来匹配这些具有验证功能的指令。 每当表单控件中的值发生变化时，Angular 就会进行验证，并生成一个验证错误的列表（对应着 INVALID 状态）或者 null（对应着 VALID 状态）。 你可以通过把 ngModel 导出成局部模板变量来查看该控件的">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-02-10T03:53:19.000Z">
+<meta property="article:modified_time" content="2023-02-10T09:17:13.870Z">
+<meta property="article:tag" content="angular">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://leetao50.github.io/2023/02/10/angular/%E9%AA%8C%E8%AF%81%E8%A1%A8%E5%8D%95%E8%BE%93%E5%85%A5/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leetao50.github.io/2023/02/10/angular/%E9%AA%8C%E8%AF%81%E8%A1%A8%E5%8D%95%E8%BE%93%E5%85%A5/","path":"2023/02/10/angular/验证表单输入/","title":"验证表单输入"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>验证表单输入 | InfoPool</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">InfoPool</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">私人信息记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%A8%E6%A8%A1%E6%9D%BF%E9%A9%B1%E5%8A%A8%E8%A1%A8%E5%8D%95%E4%B8%AD%E9%AA%8C%E8%AF%81%E8%BE%93%E5%85%A5"><span class="nav-number">1.</span> <span class="nav-text">在模板驱动表单中验证输入</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%9C%A8%E5%93%8D%E5%BA%94%E5%BC%8F%E8%A1%A8%E5%8D%95%E4%B8%AD%E9%AA%8C%E8%AF%81%E8%BE%93%E5%85%A5"><span class="nav-number">2.</span> <span class="nav-text">在响应式表单中验证输入</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%AA%8C%E8%AF%81%E5%99%A8%EF%BC%88Validator%EF%BC%89%E5%87%BD%E6%95%B0"><span class="nav-number">2.1.</span> <span class="nav-text">验证器（Validator）函数</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%86%85%E7%BD%AE%E9%AA%8C%E8%AF%81%E5%99%A8%E5%87%BD%E6%95%B0"><span class="nav-number">2.1.1.</span> <span class="nav-text">内置验证器函数</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%87%AA%E5%AE%9A%E4%B9%89%E9%AA%8C%E8%AF%81%E5%99%A8"><span class="nav-number">3.</span> <span class="nav-text">自定义验证器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%8A%8A%E8%87%AA%E5%AE%9A%E4%B9%89%E9%AA%8C%E8%AF%81%E5%99%A8%E6%B7%BB%E5%8A%A0%E5%88%B0%E5%93%8D%E5%BA%94%E5%BC%8F%E8%A1%A8%E5%8D%95%E4%B8%AD"><span class="nav-number">3.1.</span> <span class="nav-text">把自定义验证器添加到响应式表单中</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E6%A8%A1%E6%9D%BF%E9%A9%B1%E5%8A%A8%E8%A1%A8%E5%8D%95%E4%B8%AD%E6%B7%BB%E5%8A%A0%E8%87%AA%E5%AE%9A%E4%B9%89%E9%AA%8C%E8%AF%81%E5%99%A8"><span class="nav-number">3.2.</span> <span class="nav-text">为模板驱动表单中添加自定义验证器</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A1%A8%E7%A4%BA%E6%8E%A7%E4%BB%B6%E7%8A%B6%E6%80%81%E7%9A%84-CSS-%E7%B1%BB"><span class="nav-number">4.</span> <span class="nav-text">表示控件状态的 CSS 类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B7%A8%E5%AD%97%E6%AE%B5%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81"><span class="nav-number">5.</span> <span class="nav-text">跨字段交叉验证</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E5%93%8D%E5%BA%94%E5%BC%8F%E8%A1%A8%E5%8D%95%E6%B7%BB%E5%8A%A0%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81"><span class="nav-number">5.1.</span> <span class="nav-text">为响应式表单添加交叉验证</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E6%A8%A1%E6%9D%BF%E9%A9%B1%E5%8A%A8%E8%A1%A8%E5%8D%95%E6%B7%BB%E5%8A%A0%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81"><span class="nav-number">5.2.</span> <span class="nav-text">为模板驱动表单添加交叉验证</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E5%BC%82%E6%AD%A5%E9%AA%8C%E8%AF%81%E5%99%A8"><span class="nav-number">6.</span> <span class="nav-text">创建异步验证器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0%E8%87%AA%E5%AE%9A%E4%B9%89%E5%BC%82%E6%AD%A5%E9%AA%8C%E8%AF%81%E5%99%A8"><span class="nav-number">6.1.</span> <span class="nav-text">实现自定义异步验证器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E5%BC%82%E6%AD%A5%E9%AA%8C%E8%AF%81%E5%99%A8%E6%B7%BB%E5%8A%A0%E5%88%B0%E5%93%8D%E5%BA%94%E5%BC%8F%E8%A1%A8%E5%8D%95"><span class="nav-number">6.2.</span> <span class="nav-text">将异步验证器添加到响应式表单</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E5%BC%82%E6%AD%A5%E9%AA%8C%E8%AF%81%E5%99%A8%E6%B7%BB%E5%8A%A0%E5%88%B0%E6%A8%A1%E6%9D%BF%E9%A9%B1%E5%8A%A8%E8%A1%A8%E5%8D%95"><span class="nav-number">6.3.</span> <span class="nav-text">将异步验证器添加到模板驱动表单</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description">记录信息来源网络，内容只为方便查找，非公开信息，非请勿入</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/02/10/angular/%E9%AA%8C%E8%AF%81%E8%A1%A8%E5%8D%95%E8%BE%93%E5%85%A5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="验证表单输入 | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          验证表单输入
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-02-10 11:53:19 / 修改时间：17:17:13" itemprop="dateCreated datePublished" datetime="2023-02-10T11:53:19+08:00">2023-02-10</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="在模板驱动表单中验证输入"><a href="#在模板驱动表单中验证输入" class="headerlink" title="在模板驱动表单中验证输入"></a>在模板驱动表单中验证输入</h1><p>为了往模板驱动表单中添加验证机制，你要添加一些验证属性，就像原生的 HTML 表单验证器一样。 Angular 会用指令来匹配这些具有验证功能的指令。</p>
+<p>每当表单控件中的值发生变化时，Angular 就会进行验证，并生成一个验证错误的列表（对应着 INVALID 状态）或者 null（对应着 VALID 状态）。</p>
+<p>你可以通过把 ngModel 导出成局部模板变量来查看该控件的状态。 比如下面这个例子就把 NgModel 导出成了一个名叫 name 的变量：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;input <span class="keyword">type</span>=<span class="string">&quot;text&quot;</span> id=<span class="string">&quot;name&quot;</span> name=<span class="string">&quot;name&quot;</span> <span class="keyword">class</span>=<span class="string">&quot;form-control&quot;</span></span><br><span class="line">      required minlength=<span class="string">&quot;4&quot;</span> appForbiddenName=<span class="string">&quot;bob&quot;</span></span><br><span class="line">      [(ngModel)]=<span class="string">&quot;hero.name&quot;</span> #name=<span class="string">&quot;ngModel&quot;</span>&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">div</span> *<span class="attr">ngIf</span>=<span class="string">&quot;name.invalid &amp;&amp; (name.dirty || name.touched)&quot;</span></span></span></span><br><span class="line"><span class="tag"><span class="language-xml">    <span class="attr">class</span>=<span class="string">&quot;alert&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">div</span> *<span class="attr">ngIf</span>=<span class="string">&quot;name.errors?.[&#x27;required&#x27;]&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    Name is required.</span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">div</span> *<span class="attr">ngIf</span>=<span class="string">&quot;name.errors?.[&#x27;minlength&#x27;]&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    Name must be at least 4 characters long.</span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">div</span> *<span class="attr">ngIf</span>=<span class="string">&quot;name.errors?.[&#x27;forbiddenName&#x27;]&quot;</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">    Name cannot be Bob.</span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>注意这个例子讲解的如下特性。</p>
+<ul>
+<li><p><code>&lt;input&gt;</code> 元素带有一些 HTML 验证属性：required 和 minlength。它还带有一个自定义的验证器指令 forbiddenName。欲知详情，参阅自定义验证器一节。</p>
+</li>
+<li><p>#name&#x3D;”ngModel” 把 NgModel 导出成了一个名叫 name 的局部变量。NgModel 把自己控制的 FormControl 实例的属性映射出去，让你能在模板中检查控件的状态，比如 valid 和 dirty。要了解完整的控件属性，参阅 API 参考手册中的AbstractControl。</p>
+<ul>
+<li><p><code>&lt;div&gt;</code> 元素的 *ngIf 展示了一组嵌套的消息 div，但是只在有“name”错误和控制器为 dirty 或者 touched 时才出现。</p>
+</li>
+<li><p>每个嵌套的 <code>&lt;div&gt;</code> 为其中一个可能出现的验证错误显示一条自定义消息。比如 required、minlength 和 forbiddenName。</p>
+</li>
+</ul>
+</li>
+</ul>
+<blockquote>
+<p>为防止验证程序在用户有机会编辑表单之前就显示错误，你应该检查控件的 dirty 状态或 touched 状态。</p>
+<ul>
+<li>当用户在被监视的字段中修改该值时，控件就会被标记为 dirty（脏）</li>
+<li>当用户的表单控件失去焦点时，该控件就会被标记为 touched（已接触）</li>
+</ul>
+</blockquote>
+<h1 id="在响应式表单中验证输入"><a href="#在响应式表单中验证输入" class="headerlink" title="在响应式表单中验证输入"></a>在响应式表单中验证输入</h1><p>在响应式表单中，事实之源是其组件类。不应该通过模板上的属性来添加验证器，而应该在组件类中直接把验证器函数添加到表单控件模型上（FormControl）。然后，一旦控件发生了变化，Angular 就会调用这些函数。</p>
+<h2 id="验证器（Validator）函数"><a href="#验证器（Validator）函数" class="headerlink" title="验证器（Validator）函数"></a>验证器（Validator）函数</h2><p>验证器函数可以是同步函数，也可以是异步函数。</p>
+<table>
+<thead>
+<tr>
+<th>验证器类型</th>
+<th>详细信息</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>同步验证器</td>
+<td>这些同步函数接受一个控件实例，然后返回一组验证错误或 null。可以在实例化一个 FormControl 时把它作为构造函数的第二个参数传进去。</td>
+</tr>
+<tr>
+<td>异步验证器</td>
+<td>这些异步函数接受一个控件实例并返回一个 Promise 或 Observable，它稍后会发出一组验证错误或 null。在实例化 FormControl 时，可以把它们作为第三个参数传入。</td>
+</tr>
+</tbody></table>
+<p>出于性能方面的考虑，只有在所有同步验证器都通过之后，Angular 才会运行异步验证器。当每一个异步验证器都执行完之后，才会设置这些验证错误。</p>
+<h3 id="内置验证器函数"><a href="#内置验证器函数" class="headerlink" title="内置验证器函数"></a>内置验证器函数</h3><p>在模板驱动表单中用作属性的那些内置验证器，比如 required 和 minlength，也都可以作为 Validators 类中的函数使用。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">ngOnInit</span>(): <span class="built_in">void</span> &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">heroForm</span> = <span class="keyword">new</span> <span class="title class_">FormGroup</span>(&#123;</span><br><span class="line">    <span class="attr">name</span>: <span class="keyword">new</span> <span class="title class_">FormControl</span>(<span class="variable language_">this</span>.<span class="property">hero</span>.<span class="property">name</span>, [</span><br><span class="line">      <span class="title class_">Validators</span>.<span class="property">required</span>,</span><br><span class="line">      <span class="title class_">Validators</span>.<span class="title function_">minLength</span>(<span class="number">4</span>),</span><br><span class="line">      <span class="title function_">forbiddenNameValidator</span>(<span class="regexp">/bob/i</span>) <span class="comment">// &lt;-- Here&#x27;s how you pass in the custom validator.</span></span><br><span class="line">    ]),</span><br><span class="line">    <span class="attr">alterEgo</span>: <span class="keyword">new</span> <span class="title class_">FormControl</span>(<span class="variable language_">this</span>.<span class="property">hero</span>.<span class="property">alterEgo</span>),</span><br><span class="line">    <span class="attr">power</span>: <span class="keyword">new</span> <span class="title class_">FormControl</span>(<span class="variable language_">this</span>.<span class="property">hero</span>.<span class="property">power</span>, <span class="title class_">Validators</span>.<span class="property">required</span>)</span><br><span class="line">  &#125;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">get</span> <span class="title function_">name</span>() &#123; <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">heroForm</span>.<span class="title function_">get</span>(<span class="string">&#x27;name&#x27;</span>); &#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">get</span> <span class="title function_">power</span>() &#123; <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">heroForm</span>.<span class="title function_">get</span>(<span class="string">&#x27;power&#x27;</span>); &#125;</span><br></pre></td></tr></table></figure>
+<p>所有这些验证器都是同步的，所以它们作为第二个参数传递。注意，你可以通过把这些函数放到一个数组中传入来支持多个验证器。</p>
+<p>如果你到模板中找到 name 输入框，就会发现它和模板驱动的例子很相似。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">id</span>=<span class="string">&quot;name&quot;</span> <span class="attr">class</span>=<span class="string">&quot;form-control&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">formControlName</span>=<span class="string">&quot;name&quot;</span> <span class="attr">required</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> *<span class="attr">ngIf</span>=<span class="string">&quot;name.invalid &amp;&amp; (name.dirty || name.touched)&quot;</span></span></span><br><span class="line"><span class="tag">    <span class="attr">class</span>=<span class="string">&quot;alert alert-danger&quot;</span>&gt;</span></span><br><span class="line"></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> *<span class="attr">ngIf</span>=<span class="string">&quot;name.errors?.[&#x27;required&#x27;]&quot;</span>&gt;</span></span><br><span class="line">    Name is required.</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> *<span class="attr">ngIf</span>=<span class="string">&quot;name.errors?.[&#x27;minlength&#x27;]&quot;</span>&gt;</span></span><br><span class="line">    Name must be at least 4 characters long.</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> *<span class="attr">ngIf</span>=<span class="string">&quot;name.errors?.[&#x27;forbiddenName&#x27;]&quot;</span>&gt;</span></span><br><span class="line">    Name cannot be Bob.</span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>这个表单与模板驱动的版本不同，它不再导出任何指令。相反，它使用组件类中定义的 name 读取器（getter）。</p>
+<h1 id="自定义验证器"><a href="#自定义验证器" class="headerlink" title="自定义验证器"></a>自定义验证器</h1><p>内置的验证器并不是总能精确匹配应用中的用例，因此有时你需要创建一个自定义验证器。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** A hero&#x27;s name can&#x27;t match the given regular expression */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">function</span> <span class="title function_">forbiddenNameValidator</span>(<span class="params">nameRe: <span class="built_in">RegExp</span></span>): <span class="title class_">ValidatorFn</span> &#123;</span><br><span class="line">  <span class="keyword">return</span> (<span class="attr">control</span>: <span class="title class_">AbstractControl</span>): <span class="title class_">ValidationErrors</span> | <span class="function"><span class="params">null</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">const</span> forbidden = nameRe.<span class="title function_">test</span>(control.<span class="property">value</span>);</span><br><span class="line">    <span class="keyword">return</span> forbidden ? &#123;<span class="attr">forbiddenName</span>: &#123;<span class="attr">value</span>: control.<span class="property">value</span>&#125;&#125; : <span class="literal">null</span>;</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>forbiddenNameValidator 工厂函数返回配置好的验证器函数。 该函数接受一个 Angular control 对象，并在control值有效时返回 null，或无效时返回验证错误信息。 验证错误信息通常有一个名为 验证器名称（forbiddenName）的属性。其值为 K-V形式的字典，你可以插入错误信息。</p>
+<p>自定义异步验证器和同步验证器很像，只是它们必须返回一个稍后会输出 null 或“验证错误对象”的承诺（Promise）或可观察对象，如果是可观察对象，那么它必须在某个时间点被完成（complete），那时候这个表单就会使用它输出的最后一个值作为验证结果。</p>
+<h2 id="把自定义验证器添加到响应式表单中"><a href="#把自定义验证器添加到响应式表单中" class="headerlink" title="把自定义验证器添加到响应式表单中"></a>把自定义验证器添加到响应式表单中</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">heroForm</span> = <span class="keyword">new</span> <span class="title class_">FormGroup</span>(&#123;</span><br><span class="line">  <span class="attr">name</span>: <span class="keyword">new</span> <span class="title class_">FormControl</span>(<span class="variable language_">this</span>.<span class="property">hero</span>.<span class="property">name</span>, [</span><br><span class="line">    <span class="title class_">Validators</span>.<span class="property">required</span>,</span><br><span class="line">    <span class="title class_">Validators</span>.<span class="title function_">minLength</span>(<span class="number">4</span>),</span><br><span class="line">    <span class="title function_">forbiddenNameValidator</span>(<span class="regexp">/bob/i</span>) <span class="comment">// &lt;-- Here&#x27;s how you pass in the custom validator.</span></span><br><span class="line">  ]),</span><br><span class="line">  <span class="attr">alterEgo</span>: <span class="keyword">new</span> <span class="title class_">FormControl</span>(<span class="variable language_">this</span>.<span class="property">hero</span>.<span class="property">alterEgo</span>),</span><br><span class="line">  <span class="attr">power</span>: <span class="keyword">new</span> <span class="title class_">FormControl</span>(<span class="variable language_">this</span>.<span class="property">hero</span>.<span class="property">power</span>, <span class="title class_">Validators</span>.<span class="property">required</span>)</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="为模板驱动表单中添加自定义验证器"><a href="#为模板驱动表单中添加自定义验证器" class="headerlink" title="为模板驱动表单中添加自定义验证器"></a>为模板驱动表单中添加自定义验证器</h2><p>在模板驱动表单中，要为模板添加一个指令，该指令包含了一个 validator 函数。比如，ForbiddenValidatorDirective 指令中 包含了 forbiddenNameValidator 验证函数。</p>
+<p>Angular 在验证过程中会识别出该指令的作用，因为该指令把自己注册成了 NG_VALIDATORS 提供者，如下例所示。NG_VALIDATORS 是一个带有可扩展验证器集合的预定义提供者。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Directive</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;[appForbiddenName]&#x27;</span>,</span><br><span class="line">  <span class="attr">providers</span>: [&#123;<span class="attr">provide</span>: <span class="variable constant_">NG_VALIDATORS</span>, <span class="attr">useExisting</span>: <span class="title class_">ForbiddenValidatorDirective</span>, <span class="attr">multi</span>: <span class="literal">true</span>&#125;]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">ForbiddenValidatorDirective</span> <span class="keyword">implements</span> <span class="title class_">Validator</span> &#123;</span><br><span class="line">  <span class="meta">@Input</span>(<span class="string">&#x27;appForbiddenName&#x27;</span>) forbiddenName = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">validate</span>(<span class="attr">control</span>: <span class="title class_">AbstractControl</span>): <span class="title class_">ValidationErrors</span> | <span class="literal">null</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">forbiddenName</span> ? <span class="title function_">forbiddenNameValidator</span>(<span class="keyword">new</span> <span class="title class_">RegExp</span>(<span class="variable language_">this</span>.<span class="property">forbiddenName</span>, <span class="string">&#x27;i&#x27;</span>))(control)</span><br><span class="line">                              : <span class="literal">null</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>一旦 ForbiddenValidatorDirective 写好了，你只要把 选择器 forbiddenName 添加到输入框上就可以激活这个验证器了。比如：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">id</span>=<span class="string">&quot;name&quot;</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">class</span>=<span class="string">&quot;form-control&quot;</span></span></span><br><span class="line"><span class="tag">      <span class="attr">required</span> <span class="attr">minlength</span>=<span class="string">&quot;4&quot;</span> <span class="attr">appForbiddenName</span>=<span class="string">&quot;bob&quot;</span></span></span><br><span class="line"><span class="tag">      [(<span class="attr">ngModel</span>)]=<span class="string">&quot;hero.name&quot;</span> #<span class="attr">name</span>=<span class="string">&quot;ngModel&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注意，自定义验证指令是用 useExisting 而不是 useClass 来实例化的。注册的验证程序必须是 ForbiddenValidatorDirective 实例本身 - 表单中的实例，也就是表单中 forbiddenName 属性被绑定到了”bob”的那个。</p>
+<p>如果用 useClass 来代替 useExisting，就会注册一个新的类实例，而它是没有 forbiddenName 的。</p>
+</blockquote>
+<h1 id="表示控件状态的-CSS-类"><a href="#表示控件状态的-CSS-类" class="headerlink" title="表示控件状态的 CSS 类"></a>表示控件状态的 CSS 类</h1><p>Angular 会自动把很多控件属性作为 CSS 类映射到控件所在的元素上。你可以使用这些类来根据表单状态给表单控件元素添加样式。目前支持下列类：</p>
+<ul>
+<li><p>.ng-valid</p>
+</li>
+<li><p>.ng-invalid</p>
+</li>
+<li><p>.ng-pending</p>
+</li>
+<li><p>.ng-pristine</p>
+</li>
+<li><p>.ng-dirty</p>
+</li>
+<li><p>.ng-untouched</p>
+</li>
+<li><p>.ng-touched</p>
+</li>
+<li><p>.ng-submitted (只对 form 元素添加)</p>
+</li>
+</ul>
+<p>在下面的例子中，这个英雄表单使用 .ng-valid 和 .ng-invalid 来设置每个表单控件的边框颜色。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.ng-valid</span><span class="selector-attr">[required]</span>, <span class="selector-class">.ng-valid</span><span class="selector-class">.required</span>  &#123;</span><br><span class="line">  <span class="attribute">border-left</span>: <span class="number">5px</span> solid <span class="number">#42A948</span>; <span class="comment">/* green */</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.ng-invalid</span><span class="selector-pseudo">:not</span>(<span class="selector-tag">form</span>)  &#123;</span><br><span class="line">  <span class="attribute">border-left</span>: <span class="number">5px</span> solid <span class="number">#a94442</span>; <span class="comment">/* red */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="跨字段交叉验证"><a href="#跨字段交叉验证" class="headerlink" title="跨字段交叉验证"></a>跨字段交叉验证</h1><p>跨字段交叉验证器是一种自定义验证器，可以对表单中不同字段的值进行比较，并针对它们的组合进行接受或拒绝。</p>
+<h2 id="为响应式表单添加交叉验证"><a href="#为响应式表单添加交叉验证" class="headerlink" title="为响应式表单添加交叉验证"></a>为响应式表单添加交叉验证</h2><p>该表单具有以下结构：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> heroForm = <span class="keyword">new</span> <span class="title class_">FormGroup</span>(&#123;</span><br><span class="line">  <span class="string">&#x27;name&#x27;</span>: <span class="keyword">new</span> <span class="title class_">FormControl</span>(),</span><br><span class="line">  <span class="string">&#x27;alterEgo&#x27;</span>: <span class="keyword">new</span> <span class="title class_">FormControl</span>(),</span><br><span class="line">  <span class="string">&#x27;power&#x27;</span>: <span class="keyword">new</span> <span class="title class_">FormControl</span>()</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>name 和 alterEgo 是兄弟控件。要想在单个自定义验证器中计算这两个控件，你就必须在它们共同的祖先控件中执行验证：FormGroup。</p>
+<p>要想给 FormGroup 添加验证器，就要在创建时把一个新的验证器传给它的第二个参数。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> heroForm = <span class="keyword">new</span> <span class="title class_">FormGroup</span>(&#123;</span><br><span class="line">  <span class="string">&#x27;name&#x27;</span>: <span class="keyword">new</span> <span class="title class_">FormControl</span>(),</span><br><span class="line">  <span class="string">&#x27;alterEgo&#x27;</span>: <span class="keyword">new</span> <span class="title class_">FormControl</span>(),</span><br><span class="line">  <span class="string">&#x27;power&#x27;</span>: <span class="keyword">new</span> <span class="title class_">FormControl</span>()</span><br><span class="line">&#125;, &#123; <span class="attr">validators</span>: identityRevealedValidator &#125;);</span><br></pre></td></tr></table></figure>
+<p>验证器的代码如下。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/** A hero&#x27;s name can&#x27;t match the hero&#x27;s alter ego */</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="attr">identityRevealedValidator</span>: <span class="title class_">ValidatorFn</span> = (<span class="attr">control</span>: <span class="title class_">AbstractControl</span>): <span class="title class_">ValidationErrors</span> | <span class="function"><span class="params">null</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> name = control.<span class="title function_">get</span>(<span class="string">&#x27;name&#x27;</span>);</span><br><span class="line">  <span class="keyword">const</span> alterEgo = control.<span class="title function_">get</span>(<span class="string">&#x27;alterEgo&#x27;</span>);</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> name &amp;&amp; alterEgo &amp;&amp; name.<span class="property">value</span> === alterEgo.<span class="property">value</span> ? &#123; <span class="attr">identityRevealed</span>: <span class="literal">true</span> &#125; : <span class="literal">null</span>;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>该验证器通过调用 FormGroup 的 get 方法来检索这些子控件，然后比较 name 和 alterEgo 控件的值。</p>
+<p>为了提供更好的用户体验，当表单无效时，模板还会显示一条恰当的错误信息。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> *<span class="attr">ngIf</span>=<span class="string">&quot;heroForm.errors?.[&#x27;identityRevealed&#x27;] &amp;&amp; (heroForm.touched || heroForm.dirty)&quot;</span> <span class="attr">class</span>=<span class="string">&quot;cross-validation-error-message alert alert-danger&quot;</span>&gt;</span></span><br><span class="line">        Name cannot match alter ego.</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果 FormGroup 中有一个由 identityRevealed 验证器返回的交叉验证错误，*ngIf 就会显示错误，但只有当该用户已经与表单进行过交互的时候才显示。</p>
+<h2 id="为模板驱动表单添加交叉验证"><a href="#为模板驱动表单添加交叉验证" class="headerlink" title="为模板驱动表单添加交叉验证"></a>为模板驱动表单添加交叉验证</h2><p>对于模板驱动表单，你必须创建一个指令来包装验证器函数。你可以使用NG_VALIDATORS 令牌来把该指令提供为验证器，如下例所示。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Directive</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;[appIdentityRevealed]&#x27;</span>,</span><br><span class="line">  <span class="attr">providers</span>: [&#123; <span class="attr">provide</span>: <span class="variable constant_">NG_VALIDATORS</span>, <span class="attr">useExisting</span>: <span class="title class_">IdentityRevealedValidatorDirective</span>, <span class="attr">multi</span>: <span class="literal">true</span> &#125;]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">IdentityRevealedValidatorDirective</span> <span class="keyword">implements</span> <span class="title class_">Validator</span> &#123;</span><br><span class="line">  <span class="title function_">validate</span>(<span class="attr">control</span>: <span class="title class_">AbstractControl</span>): <span class="title class_">ValidationErrors</span> | <span class="literal">null</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="title function_">identityRevealedValidator</span>(control);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你必须把这个新指令添加到 HTML 模板中。由于验证器必须注册在表单的最高层，因此下列模板会把该指令放在 form 标签上。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> #<span class="attr">heroForm</span>=<span class="string">&quot;ngForm&quot;</span> <span class="attr">appIdentityRevealed</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>为了提供更好的用户体验，当表单无效时，我们要显示一个恰当的错误信息。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> *<span class="attr">ngIf</span>=<span class="string">&quot;heroForm.errors?.[&#x27;identityRevealed&#x27;] &amp;&amp; (heroForm.touched || heroForm.dirty)&quot;</span> <span class="attr">class</span>=<span class="string">&quot;cross-validation-error-message alert&quot;</span>&gt;</span></span><br><span class="line">    Name cannot match alter ego.</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这在模板驱动表单和响应式表单中都是一样的。</p>
+<h1 id="创建异步验证器"><a href="#创建异步验证器" class="headerlink" title="创建异步验证器"></a>创建异步验证器</h1><p>异步验证器实现了 AsyncValidatorFn 和 AsyncValidator 接口。它们与其同步版本非常相似，但有以下不同之处。</p>
+<p>validate() 函数必须返回一个 Promise 或可观察对象，</p>
+<p>返回的可观察对象必须是有尽的，这意味着它必须在某个时刻完成（complete）。要把无尽的可观察对象转换成有尽的，可以在管道中加入过滤操作符，比如 first、last、take 或 takeUntil。</p>
+<p>异步验证在同步验证完成后才会发生，并且只有在同步验证成功时才会执行。如果更基本的验证方法已经发现了无效输入，那么这种检查顺序就可以让表单避免使用昂贵的异步验证流程（比如 HTTP 请求）。</p>
+<p>异步验证开始之后，表单控件就会进入 pending 状态。可以检查控件的 pending 属性，并用它来给出对验证中的视觉反馈。</p>
+<p>一种常见的 UI 模式是在执行异步验证时显示 Spinner（转轮）。下面的例子展示了如何在模板驱动表单中实现这一点。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> [(<span class="attr">ngModel</span>)]=<span class="string">&quot;name&quot;</span> #<span class="attr">model</span>=<span class="string">&quot;ngModel&quot;</span> <span class="attr">appSomeAsyncValidator</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">app-spinner</span> *<span class="attr">ngIf</span>=<span class="string">&quot;model.pending&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">app-spinner</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="实现自定义异步验证器"><a href="#实现自定义异步验证器" class="headerlink" title="实现自定义异步验证器"></a>实现自定义异步验证器</h2><p>下面的代码创建了一个验证器类 UniqueAlterEgoValidator，它实现了 AsyncValidator 接口</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Injectable</span>(&#123; <span class="attr">providedIn</span>: <span class="string">&#x27;root&#x27;</span> &#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">UniqueAlterEgoValidator</span> <span class="keyword">implements</span> <span class="title class_">AsyncValidator</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> heroesService: HeroesService</span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">validate</span>(</span><br><span class="line">    <span class="attr">control</span>: <span class="title class_">AbstractControl</span></span><br><span class="line">  ): <span class="title class_">Observable</span>&lt;<span class="title class_">ValidationErrors</span> | <span class="literal">null</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">heroesService</span>.<span class="title function_">isAlterEgoTaken</span>(control.<span class="property">value</span>).<span class="title function_">pipe</span>(</span><br><span class="line">      <span class="title function_">map</span>(<span class="function"><span class="params">isTaken</span> =&gt;</span> (isTaken ? &#123; <span class="attr">uniqueAlterEgo</span>: <span class="literal">true</span> &#125; : <span class="literal">null</span>)),</span><br><span class="line">      <span class="title function_">catchError</span>(<span class="function">() =&gt;</span> <span class="title function_">of</span>(<span class="literal">null</span>))</span><br><span class="line">    );</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>构造函数中注入了 HeroesService，它定义了如下接口。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">interface</span> <span class="title class_">HeroesService</span> &#123;</span><br><span class="line">  <span class="attr">isAlterEgoTaken</span>: <span class="function">(<span class="params">alterEgo: <span class="built_in">string</span></span>) =&gt;</span> <span class="title class_">Observable</span>&lt;<span class="built_in">boolean</span>&gt;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>与任何验证器一样，如果表单有效，该方法返回 null，如果无效，则返回 ValidationErrors。这个验证器使用 catchError 操作符来处理任何潜在的错误。在这个例子中，验证器将 isAlterEgoTaken() 错误视为成功的验证，因为未能发出验证请求并不一定意味着这个第二人格无效。你也可以用不同的方式处理这种错误，比如返回 ValidationError 对象。</p>
+<p>一段时间过后，这条可观察对象链完成，异步验证也就完成了。pending 标志位也设置为 false，该表单的有效性也已更新。</p>
+<h2 id="将异步验证器添加到响应式表单"><a href="#将异步验证器添加到响应式表单" class="headerlink" title="将异步验证器添加到响应式表单"></a>将异步验证器添加到响应式表单</h2><p>要以响应式表单使用异步验证器，请首先将验证器注入组件类的构造函数。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> alterEgoValidator: UniqueAlterEgoValidator</span>) &#123;&#125;</span><br></pre></td></tr></table></figure>
+<p>然后，将验证器函数直接传递给 FormControl 以应用它。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> alterEgoControl = <span class="keyword">new</span> <span class="title class_">FormControl</span>(<span class="string">&#x27;&#x27;</span>, &#123;</span><br><span class="line">  <span class="attr">asyncValidators</span>: [<span class="variable language_">this</span>.<span class="property">alterEgoValidator</span>.<span class="property">validate</span>.<span class="title function_">bind</span>(<span class="variable language_">this</span>.<span class="property">alterEgoValidator</span>)],</span><br><span class="line">  <span class="attr">updateOn</span>: <span class="string">&#x27;blur&#x27;</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h2 id="将异步验证器添加到模板驱动表单"><a href="#将异步验证器添加到模板驱动表单" class="headerlink" title="将异步验证器添加到模板驱动表单"></a>将异步验证器添加到模板驱动表单</h2><p>要在模板驱动表单中使用异步验证器，请创建一个新指令并在其上注册 NG_ASYNC_VALIDATORS 提供者。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Directive</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;[appUniqueAlterEgo]&#x27;</span>,</span><br><span class="line">  <span class="attr">providers</span>: [</span><br><span class="line">    &#123;</span><br><span class="line">      <span class="attr">provide</span>: <span class="variable constant_">NG_ASYNC_VALIDATORS</span>,</span><br><span class="line">      <span class="attr">useExisting</span>: <span class="title function_">forwardRef</span>(<span class="function">() =&gt;</span> <span class="title class_">UniqueAlterEgoValidatorDirective</span>),</span><br><span class="line">      <span class="attr">multi</span>: <span class="literal">true</span></span><br><span class="line">    &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">UniqueAlterEgoValidatorDirective</span> <span class="keyword">implements</span> <span class="title class_">AsyncValidator</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> validator: UniqueAlterEgoValidator</span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">validate</span>(</span><br><span class="line">    <span class="attr">control</span>: <span class="title class_">AbstractControl</span></span><br><span class="line">  ): <span class="title class_">Observable</span>&lt;<span class="title class_">ValidationErrors</span> | <span class="literal">null</span>&gt; &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">validator</span>.<span class="title function_">validate</span>(control);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>然后，与使用同步验证器一样，将指令的选择器添加到输入以激活它。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">id</span>=<span class="string">&quot;alterEgo&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">name</span>=<span class="string">&quot;alterEgo&quot;</span></span></span><br><span class="line"><span class="tag">         #<span class="attr">alterEgo</span>=<span class="string">&quot;ngModel&quot;</span></span></span><br><span class="line"><span class="tag">         [(<span class="attr">ngModel</span>)]=<span class="string">&quot;hero.alterEgo&quot;</span></span></span><br><span class="line"><span class="tag">         [<span class="attr">ngModelOptions</span>]=<span class="string">&quot;&#123; updateOn: &#x27;blur&#x27; &#125;&quot;</span></span></span><br><span class="line"><span class="tag">         <span class="attr">appUniqueAlterEgo</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>默认情况下，所有验证程序在每次表单值更改后都会运行。对于同步验证器，这通常不会对应用性能产生明显的影响。但是，异步验证器通常会执行某种 HTTP 请求来验证控件。每次按键后调度一次 HTTP 请求都会给后端 API 带来压力，应该尽可能避免。</p>
+<p>你可以把 updateOn 属性从 change（默认值）改成 submit 或 blur 来推迟表单验证的更新时机。</p>
+<p>使用模板驱动表单时，可以在模板中设置该属性。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> [(<span class="attr">ngModel</span>)]=<span class="string">&quot;name&quot;</span> [<span class="attr">ngModelOptions</span>]=<span class="string">&quot;&#123;updateOn: &#x27;blur&#x27;&#125;&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>使用响应式表单时，可以在 FormControl 实例中设置该属性。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">new</span> <span class="title class_">FormControl</span>(<span class="string">&#x27;&#x27;</span>, &#123;<span class="attr">updateOn</span>: <span class="string">&#x27;blur&#x27;</span>&#125;);</span><br></pre></td></tr></table></figure>
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/angular/" rel="tag"># angular</a>
+          </div>
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/02/08/angular/%E8%A1%A8%E5%8D%95/" rel="prev" title="表单">
+                  <i class="fa fa-chevron-left"></i> 表单
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

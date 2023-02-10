@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leetao50.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="规约模式用于为实体和其他业务对象定义 命名、可复用、可组合和可测试的过滤器 .规约是领域层的一部分. 定义规约你可以创建一个由 Specification 派生的新规约类. 12345678910namespace MyProject&amp;#123;    public class Age18PlusCustomerSpecification : Specification&lt;Customer&amp;g">
+<meta property="og:type" content="article">
+<meta property="og:title" content="规约">
+<meta property="og:url" content="https://leetao50.github.io/2022/12/14/%E8%A7%84%E7%BA%A6/index.html">
+<meta property="og:site_name" content="InfoPool">
+<meta property="og:description" content="规约模式用于为实体和其他业务对象定义 命名、可复用、可组合和可测试的过滤器 .规约是领域层的一部分. 定义规约你可以创建一个由 Specification 派生的新规约类. 12345678910namespace MyProject&amp;#123;    public class Age18PlusCustomerSpecification : Specification&lt;Customer&amp;g">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2022-12-14T03:11:18.000Z">
+<meta property="article:modified_time" content="2022-12-14T03:41:32.368Z">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://leetao50.github.io/2022/12/14/%E8%A7%84%E7%BA%A6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leetao50.github.io/2022/12/14/%E8%A7%84%E7%BA%A6/","path":"2022/12/14/规约/","title":"规约"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>规约 | InfoPool</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">InfoPool</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">私人信息记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9A%E4%B9%89%E8%A7%84%E7%BA%A6"><span class="nav-number">1.</span> <span class="nav-text">定义规约</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%A7%84%E7%BA%A6"><span class="nav-number">2.</span> <span class="nav-text">使用规约</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#IsSatisfiedBy"><span class="nav-number">2.1.</span> <span class="nav-text">IsSatisfiedBy</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ToExpression-amp-Repositories"><span class="nav-number">2.2.</span> <span class="nav-text">ToExpression &amp; Repositories</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BC%96%E5%86%99%E8%A7%84%E7%BA%A6"><span class="nav-number">3.</span> <span class="nav-text">编写规约</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%95%E6%97%B6%E4%BD%BF%E7%94%A8%E8%A7%84%E7%BA%A6"><span class="nav-number">4.</span> <span class="nav-text">何时使用规约</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description">记录信息来源网络，内容只为方便查找，非公开信息，非请勿入</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">17</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2022/12/14/%E8%A7%84%E7%BA%A6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="规约 | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          规约
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2022-12-14 11:11:18 / 修改时间：11:41:32" itemprop="dateCreated datePublished" datetime="2022-12-14T11:11:18+08:00">2022-12-14</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>规约模式用于为实体和其他业务对象定义 命名、可复用、可组合和可测试的过滤器 .<br>规约是领域层的一部分.</p>
+<h2 id="定义规约"><a href="#定义规约" class="headerlink" title="定义规约"></a>定义规约</h2><p>你可以创建一个由 Specification<Customer> 派生的新规约类.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">MyProject</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Age18PlusCustomerSpecification</span> : <span class="title">Specification</span>&lt;<span class="title">Customer</span>&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">override</span> Expression&lt;Func&lt;Customer, <span class="built_in">bool</span>&gt;&gt; ToExpression()</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> c =&gt; c.Age &gt;= <span class="number">18</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你也可以直接实现ISpecification<T>接口,但是基类Specification<T>做了大量简化.</p>
+<h2 id="使用规约"><a href="#使用规约" class="headerlink" title="使用规约"></a>使用规约</h2><p>这里有两种常见的规约用例.</p>
+<h3 id="IsSatisfiedBy"><a href="#IsSatisfiedBy" class="headerlink" title="IsSatisfiedBy"></a>IsSatisfiedBy</h3><p>IsSatisfiedBy 方法可以用于检查单个对象是否满足规约.</p>
+<p>例如:如果顾客不满足年龄规定,则抛出异常</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">MyProject</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CustomerService</span> : <span class="title">ITransientDependency</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">BuyAlcohol</span>(<span class="params">Customer customer</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (!<span class="keyword">new</span> Age18PlusCustomerSpecification().IsSatisfiedBy(customer))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> Exception(</span><br><span class="line">                    <span class="string">&quot;这位顾客不满足年龄规定!&quot;</span></span><br><span class="line">                );</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//TODO...</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="ToExpression-amp-Repositories"><a href="#ToExpression-amp-Repositories" class="headerlink" title="ToExpression &amp; Repositories"></a>ToExpression &amp; Repositories</h3><p>ToExpression() 方法可用于将规约转化为表达式.通过这种方式,你可以使用规约在数据库查询时过滤实体.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">MyProject</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CustomerManager</span> : <span class="title">DomainService</span>, <span class="title">ITransientDependency</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> IRepository&lt;Customer, Guid&gt; _customerRepository;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">CustomerManager</span>(<span class="params">IRepository&lt;Customer, Guid&gt; customerRepository</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            _customerRepository = customerRepository;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">async</span> Task&lt;List&lt;Customer&gt;&gt; GetCustomersCanBuyAlcohol()</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> queryable = <span class="keyword">await</span> _customerRepository.GetQueryableAsync();</span><br><span class="line">            <span class="keyword">var</span> query = queryable.Where(</span><br><span class="line">                <span class="keyword">new</span> Age18PlusCustomerSpecification().ToExpression()</span><br><span class="line">            );</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">await</span> AsyncExecuter.ToListAsync(query);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>规约被正确地转换为SQL&#x2F;数据库查询语句,并且在DBMS端高效执行.虽然它与规约无关,但如果你想了解有关 AsyncExecuter 的更多信息,请参阅仓储文档.</p>
+<p>实际上,没有必要使用 ToExpression() 方法,因为规约会自动转换为表达式.这也会起作用:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> queryable = <span class="keyword">await</span> _customerRepository.GetQueryableAsync();</span><br><span class="line"><span class="keyword">var</span> query = queryable.Where(</span><br><span class="line">    <span class="keyword">new</span> Age18PlusCustomerSpecification()</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<h2 id="编写规约"><a href="#编写规约" class="headerlink" title="编写规约"></a>编写规约</h2><p>规约有一个强大的功能是,它们可以与And、Or、Not以及AndNot扩展方法组合使用.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">MyProject</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">PremiumCustomerSpecification</span> : <span class="title">Specification</span>&lt;<span class="title">Customer</span>&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">override</span> Expression&lt;Func&lt;Customer, <span class="built_in">bool</span>&gt;&gt; ToExpression()</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> (customer) =&gt; (customer.Balance &gt;= <span class="number">100000</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">你可以将 PremiumCustomerSpecification 和 Age18PlusCustomerSpecification 结合起来,查询优质成人顾客的数量,如下所示:</span><br><span class="line"></span><br><span class="line">~~~C<span class="meta">#</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">MyProject</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CustomerManager</span> : <span class="title">DomainService</span>, <span class="title">ITransientDependency</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> IRepository&lt;Customer, Guid&gt; _customerRepository;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">CustomerManager</span>(<span class="params">IRepository&lt;Customer, Guid&gt; customerRepository</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            _customerRepository = customerRepository;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task&lt;<span class="built_in">int</span>&gt; <span class="title">GetAdultPremiumCustomerCountAsync</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">await</span> _customerRepository.CountAsync(</span><br><span class="line">                <span class="keyword">new</span> Age18PlusCustomerSpecification()</span><br><span class="line">                .And(<span class="keyword">new</span> PremiumCustomerSpecification()).ToExpression()</span><br><span class="line">            );</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果你想让这个组合成为一个可复用的规约,你可以创建这样一个组合的规约类,它派生自AndSpecification:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> Volo.Abp.Specifications;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">MyProject</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">AdultPremiumCustomerSpecification</span> : <span class="title">AndSpecification</span>&lt;<span class="title">Customer</span>&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">AdultPremiumCustomerSpecification</span>() </span></span><br><span class="line"><span class="function">            : <span class="title">base</span>(<span class="params"><span class="keyword">new</span> Age18PlusCustomerSpecification(</span>),</span></span><br><span class="line"><span class="function">                   <span class="keyword">new</span> <span class="title">PremiumCustomerSpecification</span>())</span></span><br><span class="line">        &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="何时使用规约"><a href="#何时使用规约" class="headerlink" title="何时使用规约"></a>何时使用规约</h2><p>使用规约的一些好处:</p>
+<ul>
+<li>可复用:假设你在代码库的许多地方都需要用到优质顾客过滤器.如果使用表达式而不创建规约,那么如果以后更改“优质顾客”的定义会发生什么?假设你想将最低余额从100000美元更改为250000美元,并添加另一个条件,成为顾客超过3年.如果使用了规约,只需修改一个类.如果在任何其他地方重复（复制&#x2F;粘贴）相同的表达式,则需要更改所有的表达式.</li>
+<li>可组合:可以组合多个规约来创建新规约.这是另一种可复用性.</li>
+<li>可命名:PremiumCustomerSpecification 更好地解释了为什么使用规约,而不是复杂的表达式.因此,如果在你的业务中使用了一个有意义的表达式,请考虑使用规约.</li>
+<li>可测试:规约是一个单独（且易于）测试的对象.</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2022/12/14/%E9%A2%86%E5%9F%9F%E6%9C%8D%E5%8A%A1/" rel="prev" title="领域服务">
+                  <i class="fa fa-chevron-left"></i> 领域服务
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2022/12/14/%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1/" rel="next" title="应用服务">
+                  应用服务 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

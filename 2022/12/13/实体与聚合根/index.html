@@ -28,7 +28,7 @@
 <meta property="og:description" content="实体实体通常映射成关系数据库中的表。 实体类实体派生于Entity&lt;TKey&gt;类，如下所示： 123456public class Book : Entity&lt;Guid&gt;&amp;#123;    public string Name &amp;#123; get; set; &amp;#125;    public float Price &amp;#123; get; set; &amp;#125;&amp;#125">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-12-13T07:56:39.000Z">
-<meta property="article:modified_time" content="2022-12-14T00:57:24.220Z">
+<meta property="article:modified_time" content="2022-12-15T08:35:44.450Z">
 <meta name="twitter:card" content="summary">
 
 
@@ -108,7 +108,7 @@
       <div class="sidebar-panel-container">
         <!--noindex-->
         <div class="post-toc-wrap sidebar-panel">
-            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E4%BD%93"><span class="nav-number">1.</span> <span class="nav-text">实体</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BD%93%E7%B1%BB"><span class="nav-number">1.1.</span> <span class="nav-text">实体类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Guid%E4%B8%BB%E9%94%AE%E7%9A%84%E5%AE%9E%E4%BD%93"><span class="nav-number">1.1.1.</span> <span class="nav-text">Guid主键的实体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B7%E6%9C%89%E5%A4%8D%E5%90%88%E9%94%AE%E7%9A%84%E5%AE%9E%E4%BD%93"><span class="nav-number">1.1.2.</span> <span class="nav-text">具有复合键的实体</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%81%9A%E5%90%88%E6%A0%B9"><span class="nav-number">1.2.</span> <span class="nav-text">聚合根</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%9A%E5%90%88%E6%A0%B9%E4%BE%8B%E5%AD%90"><span class="nav-number">1.2.1.</span> <span class="nav-text">聚合根例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%A6%E6%9C%89%E7%BB%84%E5%90%88%E9%94%AE%E7%9A%84%E8%81%9A%E5%90%88%E6%A0%B9"><span class="nav-number">1.2.2.</span> <span class="nav-text">带有组合键的聚合根</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BasicAggregateRoot%E7%B1%BB"><span class="nav-number">1.2.3.</span> <span class="nav-text">BasicAggregateRoot类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%9D%E5%A4%96%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="nav-number">1.3.</span> <span class="nav-text">额外的属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GetProperty-%E5%92%8C-SetProperty-%E6%89%A9%E5%B1%95%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.1.</span> <span class="nav-text">GetProperty 和 SetProperty 扩展方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%80%BC%E5%AF%B9%E8%B1%A1"><span class="nav-number">2.</span> <span class="nav-text">值对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%80%BC%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%B1%BB"><span class="nav-number">2.1.</span> <span class="nav-text">值对象的类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">2.2.</span> <span class="nav-text">最佳实践</span></a></li></ol></li></ol></div>
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E4%BD%93"><span class="nav-number">1.</span> <span class="nav-text">实体</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AE%9E%E4%BD%93%E7%B1%BB"><span class="nav-number">1.1.</span> <span class="nav-text">实体类</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#Guid%E4%B8%BB%E9%94%AE%E7%9A%84%E5%AE%9E%E4%BD%93"><span class="nav-number">1.1.1.</span> <span class="nav-text">Guid主键的实体</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%85%B7%E6%9C%89%E5%A4%8D%E5%90%88%E9%94%AE%E7%9A%84%E5%AE%9E%E4%BD%93"><span class="nav-number">1.1.2.</span> <span class="nav-text">具有复合键的实体</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%81%9A%E5%90%88%E6%A0%B9"><span class="nav-number">1.2.</span> <span class="nav-text">聚合根</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%81%9A%E5%90%88%E6%A0%B9%E4%BE%8B%E5%AD%90"><span class="nav-number">1.2.1.</span> <span class="nav-text">聚合根例子</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%A6%E6%9C%89%E7%BB%84%E5%90%88%E9%94%AE%E7%9A%84%E8%81%9A%E5%90%88%E6%A0%B9"><span class="nav-number">1.2.2.</span> <span class="nav-text">带有组合键的聚合根</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#BasicAggregateRoot%E7%B1%BB"><span class="nav-number">1.2.3.</span> <span class="nav-text">BasicAggregateRoot类</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%A2%9D%E5%A4%96%E7%9A%84%E5%B1%9E%E6%80%A7"><span class="nav-number">1.3.</span> <span class="nav-text">额外的属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#GetProperty-%E5%92%8C-SetProperty-%E6%89%A9%E5%B1%95%E6%96%B9%E6%B3%95"><span class="nav-number">1.3.1.</span> <span class="nav-text">GetProperty 和 SetProperty 扩展方法</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%80%BC%E5%AF%B9%E8%B1%A1"><span class="nav-number">2.</span> <span class="nav-text">值对象</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%80%BC%E5%AF%B9%E8%B1%A1%E7%9A%84%E7%B1%BB"><span class="nav-number">2.1.</span> <span class="nav-text">值对象的类</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5"><span class="nav-number">2.2.</span> <span class="nav-text">最佳实践</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">3.</span> <span class="nav-text">总结</span></a></li></ol></div>
         </div>
         <!--/noindex-->
 
@@ -121,9 +121,13 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">8</span>
+          <span class="site-state-item-count">17</span>
           <span class="site-state-item-name">日志</span>
         </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">1</span>
+        <span class="site-state-item-name">标签</span>
       </div>
   </nav>
 </div>
@@ -197,7 +201,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-12-14 08:57:24" itemprop="dateModified" datetime="2022-12-14T08:57:24+08:00">2022-12-14</time>
+      <time title="修改时间：2022-12-15 16:35:44" itemprop="dateModified" datetime="2022-12-15T16:35:44+08:00">2022-12-15</time>
     </span>
 
   
@@ -265,6 +269,11 @@
 <li>如果没有充分的理由将值对象设计为可变的,则将其设计为不可变（如上面的地址）.</li>
 <li>构成一个值对象的属性应该形成一个概念整体.例如：CityId,Street和Number不应是个人实体的单独属性.这也使Person实体更简</li>
 </ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>当实体属性，没有业务规则或其他限制条件时，属性应该设置为 public；</li>
+<li>当实体属性，只有简单的限制条件时(不需要根据数据库或其他实体判断)，属性应该设置为 private；在实体上创建修改方法，不要在领域层中创建；</li>
+<li>当实体属性，有复杂业务规则限制时，属性应该设置为 interal；在领域层，创建修改方法；</li>
+</ul>
 
     </div>
 
@@ -306,7 +315,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2022</span>
+  <span itemprop="copyrightYear">2023</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
