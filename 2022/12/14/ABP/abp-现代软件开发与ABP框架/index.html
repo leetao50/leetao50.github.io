@@ -23,20 +23,20 @@
     <meta name="description" content="构建软件系统一直很复杂。尤其是在现代，即使是创建一个基本的业务解决方案，也面临着许多挑战。您通常会发现自己实现了标准的非业务需求，并深入研究了基础架构问题，而不是实现了业务代码（这是您试图构建的系统中真正有价值的部分）。 ABP框架通过提供强大的软件架构、自动化重复的细节以及提供必要的基础设施来帮助构建现代web解决方案，帮助您专注于为利益相关者增加价值的代码。它提供了端到端、一致的开发体验，并提">
 <meta property="og:type" content="article">
 <meta property="og:title" content="abp-现代软件开发与ABP框架">
-<meta property="og:url" content="https://leetao50.github.io/2022/12/14/abp-%E7%8E%B0%E4%BB%A3%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%8EABP%E6%A1%86%E6%9E%B6/index.html">
+<meta property="og:url" content="https://leetao50.github.io/2022/12/14/ABP/abp-%E7%8E%B0%E4%BB%A3%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%8EABP%E6%A1%86%E6%9E%B6/index.html">
 <meta property="og:site_name" content="InfoPool">
 <meta property="og:description" content="构建软件系统一直很复杂。尤其是在现代，即使是创建一个基本的业务解决方案，也面临着许多挑战。您通常会发现自己实现了标准的非业务需求，并深入研究了基础架构问题，而不是实现了业务代码（这是您试图构建的系统中真正有价值的部分）。 ABP框架通过提供强大的软件架构、自动化重复的细节以及提供必要的基础设施来帮助构建现代web解决方案，帮助您专注于为利益相关者增加价值的代码。它提供了端到端、一致的开发体验，并提">
 <meta property="og:locale" content="zh_CN">
 <meta property="article:published_time" content="2022-12-14T09:36:00.000Z">
-<meta property="article:modified_time" content="2022-12-15T02:13:25.747Z">
+<meta property="article:modified_time" content="2023-03-11T09:56:10.241Z">
 <meta name="twitter:card" content="summary">
 
 
-<link rel="canonical" href="https://leetao50.github.io/2022/12/14/abp-%E7%8E%B0%E4%BB%A3%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%8EABP%E6%A1%86%E6%9E%B6/">
+<link rel="canonical" href="https://leetao50.github.io/2022/12/14/ABP/abp-%E7%8E%B0%E4%BB%A3%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%8EABP%E6%A1%86%E6%9E%B6/">
 
 
 
-<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leetao50.github.io/2022/12/14/abp-%E7%8E%B0%E4%BB%A3%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%8EABP%E6%A1%86%E6%9E%B6/","path":"2022/12/14/abp-现代软件开发与ABP框架/","title":"abp-现代软件开发与ABP框架"}</script>
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leetao50.github.io/2022/12/14/ABP/abp-%E7%8E%B0%E4%BB%A3%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%8EABP%E6%A1%86%E6%9E%B6/","path":"2022/12/14/ABP/abp-现代软件开发与ABP框架/","title":"abp-现代软件开发与ABP框架"}</script>
 
 <script class="next-config" data-name="calendar" type="application/json">""</script>
 <title>abp-现代软件开发与ABP框架 | InfoPool</title>
@@ -120,7 +120,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">18</span>
+          <span class="site-state-item-count">20</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -164,7 +164,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2022/12/14/abp-%E7%8E%B0%E4%BB%A3%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%8EABP%E6%A1%86%E6%9E%B6/">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2022/12/14/ABP/abp-%E7%8E%B0%E4%BB%A3%E8%BD%AF%E4%BB%B6%E5%BC%80%E5%8F%91%E4%B8%8EABP%E6%A1%86%E6%9E%B6/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -200,7 +200,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2022-12-15 10:13:25" itemprop="dateModified" datetime="2022-12-15T10:13:25+08:00">2022-12-15</time>
+      <time title="修改时间：2023-03-11 17:56:10" itemprop="dateModified" datetime="2023-03-11T17:56:10+08:00">2023-03-11</time>
     </span>
 
   
@@ -228,7 +228,7 @@
 
           <div class="post-nav">
             <div class="post-nav-item">
-                <a href="/2022/12/14/%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93%E5%AF%B9%E8%B1%A1/" rel="prev" title="数据传输对象">
+                <a href="/2022/12/14/ABP/%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93%E5%AF%B9%E8%B1%A1/" rel="prev" title="数据传输对象">
                   <i class="fa fa-chevron-left"></i> 数据传输对象
                 </a>
             </div>
