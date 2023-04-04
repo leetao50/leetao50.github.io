@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leetao50.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="指令是为 Angular 应用程序中的元素添加额外行为的类。使用 Angular 的内置指令，你可以管理表单、列表、样式以及要让用户看到的任何内容。 Angular 指令的不同类型如下：    指令类型 详情    组件 带有模板的指令。这种指令类型是最常见的指令类型。   属性型指令 更改元素、组件或其他指令的外观或行为的指令。   结构型指令 通过添加和删除 DOM 元素来更改 DOM 布局。">
+<meta property="og:type" content="article">
+<meta property="og:title" content="指令">
+<meta property="og:url" content="https://leetao50.github.io/2023/03/20/angular/%E6%8C%87%E4%BB%A4/index.html">
+<meta property="og:site_name" content="InfoPool">
+<meta property="og:description" content="指令是为 Angular 应用程序中的元素添加额外行为的类。使用 Angular 的内置指令，你可以管理表单、列表、样式以及要让用户看到的任何内容。 Angular 指令的不同类型如下：    指令类型 详情    组件 带有模板的指令。这种指令类型是最常见的指令类型。   属性型指令 更改元素、组件或其他指令的外观或行为的指令。   结构型指令 通过添加和删除 DOM 元素来更改 DOM 布局。">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-03-20T09:42:13.000Z">
+<meta property="article:modified_time" content="2023-03-22T09:15:44.779Z">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://leetao50.github.io/2023/03/20/angular/%E6%8C%87%E4%BB%A4/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leetao50.github.io/2023/03/20/angular/%E6%8C%87%E4%BB%A4/","path":"2023/03/20/angular/指令/","title":"指令"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>指令 | InfoPool</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">InfoPool</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">私人信息记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E7%BD%AE%E5%B1%9E%E6%80%A7%E5%9E%8B%E6%8C%87%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">内置属性型指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%86%85%E7%BD%AE%E7%BB%93%E6%9E%84%E5%9E%8B%E6%8C%87%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">内置结构型指令</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B1%9E%E6%80%A7%E5%9E%8B%E6%8C%87%E4%BB%A4"><span class="nav-number"></span> <span class="nav-text">属性型指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BB%BA%E7%AB%8B%E5%B1%9E%E6%80%A7%E5%9E%8B%E6%8C%87%E4%BB%A4"><span class="nav-number">1.</span> <span class="nav-text">建立属性型指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BA%94%E7%94%A8%E5%B1%9E%E6%80%A7%E5%9E%8B%E6%8C%87%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">应用属性型指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%84%E7%90%86%E7%94%A8%E6%88%B7%E4%BA%8B%E4%BB%B6"><span class="nav-number">3.</span> <span class="nav-text">处理用户事件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E5%80%BC%E4%BC%A0%E9%80%92%E7%BB%99%E5%B1%9E%E6%80%A7%E5%9E%8B%E6%8C%87%E4%BB%A4"><span class="nav-number">4.</span> <span class="nav-text">将值传递给属性型指令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%91%E5%AE%9A%E5%88%B0%E7%AC%AC%E4%BA%8C%E4%B8%AA%E5%B1%9E%E6%80%A7"><span class="nav-number">5.</span> <span class="nav-text">绑定到第二个属性</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ElementRef"><span class="nav-number"></span> <span class="nav-text">ElementRef</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%A7%86%E5%9B%BE"><span class="nav-number"></span> <span class="nav-text">视图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#ViewRef"><span class="nav-number">1.</span> <span class="nav-text">ViewRef</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%86%E5%9B%BE%E6%A0%91%EF%BC%88View-hierarchy%EF%BC%89"><span class="nav-number">2.</span> <span class="nav-text">视图树（View hierarchy）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#EmbeddedViewRef"><span class="nav-number">3.</span> <span class="nav-text">EmbeddedViewRef</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E"><span class="nav-number">3.1.</span> <span class="nav-text">使用说明</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#TemplateRef"><span class="nav-number">3.2.</span> <span class="nav-text">TemplateRef</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ViewContainerRef"><span class="nav-number">4.</span> <span class="nav-text">ViewContainerRef</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#ViewChild"><span class="nav-number">5.</span> <span class="nav-text">ViewChild</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%BB%93%E6%9E%84%E5%9E%8B%E6%8C%87%E4%BB%A4"><span class="nav-number"></span> <span class="nav-text">结构型指令</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%93%E6%9E%84%E5%9E%8B%E6%8C%87%E4%BB%A4%E7%AE%80%E5%86%99%E5%BD%A2%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">结构型指令简写形式</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E7%BB%93%E6%9E%84%E5%9E%8B%E6%8C%87%E4%BB%A4"><span class="nav-number">2.</span> <span class="nav-text">创建结构型指令</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description">记录信息来源网络，内容只为方便查找，非公开信息，非请勿入</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/03/20/angular/%E6%8C%87%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="指令 | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          指令
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-03-20 17:42:13" itemprop="dateCreated datePublished" datetime="2023-03-20T17:42:13+08:00">2023-03-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-03-22 17:15:44" itemprop="dateModified" datetime="2023-03-22T17:15:44+08:00">2023-03-22</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>指令是为 Angular 应用程序中的元素添加额外行为的类。使用 Angular 的内置指令，你可以管理表单、列表、样式以及要让用户看到的任何内容。</p>
+<p>Angular 指令的不同类型如下：</p>
+<table>
+<thead>
+<tr>
+<th>指令类型</th>
+<th>详情</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>组件</td>
+<td>带有模板的指令。这种指令类型是最常见的指令类型。</td>
+</tr>
+<tr>
+<td>属性型指令</td>
+<td>更改元素、组件或其他指令的外观或行为的指令。</td>
+</tr>
+<tr>
+<td>结构型指令</td>
+<td>通过添加和删除 DOM 元素来更改 DOM 布局。</td>
+</tr>
+</tbody></table>
+<h2 id="内置属性型指令"><a href="#内置属性型指令" class="headerlink" title="内置属性型指令"></a>内置属性型指令</h2><p>属性型指令会监听并修改其它 HTML 元素和组件的行为、Attribute 和 Property。</p>
+<table>
+<thead>
+<tr>
+<th>通用指令</th>
+<th>详情</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>NgClass</td>
+<td>添加和删除一组 CSS 类。</td>
+</tr>
+<tr>
+<td>NgStyle</td>
+<td>添加和删除一组 HTML 样式。</td>
+</tr>
+<tr>
+<td>NgModel</td>
+<td>将双向数据绑定添加到 HTML 表单元素。</td>
+</tr>
+</tbody></table>
+<h2 id="内置结构型指令"><a href="#内置结构型指令" class="headerlink" title="内置结构型指令"></a>内置结构型指令</h2><p>结构型指令的职责是 HTML 布局。它们塑造或重塑 DOM 的结构，这通常是通过添加、移除和操纵它们所附加到的宿主元素来实现的。</p>
+<table>
+<thead>
+<tr>
+<th>常见的内置结构型指令</th>
+<th>详情</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>NgIf</td>
+<td>有条件地从模板创建或销毁子视图。</td>
+</tr>
+<tr>
+<td>NgFor</td>
+<td>为列表中的每个条目重复渲染一个节点。</td>
+</tr>
+<tr>
+<td>NgSwitch</td>
+<td>一组在备用视图之间切换的指令。</td>
+</tr>
+</tbody></table>
+<h1 id="属性型指令"><a href="#属性型指令" class="headerlink" title="属性型指令"></a>属性型指令</h1><p>使用属性型指令，可以更改 DOM 元素和 Angular 组件的外观或行为。</p>
+<h2 id="建立属性型指令"><a href="#建立属性型指令" class="headerlink" title="建立属性型指令"></a>建立属性型指令</h2><ol>
+<li><p>要创建指令，请使用 CLI 命令 ng generate directive</p>
+<p>CLI 创建 src&#x2F;app&#x2F;highlight.directive.ts 以及相应的测试文件 src&#x2F;app&#x2F;highlight.directive.spec.ts，并在 AppModule 中声明此指令类。<br>CLI 生成默认的 src&#x2F;app&#x2F;highlight.directive.ts，如下所示：</p>
+</li>
+</ol>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">import</span> &#123; <span class="title class_">Directive</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"> <span class="meta">@Directive</span>(&#123;</span><br><span class="line">    <span class="attr">selector</span>: <span class="string">&#x27;[appHighlight]&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">HighlightDirective</span> &#123;</span><br><span class="line"><span class="title function_">constructor</span>(<span class="params"></span>) &#123; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>@Directive() 装饰器的配置属性会指定指令的 CSS 属性选择器 [appHighlight]。</p>
+<ol start="2">
+<li><p>从 @angular&#x2F;core 导入 ElementRef。ElementRef 的 nativeElement 属性会提供对宿主 DOM 元素的直接访问权限。</p>
+</li>
+<li><p>在指令的 constructor() 中添加 ElementRef 以注入对宿主 DOM 元素的引用，该元素就是 appHighlight 的作用目标。</p>
+</li>
+<li><p>向 HighlightDirective 类中添加逻辑，将背景设置为黄色。</p>
+</li>
+</ol>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Directive</span>, <span class="title class_">ElementRef</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Directive</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;[appHighlight]&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">HighlightDirective</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> el: ElementRef</span>) &#123;</span><br><span class="line">       <span class="variable language_">this</span>.<span class="property">el</span>.<span class="property">nativeElement</span>.<span class="property">style</span>.<span class="property">backgroundColor</span> = <span class="string">&#x27;yellow&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="应用属性型指令"><a href="#应用属性型指令" class="headerlink" title="应用属性型指令"></a>应用属性型指令</h2><ol>
+<li>要使用 HighlightDirective，请将 <p> 元素添加到 HTML 模板中，并以伪指令作为属性。</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">appHighlight</span>&gt;</span>Highlight me!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>Angular 会创建 HighlightDirective 类的实例，并将 <code>&lt;p&gt;</code> 元素的引用注入到该指令的构造函数中，它会将 <code>&lt;p&gt;</code> 元素的背景样式设置为黄色。</p>
+<h2 id="处理用户事件"><a href="#处理用户事件" class="headerlink" title="处理用户事件"></a>处理用户事件</h2><p>添加两个事件处理程序，它们会在鼠标进入或离开时做出响应，每个事件处理程序都带有 @HostListener() 装饰器。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@HostListener</span>(<span class="string">&#x27;mouseenter&#x27;</span>) <span class="title function_">onMouseEnter</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">highlight</span>(<span class="string">&#x27;yellow&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@HostListener</span>(<span class="string">&#x27;mouseleave&#x27;</span>) <span class="title function_">onMouseLeave</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">highlight</span>(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="title function_">highlight</span>(<span class="params">color: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">el</span>.<span class="property">nativeElement</span>.<span class="property">style</span>.<span class="property">backgroundColor</span> = color;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>要订阅本属性型指令宿主 DOM 元素上的事件（在本例中是 <code>&lt;p&gt;</code>），可以使用 @HostListener() 装饰器。</p>
+<p>完整的指令如下：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Directive</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;[appHighlight]&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">HighlightDirective</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> el: ElementRef</span>) &#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@HostListener</span>(<span class="string">&#x27;mouseenter&#x27;</span>) <span class="title function_">onMouseEnter</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">highlight</span>(<span class="string">&#x27;yellow&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@HostListener</span>(<span class="string">&#x27;mouseleave&#x27;</span>) <span class="title function_">onMouseLeave</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">highlight</span>(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="title function_">highlight</span>(<span class="params">color: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">el</span>.<span class="property">nativeElement</span>.<span class="property">style</span>.<span class="property">backgroundColor</span> = color;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当指针悬停在 p 元素上时，背景颜色就会出现；而当指针移出时，背景颜色就会消失。</p>
+<h2 id="将值传递给属性型指令"><a href="#将值传递给属性型指令" class="headerlink" title="将值传递给属性型指令"></a>将值传递给属性型指令</h2><p>本节将引导你在应用 HighlightDirective 时设置突出显示颜色。</p>
+<ol>
+<li>在 highlight.directive.ts 中，从 @angular&#x2F;core 导入 Input。</li>
+</ol>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Directive</span>, <span class="title class_">ElementRef</span>, <span class="title class_">HostListener</span>, <span class="title class_">Input</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li><p>添加一个 appHighlight 的 @Input() 属性。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Input</span>() appHighlight = <span class="string">&#x27;&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>@Input() 装饰器会将元数据添加到此类，以便让该指令的 appHighlight 属性可用于绑定。</p>
+</li>
+<li><p>在 app.component.ts，将 color 属性添加到 AppComponent。</p>
+</li>
+</ol>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br><span class="line">  color = <span class="string">&#x27;yellow&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>要同时应用指令和颜色，请通过 appHighlight 指令选择器使用属性绑定，将其设置为 color。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> [<span class="attr">appHighlight</span>]=<span class="string">&quot;color&quot;</span>&gt;</span>Highlight me!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>[appHighlight] 属性绑定执行两项任务：</p>
+<p>将突出显示指令应用于 <code>&lt;p&gt;</code> 元素</p>
+<p>通过属性绑定设置指令的突出显示颜色</p>
+<p>通过用户输入来设置值<br>本节指导你添加单选按钮，将你选择的颜色绑定到 appHighlight 指令。</p>
+<p>将标记添加到 app.component.html 以选择颜色，如下所示：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>My First Attribute Directive<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>Pick a highlight color<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;colors&quot;</span> (<span class="attr">click</span>)=<span class="string">&quot;color=&#x27;lightgreen&#x27;&quot;</span>&gt;</span>Green</span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;colors&quot;</span> (<span class="attr">click</span>)=<span class="string">&quot;color=&#x27;yellow&#x27;&quot;</span>&gt;</span>Yellow</span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;colors&quot;</span> (<span class="attr">click</span>)=<span class="string">&quot;color=&#x27;cyan&#x27;&quot;</span>&gt;</span>Cyan</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> [<span class="attr">appHighlight</span>]=<span class="string">&quot;color&quot;</span>&gt;</span>Highlight me!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>修改 AppComponent.color，使其没有初始值。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br><span class="line">  color = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在 highlight.directive.ts 中，修改 onMouseEnter 方法，让它首先尝试使用 appHighlight 进行高亮显示，如果 appHighlight 是 undefined，则回退为 red。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@HostListener</span>(<span class="string">&#x27;mouseenter&#x27;</span>) <span class="title function_">onMouseEnter</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">highlight</span>(<span class="variable language_">this</span>.<span class="property">appHighlight</span> || <span class="string">&#x27;red&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>启动本应用的开发服务器，以验证用户可以通过单选按钮选择颜色。</p>
+<h2 id="绑定到第二个属性"><a href="#绑定到第二个属性" class="headerlink" title="绑定到第二个属性"></a>绑定到第二个属性</h2><p>本节将指导你配置应用程序，以便开发人员可以设置默认颜色。</p>
+<ol>
+<li>将第二个 Input() 属性 defaultColor 添加到 HighlightDirective。</li>
+</ol>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Input</span>() defaultColor = <span class="string">&#x27;&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<ol start="2">
+<li>修改指令的 onMouseEnter，使其首先尝试使用 appHighlight 进行突出显示，然后尝试 defaultColor，如果两个属性都 undefined，则变回 red。<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@HostListener</span>(<span class="string">&#x27;mouseenter&#x27;</span>) <span class="title function_">onMouseEnter</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">highlight</span>(<span class="variable language_">this</span>.<span class="property">appHighlight</span> || <span class="variable language_">this</span>.<span class="property">defaultColor</span> || <span class="string">&#x27;red&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+若要绑定到 AppComponent.color 并回退为默认颜色“紫罗兰（violet）”，请添加以下 HTML。在这里，defaultColor 绑定没有使用方括号 []，因为它是静态的。<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> [<span class="attr">appHighlight</span>]=<span class="string">&quot;color&quot;</span> <span class="attr">defaultColor</span>=<span class="string">&quot;violet&quot;</span>&gt;</span></span><br><span class="line">  Highlight me too!</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+与组件一样，你可以将指令的多个属性绑定添加到宿主元素上。</li>
+</ol>
+<p>如果没有默认颜色（defaultColor）绑定，则默认为红色。当用户选择一种颜色时，所选的颜色将成为突出显示的颜色。</p>
+<h1 id="ElementRef"><a href="#ElementRef" class="headerlink" title="ElementRef"></a>ElementRef</h1><p>对视图中某个原生元素的包装器。</p>
+<p>ElementRef 的背后是一个可渲染的具体元素。在浏览器中，它通常是一个 DOM 元素。</p>
+<h1 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h1><p>组件 (component) 类及其关联的模板 (template)定义了一个视图。 </p>
+<p>视图是可显示元素的最小分组单位，它们会被同时创建和销毁。 Angular 在一个或多个指令 (directive) 的控制下渲染视图。</p>
+<p>具体实现上，视图由一个与该组件相关的 ViewRef 实例表示。 直属于某个组件的视图叫做宿主视图。 通常会把视图组织成一些视图树（view hierarchies）。</p>
+<h2 id="ViewRef"><a href="#ViewRef" class="headerlink" title="ViewRef"></a>ViewRef</h2><p>表示一个 Angular 视图</p>
+<h2 id="视图树（View-hierarchy）"><a href="#视图树（View-hierarchy）" class="headerlink" title="视图树（View hierarchy）"></a>视图树（View hierarchy）</h2><p>一棵相关视图的树，它们可以作为一个整体行动。其根视图就是组件的宿主视图。宿主视图可以是内嵌视图树的根，它被收集到了宿主组件上的一个视图容器（ViewContainerRef）中。视图树是 Angular 变更检测的关键部件之一。</p>
+<p>视图树和组件树并不是一一对应的。那些嵌入到指定视图树上下文中的视图也可能是其它组件的宿主视图。那些组件可能和宿主组件位于同一个 NgModule 中，也可能属于其它 NgModule。</p>
+<h2 id="EmbeddedViewRef"><a href="#EmbeddedViewRef" class="headerlink" title="EmbeddedViewRef"></a>EmbeddedViewRef</h2><p>表示视图容器中的 Angular 视图。嵌入视图可以从在模板中定义它的宿主组件之外的组件中引用，也可以由 TemplateRef 进行独立定义。</p>
+<h3 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h3><p>以下模板分为两个单独的 TemplateRef 实例，一个外部实例和一个内部实例。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Count: &#123;&#123;items.length&#125;&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> *<span class="attr">ngFor</span>=<span class="string">&quot;let  item of items&quot;</span>&gt;</span>&#123;&#123;item&#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这是外部 TemplateRef ：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Count: &#123;&#123;items.length&#125;&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ng-template</span> <span class="attr">ngFor</span> <span class="attr">let-item</span> [<span class="attr">ngForOf</span>]=<span class="string">&quot;items&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">ng-template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>这是内部的 TemplateRef ：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;&#123;item&#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>外部和内部 TemplateRef 实例按如下方式组装到视图中：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- ViewRef: outer-0 --&gt;</span></span><br><span class="line">Count: 2</span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ng-template</span> <span class="attr">view-container-ref</span>&gt;</span><span class="tag">&lt;/<span class="name">ng-template</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- ViewRef: inner-1 --&gt;</span><span class="tag">&lt;<span class="name">li</span>&gt;</span>first<span class="tag">&lt;/<span class="name">li</span>&gt;</span><span class="comment">&lt;!-- /ViewRef: inner-1 --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- ViewRef: inner-2 --&gt;</span><span class="tag">&lt;<span class="name">li</span>&gt;</span>second<span class="tag">&lt;/<span class="name">li</span>&gt;</span><span class="comment">&lt;!-- /ViewRef: inner-2 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- /ViewRef: outer-0 --&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="TemplateRef"><a href="#TemplateRef" class="headerlink" title="TemplateRef"></a>TemplateRef</h3><p>表示一个内嵌模板，它可用于实例化内嵌的视图。 要想根据模板实例化内嵌的视图，请使用 ViewContainerRef 的 createEmbeddedView() 方法。</p>
+<p>通过把一个指令放在 <code>&lt;ng-template&gt;</code> 元素（或一个带 * 前缀的指令）上，可以访问 TemplateRef 的实例。 内嵌视图的 TemplateRef 实例会以 TemplateRef 作为令牌，注入到该指令的构造函数中。</p>
+<p>你还可以使用 Query 来找出与某个组件或指令相关的 TemplateRef。</p>
+<h2 id="ViewContainerRef"><a href="#ViewContainerRef" class="headerlink" title="ViewContainerRef"></a>ViewContainerRef</h2><p>表示可以将一个或多个视图附着到组件中的容器。</p>
+<p>可以包含宿主视图（当用 createComponent() 方法实例化组件时创建）和内嵌视图（当用 createEmbeddedView() 方法实例化 TemplateRef 时创建）。</p>
+<p>视图容器的实例还可以包含其它视图容器，以创建层次化视图。</p>
+<p>可以在元素上放置注入了 ViewContainerRef 的 Directive 来访问元素的 ViewContainerRef。也可以使用 ViewChild 进行查询。</p>
+<h2 id="ViewChild"><a href="#ViewChild" class="headerlink" title="ViewChild"></a>ViewChild</h2><p>属性装饰器，用于配置一个视图查询。 变更检测器会在视图的 DOM 中查找能匹配上该选择器的第一个元素或指令。 如果视图的 DOM 发生了变化，出现了匹配该选择器的新的子节点，该属性就会被更新。</p>
+<h1 id="结构型指令"><a href="#结构型指令" class="headerlink" title="结构型指令"></a>结构型指令</h1><h2 id="结构型指令简写形式"><a href="#结构型指令简写形式" class="headerlink" title="结构型指令简写形式"></a>结构型指令简写形式</h2><p>应用结构指令时，它们通常以星号 * 为前缀，例如 *ngIf。本约定是 Angular 解释并转换为更长形式的速记。Angular 会将结构指令前面的星号转换为围绕宿主元素及其后代的 <code>&lt;ng-template&gt;</code>。</p>
+<h2 id="创建结构型指令"><a href="#创建结构型指令" class="headerlink" title="创建结构型指令"></a>创建结构型指令</h2><p>本节将指导你创建 UnlessDirective 以及如何设置 condition 值。UnlessDirective 与 NgIf 相反，并且 condition 值可以设置为 true 或 false。NgIf 为 true 时显示模板内容；而 UnlessDirective 在这个条件为 false 时显示内容。</p>
+<p>以下是应用于 p 元素的 UnlessDirective 选择器 appUnless 当 condition 为 false，浏览器将显示该句子。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> *<span class="attr">appUnless</span>=<span class="string">&quot;condition&quot;</span>&gt;</span>Show this sentence unless the condition is true.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>使用 Angular CLI，运行以下命令，其中 unless 是伪指令的名称：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng generate directive unless</span><br></pre></td></tr></table></figure>
+<p>Angular 会创建指令类，并指定 CSS 选择器 appUnless，它会在模板中标识指令。</p>
+<p>导入 Input、TemplateRef 和 ViewContainerRef。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Directive</span>, <span class="title class_">Input</span>, <span class="title class_">TemplateRef</span>, <span class="title class_">ViewContainerRef</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Directive</span>(&#123; <span class="attr">selector</span>: <span class="string">&#x27;[appUnless]&#x27;</span>&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">UnlessDirective</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在指令的构造函数中将 TemplateRef 和 ViewContainerRef 注入成私有变量。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">constructor</span>(<span class="params"></span></span><br><span class="line"><span class="params">  <span class="keyword">private</span> templateRef: TemplateRef&lt;<span class="built_in">any</span>&gt;,</span></span><br><span class="line"><span class="params">  <span class="keyword">private</span> viewContainer: ViewContainerRef</span>) &#123; &#125;</span><br></pre></td></tr></table></figure>
+<p>UnlessDirective 会通过 Angular 生成的 <code>&lt;ng-template&gt;</code> 创建一个嵌入的视图，然后将该视图插入到该指令的原始<code>&lt;p&gt;</code>宿主元素紧后面的视图容器中。</p>
+<p>TemplateRef可帮助你获取 <code>&lt;ng-template&gt; </code>的内容，而 ViewContainerRef 可以访问视图容器。</p>
+<p>添加一个带 setter 的 @Input() 属性 appUnless。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Input</span>() <span class="keyword">set</span> <span class="title function_">appUnless</span>(<span class="params">condition: <span class="built_in">boolean</span></span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (!condition &amp;&amp; !<span class="variable language_">this</span>.<span class="property">hasView</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">viewContainer</span>.<span class="title function_">createEmbeddedView</span>(<span class="variable language_">this</span>.<span class="property">templateRef</span>);</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">hasView</span> = <span class="literal">true</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (condition &amp;&amp; <span class="variable language_">this</span>.<span class="property">hasView</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">viewContainer</span>.<span class="title function_">clear</span>();</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">hasView</span> = <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>每当条件的值更改时，Angular 都会设置 appUnless 属性。</p>
+<p>如果条件是假值，并且 Angular 以前尚未创建视图，则此 setter 会导致视图容器从模板创建出嵌入式视图。</p>
+<p>如果条件为真值，并且当前正显示着视图，则此 setter 会清除容器，这会导致销毁该视图。</p>
+<p>完整的指令如下：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Directive</span>, <span class="title class_">Input</span>, <span class="title class_">TemplateRef</span>, <span class="title class_">ViewContainerRef</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Add the template content to the DOM unless the condition is true.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Directive</span>(&#123; <span class="attr">selector</span>: <span class="string">&#x27;[appUnless]&#x27;</span>&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">UnlessDirective</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> hasView = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span></span><br><span class="line"><span class="params">    <span class="keyword">private</span> templateRef: TemplateRef&lt;<span class="built_in">any</span>&gt;,</span></span><br><span class="line"><span class="params">    <span class="keyword">private</span> viewContainer: ViewContainerRef</span>) &#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Input</span>() <span class="keyword">set</span> <span class="title function_">appUnless</span>(<span class="params">condition: <span class="built_in">boolean</span></span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!condition &amp;&amp; !<span class="variable language_">this</span>.<span class="property">hasView</span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">viewContainer</span>.<span class="title function_">createEmbeddedView</span>(<span class="variable language_">this</span>.<span class="property">templateRef</span>);</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">hasView</span> = <span class="literal">true</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (condition &amp;&amp; <span class="variable language_">this</span>.<span class="property">hasView</span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">viewContainer</span>.<span class="title function_">clear</span>();</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">hasView</span> = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/03/20/angular/%E6%A8%A1%E6%9D%BF/" rel="prev" title="模板">
+                  <i class="fa fa-chevron-left"></i> 模板
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/03/23/angular/%E6%8C%87%E4%BB%A4-%E6%A8%A1%E6%9D%BF-%E7%BB%84%E4%BB%B6-%E7%BB%BC%E5%90%88%E5%BA%94%E7%94%A8-%E6%8E%A2%E7%B4%A2Angular-DOM%E6%93%8D%E4%BD%9C/" rel="next" title="指令 模板 组件 综合应用 探索Angular DOM操作">
+                  指令 模板 组件 综合应用 探索Angular DOM操作 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
