@@ -118,7 +118,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">28</span>
+          <span class="site-state-item-count">30</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -161,6 +161,261 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/04/06/angular/%E4%BD%BF%E7%94%A8Renderer2%E6%93%8D%E4%BD%9CDOM%E5%85%83%E7%B4%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/04/06/angular/%E4%BD%BF%E7%94%A8Renderer2%E6%93%8D%E4%BD%9CDOM%E5%85%83%E7%B4%A0/" class="post-title-link" itemprop="url">使用Renderer2操作DOM元素</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-04-06 15:13:47 / 修改时间：18:50:29" itemprop="dateCreated datePublished" datetime="2023-04-06T15:13:47+08:00">2023-04-06</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Renderer2允许我们在不直接访问DOM的情况下操作DOM元素。它在DOM元素和组件代码之间提供了一层抽象。使用Renderer2，我们可以创建一个元素，向其中添加一个文本节点，使用appendchild方法附加子元素。我们还可以添加或删除样式、HTML属性、CSS类和属性等。我们还可以附加和侦听DOM事件。</p>
+<h1 id="为什么不直接使用-ElementRef"><a href="#为什么不直接使用-ElementRef" class="headerlink" title="为什么不直接使用 ElementRef"></a>为什么不直接使用 ElementRef</h1><p>ElelemtRef的nativeElement属性包含对底层DOM对象的引用，这使我们可以绕过Angular直接访问DOM，我们可以使用nativeElement属性来直接操作DOM元素。但由于以下原因，直接操作DOM是不建议的。</p>
+<ol>
+<li>Angular使用模板、数据绑定和更改检测等保持组件和视图同步。当我们直接更新DOM时，所有这些都会被绕过。</li>
+<li>DOM操作仅适用于浏览器。您将无法在其他平台中使用该应用程序，例如在服务器（服务器端渲染）、桌面或移动应用程序等中。</li>
+<li>DOM API不会对数据进行净化。因此，可以通过注入脚本，打开我们的应用程序，成为XSS注入攻击的目标。</li>
+</ol>
+<h1 id="使用-Renderer2"><a href="#使用-Renderer2" class="headerlink" title="使用 Renderer2"></a>使用 Renderer2</h1><p>首先从  @angular&#x2F;core 导入 Renderer2.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">Component</span>, <span class="title class_">Renderer2</span>, <span class="title class_">ElementRef</span>, <span class="title class_">ViewChild</span>, <span class="title class_">AfterViewInit</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>在组件中注入 Renderer2</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> renderer:Renderer2</span>) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用 ElementRef &amp; ViewChild 获取我们想操作的DOM元素实例</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ViewChild</span>(<span class="string">&#x27;hello&#x27;</span>, &#123; <span class="attr">static</span>: <span class="literal">false</span> &#125;) <span class="attr">divHello</span>: <span class="title class_">ElementRef</span>;</span><br></pre></td></tr></table></figure>
+
+<p>使用setProperty、setStyle等方法更改元素的属性和样式，如下所示</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">setProperty</span>(<span class="variable language_">this</span>.<span class="property">divHello</span>.<span class="property">nativeElement</span>,<span class="string">&#x27;innerHTML&#x27;</span>,<span class="string">&quot;Hello Angular&quot;</span>)</span><br><span class="line"> </span><br><span class="line"><span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">setStyle</span>(<span class="variable language_">this</span>.<span class="property">divHello</span>.<span class="property">nativeElement</span>, <span class="string">&#x27;color&#x27;</span>, <span class="string">&#x27;red&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h1 id="设置-amp-移除-Styles"><a href="#设置-amp-移除-Styles" class="headerlink" title="设置&amp;移除 Styles"></a>设置&amp;移除 Styles</h1><p>使用setStyle和RemoveStyle添加或删除样式，它接受四个参数。第一个参数是我们要应用样式的元素，第二个参数是样式的名称，第三个参数是样式的值，最后一个参数是可选的，他是样式变量的标志</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="title function_">setStyle</span>(<span class="attr">el</span>: <span class="built_in">any</span>, <span class="attr">style</span>: <span class="built_in">string</span>, <span class="attr">value</span>: <span class="built_in">any</span>, flags?: <span class="title class_">RendererStyleFlags2</span>): <span class="built_in">void</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">abstract</span> <span class="title function_">removeStyle</span>(<span class="attr">el</span>: <span class="built_in">any</span>, <span class="attr">style</span>: <span class="built_in">string</span>, flags?: <span class="title class_">RendererStyleFlags2</span>): <span class="built_in">void</span></span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Template</span></span><br><span class="line">&lt;div #hello&gt;<span class="title class_">Hello</span> !&lt;/div&gt;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//Component</span></span><br><span class="line"><span class="meta">@ViewChild</span>(<span class="string">&#x27;hello&#x27;</span>, &#123; <span class="attr">static</span>: <span class="literal">false</span> &#125;) <span class="attr">divHello</span>: <span class="title class_">ElementRef</span>;</span><br><span class="line"> </span><br><span class="line"><span class="title function_">setStyle</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">setStyle</span>(<span class="variable language_">this</span>.<span class="property">divHello</span>.<span class="property">nativeElement</span>, <span class="string">&#x27;color&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="title function_">removeStyle</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">removeStyle</span>(<span class="variable language_">this</span>.<span class="property">divHello</span>.<span class="property">nativeElement</span>, <span class="string">&#x27;color&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用最后一个选项RendererStyleFlags2指定渲染器特有样式修饰符</p>
+<h1 id="添加-amp-删除CSS-样式"><a href="#添加-amp-删除CSS-样式" class="headerlink" title="添加&amp;删除CSS 样式"></a>添加&amp;删除CSS 样式</h1><p>使用 addClass &#x2F; removeClass 添加&amp;删除CSS样式。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="title function_">addClass</span>(<span class="attr">el</span>: <span class="built_in">any</span>, <span class="attr">name</span>: <span class="built_in">string</span>): <span class="built_in">void</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">abstract</span> <span class="title function_">removeClass</span>(<span class="attr">el</span>: <span class="built_in">any</span>, <span class="attr">name</span>: <span class="built_in">string</span>): <span class="built_in">void</span></span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Template</span></span><br><span class="line">&lt;div #hello&gt;<span class="title class_">Hello</span> !&lt;/div&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Component</span></span><br><span class="line"><span class="meta">@ViewChild</span>(<span class="string">&#x27;hello&#x27;</span>, &#123; <span class="attr">static</span>: <span class="literal">false</span> &#125;) <span class="attr">divHello</span>: <span class="title class_">ElementRef</span>;</span><br><span class="line"> </span><br><span class="line"><span class="title function_">addClass</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">addClass</span>(<span class="variable language_">this</span>.<span class="property">divHello</span>.<span class="property">nativeElement</span>, <span class="string">&#x27;blackborder&#x27;</span> );</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="title function_">removeClass</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">removeClass</span>(<span class="variable language_">this</span>.<span class="property">divHello</span>.<span class="property">nativeElement</span>, <span class="string">&#x27;blackborder&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="添加删除-Attributes"><a href="#添加删除-Attributes" class="headerlink" title="添加删除 Attributes"></a>添加删除 Attributes</h1><p>使用 setAttribute &amp; removeAttribute 添加&amp;移除 attribute样式。</p>
+<blockquote>
+<p>元素没有此 attribute，也可以添加上去<br>attribute，还可以做动词，表示赋予，属于人为赋予的可改变的属性</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">setAttribute</span>(<span class="attr">el</span>: <span class="built_in">any</span>, <span class="attr">name</span>: <span class="built_in">string</span>, <span class="attr">value</span>: <span class="built_in">string</span>, <span class="keyword">namespace</span>?: string): void</span><br><span class="line"> </span><br><span class="line">removeAttribute(el: any, name: string, <span class="keyword">namespace</span>?: string): void</span><br></pre></td></tr></table></figure>
+
+<h1 id="设置Property"><a href="#设置Property" class="headerlink" title="设置Property"></a>设置Property</h1><p>使用setProperty方法设置DOM元素的任何属性。</p>
+<blockquote>
+<p>元素没有此 property 不会添加上去<br>property是 物体本身自带属性，不能改变的（一旦改了就是另外一个东西了）</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">setProperty</span>(<span class="attr">el</span>: <span class="built_in">any</span>, <span class="attr">name</span>: <span class="built_in">string</span>, <span class="attr">value</span>: <span class="built_in">any</span>): <span class="built_in">void</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="AppendChild-createElement-createText"><a href="#AppendChild-createElement-createText" class="headerlink" title="AppendChild createElement createText"></a>AppendChild createElement createText</h1><p>使用appendChild将一个新元素（子元素）附加到任何现有元素（父元素）。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">appendChild</span>(<span class="attr">parent</span>: <span class="built_in">any</span>, <span class="attr">newChild</span>: <span class="built_in">any</span>): <span class="built_in">void</span></span><br></pre></td></tr></table></figure>
+<p>它接受两个参数。第一个参数是父节点(我们希望在其中附加一个新的子节点)。第二个参数是要添加的子节点。</p>
+<h2 id="创建一个新元素"><a href="#创建一个新元素" class="headerlink" title="创建一个新元素"></a>创建一个新元素</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> div = <span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;div&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> text = <span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">createText</span>(<span class="string">&#x27;Inserted at bottom&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">appendChild</span>(div, text);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">appendChild</span>(<span class="variable language_">this</span>.<span class="property">div</span>.<span class="property">nativeElement</span>, div);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="InsertBefore"><a href="#InsertBefore" class="headerlink" title="InsertBefore"></a>InsertBefore</h1><p>我们还可以使用insertBefore方法在DOM元素中的元素之前插入新元素。insertBefore的语法如下所示</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">insertBefore</span>(<span class="attr">parent</span>: <span class="built_in">any</span>, <span class="attr">newChild</span>: <span class="built_in">any</span>, <span class="attr">refChild</span>: <span class="built_in">any</span>): <span class="built_in">void</span></span><br></pre></td></tr></table></figure>
+<p>parent是父节点,newChild是要插入的新节点,refChild是插入newChild之前的现有子节点。</p>
+<h1 id="添加注释"><a href="#添加注释" class="headerlink" title="添加注释"></a>添加注释</h1><p>createComment创建注释节点。它接受注释作为自变量。然后可以使用appendChild或insertBefore将其插入DOM中的任何位置。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">createComment</span>(<span class="attr">value</span>: <span class="built_in">string</span>): <span class="built_in">any</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="ParentNode-amp-NextSibling"><a href="#ParentNode-amp-NextSibling" class="headerlink" title="ParentNode &amp; NextSibling"></a>ParentNode &amp; NextSibling</h1><p>ParentNode方法返回宿主元素DOM中给定节点的父节点。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/<span class="title class_">Returns</span> the parent <span class="title class_">Node</span> <span class="keyword">of</span> div3</span><br><span class="line"><span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">parentNode</span>(<span class="variable language_">this</span>.<span class="property">div3</span>.<span class="property">nativeElement</span>);</span><br></pre></td></tr></table></figure>
+<p>nextSibling方法返回宿主元素DOM中给定节点的下一个同级节点。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Returns the next Sibling node of div2</span></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">nextSibling</span>(<span class="variable language_">this</span>.<span class="property">div2</span>.<span class="property">nativeElement</span>);</span><br></pre></td></tr></table></figure>
+
+<h1 id="SelectRootElement"><a href="#SelectRootElement" class="headerlink" title="SelectRootElement"></a>SelectRootElement</h1><p>我们也可以使用selectRoomElement来选择基于选择器的节点元素。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">selectRootElement</span>(<span class="attr">selectorOrNode</span>: <span class="built_in">any</span>, preserveContent?: <span class="built_in">boolean</span>)</span><br></pre></td></tr></table></figure>
+<p>第一个参数是选择器或节点。Renderer2使用选择器来搜索DOM元素并返回它。</p>
+<p>第二个参数是preserveContent，如果是no或undefined，renderer2将删除所有子节点。如果是yes，则不会删除子节点。</p>
+<h1 id="监听-DOM-事件"><a href="#监听-DOM-事件" class="headerlink" title="监听 DOM 事件"></a>监听 DOM 事件</h1><p>您也可以使用listen方法来侦听DOM事件。</p>
+<p>listen方法接受三个参数，第一个参数是DOM元素（目标），第二个参数是事件的名称（eventName），第三个参数是回调函数</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="title function_">listen</span>(<span class="attr">target</span>: <span class="built_in">any</span>, <span class="attr">eventName</span>: <span class="built_in">string</span>, <span class="attr">callback</span>: <span class="function">(<span class="params">event: <span class="built_in">any</span></span>) =&gt;</span> <span class="built_in">boolean</span> | <span class="built_in">void</span>): <span class="function">() =&gt;</span> <span class="built_in">void</span></span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/04/05/angular/Angular%E4%B8%AD%E7%9A%84ElementRef/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/04/05/angular/Angular%E4%B8%AD%E7%9A%84ElementRef/" class="post-title-link" itemprop="url">Angular中的ElementRef</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-04-05 22:04:06" itemprop="dateCreated datePublished" datetime="2023-04-05T22:04:06+08:00">2023-04-05</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-04-06 15:14:47" itemprop="dateModified" datetime="2023-04-06T15:14:47+08:00">2023-04-06</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Angular ElementRef是一个围绕原生DOM元素（HTML元素）对象的包装器。它包含属性nativeElement，该属性保存对底层DOM对象的引用。我们可以使用它来操作DOM。我们组件中使用ViewChild来获取模板HTML元素的ElementRef实例。Angular还在组件或指令的构造函数中注入宿主元素的ElementRef实例。在本教程中，让我们探讨如何使用ElementRef来获得HtmlElement的引用并在Angular Applications中操作DOM。</p>
+<h1 id="ElementRef"><a href="#ElementRef" class="headerlink" title="ElementRef"></a>ElementRef</h1><p>DOM对象由浏览器创建和维护。它们代表了文件的结构和内容。在原生JavaScript代码中，我们访问这些DOM对象来操作View。我们可以创建文档，以及添加、修改或删除元素和内容。</p>
+<p>Angular提供了许多工具和技术来操作DOM。我们可以添加&#x2F;删除组件。它提供了许多指令，如类指令或样式指令，来操纵他们的风格等。</p>
+<p>在某些情况下，我们可能仍然需要访问DOM元素。这就需要用到ElementRef。</p>
+<h1 id="在组件中获取ElementRef"><a href="#在组件中获取ElementRef" class="headerlink" title="在组件中获取ElementRef"></a>在组件中获取ElementRef</h1><p>要使用ElementRef操作DOM，我们需要在组件&#x2F;指令中获取它对DOM元素的引用。</p>
+<ol>
+<li>获取对组件中DOM元素的引用</li>
+</ol>
+<ul>
+<li>为组件&#x2F;指令中的元素创建模板引用变量。</li>
+<li>使用ViewChild或ViewChildren通过模板变量在组件中直接获取DOM元素引用。</li>
+</ul>
+<ol start="2">
+<li>获取组件&#x2F;指令的宿主DOM元素</li>
+</ol>
+<ul>
+<li>组件或指令的构造函数中注入宿主元素的ElementRef引用（Angular Dependency注入）</li>
+</ul>
+<p>例如，在下面的代码中，变量hello引用了HTML元素div。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span> #<span class="attr">hello</span>&gt;</span>Hello Angular<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>我们可以在模板中使用hello这个模板引用变量。</p>
+<p>在Component类中，我们使用ViewChild来注入hello元素。Angular将hello作为ElementRef类型注入。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ViewChild</span>(<span class="string">&#x27;hello&#x27;</span>, &#123; <span class="attr">static</span>: <span class="literal">false</span> &#125;) <span class="attr">divHello</span>: <span class="title class_">ElementRef</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="读取令牌"><a href="#读取令牌" class="headerlink" title="读取令牌"></a>读取令牌</h2><p>考虑以下示例</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> #<span class="attr">nameInput</span> [(<span class="attr">ngModel</span>)]=<span class="string">&quot;name&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>nameInput 模板引用变量现在绑定到input输入元素。但与此同时，我们也将ngModel指令绑定到它上面。</p>
+<p>在这种情况下，我们可以使用read令牌让angular知道我们需要ElementRef引用到谁，如下所示</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//ViewChild returns ElementRef i.e. input HTML Element</span></span><br><span class="line"> </span><br><span class="line"><span class="meta">@ViewChild</span>(<span class="string">&#x27;nameInput&#x27;</span>,&#123;<span class="attr">static</span>:<span class="literal">false</span>, <span class="attr">read</span>: <span class="title class_">ElementRef</span>&#125;) elRef;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment">//ViewChild returns NgModel associated with the nameInput</span></span><br><span class="line"><span class="meta">@ViewChild</span>(<span class="string">&#x27;nameInput&#x27;</span>,&#123;<span class="attr">static</span>:<span class="literal">false</span>, <span class="attr">read</span>: <span class="title class_">NgModel</span>&#125;) inRef;</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+
+<h1 id="ElementRef-例子"><a href="#ElementRef-例子" class="headerlink" title="ElementRef 例子"></a>ElementRef 例子</h1><p>一旦我们有了ElementRef，我们就可以使用nativeElement属性来操作DOM，如下所示。<br>在访问ViewChild变量之前，我们需要等待Angular初始化视图。因此，我们要等到AfterViewInit生命周期挂钩之后，才能开始使用该变量。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>,<span class="title class_">ElementRef</span>, <span class="title class_">ViewChild</span>, <span class="title class_">AfterViewInit</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-root&#x27;</span>,</span><br><span class="line">  <span class="attr">template</span>:  <span class="string">&#x27;&lt;div #hello&gt;Hello&lt;/div&gt;&#x27;</span></span><br><span class="line">  <span class="attr">styleUrls</span>: [<span class="string">&#x27;./app.component.css&#x27;</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> <span class="keyword">implements</span> <span class="title class_">AfterViewInit</span> &#123;</span><br><span class="line"> </span><br><span class="line"> <span class="meta">@ViewChild</span>(<span class="string">&#x27;hello&#x27;</span>, &#123; <span class="attr">static</span>: <span class="literal">false</span> &#125;) <span class="attr">divHello</span>: <span class="title class_">ElementRef</span>;</span><br><span class="line"> </span><br><span class="line"> <span class="title function_">ngAfterViewInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">   <span class="variable language_">this</span>.<span class="property">divHello</span>.<span class="property">nativeElement</span>.<span class="property">innerHTML</span> = <span class="string">&quot;Hello Angular&quot;</span>;</span><br><span class="line"> &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以非常容易得操作DOM元素</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">ngAfterViewInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">divHello</span>.<span class="property">nativeElement</span>.<span class="property">innerHTML</span> = <span class="string">&quot;Hello Angular&quot;</span>;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">divHello</span>.<span class="property">nativeElement</span>.<span class="property">className</span>=<span class="string">&quot;someClass&quot;</span>;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">divHello</span>.<span class="property">nativeElement</span>.<span class="property">style</span>.<span class="property">backgroundColor</span>=<span class="string">&quot;red&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="在自定义指令中使用-ElementRef"><a href="#在自定义指令中使用-ElementRef" class="headerlink" title="在自定义指令中使用 ElementRef"></a>在自定义指令中使用 ElementRef</h1><p>ElementRef的一个用例是Angular指令。我们学习了如何在Angular中创建自定义指令。以下是ttClass自定义属性指令的代码。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Directive</span>, <span class="title class_">ElementRef</span>, <span class="title class_">Input</span>, <span class="title class_">OnInit</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span></span><br><span class="line"> </span><br><span class="line"><span class="meta">@Directive</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;[ttClass]&#x27;</span>,</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">ttClassDirective</span> <span class="keyword">implements</span> <span class="title class_">OnInit</span> &#123;</span><br><span class="line"> </span><br><span class="line">  <span class="meta">@Input</span>() <span class="attr">ttClass</span>: <span class="built_in">string</span>;</span><br><span class="line"> </span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> el: ElementRef</span>) &#123;</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  <span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">el</span>.<span class="property">nativeElement</span>.<span class="property">classList</span>.<span class="title function_">add</span>(<span class="variable language_">this</span>.<span class="property">ttClass</span>);</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>请注意，我们在构造函数中注入ElementRef。每当我们访问构造函数中注入的ElementRef时，Angular就会注入对指令的宿主DOM元素的引用。</p>
+<blockquote>
+<p>谨慎使用<br>当需要直接访问DOM时，使用此API作为最后的手段。请改用Angular提供的模板和数据绑定。或者，您可以看看Renderer2，它提供了即使不支持直接访问本机元素也可以安全使用的API。<br>依赖于直接DOM访问会在应用程序和渲染层之间产生紧密耦合，这将使您无法将两者分离并将应用程序部署到web工作者中。</p>
+</blockquote>
+<h1 id="ElementRef和XSS注入攻击"><a href="#ElementRef和XSS注入攻击" class="headerlink" title="ElementRef和XSS注入攻击"></a>ElementRef和XSS注入攻击</h1><p>ElementRef的不当使用可能导致XSS注入攻击。例如，在下面的代码中，我们正在使用elementRef注入一个脚本。当包含此类代码的组件运行时，将执行脚本</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> elementRef: ElementRef</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> s = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;script&#x27;</span>);</span><br><span class="line">    s.<span class="property">type</span> = <span class="string">&#x27;text/javascript&#x27;</span>;</span><br><span class="line">    s.<span class="property">textContent</span> = <span class="string">&#x27;alert(&quot;Hello World&quot;)&#x27;</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">elementRef</span>.<span class="property">nativeElement</span>.<span class="title function_">appendChild</span>(s);</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/04/04/angular/%E7%90%86%E8%A7%A3ViewChild-ViewChildren-Querylist/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -191,7 +446,7 @@
       <span class="post-meta-item-text">发表于</span>
       
 
-      <time title="创建时间：2023-04-04 14:03:01 / 修改时间：14:31:50" itemprop="dateCreated datePublished" datetime="2023-04-04T14:03:01+08:00">2023-04-04</time>
+      <time title="创建时间：2023-04-04 14:03:01 / 修改时间：18:33:27" itemprop="dateCreated datePublished" datetime="2023-04-04T14:03:01+08:00">2023-04-04</time>
     </span>
 
   
@@ -205,7 +460,82 @@
     
     <div class="post-body" itemprop="articleBody">
           <p>ViewChild或ViewChildren装饰器用于查询和获取组件中DOM元素的引用。ViewChild返回第一个匹配的元素，ViewChildren以QueryList形式返回所有匹配的元素。我们可以通过这些引用在组件中操作dom元素属性。</p>
-<p>ViewChild或ViewChildren的第一个参数是查询选择器，通过ViewChild或ViewChildren来查询DOM元素，我们可以提供字符串或类型作为查询选择器。</p>
+<p>ViewChild或ViewChildren的第一个参数是查询选择器，通过ViewChild或ViewChildren来查询DOM元素，我们可以提供字符串或类型作为查询选择器。参数static确定是在更改检测之前还是之后执行查询。read选项允许我们查询不同的令牌，而不是默认令牌，并且在元素与多个类型关联时很有用。</p>
+<h1 id="ViewChild"><a href="#ViewChild" class="headerlink" title="ViewChild"></a>ViewChild</h1><p>ViewChild查询从DOM返回第一个匹配元素，并更新它在组件中绑定的变量。</p>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">ViewChild</span>(<span class="attr">selector</span>: <span class="built_in">string</span> | <span class="title class_">Function</span> | <span class="title class_">Type</span>&lt;<span class="built_in">any</span>&gt;, <span class="attr">opts</span>: &#123; read?: <span class="built_in">any</span>; <span class="attr">static</span>: <span class="built_in">boolean</span>; &#125;): <span class="built_in">any</span></span><br></pre></td></tr></table></figure>
+<p>我们在组件属性上应用viewChild装饰器。它需要提供两个参数，selector和opts。</p>
+<ul>
+<li><p>selector：可以是字符串、类型或返回字符串或类型的函数。变更检测查找与选择器匹配的第一个元素，并使用对该元素的引用更新组件属性。如果DOM发生更改，并且有一个新元素与选择器匹配，则变更检测会更新组件属性。</p>
+</li>
+<li><p>opts：有两个选项。</p>
+<ul>
+<li>static：确定何时解析查询。设为True时，当视图首次初始化（在第一次更改检测之前）。设为False时，在每次检测到更改后执行。</li>
+<li>read：使用它从查询的元素中读取不同的令牌。</li>
+</ul>
+</li>
+</ul>
+<h1 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h1><h2 id="在组件和指令中注入引用"><a href="#在组件和指令中注入引用" class="headerlink" title="在组件和指令中注入引用"></a>在组件和指令中注入引用</h2><p>ViewChild的一个用例是在父组件中获取子组件的引用并操作其属性。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;child-component&#x27;</span>,</span><br><span class="line">  <span class="attr">template</span>: <span class="string">`&lt;h2&gt;Child Component&lt;/h2&gt;</span></span><br><span class="line"><span class="string">            current count is &#123;&#123; count &#125;&#125;</span></span><br><span class="line"><span class="string">    `</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">ChildComponent</span> &#123;</span><br><span class="line">  count = <span class="number">0</span>;</span><br><span class="line"> </span><br><span class="line">  <span class="title function_">increment</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">count</span>++;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="title function_">decrement</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">count</span>--;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们可以在父组件中使用 ViewChild 引用子组件。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ViewChild</span>(<span class="title class_">ChildComponent</span>, &#123;<span class="attr">static</span>:<span class="literal">true</span>&#125;) <span class="attr">child</span>: <span class="title class_">ChildComponent</span>;</span><br></pre></td></tr></table></figure>
+<p>在上面的代码中，ViewChild在父组件视图(Template)中查找第一个出现的ChildComponent组件，并更新父组件中的child变量。现在我们可以从父组件调用ChildComponent组件中的Increment和Decrement方法。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>, <span class="title class_">ViewChild</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ChildComponent</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./child.component&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-root&#x27;</span>,</span><br><span class="line">  <span class="attr">template</span>: <span class="string">`</span></span><br><span class="line"><span class="string">        &lt;h1&gt;&#123;&#123;title&#125;&#125;&lt;/h1&gt;</span></span><br><span class="line"><span class="string">        &lt;p&gt; current count is &#123;&#123;child.count&#125;&#125; &lt;/p&gt;</span></span><br><span class="line"><span class="string">        &lt;button (click)=&quot;increment()&quot;&gt;Increment&lt;/button&gt;</span></span><br><span class="line"><span class="string">        &lt;button (click)=&quot;decrement()&quot;&gt;decrement&lt;/button&gt;</span></span><br><span class="line"><span class="string">        &lt;child-component&gt;&lt;/child-component&gt;</span></span><br><span class="line"><span class="string">        `</span> ,</span><br><span class="line">  <span class="attr">styleUrls</span>: [<span class="string">&#x27;./app.component.css&#x27;</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br><span class="line">  title = <span class="string">&#x27;Parent calls an @ViewChild()&#x27;</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="meta">@ViewChild</span>(<span class="title class_">ChildComponent</span>, &#123;<span class="attr">static</span>:<span class="literal">true</span>&#125;) <span class="attr">child</span>: <span class="title class_">ChildComponent</span>;</span><br><span class="line"> </span><br><span class="line">  <span class="title function_">increment</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">child</span>.<span class="title function_">increment</span>();</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  <span class="title function_">decrement</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">child</span>.<span class="title function_">decrement</span>();</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用模板引用变量"><a href="#使用模板引用变量" class="headerlink" title="使用模板引用变量"></a>使用模板引用变量</h2><p>您可以使用模板引用变量代替组件类型。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">child-component</span> #<span class="attr">child</span>&gt;</span><span class="tag">&lt;/<span class="name">child-component</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在ViewChild查询中使用它来获取对该组件的引用。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ViewChild</span>(<span class="string">&quot;child&quot;</span>, &#123; <span class="attr">static</span>: <span class="literal">true</span> &#125;) <span class="attr">child</span>: <span class="title class_">ChildComponent</span>;</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用ElementRef注入HTML元素"><a href="#使用ElementRef注入HTML元素" class="headerlink" title="使用ElementRef注入HTML元素"></a>使用ElementRef注入HTML元素</h2><p>Viewchild 同样可以用来查询 HTML元素。<br>首先可以给HTML元素指定模板变量，然后就可以在viewChild中使用此模板变量查询HTML元素。查询结果将返回一个ElementRef类型的元素，它是本地HTML元素的包装器。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">AfterViewInit</span>, <span class="title class_">Component</span>, <span class="title class_">ElementRef</span>, <span class="title class_">ViewChild</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">    <span class="attr">selector</span>: <span class="string">&#x27;htmlelement&#x27;</span>,</span><br><span class="line">    <span class="attr">template</span>: <span class="string">`</span></span><br><span class="line"><span class="string">      &lt;p #para&gt;Some text&lt;/p&gt;</span></span><br><span class="line"><span class="string">    `</span>,</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">HTMLElementComponent</span> <span class="keyword">implements</span> <span class="title class_">AfterViewInit</span> &#123;</span><br><span class="line"> </span><br><span class="line">    <span class="meta">@ViewChild</span>(<span class="string">&#x27;para&#x27;</span>,&#123;<span class="attr">static</span>:<span class="literal">false</span>&#125;) <span class="attr">para</span>: <span class="title class_">ElementRef</span>;</span><br><span class="line"> </span><br><span class="line">    <span class="title function_">ngAfterViewInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">      <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">para</span>.<span class="property">nativeElement</span>.<span class="property">innerHTML</span>);</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">para</span>.<span class="property">nativeElement</span>.<span class="property">innerHTML</span>=<span class="string">&quot;new text&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="多个实例"><a href="#多个实例" class="headerlink" title="多个实例"></a>多个实例</h2><p>模板中可能存在同一组件或元素的多个实例。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">child-component</span>&gt;</span><span class="tag">&lt;/<span class="name">child-component</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">child-component</span>&gt;</span><span class="tag">&lt;/<span class="name">child-component</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>ViewChild 总是返回第一个匹配的组件。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ViewChild</span>(<span class="title class_">ChildComponent</span>, &#123;<span class="attr">static</span>:<span class="literal">true</span>&#125;) <span class="attr">child</span>: <span class="title class_">ChildComponent</span>;</span><br></pre></td></tr></table></figure>
+<p>要获取子组件的所有实例，我们可以使用ViewChildren，我们将在本教程后面介绍它。</p>
+<h2 id="ViewChild-返回-Undefined"><a href="#ViewChild-返回-Undefined" class="headerlink" title="ViewChild 返回 Undefined"></a>ViewChild 返回 Undefined</h2><p>ViewChild返回Undefined是我们在使用它们时遇到的常见错误之一。</p>
+<p>该错误是由于我们试图在ViewChild初始化之前使用该值。</p>
+<p>例如，下面的代码导致无法读取未定义的属性“increment”。当构造函数运行前，组件的视图尚未初始化。因此，Angular无法通过引用ChildComposet变量来更新child变量。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br><span class="line">  title = <span class="string">&#x27;Parent calls an @ViewChild()&#x27;</span>;</span><br><span class="line">  </span><br><span class="line">  <span class="meta">@ViewChild</span>(<span class="title class_">ChildComponent</span>, &#123;<span class="attr">static</span>:<span class="literal">true</span>&#125;) <span class="attr">child</span>: <span class="title class_">ChildComponent</span>;</span><br><span class="line"> </span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">child</span>.<span class="title function_">increment</span>()</span><br><span class="line">  &#125; </span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="title class_">Cannot</span> read property <span class="string">&#x27;increment&#x27;</span> <span class="keyword">of</span> <span class="literal">undefined</span></span><br></pre></td></tr></table></figure>
+<p>解决方案是等待Angular初始化视图。Angular在完成视图初始化后会引发AfterViewInit生命周期挂钩。因此，我们可以使用ngAfterViewInit来访问子变量。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">ngAfterViewInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">child</span>.<span class="title function_">increment</span>()</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>现在，代码没有给出任何错误。</p>
+<p>上面的代码也将与ngOnInit生命周期挂钩一起使用。但它不能保证一直工作，因为Angular可能不会在引发ngOnInit钩子之前初始化视图的所有部分。因此，最好使用ngAfterViewInit钩子。</p>
+<p>此外，ViewChild更新值的时间也取决于静态选项</p>
+<h2 id="在ViewChild中使用Static选项"><a href="#在ViewChild中使用Static选项" class="headerlink" title="在ViewChild中使用Static选项"></a>在ViewChild中使用Static选项</h2><p>我们在上面的代码中使用了{static:true}。</p>
+<p>static选项确定ViewChild查询解析的时间。</p>
+<ul>
+<li><p>static:true 将在每次变更改检测之前解析ViewChild。</p>
+</li>
+<li><p>static:false 将在每次变更改检测之后解析ViewChild。</p>
+</li>
+</ul>
+<p>当动态渲染子对象时，static的值变得很重要。例如在ngIf或ngSwitch等内部。</p>
+<p>例如，考虑下面的代码，我们子组件放在ngIf中</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">//child.component.html</span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>ViewChild Example<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">id</span>=<span class="string">&quot;showCounter&quot;</span> <span class="attr">name</span>=<span class="string">&quot;showCounter&quot;</span> [(<span class="attr">ngModel</span>)]=<span class="string">&quot;showCounter&quot;</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;<span class="name">ng-container</span>  *<span class="attr">ngIf</span>=<span class="string">&quot;showCounter&quot;</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span> current count is &#123;&#123;child?.count&#125;&#125; <span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> (<span class="attr">click</span>)=<span class="string">&quot;increment()&quot;</span>&gt;</span>Increment<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> (<span class="attr">click</span>)=<span class="string">&quot;decrement()&quot;</span>&gt;</span>decrement<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"> </span><br><span class="line">  <span class="tag">&lt;<span class="name">child-component</span>&gt;</span><span class="tag">&lt;/<span class="name">child-component</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;/<span class="name">ng-container</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//child.component.ts</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>, <span class="title class_">ViewChild</span>, <span class="title class_">AfterViewInit</span>, <span class="title class_">OnInit</span>, <span class="title class_">ChangeDetectorRef</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ChildComponent</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./child.component&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-root&#x27;</span>,</span><br><span class="line">  <span class="attr">templateUrl</span>: <span class="string">&#x27;app.component.html&#x27;</span> ,</span><br><span class="line">  <span class="attr">styleUrls</span>: [<span class="string">&#x27;./app.component.css&#x27;</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br><span class="line">  title = <span class="string">&#x27;ViewChild Example)&#x27;</span>;</span><br><span class="line"> </span><br><span class="line">  <span class="attr">showCounter</span>: <span class="built_in">boolean</span> = <span class="literal">true</span></span><br><span class="line"> </span><br><span class="line">  <span class="meta">@ViewChild</span>(<span class="title class_">ChildComponent</span>, &#123; <span class="attr">static</span>: <span class="literal">true</span> &#125;) <span class="attr">child</span>: <span class="title class_">ChildComponent</span>;</span><br><span class="line"> </span><br><span class="line">  <span class="title function_">increment</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">child</span>.<span class="title function_">increment</span>();</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  <span class="title function_">decrement</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">child</span>.<span class="title function_">decrement</span>();</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上述代码导致TypeError:无法读取未定义的属性“increment”。即使我们将true赋值给showCounter，也会发生错误。<br>因为在上述情况下，Angular不会立即渲染子组件。但在第一次变更检测之后，angular会检测showCounter的值并渲染子组件。</p>
+<p>由于我们使用了static:true，angular将在运行第一次更改检测之前尝试解析ViewChild。因此，child变量总是未定义的。<br>现在，更改static：false。现在，代码将正常工作。也就是说，因为在每次检测到更改之后，Angular都会更新ViewChild。</p>
+<h2 id="在-ViewChild-中使用-Read选项"><a href="#在-ViewChild-中使用-Read选项" class="headerlink" title="在 ViewChild 中使用 Read选项"></a>在 ViewChild 中使用 Read选项</h2><p>单个元素可以与多种类型相关联。</p>
+<p>例如，考虑以下代码#nameInput模板变量现在与input和ngModel都关联</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> #<span class="attr">nameInput</span> [(<span class="attr">ngModel</span>)]=<span class="string">&quot;name&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>下面的viewChild代码将input元素的实例作为elementRef返回。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ViewChild</span>(<span class="string">&#x27;nameInput&#x27;</span>,&#123;<span class="attr">static</span>:<span class="literal">false</span>&#125;) nameVar;</span><br></pre></td></tr></table></figure>
+
+<p>如果我们想获得ngModel的实例，那么我们使用Read选项指定需要的令牌类型。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ViewChild</span>(<span class="string">&#x27;nameInput&#x27;</span>,&#123;<span class="attr">static</span>:<span class="literal">false</span>, <span class="attr">read</span>: <span class="title class_">NgModel</span>&#125;) inRef;</span><br><span class="line"><span class="meta">@ViewChild</span>(<span class="string">&#x27;nameInput&#x27;</span>,&#123;<span class="attr">static</span>:<span class="literal">false</span>, <span class="attr">read</span>: <span class="title class_">ElementRef</span>&#125;) elRef;</span><br><span class="line"><span class="meta">@ViewChild</span>(<span class="string">&#x27;nameInput&#x27;</span>, &#123;<span class="attr">static</span>:<span class="literal">false</span>, <span class="attr">read</span>: <span class="title class_">ViewContainerRef</span> &#125;) vcRef;</span><br></pre></td></tr></table></figure>
+
+<p>Angular中的每个元素总是有一个ElementRef和ViewContainerRef与之关联。如果该元素是一个组件或指令，那么总是有组件或指令实例。您也可以对一个元素应用多个指令。<br>不带read令牌的ViewChild默认返回值类型为组件，如果返回值不是组件类型则返回elementRef类型。</p>
+<h2 id="从子组件注入提供程序"><a href="#从子组件注入提供程序" class="headerlink" title="从子组件注入提供程序"></a>从子组件注入提供程序</h2><p>您还可以注入子组件中提供的服务。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ViewChild</span>, <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-child&#x27;</span>,</span><br><span class="line">  <span class="attr">template</span>: <span class="string">`&lt;h1&gt;Child With Provider&lt;/h1&gt;`</span>,</span><br><span class="line">  <span class="attr">providers</span>: [&#123; <span class="attr">provide</span>: <span class="string">&#x27;Token&#x27;</span>, <span class="attr">useValue</span>: <span class="string">&#x27;Value&#x27;</span> &#125;]</span><br><span class="line">&#125;)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">ChildComponent</span>&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在父组件中，可以使用read属性访问提供程序</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ViewChild</span>, <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-root&#x27;</span>,</span><br><span class="line">  <span class="attr">template</span>: <span class="string">`&lt;app-child&gt;&lt;/app-child&gt;`</span>,</span><br><span class="line">&#125;)</span><br><span class="line"> </span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span>&#123;</span><br><span class="line">    <span class="meta">@ViewChild</span>(<span class="title class_">ChildComponent</span> , &#123; <span class="attr">read</span>:<span class="string">&#x27;Token&#x27;</span>, <span class="attr">static</span>:<span class="literal">false</span> &#125; ) <span class="attr">childToken</span>: <span class="built_in">string</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -384,7 +714,7 @@
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-03-31 18:05:16" itemprop="dateModified" datetime="2023-03-31T18:05:16+08:00">2023-03-31</time>
+      <time title="修改时间：2023-04-08 15:56:45" itemprop="dateModified" datetime="2023-04-08T15:56:45+08:00">2023-04-08</time>
     </span>
 
   
@@ -452,6 +782,62 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">card</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ng-container</span> <span class="attr">ngProjectAs</span>=<span class="string">&quot;header&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">&quot;color:red;&quot;</span>&gt;</span>React<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ng-container</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;content&quot;</span>&gt;</span>A JavaScript library for building user interfaces<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;footer&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">b</span>&gt;</span>Facebook Open Source <span class="tag">&lt;/<span class="name">b</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">card</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>ng-content允许我们在模板中添加外部内容。与@Input不同，使用ng-content，我们可以传递包括HTML元素、CSS等的数据，这也被称为内容投影。我们还可以使用选择器属性定义不同的插入位置。这些选择器允许我们向不同的ng-content添加不同的内容。</p>
+<h1 id="Contentchild-amp-ContentChilden"><a href="#Contentchild-amp-ContentChilden" class="headerlink" title="Contentchild &amp; ContentChilden"></a>Contentchild &amp; ContentChilden</h1><p>ContentChild和ContentChildren是装饰器，我们使用它们来查询和获取对DOM中投影内容的引用。投影内容是组件从父组件接收的内容。</p>
+<p>ContentChild和ContentChildren与ViewChild和ViewChildren非常相似。我们使用ViewChild或ViewChildren来查询和获取组件中DOM元素的引用。DOM元素可以是HTML元素、子组件或指令等。但是，我们不能使用ViewChild或ViewChildren来获取使用投影插入的模板实例。</p>
+<h1 id="内容投影回顾"><a href="#内容投影回顾" class="headerlink" title="内容投影回顾"></a>内容投影回顾</h1><p>内容投影是将HTML内容从父组件传递到子组件的一种方式。子组件将在指定位置显示投影进来的模板。我们使用ng-content元素在子组件的模板中为投影进来的模板指定一个位置。ng-content还允许我们使用选择器属性创建多个投影位置。父组件可以向每个投影位置发送不同的内容。</p>
+<h1 id="ContentChild-and-ContentChildren-例子"><a href="#ContentChild-and-ContentChildren-例子" class="headerlink" title="ContentChild and ContentChildren 例子"></a>ContentChild and ContentChildren 例子</h1><p>为了理解ContentChild和ContentChildren是如何工作的，让我们创建一个简单的卡片应用程序。该应用程序有一个CardComponent，它显示单个卡片。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;card&#x27;</span>,</span><br><span class="line">  <span class="attr">template</span>: <span class="string">`</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">    &lt;div class=&quot;card&quot;&gt;</span></span><br><span class="line"><span class="string">      &lt;ng-content select=&quot;header&quot;&gt;&lt;/ng-content&gt;</span></span><br><span class="line"><span class="string">      &lt;ng-content select=&quot;content&quot;&gt;&lt;/ng-content&gt;</span></span><br><span class="line"><span class="string">      &lt;ng-content select=&quot;footer&quot;&gt;&lt;/ng-content&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt; </span></span><br><span class="line"><span class="string">   </span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">  <span class="attr">styles</span>: [</span><br><span class="line">    <span class="string">` .card &#123; min- width: 280px;  margin: 5px;  float:left  &#125; </span></span><br><span class="line"><span class="string">    `</span></span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">CardComponent</span> &#123;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该组件通过三个Ng-Content定义了多个插槽。插槽的名称分别为页眉、内容和页脚。使用组件的用户可以将内容发送到这三个插槽中的任何一个或全部。</p>
+<p>以下代码来CardListComponent组件的，CardListComponent组件实例化了三个CardComponent组件，并分别发送了页眉、内容和页脚的内容。</p>
+<p>此外，请注意，我们在页眉内容的h1标签上有#header模板引用变量。现在让我们在CardComponent组件中使用ContentChild来访问h1元素。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;card-list&#x27;</span>,</span><br><span class="line">  <span class="attr">template</span>: <span class="string">`</span></span><br><span class="line"><span class="string">  </span></span><br><span class="line"><span class="string">  &lt;h1&gt; Card List&lt;/h1&gt;</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">      &lt;card&gt;</span></span><br><span class="line"><span class="string">        &lt;header&gt;&lt;h1 #header&gt;Angular&lt;/h1&gt;&lt;/header&gt;</span></span><br><span class="line"><span class="string">        &lt;content&gt;One framework. Mobile &amp; desktop.&lt;/content&gt;</span></span><br><span class="line"><span class="string">        &lt;footer&gt;&lt;b&gt;Super-powered by Google &lt;/b&gt;&lt;/footer&gt;</span></span><br><span class="line"><span class="string">      &lt;/card&gt;</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">      &lt;card&gt;</span></span><br><span class="line"><span class="string">        &lt;header&gt;&lt;h1 #header style=&quot;color:red;&quot;&gt;React&lt;/h1&gt;&lt;/header&gt;</span></span><br><span class="line"><span class="string">        &lt;content&gt;A JavaScript library for building user interfaces&lt;/content&gt;</span></span><br><span class="line"><span class="string">        &lt;footer&gt;&lt;b&gt;Facebook Open Source &lt;/b&gt;&lt;/footer&gt;</span></span><br><span class="line"><span class="string">      &lt;/card&gt;</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">      &lt;card&gt;</span></span><br><span class="line"><span class="string">        &lt;header&gt; &lt;h1 #header&gt;Typescript&lt;/h1&gt; &lt;/header&gt;</span></span><br><span class="line"><span class="string">        &lt;content&gt;&lt;a href=&quot;https://www.tektutorialshub.com/typescript-tutorial/&quot;&gt; Typescript&lt;/a&gt; is a javascript for any scale&lt;/content&gt;</span></span><br><span class="line"><span class="string">        &lt;footer&gt;&lt;i&gt;Microsoft &lt;/i&gt;&lt;/footer&gt;</span></span><br><span class="line"><span class="string">      &lt;/card&gt;</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">CardListComponent</span> &#123;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用-ContentChild-和-ContentChildren"><a href="#使用-ContentChild-和-ContentChildren" class="headerlink" title="使用 ContentChild 和 ContentChildren"></a>使用 ContentChild 和 ContentChildren</h2><p>让我们返回 CardComponent 组件</p>
+<p>首先，导入 ContentChild 元素</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>, <span class="title class_">ContentChild</span>, <span class="title class_">ContentChildren</span>, <span class="title class_">ElementRef</span>, <span class="title class_">Renderer2</span>,  <span class="title class_">ViewChild</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>然后，使用它在投影内容中查询 header元素</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ContentChild</span>(<span class="string">&quot;header&quot;</span>) <span class="attr">cardContentHeader</span>: <span class="title class_">ElementRef</span>;</span><br></pre></td></tr></table></figure>
+<p>这里，cardContentHeader是变量。我们对该变量应用@ContentChild装饰器。header是我们想要读取的模板变量，它应用于h1元素上。</p>
+<p>cardContentHeader变量无法立即使用。因为组件生命周期挂钩，angular首先初始化组件，然后它会引发ngOnChanges、ngOnInit和ngDoCheck挂钩。接下来将初始化投影的组件，然后Angular抛出AfterContentInit和AfterContentChecked钩子。因此，cardContentHeader只能在AfterContentInit挂钩之后使用。</p>
+<p>一旦我们引用了DOM元素，我们就可以使用renderor2来操纵它的样式等。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="title function_">ngAfterContentInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">   </span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">renderor</span>.<span class="title function_">setStyle</span>(<span class="variable language_">this</span>.<span class="property">cardContentHeader</span>.<span class="property">nativeElement</span>,<span class="string">&quot;font-size&quot;</span>,<span class="string">&quot;20px&quot;</span>)</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="ViewChild-Vs-ContentChild"><a href="#ViewChild-Vs-ContentChild" class="headerlink" title="ViewChild Vs ContentChild"></a>ViewChild Vs ContentChild</h1><p>例如，在CardComponent组件中，使用ViewChild查询来读取页眉元素。您会发现cardViewHeader是未定义</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ViewChild</span>(<span class="string">&quot;header&quot;</span>) <span class="attr">cardViewHeader</span>: <span class="title class_">ElementRef</span>;</span><br></pre></td></tr></table></figure>
+
+<h1 id="ContentChild语法"><a href="#ContentChild语法" class="headerlink" title="ContentChild语法"></a>ContentChild语法</h1><p>ContentChild查询DOM并返回第一个匹配元素，然后更新组件中对应的变量</p>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><p>ContentChild的语法如下所示。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">ContentChild</span>(<span class="attr">selector</span>: <span class="built_in">string</span> | <span class="title class_">Function</span> | <span class="title class_">Type</span>&lt;<span class="built_in">any</span>&gt;, <span class="attr">opts</span>: &#123; read?: <span class="built_in">any</span>; <span class="attr">static</span>: <span class="built_in">boolean</span>; &#125;): <span class="built_in">any</span></span><br></pre></td></tr></table></figure>
+
+<p>我们在组件属性上应用contentChild装饰器，它有两个参数，第一个参数是selector选择器，第二个参数是opts选项。</p>
+<p>selector（查询选择器）：用于查询的指令类型或查询字符串名称</p>
+<p>opts：有两个选项。</p>
+<p>static：设置为True：解析查询结果在变更检测之前执行，设置为false：解析查询结果在更改检测之后执行，默认为false。</p>
+<p>read：使用它从查询的元素中读取不同的令牌</p>
+<p>变更检测查找第一个与selecter匹配的元素，并使用该元素更新组件中的参数。如果DOM发生更改，并且有一个新元素与selecter匹配，则变更检测会更新组件中的对应参数。</p>
+<h2 id="Selector"><a href="#Selector" class="headerlink" title="Selector"></a>Selector</h2><p>查询选择器可以是字符串、类型或返回字符串或类型的函数。支持以下选择器。</p>
+<ul>
+<li>组件或指令类型</li>
+<li>作为字符串的模板引用变量</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/<span class="title class_">Using</span> a <span class="title class_">Template</span> <span class="title class_">Reference</span> <span class="title class_">Variable</span></span><br><span class="line"><span class="meta">@ContentChild</span>(<span class="string">&quot;header&quot;</span>) <span class="attr">cardContentHeader</span>: <span class="title class_">ElementRef</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Using component/directive as type</span></span><br><span class="line"><span class="meta">@ContentChild</span>(childComponent) <span class="attr">cardChildComponent</span>: childComponent;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Static"><a href="#Static" class="headerlink" title="Static"></a>Static</h2><p>确定何时解析查询。设置为True：当视图首次初始化（在第一次更改检测之前）解析，设置为False：在每次变更检测之后解析。</p>
+<h2 id="Read"><a href="#Read" class="headerlink" title="Read"></a>Read</h2><p>使用它可以从查询的元素中读取不同的令牌。</p>
+<p>例如，考虑以下投影内容。nameInput可以是输入元素，也可以是ngModel指令。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> #<span class="attr">nameInput</span> [(<span class="attr">ngModel</span>)]=<span class="string">&quot;name&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>以下代码中的ContentChild将输入元素作为elementRef返回。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ContentChild</span>(<span class="string">&#x27;nameInput&#x27;</span>,&#123;<span class="attr">static</span>:<span class="literal">false</span>&#125;) nameVar;</span><br></pre></td></tr></table></figure>
+
+<p>您可以使用read令牌来要求ContentChild返回正确的类型。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ContentChild</span>(<span class="string">&#x27;nameInput&#x27;</span>,&#123;<span class="attr">static</span>:<span class="literal">false</span>, <span class="attr">read</span>: <span class="title class_">NgModel</span>&#125;) nameVarAsNgModel;</span><br><span class="line"><span class="meta">@ContentChild</span>(<span class="string">&#x27;nameInput&#x27;</span>,&#123;<span class="attr">static</span>:<span class="literal">false</span>, <span class="attr">read</span>: <span class="title class_">ElementRef</span>&#125;) nameVarAsElementRef;</span><br><span class="line"><span class="meta">@ContentChild</span>(<span class="string">&#x27;nameInput&#x27;</span>, &#123;<span class="title class_">Static</span>:<span class="literal">false</span>, <span class="attr">read</span>: <span class="title class_">ViewContainerRef</span> &#125;) nameVarAsViewContainerRef;</span><br></pre></td></tr></table></figure>
+
+<h1 id="ContentChildren"><a href="#ContentChildren" class="headerlink" title="ContentChildren"></a>ContentChildren</h1><p>使用ContentChildren装饰器从投影的内容中获取元素引用的列表。</p>
+<p>ContentChildren与ContentChild不同。ContentChild总是返回对单个元素的引用。如果存在多个元素，则ContentChild返回第一个匹配元素，ContentChildren总是将所有匹配的元素作为QueryList返回。您可以遍历列表并访问每个元素。</p>
+<h2 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h2><p>contentChildren的语法如下所示。它与contentChild的语法非常相似，它没有Static选项，但又descendants选项</p>
+<p>将descendants设为True以包括所有子元素，否则仅包括直接子元素。</p>
+<p>ContentChildren总是在更改检测之后解析。即为什么它没有static选项。而且，您不能在ngOnInit钩子中引用它，因为它还没有初始化。</p>
 
       
     </div>
@@ -1632,346 +2018,6 @@
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> nArgument = Expression.Parameter(<span class="keyword">typeof</span>(<span class="built_in">int</span>), <span class="string">&quot;n&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> result = Expression.Variable(<span class="keyword">typeof</span>(<span class="built_in">int</span>), <span class="string">&quot;result&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Creating a label that represents the return value</span></span><br><span class="line">LabelTarget label = Expression.Label(<span class="keyword">typeof</span>(<span class="built_in">int</span>));</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> initializeResult = Expression.Assign(result, Expression.Constant(<span class="number">1</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// This is the inner block that performs the multiplication,</span></span><br><span class="line"><span class="comment">// and decrements the value of &#x27;n&#x27;</span></span><br><span class="line"><span class="keyword">var</span> block = Expression.Block(</span><br><span class="line">    Expression.Assign(result,</span><br><span class="line">        Expression.Multiply(result, nArgument)),</span><br><span class="line">    Expression.PostDecrementAssign(nArgument)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Creating a method body.</span></span><br><span class="line">BlockExpression body = Expression.Block(</span><br><span class="line">    <span class="keyword">new</span>[] &#123; result &#125;,</span><br><span class="line">    initializeResult,</span><br><span class="line">    Expression.Loop(</span><br><span class="line">        Expression.IfThenElse(</span><br><span class="line">            Expression.GreaterThan(nArgument, Expression.Constant(<span class="number">1</span>)),</span><br><span class="line">            block,</span><br><span class="line">            Expression.Break(label, result)</span><br><span class="line">        ),</span><br><span class="line">        label</span><br><span class="line">    )</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 <p>用于生成阶乘函数的表达式树的代码相对更长、更复杂，它充满了标签和 break 语句以及我们在日常编码任务中想要避免的其他元素。</p>
 <h1 id="转换表达式树"><a href="#转换表达式树" class="headerlink" title="转换表达式树"></a>转换表达式树</h1>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/02/28/linq/LINQ-TO-SQL/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="InfoPool">
-      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | InfoPool">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/02/28/linq/LINQ-TO-SQL/" class="post-title-link" itemprop="url">LINQ TO SQL</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-02-28 17:26:36" itemprop="dateCreated datePublished" datetime="2023-02-28T17:26:36+08:00">2023-02-28</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-03-01 12:30:53" itemprop="dateModified" datetime="2023-03-01T12:30:53+08:00">2023-03-01</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>通过使用 LINQ to SQL，可以使用 LINQ 技术访问 SQL 数据库，就像访问内存中的集合一样。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/02/16/angular/%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="InfoPool">
-      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | InfoPool">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/02/16/angular/%E4%BE%9D%E8%B5%96%E6%B3%A8%E5%85%A5/" class="post-title-link" itemprop="url">依赖注入</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-02-16 13:16:46" itemprop="dateCreated datePublished" datetime="2023-02-16T13:16:46+08:00">2023-02-16</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-03-05 23:45:11" itemprop="dateModified" datetime="2023-03-05T23:45:11+08:00">2023-03-05</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>@Injectable() 装饰器把一个类定义为 Angular 中的服务，并且允许 Angular 把它作为依赖注入到组件中。 类似的，@Injectable() 装饰器会标记出某个组件、类、管道或 NgModule 具有对某个服务的依赖。</p>
-<ul>
-<li>Angular 会在启动过程中为你创建全应用级注入器以及所需的其它注入器。你不用自己创建注入器。</li>
-<li>该注入器会创建依赖、维护一个容器来管理这些依赖，并尽可能复用它们。</li>
-<li>提供者(provider)是一个对象，用来告诉注入器应该如何获取或创建依赖</li>
-</ul>
-<p>你的应用中所需的任何依赖，都必须使用该应用的注入器来注册一个提供者，以便注入器可以使用这个提供者来创建新实例。对于服务，该提供者通常就是服务类本身。</p>
-<blockquote>
-<p>依赖不一定是服务 —— 它还可能是函数或值。</p>
-</blockquote>
-<p>当 Angular 创建组件类的新实例时，它会通过查看该组件类的构造函数，来决定该组件依赖哪些服务或其它依赖项。比如 HeroListComponent 的构造函数中需要 HeroService：</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> service: HeroService</span>) &#123; &#125;</span><br></pre></td></tr></table></figure>
-<p>当 Angular 发现某个组件依赖某个服务时，它会首先检查是否该注入器中已经有了那个服务的任何现有实例。如果所请求的服务尚不存在，注入器就会使用以前注册的服务提供者来制作一个，并把它加入注入器中，然后把该服务返回给 Angular。</p>
-<h1 id="提供服务范围"><a href="#提供服务范围" class="headerlink" title="提供服务范围"></a>提供服务范围</h1><p>对于要用到的任何服务，你必须至少注册一个提供者。服务可以在自己的元数据中把自己注册为提供者，这样可以让自己随处可用。或者，你也可以为特定的模块或组件注册提供者。要注册提供者，就要在服务的 @Injectable() 装饰器中提供它的元数据，或者在 @NgModule() 或 @Component() 的元数据中。</p>
-<ul>
-<li>默认情况下，Angular CLI 的 ng generate service 命令会在 @Injectable() 装饰器中提供元数据来把它注册到根注入器中。</li>
-</ul>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">  <span class="meta">@Injectable</span>(&#123;</span><br><span class="line"> <span class="attr">providedIn</span>: <span class="string">&#x27;root&#x27;</span>,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p>当你在根一级提供服务时，Angular 会为 HeroService 创建一个单一的共享实例，并且把它注入到任何想要它的类中。</p>
-<p>这种在 @Injectable 元数据中注册提供者的方式还让 Angular 能够通过移除那些从未被用过的服务来优化大小,这个过程称为摇树优化（tree-shaking）。</p>
-<ul>
-<li>当你使用特定的 NgModule 注册提供者时，该服务的同一个实例将会对该 NgModule 中的所有组件可用。要想在这一层注册，请用 @NgModule() 装饰器中的 providers 属性：</li>
-</ul>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@NgModule</span>(&#123;</span><br><span class="line">  <span class="attr">providers</span>: [</span><br><span class="line">  <span class="title class_">BackendService</span>,</span><br><span class="line">  <span class="title class_">Logger</span></span><br><span class="line"> ],</span><br><span class="line"> …</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>当你在组件级注册提供者时，你会为该组件的每一个新实例提供该服务的一个新实例。要在组件级注册，就要在 @Component() 元数据的 providers 属性中注册服务提供者。<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>:    <span class="string">&#x27;app-hero-list&#x27;</span>,</span><br><span class="line">  <span class="attr">templateUrl</span>: <span class="string">&#x27;./hero-list.component.html&#x27;</span>,</span><br><span class="line">  <span class="attr">providers</span>:  [ <span class="title class_">HeroService</span> ]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></li>
-</ul>
-<h1 id="配置依赖提供者"><a href="#配置依赖提供者" class="headerlink" title="配置依赖提供者"></a>配置依赖提供者</h1><p>你还可以用其他值作为依赖项，例如 Boolean、字符串、日期和对象。 Angular DI 提供了一些必要的 API 来让依赖的配置方式更加灵活，以便你可以把这些值在 DI 中可用。</p>
-<h2 id="指定提供者令牌"><a href="#指定提供者令牌" class="headerlink" title="指定提供者令牌"></a>指定提供者令牌</h2><p>如果你用服务类作为提供者令牌，则其默认行为是注入器使用 new 运算符实例化该类。</p>
-<p>在下面这个例子中，Logger 类提供了 Logger 的实例。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">providers</span>: [<span class="title class_">Logger</span>]</span><br></pre></td></tr></table></figure>
-<p>但是，你可以将 DI 配置为使用不同的类或任何其他不同的值来与 Logger 类关联。因此，当注入 Logger 时，会改为使用这个新值。</p>
-<p>实际上，类提供者语法是一个简写表达式，可以扩展为由 Provider 接口定义的提供者配置信息。</p>
-<p>在这种情况下，Angular 将 providers 值展开为完整的提供者对象，如下所示：</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123; <span class="attr">provide</span>: <span class="title class_">Logger</span>, <span class="attr">useClass</span>: <span class="title class_">Logger</span> &#125;]</span><br></pre></td></tr></table></figure>
-<p>展开后的提供者配置是一个具有两个属性的对象字面量：</p>
-<ul>
-<li><p>provide 属性包含一个令牌，该令牌会作为定位依赖值和配置注入器时的键。</p>
-</li>
-<li><p>第二个属性是一个提供者定义对象，它会告诉注入器如何创建依赖值。 提供者定义对象中的键可以是以下值之一：</p>
-<ul>
-<li><p>useClass -此选项告诉 Angular DI 在注入依赖项时要实例化这里提供的类</p>
-</li>
-<li><p>useExisting - 允许你为令牌起一个别名，并引用任意一个现有令牌。</p>
-</li>
-<li><p>useFactory - 允许你定义一个用来构造依赖项的函数</p>
-</li>
-<li><p>useValue - 提供了一个应该作为依赖项使用的静态值。</p>
-</li>
-</ul>
-</li>
-</ul>
-<p>下面的部分介绍如何使用这里所说的“提供者定义”键。</p>
-<h3 id="类提供者：useClass"><a href="#类提供者：useClass" class="headerlink" title="类提供者：useClass"></a>类提供者：useClass</h3><p>useClass 能让你创建并返回指定类的新实例。</p>
-<p>你可以用这种类型的提供者来作为通用类或默认类的替代实现。<br>例如，替代实现可以实现不同的策略、扩展默认类或模拟测试用例中真实类的行为。在以下示例中，当在组件或任何其他类中请求 Logger 依赖项时，将转而实例化 BetterLogger 类。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123; <span class="attr">provide</span>: <span class="title class_">Logger</span>, <span class="attr">useClass</span>: <span class="title class_">BetterLogger</span> &#125;]</span><br></pre></td></tr></table></figure>
-<p>如果替代类提供者有自己的依赖项，请在父模块或组件的 providers 元数据属性中指定这两个提供者。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">[ <span class="title class_">UserService</span>,</span><br><span class="line">&#123; <span class="attr">provide</span>: <span class="title class_">Logger</span>, <span class="attr">useClass</span>: <span class="title class_">EvenBetterLogger</span> &#125;]</span><br></pre></td></tr></table></figure>
-<p>在这个例子中，EvenBetterLogger 会在日志信息里显示用户名。这个 logger 要从注入的 UserService 实例中来获取该用户。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Injectable</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">EvenBetterLogger</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Logger</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> userService: UserService</span>) &#123; <span class="variable language_">super</span>(); &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">override</span> <span class="title function_">log</span>(<span class="params">message: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> name = <span class="variable language_">this</span>.<span class="property">userService</span>.<span class="property">user</span>.<span class="property">name</span>;</span><br><span class="line">    <span class="variable language_">super</span>.<span class="title function_">log</span>(<span class="string">`Message to <span class="subst">$&#123;name&#125;</span>: <span class="subst">$&#123;message&#125;</span>`</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="别名提供者：useExisting"><a href="#别名提供者：useExisting" class="headerlink" title="别名提供者：useExisting"></a>别名提供者：useExisting</h3><p>useExisting 允许你将一个令牌映射到另一个。实际上，第一个令牌是与第二个令牌关联的服务的别名，创建了两种访问同一个服务对象的方式。</p>
-<p>在下面的例子中，当组件请求新的或旧的记录器时，注入器都会注入一个 NewLogger 的实例。通过这种方式，OldLogger 就成了 NewLogger 的别名。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">[ <span class="title class_">NewLogger</span>,</span><br><span class="line">  <span class="comment">// Alias OldLogger w/ reference to NewLogger</span></span><br><span class="line">  &#123; <span class="attr">provide</span>: <span class="title class_">OldLogger</span>, <span class="attr">useExisting</span>: <span class="title class_">NewLogger</span>&#125;]</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>确保你没有使用 OldLogger 将 NewLogger 别名为 useClass ，因为这会创建两个不同 NewLogger 实例。</p>
-</blockquote>
-<h3 id="工厂提供者：useFactory"><a href="#工厂提供者：useFactory" class="headerlink" title="工厂提供者：useFactory"></a>工厂提供者：useFactory</h3><p>useFactory 允许你通过调用工厂函数来创建依赖对象。使用这种方法，你可以根据 DI 和应用程序中其他地方的可用信息创建动态值。</p>
-<p>在下面的例子中，只有授权用户才能看到 HeroService 中的秘密英雄。授权可能在单个应用会话期间发生变化，比如改用其他用户登录。</p>
-<p>要想在 UserService 和 HeroService 中保存敏感信息，就要给 HeroService 的构造函数传一个逻辑标志来控制秘密英雄的显示。</p>
-<blockquote>
-<p>hero.service.ts</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">constructor</span>(<span class="params"></span></span><br><span class="line"><span class="params">  <span class="keyword">private</span> logger: Logger,</span></span><br><span class="line"><span class="params">  <span class="keyword">private</span> isAuthorized: <span class="built_in">boolean</span></span>) &#123; &#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">getHeroes</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> auth = <span class="variable language_">this</span>.<span class="property">isAuthorized</span> ? <span class="string">&#x27;authorized &gt; &#x27;</span> : <span class="string">&#x27;unauthorized&#x27;</span>;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">logger</span>.<span class="title function_">log</span>(<span class="string">`Getting heroes for <span class="subst">$&#123;auth&#125;</span> user.`</span>);</span><br><span class="line">  <span class="keyword">return</span> <span class="variable constant_">HEROES</span>.<span class="title function_">filter</span>(<span class="function"><span class="params">hero</span> =&gt;</span> <span class="variable language_">this</span>.<span class="property">isAuthorized</span> || !hero.<span class="property">isSecret</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>要实现 isAuthorized 标志，可以用工厂提供者来为 HeroService 创建一个新的 logger 实例。</p>
-</blockquote>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> <span class="title function_">heroServiceFactory</span> = (<span class="params">logger: Logger, userService: UserService</span>) =&gt;</span><br><span class="line">  <span class="keyword">new</span> <span class="title class_">HeroService</span>(logger, userService.<span class="property">user</span>.<span class="property">isAuthorized</span>);</span><br></pre></td></tr></table></figure>
-<p>这个工厂函数可以访问 UserService。你可以同时把 Logger 和 UserService 注入到工厂提供者中，这样注入器就可以把它们传给工厂函数了。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> heroServiceProvider =</span><br><span class="line">  &#123; <span class="attr">provide</span>: <span class="title class_">HeroService</span>,</span><br><span class="line">    <span class="attr">useFactory</span>: heroServiceFactory,</span><br><span class="line">    <span class="attr">deps</span>: [<span class="title class_">Logger</span>, <span class="title class_">UserService</span>]</span><br><span class="line">  &#125;;</span><br></pre></td></tr></table></figure>
-<ul>
-<li><p>useFactory 字段指定该提供者是一个工厂函数，其实现代码是 heroServiceFactory。</p>
-</li>
-<li><p>deps 属性是一个提供者令牌的数组。 Logger 和 UserService 类作为它们自己的类提供者的令牌。注入器会解析这些令牌，并将相应的服务注入到匹配的 heroServiceFactory 工厂函数参数中。</p>
-</li>
-</ul>
-<p>通过把工厂提供者导出为变量 heroServiceProvider，就能让工厂提供者变得可复用。</p>
-<h3 id="值提供者：useValue"><a href="#值提供者：useValue" class="headerlink" title="值提供者：useValue"></a>值提供者：useValue</h3><p>useValue 允许你将固定值与某个 DI 令牌相关联。可以用此技术提供运行时配置常量，例如网站基址和特性标志。你还可以在单元测试中使用值提供者来提供模拟数据以代替生产级数据服务。</p>
-<h2 id="使用-InjectionToken-对象"><a href="#使用-InjectionToken-对象" class="headerlink" title="使用 InjectionToken 对象"></a>使用 InjectionToken 对象</h2><p>可以定义和使用一个 InjectionToken 对象来为非类的依赖选择一个提供者令牌。下列例子定义了一个类型为 InjectionToken 的 APP_CONFIG。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">InjectionToken</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="variable constant_">APP_CONFIG</span> = <span class="keyword">new</span> <span class="title class_">InjectionToken</span>&lt;<span class="title class_">AppConfig</span>&gt;(<span class="string">&#x27;app.config&#x27;</span>);</span><br></pre></td></tr></table></figure>
-<p>可选的参数 <AppConfig> 和令牌描述 app.config 指明了此令牌的用途。</p>
-<p>接着，用 APP_CONFIG 这个 InjectionToken 对象在组件中注册依赖提供者。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">providers</span>: [&#123; <span class="attr">provide</span>: <span class="variable constant_">APP_CONFIG</span>, <span class="attr">useValue</span>: <span class="variable constant_">HERO_DI_CONFIG</span> &#125;]</span><br></pre></td></tr></table></figure>
-<p>现在，借助参数装饰器 @Inject()，你可以把这个配置对象注入到构造函数中。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">constructor</span>(<span class="params"><span class="meta">@Inject</span>(APP_CONFIG) config: AppConfig</span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">title</span> = config.<span class="property">title</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h1 id="使用参数装饰器来限定依赖查找方式"><a href="#使用参数装饰器来限定依赖查找方式" class="headerlink" title="使用参数装饰器来限定依赖查找方式"></a>使用参数装饰器来限定依赖查找方式</h1><p>默认情况下，DI 框架会在注入器树中查找一个提供者，从该组件的局部注入器开始，如果需要，则沿着注入器树向上冒泡，直到根注入器。</p>
-<ul>
-<li><p>第一个配置过该提供者的注入器就会把依赖（服务实例或值）提供给这个构造函数</p>
-</li>
-<li><p>如果在根注入器中也没有找到提供者，则 DI 框架将会抛出一个错误</p>
-</li>
-</ul>
-<p>通过在类的构造函数中对服务参数使用参数装饰器，可以提供一些选项来修改默认的搜索行为。</p>
-<h2 id="用-Optional-来让依赖是可选的，以及使用-Host-来限定搜索方式"><a href="#用-Optional-来让依赖是可选的，以及使用-Host-来限定搜索方式" class="headerlink" title="用 @Optional 来让依赖是可选的，以及使用 @Host 来限定搜索方式"></a>用 @Optional 来让依赖是可选的，以及使用 @Host 来限定搜索方式</h2><p>某些情况下，你需要限制搜索，或容忍依赖项的缺失。你可以使用组件构造函数参数上的 @Host 和 @Optional 这两个限定装饰器来修改 Angular 的搜索行为。</p>
-<ul>
-<li><p>@Optional 属性装饰器告诉 Angular 当找不到依赖时就返回 null</p>
-</li>
-<li><p>@Host 属性装饰器会禁止在宿主组件以上的搜索。宿主组件通常就是请求该依赖的那个组件。不过，当该组件投影进某个父组件时，那个父组件就会变成宿主。</p>
-</li>
-</ul>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">template: `</span><br><span class="line">  <span class="tag">&lt;<span class="name">app-hero-bio</span> [<span class="attr">heroId</span>]=<span class="string">&quot;1&quot;</span>&gt;</span> <span class="tag">&lt;<span class="name">app-hero-contact</span>&gt;</span><span class="tag">&lt;/<span class="name">app-hero-contact</span>&gt;</span> <span class="tag">&lt;/<span class="name">app-hero-bio</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">app-hero-bio</span> [<span class="attr">heroId</span>]=<span class="string">&quot;2&quot;</span>&gt;</span> <span class="tag">&lt;<span class="name">app-hero-contact</span>&gt;</span><span class="tag">&lt;/<span class="name">app-hero-contact</span>&gt;</span> <span class="tag">&lt;/<span class="name">app-hero-bio</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">app-hero-bio</span> [<span class="attr">heroId</span>]=<span class="string">&quot;3&quot;</span>&gt;</span> <span class="tag">&lt;<span class="name">app-hero-contact</span>&gt;</span><span class="tag">&lt;/<span class="name">app-hero-contact</span>&gt;</span> <span class="tag">&lt;/<span class="name">app-hero-bio</span>&gt;</span>`,</span><br></pre></td></tr></table></figure>
-<p>  在 <hero-bio> 标签中是一个新的 <hero-contact> 元素。Angular 就会把相应的 HeroContactComponent投影(transclude)进 HeroBioComponent 的视图里，将它放在 HeroBioComponent 模板的 <ng-content> 标签槽里。<br>  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">template: `</span><br><span class="line"><span class="tag">&lt;<span class="name">h4</span>&gt;</span>&#123;&#123;hero.name&#125;&#125;<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ng-content</span>&gt;</span><span class="tag">&lt;/<span class="name">ng-content</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">textarea</span> <span class="attr">cols</span>=<span class="string">&quot;25&quot;</span> [(<span class="attr">ngModel</span>)]=<span class="string">&quot;hero.description&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span>`,</span><br></pre></td></tr></table></figure></p>
-<h2 id="使用-Inject-指定自定义提供者"><a href="#使用-Inject-指定自定义提供者" class="headerlink" title="使用 @Inject 指定自定义提供者"></a>使用 @Inject 指定自定义提供者</h2><p>  自定义提供者让你可以为隐式依赖提供一个具体的实现，比如内置浏览器 API。下面的例子使用 InjectionToken 来提供 localStorage，将其作为 BrowserStorageService 的依赖项。<br>  <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">import</span> &#123; <span class="title class_">Inject</span>, <span class="title class_">Injectable</span>, <span class="title class_">InjectionToken</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="variable constant_">BROWSER_STORAGE</span> = <span class="keyword">new</span> <span class="title class_">InjectionToken</span>&lt;<span class="title class_">Storage</span>&gt;(<span class="string">&#x27;Browser Storage&#x27;</span>, &#123;</span><br><span class="line">  <span class="attr">providedIn</span>: <span class="string">&#x27;root&#x27;</span>,</span><br><span class="line">  <span class="attr">factory</span>: <span class="function">() =&gt;</span> <span class="variable language_">localStorage</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="meta">@Injectable</span>(&#123;</span><br><span class="line">  <span class="attr">providedIn</span>: <span class="string">&#x27;root&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">BrowserStorageService</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"><span class="meta">@Inject</span>(BROWSER_STORAGE) <span class="keyword">public</span> storage: Storage</span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">get</span>(<span class="params">key: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">storage</span>.<span class="title function_">getItem</span>(key);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">set</span>(<span class="params">key: <span class="built_in">string</span>, value: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">storage</span>.<span class="title function_">setItem</span>(key, value);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">remove</span>(<span class="params">key: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">storage</span>.<span class="title function_">removeItem</span>(key);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">clear</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">storage</span>.<span class="title function_">clear</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>factory 函数返回 window 对象上的 localStorage 属性。Inject 装饰器修饰一个构造函数参数，用于为某个依赖提供自定义提供者。</p>
-<h2 id="使用-Self-和-SkipSelf-来修改提供者的搜索方式"><a href="#使用-Self-和-SkipSelf-来修改提供者的搜索方式" class="headerlink" title="使用 @Self 和 @SkipSelf 来修改提供者的搜索方式"></a>使用 @Self 和 @SkipSelf 来修改提供者的搜索方式</h2><p>注入器也可以通过构造函数的参数装饰器来指定范围。下面的例子就在 Component 类的 providers 中使用浏览器的 sessionStorage API 覆盖了 BROWSER_STORAGE 令牌。同一个 BrowserStorageService 在构造函数中使用 @Self 和 @SkipSelf 装饰器注入了两次，来分别指定由哪个注入器来提供依赖。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>, <span class="title class_">OnInit</span>, <span class="title class_">Self</span>, <span class="title class_">SkipSelf</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="variable constant_">BROWSER_STORAGE</span>, <span class="title class_">BrowserStorageService</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./storage.service&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-storage&#x27;</span>,</span><br><span class="line">  <span class="attr">template</span>: <span class="string">`</span></span><br><span class="line"><span class="string">    Open the inspector to see the local/session storage keys:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &lt;h3&gt;Session Storage&lt;/h3&gt;</span></span><br><span class="line"><span class="string">    &lt;button type=&quot;button&quot; (click)=&quot;setSession()&quot;&gt;Set Session Storage&lt;/button&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &lt;h3&gt;Local Storage&lt;/h3&gt;</span></span><br><span class="line"><span class="string">    &lt;button type=&quot;button&quot; (click)=&quot;setLocal()&quot;&gt;Set Local Storage&lt;/button&gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">  <span class="attr">providers</span>: [</span><br><span class="line">    <span class="title class_">BrowserStorageService</span>,</span><br><span class="line">    &#123; <span class="attr">provide</span>: <span class="variable constant_">BROWSER_STORAGE</span>, <span class="attr">useFactory</span>: <span class="function">() =&gt;</span> sessionStorage &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">StorageComponent</span> <span class="keyword">implements</span> <span class="title class_">OnInit</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span></span><br><span class="line"><span class="params">    <span class="meta">@Self</span>() <span class="keyword">private</span> sessionStorageService: BrowserStorageService,</span></span><br><span class="line"><span class="params">    <span class="meta">@SkipSelf</span>() <span class="keyword">private</span> localStorageService: BrowserStorageService,</span></span><br><span class="line"><span class="params">  </span>) &#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">setSession</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">sessionStorageService</span>.<span class="title function_">set</span>(<span class="string">&#x27;hero&#x27;</span>, <span class="string">&#x27;Dr Nice - Session&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">setLocal</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">localStorageService</span>.<span class="title function_">set</span>(<span class="string">&#x27;hero&#x27;</span>, <span class="string">&#x27;Dr Nice - Local&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>使用 @Self 装饰器时，注入器只在该组件的注入器中查找提供者。@SkipSelf 装饰器可以让你跳过局部注入器，并在注入器树中向上查找，以发现哪个提供者满足该依赖。sessionStorageService 实例使用浏览器的 sessionStorage 来跟 BrowserStorageService 打交道，而 localStorageService 跳过了局部注入器，使用根注入器提供的 BrowserStorageService，它使用浏览器的 localStorage API。</p>
-<h1 id="注入器层次结构的类型"><a href="#注入器层次结构的类型" class="headerlink" title="注入器层次结构的类型"></a>注入器层次结构的类型</h1><p>Angular 中有两个注入器层次结构：</p>
-<table>
-<thead>
-<tr>
-<th>注入器层次结构</th>
-<th>详情</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>ModuleInjector 层次结构</td>
-<td>使用 @NgModule() 或 @Injectable() 注解在此层次结构中配置 ModuleInjector。</td>
-</tr>
-<tr>
-<td>ElementInjector 层次结构</td>
-<td>在每个 DOM 元素上隐式创建。默认情况下，ElementInjector 是空的，除非你在 @Directive() 或 @Component() 的 providers 属性中配置它。</td>
-</tr>
-</tbody></table>
-<h2 id="ModuleInjector"><a href="#ModuleInjector" class="headerlink" title="ModuleInjector"></a>ModuleInjector</h2><p>可以通过以下两种方式之一配置 ModuleInjector ：</p>
-<ul>
-<li><p>使用 @Injectable() 的 providedIn 属性引用 @NgModule() 或 root</p>
-</li>
-<li><p>使用 @NgModule() 的 providers 数组</p>
-</li>
-</ul>
-<h3 id="摇树优化与-Injectable"><a href="#摇树优化与-Injectable" class="headerlink" title="摇树优化与 @Injectable()"></a>摇树优化与 @Injectable()</h3><p>使用 @Injectable() 的 providedIn 属性优于 @NgModule() 的 providers 数组。使用 @Injectable() 的 providedIn 时，优化工具可以进行摇树优化，从而删除你的应用程序中未使用的服务，以减小捆绑包尺寸。</p>
-<h3 id="平台注入器"><a href="#平台注入器" class="headerlink" title="平台注入器"></a>平台注入器</h3><p>在 root 之上还有两个注入器，一个是额外的 ModuleInjector，一个是 NullInjector()。</p>
-<p>思考下 Angular 要如何通过 main.ts 中的如下代码引导应用程序：</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">platformBrowserDynamic</span>().<span class="title function_">bootstrapModule</span>(<span class="title class_">AppModule</span>).<span class="title function_">then</span>(<span class="function"><span class="params">ref</span> =&gt;</span> &#123;…&#125;)</span><br></pre></td></tr></table></figure>
-<p>bootstrapModule() 方法会创建一个由 AppModule 配置的注入器作为平台注入器的子注入器。也就是 root ModuleInjector。</p>
-<p>platformBrowserDynamic() 方法创建一个由 PlatformModule 配置的注入器，该注入器包含特定平台的依赖项。这允许多个应用共享同一套平台配置。比如，无论你运行多少个应用程序，浏览器都只有一个 URL 栏。你可以使用 platformBrowser() 函数提供 extraProviders，从而在平台级别配置特定平台的额外提供者。</p>
-<p>层次结构中的下一个父注入器是 NullInjector()，它是树的顶部。如果你在树中向上走了很远，以至于要在 NullInjector() 中寻找服务，那么除非使用 @Optional()，否则将收到错误消息，因为最终所有东西都将以 NullInjector() 结束并返回错误，或者对于 @Optional()，返回 null。</p>
-<blockquote>
-<p>NullInjector()</p>
-<p>(always throws an error unless you use @Optional)</p>
-<p>↓</p>
-<p>ModuleInjector</p>
-<p>(configured by PlatformModule)<br>has special things like DomSanitizer&#x3D;&gt;platformBrowser()</p>
-<p>↓<br>root ModuleInjector<br>(configured by YourAppModule)<br>has things for your app&#x3D;&gt;bootstrapModule(YourAPPModule)</p>
-</blockquote>
-<p>虽然 root 是一个特殊的别名，但其它 ModuleInjector 都没有别名。每当创建动态加载组件时，你还会创建 ModuleInjector，比如路由器，它还会创建子 ModuleInjector。</p>
-<p>无论是使用 bootstrapModule() 的方法配置它，还是将所有提供者都用 root 注册到其自己的服务中，所有请求最终都会转发到 root 注入器。</p>
-<blockquote>
-<p>如果你在 AppModule 的 @NgModule() 中配置应用级提供者，它就会覆盖一个在 @Injectable() 的 root 元数据中配置的提供者。你可以用这种方式，来配置供多个应用共享的服务的非默认提供者。</p>
-</blockquote>
-<h2 id="ElementInjector"><a href="#ElementInjector" class="headerlink" title="ElementInjector"></a>ElementInjector</h2><p>Angular 会为每个 DOM 元素隐式创建 ElementInjector。</p>
-<p>可以用 @Component() 装饰器中的 providers 或 viewProviders 属性来配置 ElementInjector 以提供服务。比如，下面的 TestComponent 通过提供此服务来配置 ElementInjector</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  …</span><br><span class="line">  <span class="attr">providers</span>: [&#123; <span class="attr">provide</span>: <span class="title class_">ItemService</span>, <span class="attr">useValue</span>: &#123; <span class="attr">name</span>: <span class="string">&#x27;lamp&#x27;</span> &#125; &#125;]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">TestComponent</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="Directive-和-Component"><a href="#Directive-和-Component" class="headerlink" title="@Directive() 和 @Component()"></a>@Directive() 和 @Component()</h3><p>组件是一种特殊类型的指令，这意味着 @Directive() 具有 providers 属性，@Component() 也同样如此。 这意味着指令和组件都可以使用 providers 属性来配置提供者。当使用 providers 属性为组件或指令配置提供者时，该提供程商就属于该组件或指令的 ElementInjector。同一元素上的组件和指令共享同一个注入器。</p>
-<h2 id="解析规则"><a href="#解析规则" class="headerlink" title="解析规则"></a>解析规则</h2><p>当为组件&#x2F;指令解析令牌时，Angular 分为两个阶段来解析它：</p>
-<ul>
-<li><p>针对 ElementInjector 层次结构中它的父级。</p>
-</li>
-<li><p>针对 ModuleInjector 层次结构中它的父级。</p>
-</li>
-</ul>
-<p>当组件声明依赖项时，Angular 会尝试使用它自己的 ElementInjector 来满足该依赖。 如果组件的注入器缺少提供者，它将把请求传给其父组件的 ElementInjector。</p>
-<p>这些请求将继续转发，直到 Angular 找到可以处理该请求的注入器或用完祖先 ElementInjector。</p>
-<p>如果 Angular 在任何 ElementInjector 中都找不到提供者，它将返回到发起请求的元素，并在 ModuleInjector 层次结构中进行查找。如果 Angular 仍然找不到提供者，它将引发错误。</p>
-<p>如果你已在不同级别注册了相同 DI 令牌的提供者，则 Angular 会用遇到的第一个来解析该依赖。比如，如果提供者已经在需要此服务的组件中本地注册了，则 Angular 不会再寻找同一服务的其它提供者。</p>
-<h2 id="模板的逻辑结构"><a href="#模板的逻辑结构" class="headerlink" title="模板的逻辑结构"></a>模板的逻辑结构</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">app-root</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">app-child</span>&gt;</span><span class="tag">&lt;/<span class="name">app-child</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">app-root</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>下面是如何将 <app-root> 和 <app-child> 视图树组合为单个逻辑树的范例：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">app-root</span>&gt;</span></span><br><span class="line">  &lt;#VIEW&gt;</span><br><span class="line">    <span class="tag">&lt;<span class="name">app-child</span>&gt;</span></span><br><span class="line">     &lt;#VIEW&gt;</span><br><span class="line">       …content goes here…</span><br><span class="line">     &lt;/#VIEW&gt;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">app-child</span>&gt;</span></span><br><span class="line">  &lt;/#VIEW&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">app-root</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>当你在组件类中配置服务时，了解这种 &lt;#VIEW&gt; 划界的思想尤其重要。</p>
-<h3 id="使用-viewProviders-数组"><a href="#使用-viewProviders-数组" class="headerlink" title="使用 viewProviders 数组"></a>使用 viewProviders 数组</h3><p>使用 viewProviders 数组是在 @Component() 装饰器中提供服务的另一种方法。使用 viewProviders 使服务在 &lt;#VIEW&gt; 中可见。</p>
-<blockquote>
-<p>除了使用 viewProviders 数组外，其它步骤与使用 providers 数组相同。</p>
-</blockquote>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">app-root</span> @<span class="attr">NgModule</span>(<span class="attr">AppModule</span>)</span></span><br><span class="line"><span class="tag">         @<span class="attr">Inject</span>(<span class="attr">AnimalService</span>) <span class="attr">animal</span>=&gt;</span>&quot;🐳&quot;&gt;</span><br><span class="line">  &lt;#VIEW&gt;</span><br><span class="line">    <span class="tag">&lt;<span class="name">app-child</span>&gt;</span></span><br><span class="line">      &lt;#VIEW @Provide(AnimalService=&quot;🐶&quot;)</span><br><span class="line">            @Inject(AnimalService=&gt;&quot;🐶&quot;)&gt;</span><br><span class="line">        <span class="comment">&lt;!-- ^^using viewProviders means AnimalService is available in &lt;#VIEW&gt;--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>Emoji from AnimalService: &#123;&#123;animal.emoji&#125;&#125; (🐶)<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  </span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">h3</span>&gt;</span>Content projection<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">app-inspector</span> @<span class="attr">Inject</span>(<span class="attr">AnimalService</span>) <span class="attr">animal</span>=&gt;</span>&quot;🐳&quot;&gt;</span><br><span class="line">            <span class="tag">&lt;<span class="name">p</span>&gt;</span>Emoji from AnimalService: &#123;&#123;animal.emoji&#125;&#125; (🐳)<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">app-inspector</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  </span><br><span class="line">      &lt;/#VIEW&gt;</span><br><span class="line">      <span class="tag">&lt;<span class="name">app-inspector</span>&gt;</span></span><br><span class="line">        &lt;#VIEW&gt;</span><br><span class="line">          <span class="tag">&lt;<span class="name">p</span>&gt;</span>Emoji from AnimalService: &#123;&#123;animal.emoji&#125;&#125; (🐶)<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        &lt;/#VIEW&gt;</span><br><span class="line">      <span class="tag">&lt;/<span class="name">app-inspector</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">app-child</span>&gt;</span></span><br><span class="line">  &lt;/#VIEW&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">app-root</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>这四个绑定说明了 providers 和 viewProviders 之间的区别。由于🐶（小狗）在 &lt;#VIEW&gt; 中声明，因此投影内容不可见。投影的内容中会看到🐳（鲸鱼）。</p>
-<p>但是下一部分，InspectorComponent 是 ChildComponent 的子组件，InspectorComponent 在 &lt;#VIEW&gt; 内部，因此当它请求 AnimalService 时，它会看到🐶（小狗）。</p>
-<p><app-inspector> 的投影内容中看到了🐳（鲸鱼），而不是🐶（小狗），因为🐶（小狗）在 <app-child> 的 &lt;#VIEW&gt; 中。如果 <app-inspector> 也位于 &lt;#VIEW&gt; 则只能看到🐶（小狗）。</p>
-<h3 id="Host-和-viewProviders"><a href="#Host-和-viewProviders" class="headerlink" title="@Host() 和 viewProviders"></a>@Host() 和 viewProviders</h3><p> @Host() 将搜索的上限限制为父节点的 &lt;#VIEW&gt;</p>
- <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">app-root</span> @<span class="attr">NgModule</span>(<span class="attr">AppModule</span>)</span></span><br><span class="line"><span class="tag">        @<span class="attr">Inject</span>(<span class="attr">AnimalService</span>=&gt;</span>&quot;🐳&quot;)&gt;</span><br><span class="line">  &lt;#VIEW @Provide(AnimalService=&quot;🦔&quot;)</span><br><span class="line">         @Inject(AnimalService, @Optional)=&gt;&quot;🦔&quot;&gt;</span><br><span class="line">    <span class="comment">&lt;!-- ^^@SkipSelf() starts here,  @Host() stops here^^ --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">app-child</span>&gt;</span></span><br><span class="line">      &lt;#VIEW @Provide(AnimalService=&quot;🐶&quot;)</span><br><span class="line">             @Inject(AnimalService, @SkipSelf, @Host, @Optional)=&gt;&quot;🦔&quot;&gt;</span><br><span class="line">               <span class="comment">&lt;!-- Add @SkipSelf ^^--&gt;</span></span><br><span class="line">      &lt;/#VIEW&gt;</span><br><span class="line">      <span class="tag">&lt;/<span class="name">app-child</span>&gt;</span></span><br><span class="line">  &lt;/#VIEW&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">app-root</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>@SkipSelf() 导致注入器从 <app-root> 而不是 <app-child> 处开始对 AnimalService 进行搜索，而 @Host() 会在 <app-root> 的 &lt;#VIEW&gt; 处停止搜索。 由于 AnimalService 是通过 viewProviders 数组提供的，因此注入程序会在 &lt;#VIEW&gt; 找到🦔（刺猬）。</p>
-
       
     </div>
 
