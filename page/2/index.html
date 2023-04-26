@@ -118,7 +118,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">30</span>
+          <span class="site-state-item-count">33</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -152,6 +152,761 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/03/20/angular/%E6%A8%A1%E6%9D%BF/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/03/20/angular/%E6%A8%A1%E6%9D%BF/" class="post-title-link" itemprop="url">模板</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-03-20 12:15:32 / 修改时间：17:33:02" itemprop="dateCreated datePublished" datetime="2023-03-20T12:15:32+08:00">2023-03-20</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>在 Angular 中，模板是用户界面 (UI) 片段的蓝图。模板是用 HTML 编写的，可以在模板中使用特殊语法来构建 Angular 的许多特性。</p>
+<p>为了消除脚本注入攻击的风险，Angular 不支持模板中使用<br> script 元素。Angular 会忽略 script  标记，并向浏览器控制台输出一条警告。</p>
+<h1 id="插值语法"><a href="#插值语法" class="headerlink" title="插值语法"></a>插值语法</h1><p>插值是指将表达式嵌入到被标记的文本中。默认情况下，插值使用双花括号  作为定界符。</p>
+<p>在以下示例中，Angular 会求出 title 和 itemImageUrl 属性的值，以显示一些标题文本和图像。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;title&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">alt</span>=<span class="string">&quot;item&quot;</span> <span class="attr">src</span>=<span class="string">&quot;&#123;&#123;itemImageUrl&#125;&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="模板语句"><a href="#模板语句" class="headerlink" title="模板语句"></a>模板语句</h1><p>模板语句是可在 HTML 中用于响应用户事件的方法或属性。</p>
+<p>在以下示例中，模板语句 deleteHero() 出现在 &#x3D; 号右侧的引号中，(event)&#x3D;”statement”。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> (<span class="attr">click</span>)=<span class="string">&quot;deleteHero()&quot;</span>&gt;</span>Delete hero<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>当用户单击 Delete hero 按钮时，Angular 就会调用组件类中 deleteHero() 方法。</p>
+<p>可以将模板语句与元素、组件或指令一起使用以响应事件。</p>
+<h2 id="语句的上下文"><a href="#语句的上下文" class="headerlink" title="语句的上下文"></a>语句的上下文</h2><p>语句上下文还可以引用模板自身的上下文属性。在下面的示例中，组件的事件处理方法 onSave() 将模板自己的 $event 对象用作参数。在接下来的两行中，deleteHero() 方法接收了模板输入变量 hero 作为参数，而 onSubmit() 接收了模板引用变量 #heroForm 作为参数。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> (<span class="attr">click</span>)=<span class="string">&quot;onSave($event)&quot;</span>&gt;</span>Save<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> *<span class="attr">ngFor</span>=<span class="string">&quot;let hero of heroes&quot;</span> (<span class="attr">click</span>)=<span class="string">&quot;deleteHero(hero)&quot;</span>&gt;</span>&#123;&#123;hero.name&#125;&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> #<span class="attr">heroForm</span> (<span class="attr">ngSubmit</span>)=<span class="string">&quot;onSubmit(heroForm)&quot;</span>&gt;</span> ... <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在这个例子中，$event 对象、hero 和 #heroForm 的上下文都是其模板。</p>
+<p>模板上下文中的名称优先于组件上下文中的名称。前面 deleteHero(hero) 中的 hero 是模板输入变量，而不是组件的 hero 属性。</p>
+<blockquote>
+<p>模板语句的上下文可以是组件类实例或模板。因此，模板语句无法引用全局名称空间中的任何内容，比如 window 或 document。比如，模板语句不能调用 console.log() 或 Math.max()。</p>
+</blockquote>
+<h1 id="绑定"><a href="#绑定" class="headerlink" title="绑定"></a>绑定</h1><p>在 Angular 模板中，绑定会在从模板创建的一部分 UI（DOM 元素、指令或组件）与模型（模板所属的组件实例）之间创建实时连接。此连接可用于将视图与模型同步、在视图中发生事件或用户操作时通知模型，或两者兼而有之。Angular 的变更检测算法负责保持视图和模型的同步。</p>
+<p>模板表达式类似于 JavaScript 表达式。许多 JavaScript 表达式都是合法的模板表达式，但以下例外。</p>
+<p>你不能使用那些具有或可能引发副作用的 JavaScript 表达式，包括：</p>
+<ul>
+<li><p>赋值 (&#x3D;, +&#x3D;, -&#x3D;, …)</p>
+</li>
+<li><p>运算符，比如 new、typeof 或 instanceof 等。</p>
+</li>
+<li><p>链接表达式;或，</p>
+</li>
+<li><p>自增和自减运算符：++ 和 –</p>
+</li>
+<li><p>一些 ES2015+ 版本的运算符</p>
+</li>
+</ul>
+<p>和 JavaScript 语法的其它显著差异包括：</p>
+<ul>
+<li><p>不支持位运算，比如 | 和 &amp;</p>
+</li>
+<li><p>新的模板表达式运算符，比如 |</p>
+</li>
+</ul>
+<h2 id="表达式上下文"><a href="#表达式上下文" class="headerlink" title="表达式上下文"></a>表达式上下文</h2><p>插值表达式具有上下文 —— 表达式所属应用中的特定部分。通常，此上下文就是组件实例。</p>
+<p>在下面的代码片段中，表达式 recommended 和 itemImageUrl2 表达式所引用的都是 AppComponent 中的属性。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h4</span>&gt;</span>&#123;&#123;recommended&#125;&#125;<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">alt</span>=<span class="string">&quot;item 2&quot;</span> [<span class="attr">src</span>]=<span class="string">&quot;itemImageUrl2&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>表达式还可以引用模板上下文中的属性，比如模板输入变量或模板引用变量。</p>
+<p>下面的例子就使用了模板输入变量 customer。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> *<span class="attr">ngFor</span>=<span class="string">&quot;let customer of customers&quot;</span>&gt;</span>&#123;&#123;customer.name&#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>接下来的例子使用了模板引用变量 #customerInput。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">label</span>&gt;</span>Type something:</span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> #<span class="attr">customerInput</span>&gt;</span>&#123;&#123;customerInput.value&#125;&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="防止命名冲突"><a href="#防止命名冲突" class="headerlink" title="防止命名冲突"></a>防止命名冲突</h2><p>表达式估算的上下文是模板变量、指令的上下文对象（如果有）和组件成员的并集。如果你引用的名称属于这些命名空间之一，则 Angular 会应用以下优先逻辑来确定上下文：</p>
+<p>模板变量的名称。</p>
+<p>指令上下文中的名称。</p>
+<p>组件成员的名称。</p>
+<p>为避免变量遮盖另一个上下文中的变量，请保持变量名称唯一。在以下示例中，AppComponent 模板在问候 customer Padma。</p>
+<p>然后，一个 ngFor 列出了 customers 数组中的每个 customer。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">template</span>: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;div&gt;</span></span><br><span class="line"><span class="string">      &lt;!-- Hello, Padma --&gt;</span></span><br><span class="line"><span class="string">      &lt;h1&gt;Hello, &#123;&#123;customer&#125;&#125;&lt;/h1&gt;</span></span><br><span class="line"><span class="string">      &lt;ul&gt;</span></span><br><span class="line"><span class="string">        &lt;!-- Ebony and Chiho in a list--&gt;</span></span><br><span class="line"><span class="string">        &lt;li *ngFor=&quot;let customer of customers&quot;&gt;&#123;&#123; customer.value &#125;&#125;&lt;/li&gt;</span></span><br><span class="line"><span class="string">      &lt;/ul&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">  `</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br><span class="line">  customers = [&#123;<span class="attr">value</span>: <span class="string">&#x27;Ebony&#x27;</span>&#125;, &#123;<span class="attr">value</span>: <span class="string">&#x27;Chiho&#x27;</span>&#125;];</span><br><span class="line">  customer = <span class="string">&#x27;Padma&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ngFor 中的 customer 处于一个 <ng-template> 的上下文中，所以它指向的是 customers 数组中的 customer，在这里是 Ebony 和 Chiho。此列表中不包含 Padma，因为那个 customer 位于 ngFor 以外的另一个上下文中。反之，<h1> 中的 customer 不包括 Ebony 或 Chiho，因为该 customer 的上下文是组件类，而这个类中 customer 的值是 Padma。</p>
+<h1 id="属性绑定-Property"><a href="#属性绑定-Property" class="headerlink" title="属性绑定(Property)"></a>属性绑定(Property)</h1><p>Angular 中的属性绑定可帮助你设置 HTML 元素或指令的属性值。使用属性绑定，可以执行诸如切换按钮、以编程方式设置路径，以及在组件之间共享值之类的功能。</p>
+<h2 id="绑定到属性"><a href="#绑定到属性" class="headerlink" title="绑定到属性"></a>绑定到属性</h2><p>要绑定到元素的属性 ，请将其括在方括号 [] 内，这会将此属性标为目标属性。目标属性就是你要对其进行赋值的 DOM 属性 。</p>
+<p>要为 image 元素的目标属性（src）赋值，请键入以下代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">alt</span>=<span class="string">&quot;item&quot;</span> [<span class="attr">src</span>]=<span class="string">&quot;itemImageUrl&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在大多数情况下，目标名称是 Property（属性）名称，即使它看起来是 Attribute（属性）名称。</p>
+<p>在这个例子中，src 就是 <img> 元素的 Property 名称。</p>
+<blockquote>
+<p>方括号 [] 使 Angular 将等号的右侧看作动态表达式进行求值。</p>
+</blockquote>
+<blockquote>
+<p>如果不使用方括号，Angular 就会将右侧视为字符串字面量并将此属性设置为该静态值。</p>
+</blockquote>
+<p>要将字符串赋值给属性，请键入以下代码：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">app-item-detail</span> <span class="attr">childItem</span>=<span class="string">&quot;parentItem&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">app-item-detail</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>省略方括号就会渲染出字符串 parentItem，而不是 parentItem 的值。</p>
+<h1 id="Attribute-绑定"><a href="#Attribute-绑定" class="headerlink" title="Attribute 绑定"></a>Attribute 绑定</h1><p>Attribute 绑定语法类似于 Property 绑定，但不是直接在方括号之间放置元素的 Property，而是在 Attribute 名称前面加上前缀 attr，后跟一个点 .。然后，使用解析为字符串的表达式设置 Attribute 值。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> [<span class="attr">attr.attribute-you-are-targeting</span>]=<span class="string">&quot;expression&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>当表达式解析为 null 或 undefined 时，Angular 会完全删除该 Attribute。</p>
+</blockquote>
+<h2 id="绑定到-colspan"><a href="#绑定到-colspan" class="headerlink" title="绑定到 colspan"></a>绑定到 colspan</h2><p>Attribute 绑定的另一个常见用例是绑定到表格中的 colspan Attribute。colspan Attribute 可帮助你以编程方式让表格保持动态。根据应用中用来填充表的数据量，某一行要跨越的列数可能会发生变化。</p>
+<p>要将 Attribute 绑定到 <td> 的 colspan Attribute</p>
+<p>使用以下语法指定 colspan：[attr.colspan]。</p>
+<p>将 [attr.colspan] 设置为等于某个表达式。</p>
+<p>在下面的示例中，我们将 colspan Attribute 绑定到表达式 1 + 1。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--  expression calculates colspan=2 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span><span class="tag">&lt;<span class="name">td</span> [<span class="attr">attr.colspan</span>]=<span class="string">&quot;1 + 1&quot;</span>&gt;</span>One-Two<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>此绑定会导致 <tr> 跨越两列。</p>
+<h1 id="样式-class和style-绑定"><a href="#样式-class和style-绑定" class="headerlink" title="样式(class和style)绑定"></a>样式(class和style)绑定</h1><p>使用类和样式绑定从元素的 class 属性中添加和删除 CSS 类名，以及动态设置样式。</p>
+<h2 id="绑定到单个-CSS-class"><a href="#绑定到单个-CSS-class" class="headerlink" title="绑定到单个 CSS class"></a>绑定到单个 CSS class</h2><p>要创建单个类绑定，请键入以下内容：</p>
+<p>[class.sale]&#x3D;”onSale”</p>
+<p>当绑定表达式 onSale 为真值时，Angular 会添加类，当表达式为假值时，它会删除类 —— undefined 除外。</p>
+<h2 id="绑定到多个-CSS-类"><a href="#绑定到多个-CSS-类" class="headerlink" title="绑定到多个 CSS 类"></a>绑定到多个 CSS 类</h2><p>要绑定到多个类，请键入以下内容：</p>
+<p>[class]&#x3D;”classExpression”</p>
+<p>表达式可以是以下之一：</p>
+<ul>
+<li><p>用空格分隔的类名字符串。</p>
+</li>
+<li><p>以类名作为键名并将真或假表达式作为值的对象。</p>
+</li>
+<li><p>类名的数组。</p>
+</li>
+</ul>
+<p>对于对象格式，Angular 会在其关联的值为真时才添加类。</p>
+<p>如果同一类名有多个绑定，Angular 会根据样式优先级来确定要使用的绑定。</p>
+<p>下表是各种类绑定语法的小结。</p>
+<table>
+<thead>
+<tr>
+<th>绑定类型</th>
+<th>语法</th>
+<th>输入属性</th>
+<th>范例输入值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单一类绑定</td>
+<td>[class.sale]&#x3D;”onSale”</td>
+<td>boolean,undefined,null</td>
+<td>true, false</td>
+</tr>
+<tr>
+<td>多重类绑定</td>
+<td>[class]&#x3D;”classExpression”</td>
+<td>string</td>
+<td>“my-class-1 my-class-2 my-class-3”</td>
+</tr>
+<tr>
+<td>多重类绑定</td>
+<td>[class]&#x3D;”classExpression”</td>
+<td>Record&lt;string, ‘boolean,undefined,null’&gt;</td>
+<td>{foo: true, bar: false}</td>
+</tr>
+<tr>
+<td>多重类绑定</td>
+<td>[class]&#x3D;”classExpression”</td>
+<td><code>Array&lt;string&gt;</code></td>
+<td>[‘foo’, ‘bar’]</td>
+</tr>
+</tbody></table>
+<h2 id="绑定到单一样式"><a href="#绑定到单一样式" class="headerlink" title="绑定到单一样式"></a>绑定到单一样式</h2><p>要创建单个样式绑定，请使用 style 前缀，后跟一个点和 CSS 样式的名称。</p>
+<p>比如，要设置 ‘width’ 样式，请键入以下内容：[style.width]&#x3D;”width”</p>
+<p>Angular 将该属性设置为绑定表达式的值，这通常是一个字符串。（可选）你可以添加单位扩展名，比如 em 或 %，这需要数字类型。</p>
+<h2 id="绑定到多个样式"><a href="#绑定到多个样式" class="headerlink" title="绑定到多个样式"></a>绑定到多个样式</h2><p>要切换多个样式，请绑定到 [style] Attribute，比如 [style]&#x3D;”styleExpression”。styleExpression 可以是如下格式之一：</p>
+<p>样式的字符串列表，比如 “width: 100px; height: 100px; background-color: cornflowerblue;”。</p>
+<p>一个对象，其键名是样式名，其值是样式值，比如 {width: ‘100px’, height: ‘100px’, backgroundColor: ‘cornflowerblue’}。</p>
+<p>注意，不支持把数组绑定给 [style]</p>
+<blockquote>
+<p>当把 [style] 绑定到对象表达式时，该对象的引用必须改变，这样 Angular 才能更新这个类列表。在不改变对象引用的情况下更新其属性值是不会生效的。</p>
+</blockquote>
+<h2 id="单样式和多样式绑定示例"><a href="#单样式和多样式绑定示例" class="headerlink" title="单样式和多样式绑定示例"></a>单样式和多样式绑定示例</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-nav-bar&#x27;</span>,</span><br><span class="line">  <span class="attr">template</span>: <span class="string">`</span></span><br><span class="line"><span class="string">&lt;nav [style]=&#x27;navStyle&#x27;&gt;</span></span><br><span class="line"><span class="string">  &lt;a [style.text-decoration]=&quot;activeLinkStyle&quot;&gt;Home Page&lt;/a&gt;</span></span><br><span class="line"><span class="string">  &lt;a [style.text-decoration]=&quot;linkStyle&quot;&gt;Login&lt;/a&gt;</span></span><br><span class="line"><span class="string">&lt;/nav&gt;`</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">NavBarComponent</span> &#123;</span><br><span class="line">  navStyle = <span class="string">&#x27;font-size: 1.2rem; color: cornflowerblue;&#x27;</span>;</span><br><span class="line">  linkStyle = <span class="string">&#x27;underline&#x27;</span>;</span><br><span class="line">  activeLinkStyle = <span class="string">&#x27;overline&#x27;</span>;</span><br><span class="line">  <span class="comment">/* . . . */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>下表是各种样式绑定语法的小结。</p>
+<table>
+<thead>
+<tr>
+<th>绑定类型</th>
+<th>语法</th>
+<th>输入属性</th>
+<th>范例输入值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>单一样式绑定</td>
+<td>[style.width]&#x3D;”width”</td>
+<td>string, undefined,null</td>
+<td>“100px”</td>
+</tr>
+<tr>
+<td>带单位的单一样式绑定</td>
+<td>[style.width.px]&#x3D;”width”</td>
+<td>number,undefined,null</td>
+<td>100</td>
+</tr>
+<tr>
+<td>多重样式绑定</td>
+<td>[style]&#x3D;”styleExpression”</td>
+<td>string</td>
+<td>“width: 100px; height: 100px”</td>
+</tr>
+<tr>
+<td>多重样式绑定</td>
+<td>[style]&#x3D;”styleExpression”</td>
+<td>Record&lt;string, string,undefined,null&gt;</td>
+<td>{width: ‘100px’, height: ‘100px’}</td>
+</tr>
+</tbody></table>
+<h1 id="事件绑定"><a href="#事件绑定" class="headerlink" title="事件绑定"></a>事件绑定</h1><p>通过事件绑定，你可以侦听并响应用户操作，比如按键、鼠标移动、点击和触摸。</p>
+<h2 id="绑定到事件"><a href="#绑定到事件" class="headerlink" title="绑定到事件"></a>绑定到事件</h2><p>要绑定到事件，你可以使用 Angular 事件绑定语法。此语法由等号左侧括号中的目标事件名称和右侧带引号的模板语句组成。</p>
+<p>创建以下示例；目标事件名是 click，模板语句是 onSave()。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> (<span class="attr">click</span>)=<span class="string">&quot;onSave()&quot;</span>&gt;</span>Save<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>事件绑定侦听按钮的单击事件，并在发生单击时调用组件的 onSave()。</p>
+<h2 id="绑定到被动事件"><a href="#绑定到被动事件" class="headerlink" title="绑定到被动事件"></a>绑定到被动事件</h2><p>这是一项高级技术，对于大多数应用程序来说不是必需的。如果你想优化导致性能问题的频繁发生的事件，可能会发现这很有用。</p>
+<p>Angular 还支持被动事件侦听器。比如，使用以下步骤使滚动事件变为被动的。</p>
+<p>在 src 目录下创建一个文件 zone-flags.ts。</p>
+<p>将以下行添加到此文件中。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="variable language_">window</span> <span class="keyword">as</span> <span class="built_in">any</span>)[<span class="string">&#x27;__zone_symbol__PASSIVE_EVENTS&#x27;</span>] = [<span class="string">&#x27;scroll&#x27;</span>];</span><br></pre></td></tr></table></figure>
+
+<p>在 src&#x2F;polyfills.ts 文件中，在导入 zone.js 之前，先导入新创建的 zone-flags。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;./zone-flags&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;zone.js&#x27;</span>;  <span class="comment">// Included with Angular CLI.</span></span><br></pre></td></tr></table></figure>
+<p>在这些步骤之后，如果你为 scroll 事件添加事件侦听器，侦听器就会是 passive 的。</p>
+<h2 id="绑定到键盘事件"><a href="#绑定到键盘事件" class="headerlink" title="绑定到键盘事件"></a>绑定到键盘事件</h2><p>你可以用 Angular 的绑定语法绑定到键盘事件。你可以指定要绑定到键盘事件的键值或代码。它们的 key 和 code 字段是浏览器键盘事件对象的原生部分。默认情况下，事件绑定假定你要使用键盘事件上的 key 字段。你还可以用 code 字段。</p>
+<p>键的组合可以用点（.）分隔。例如， keydown.enter 将允许你将事件绑定到 enter 键。你还可以用修饰键，例如 shift 、 alt 、 control 和 Mac 中的 command 键。以下示例展示了如何将键盘事件绑定到 keydown.shift.t 。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> (<span class="attr">keydown.shift.t</span>)=<span class="string">&quot;onKeydown($event)&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>根据操作系统的不同，某些组合键可能会创建特殊字符，而不是你期望的组合键。例如，当你同时使用 option 和 shift 键时，MacOS 会创建特殊字符。如果你绑定到 keydown.shift.alt.t ，在 macOS 上，该组合会生成 ˇ 而不是 t ，它与绑定不匹配，也不会触发你的事件处理程序。要绑定到 macOS 上的 keydown.shift.alt.t ，请使用 code 键盘事件字段来获取正确的行为，例如此示例中显示的 keydown.code.shiftleft.altleft.keyt 。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> (<span class="attr">keydown.code.shiftleft.altleft.keyt</span>)=<span class="string">&quot;onKeydown($event)&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>code 字段比 key 字段更具体。 key 字段总是会报告 shift ，而 code 字段将指明 leftshift 或 rightshift 。使用 code 字段时，你可能需要添加单独的绑定以捕获你想要的所有行为。使用 code 字段时无需处理操作系统特有的行为，例如 macOS 上的 shift + option 行为。</p>
+<p>有关更多信息，请访问键值和键码的完整参考，以帮助你构建事件字符串。</p>
+<h1 id="双向绑定（组件）"><a href="#双向绑定（组件）" class="headerlink" title="双向绑定（组件）"></a>双向绑定（组件）</h1><p>双向绑定为应用中的组件提供了一种共享数据的方式。使用双向绑定绑定来侦听事件并在父组件和子组件之间同步更新值。</p>
+<h2 id="添加双向数据绑定"><a href="#添加双向数据绑定" class="headerlink" title="添加双向数据绑定"></a>添加双向数据绑定</h2><p>Angular 的双向绑定语法是方括号和圆括号的组合 [()]。[] 进行属性绑定，() 进行事件绑定，如下所示。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">app-sizer</span> [(<span class="attr">size</span>)]=<span class="string">&quot;fontSizePx&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">app-sizer</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="双向绑定工作原理"><a href="#双向绑定工作原理" class="headerlink" title="双向绑定工作原理"></a>双向绑定工作原理</h2><p>为了使双向数据绑定有效，@Output() 属性的名字必须遵循 inputChange 模式，其中 input 是相应 @Input() 属性的名字。比如，如果 @Input() 属性为 size，则 @Output() 属性必须为 sizeChange。</p>
+<p>后面的 sizerComponent 具有值属性 size 和事件属性 sizeChange。size 属性是 @Input()，因此数据可以流入 sizerComponent。sizeChange 事件是一个 @Output()，它允许数据从 sizerComponent 流出到父组件。</p>
+<p>接下来，有两个方法，dec() 用于减小字体大小，inc() 用于增大字体大小。这两种方法使用 resize() 在最小&#x2F;最大值的约束内更改 size 属性的值，并发出带有新 size 值的事件。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">SizerComponent</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Input</span>()  size!: <span class="built_in">number</span> | <span class="built_in">string</span>;</span><br><span class="line">  <span class="meta">@Output</span>() sizeChange = <span class="keyword">new</span> <span class="title class_">EventEmitter</span>&lt;<span class="built_in">number</span>&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="title function_">dec</span>(<span class="params"></span>) &#123; <span class="variable language_">this</span>.<span class="title function_">resize</span>(-<span class="number">1</span>); &#125;</span><br><span class="line">  <span class="title function_">inc</span>(<span class="params"></span>) &#123; <span class="variable language_">this</span>.<span class="title function_">resize</span>(+<span class="number">1</span>); &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">resize</span>(<span class="params">delta: <span class="built_in">number</span></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">size</span> = <span class="title class_">Math</span>.<span class="title function_">min</span>(<span class="number">40</span>, <span class="title class_">Math</span>.<span class="title function_">max</span>(<span class="number">8</span>, +<span class="variable language_">this</span>.<span class="property">size</span> + delta));</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">sizeChange</span>.<span class="title function_">emit</span>(<span class="variable language_">this</span>.<span class="property">size</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>sizerComponent 模板有两个按钮，分别将 click 事件绑定到 inc() 和 dec() 方法。当用户单击按钮之一时，sizerComponent 调用相应的方法。inc() 和 dec() 这两个方法分别使用 +1 或 -1 调用 resize() 方法，它使用新的 size 值引发 sizeChange 事件。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> (<span class="attr">click</span>)=<span class="string">&quot;dec()&quot;</span> <span class="attr">title</span>=<span class="string">&quot;smaller&quot;</span>&gt;</span>-<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> (<span class="attr">click</span>)=<span class="string">&quot;inc()&quot;</span> <span class="attr">title</span>=<span class="string">&quot;bigger&quot;</span>&gt;</span>+<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> [<span class="attr">style.font-size.px</span>]=<span class="string">&quot;size&quot;</span>&gt;</span>FontSize: &#123;&#123;size&#125;&#125;px<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在 AppComponent 模板中，fontSizePx 被双向绑定到 SizerComponent。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">app-sizer</span> [(<span class="attr">size</span>)]=<span class="string">&quot;fontSizePx&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">app-sizer</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> [<span class="attr">style.font-size.px</span>]=<span class="string">&quot;fontSizePx&quot;</span>&gt;</span>Resizable Text<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在 AppComponent 中，通过将 fontSizePx 的值设置为 16 来设置初始 SizerComponent.size 值。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fontSizePx = <span class="number">16</span>;</span><br></pre></td></tr></table></figure>
+<p>单击这些按钮将更新 AppComponent.fontSizePx。修改后的 AppComponent.fontSizePx 值将更新样式绑定，从而使显示的文本变大或变小。</p>
+<p>双向绑定语法是属性绑定和事件绑定的组合的简写形式。拆成单独的属性绑定和事件绑定形式的 SizerComponent 代码如下。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">app-sizer</span> [<span class="attr">size</span>]=<span class="string">&quot;fontSizePx&quot;</span> (<span class="attr">sizeChange</span>)=<span class="string">&quot;fontSizePx=$event&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">app-sizer</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>$event 变量包含 SizerComponent.sizeChange 事件的数据。当用户单击按钮时，Angular 将 $event 赋值给 AppComponent.fontSizePx。</p>
+<h1 id="表单中的双向绑定"><a href="#表单中的双向绑定" class="headerlink" title="表单中的双向绑定"></a>表单中的双向绑定</h1><p>因为没有任何原生 HTML 元素遵循了 x 值和 xChange 事件的命名模式，所以与表单元素进行双向绑定需要使用 NgModel。</p>
+<h1 id="模板变量"><a href="#模板变量" class="headerlink" title="模板变量"></a>模板变量</h1><p>模板变量可以帮助你在模板的另一部分使用这个部分的数据。使用模板变量，你可以执行某些任务，比如响应用户输入或微调应用的表单。</p>
+<p>模板变量可以引用这些东西：</p>
+<ul>
+<li><p>模板中的 DOM 元素</p>
+</li>
+<li><p>指令或组件</p>
+</li>
+<li><p>来自 ng-template 的 TemplateRef</p>
+</li>
+<li><p>Web 组件</p>
+</li>
+</ul>
+<p>在模板中，要使用井号 # 来声明一个模板变量。下列模板变量 #phone 声明了一个名为 phone 的变量，其值为此 <code>&lt;input&gt;</code> 元素。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> #<span class="attr">phone</span> <span class="attr">placeholder</span>=<span class="string">&quot;phone number&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
+<p>可以在组件模板中的任何地方引用某个模板变量。这里的 <code>&lt;button&gt; </code>就引用了 phone 变量。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> #<span class="attr">phone</span> <span class="attr">placeholder</span>=<span class="string">&quot;phone number&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- lots of other elements --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- phone refers to the input element; pass its `value` to an event handler --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> (<span class="attr">click</span>)=<span class="string">&quot;callPhone(phone.value)&quot;</span>&gt;</span>Call<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<h2 id="Angular-是如何为模板变量赋值的"><a href="#Angular-是如何为模板变量赋值的" class="headerlink" title="Angular 是如何为模板变量赋值的"></a>Angular 是如何为模板变量赋值的</h2><p>Angular 根据你所声明的变量的位置给模板变量赋值：</p>
+<ul>
+<li><p>如果在组件上声明变量，该变量就会引用该组件实例。</p>
+</li>
+<li><p>如果在标准的 HTML 标记上声明变量，该变量就会引用该元素。</p>
+</li>
+<li><p>如果你在 <ng-template> 元素上声明变量，该变量就会引用一个 TemplateRef 实例来代表此模板。</p>
+</li>
+</ul>
+<h2 id="指定名称的变量"><a href="#指定名称的变量" class="headerlink" title="指定名称的变量"></a>指定名称的变量</h2><p>如果该变量在右侧指定了一个名字，比如 #var&#x3D;”ngModel”，那么该变量就会引用所在元素上具有这个 exportAs 名字的指令或组件。</p>
+<h3 id="将-NgForm-与模板变量一起使用"><a href="#将-NgForm-与模板变量一起使用" class="headerlink" title="将 NgForm 与模板变量一起使用"></a>将 NgForm 与模板变量一起使用</h3><p>在大多数情况下，Angular 会把模板变量的值设置为它所在的元素。在前面的例子中，phone 引用的是电话号码 <code>&lt;input&gt;</code>。该按钮的 click 处理程序会把这个 <code>&lt;input&gt;</code> 的值传给该组件的 callPhone() 方法。</p>
+<p>这里的 NgForm 指令演示了如何通过引用指令的的 exportAs 名字来引用不同的值。在下面的例子中，模板变量 itemForm 在 HTML 中分别出现了三次。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> #<span class="attr">itemForm</span>=<span class="string">&quot;ngForm&quot;</span> (<span class="attr">ngSubmit</span>)=<span class="string">&quot;onSubmit(itemForm)&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;name&quot;</span>&gt;</span>Name<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">id</span>=<span class="string">&quot;name&quot;</span> <span class="attr">class</span>=<span class="string">&quot;form-control&quot;</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">ngModel</span> <span class="attr">required</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span>&gt;</span>Submit<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> [<span class="attr">hidden</span>]=<span class="string">&quot;!itemForm.form.valid&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123; submitMessage &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>如果没有 ngForm 这个属性值，itemForm 引用的值将是 HTMLFormElement 也就是 <code>&lt;form&gt;</code> 元素。如果某元素是一个 Angular 组件，则不带属性值的引用会自动引用此组件的实例。否则，不带属性值的引用会引用此 DOM 元素，而不管此元素上有一个或多个指令。</p>
+<h2 id="模板变量的作用域"><a href="#模板变量的作用域" class="headerlink" title="模板变量的作用域"></a>模板变量的作用域</h2><p>就像 JavaScript 或 TypeScript 代码中的变量一样，模板变量的范围为声明它们的模板。</p>
+<p>同样，诸如 *ngIf 和 *ngFor 类的结构指令或 <code>&lt;ng-template&gt;</code> 声明会创建一个新的嵌套模板范围，就像 JavaScript 的控制流语句（例如 if 和 for 创建新的词法范围。你不能从边界外访问这些结构指令之一中的模板变量。</p>
+<h2 id="在嵌套模板中访问"><a href="#在嵌套模板中访问" class="headerlink" title="在嵌套模板中访问"></a>在嵌套模板中访问</h2><p>内部模板可以访问外模板定义的模板变量。</p>
+<p>在下面的例子中，修改 <code>&lt;input&gt;</code> 中的文本值也会改变 <code>&lt;span&gt;</code> 中的值，因为 Angular 会立即通过模板变量 ref1 来更新这种变化。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> #<span class="attr">ref1</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> [(<span class="attr">ngModel</span>)]=<span class="string">&quot;firstExample&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> *<span class="attr">ngIf</span>=<span class="string">&quot;true&quot;</span>&gt;</span>Value: &#123;&#123; ref1.value &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在这种情况下，<code>&lt;span&gt;</code> 上的 *ngIf 会创建一个新的模板范围，其中包括其父范围中的 ref1 变量。</p>
+<p>但是，从外部的父模板访问子范围中的变量是行不通的。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> *<span class="attr">ngIf</span>=<span class="string">&quot;true&quot;</span> #<span class="attr">ref2</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> [(<span class="attr">ngModel</span>)]=<span class="string">&quot;secondExample&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span>&gt;</span>Value: &#123;&#123; ref2?.value &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span> <span class="comment">&lt;!-- doesn&#x27;t work --&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在这里，ref2 是在 *ngIf 创建的子范围中声明的，并且无法从父模板访问。</p>
+<h2 id="模板输入变量"><a href="#模板输入变量" class="headerlink" title="模板输入变量"></a>模板输入变量</h2><p>模板输入变量是一个具有在创建该模板实例时设置的值的变量。</p>
+<p>可以在 NgFor 的长格式用法中看到模板输入变量的作用：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ng-template</span> <span class="attr">ngFor</span> <span class="attr">let-hero</span> [<span class="attr">ngForOf</span>]=<span class="string">&quot;heroes&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;&#123;hero.name&#125;&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">ng-template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>NgFor 指令将实例化此为 hero 数组中的每个 heroes 一次，并将为每个实例相应地设置 hero 变量。</p>
+<p>实例化 <code>&lt;ng-template&gt;</code> 时，可以传递多个命名值，这些值可以绑定到不同的模板输入变量。输入变量的 let- 声明的右侧可以指定应该用于该变量的值。</p>
+<p>例如，NgFor 还提供了对数组中每个英雄的 index 的访问：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ng-template</span> <span class="attr">ngFor</span> <span class="attr">let-hero</span> <span class="attr">let-i</span>=<span class="string">&quot;index&quot;</span> [<span class="attr">ngForOf</span>]=<span class="string">&quot;heroes&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>Hero number &#123;&#123;i&#125;&#125;: &#123;&#123;hero.name&#125;&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">ng-template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/03/17/angular/%E7%BB%84%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/03/17/angular/%E7%BB%84%E4%BB%B6/" class="post-title-link" itemprop="url">组件(Component)</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-03-17 10:43:50" itemprop="dateCreated datePublished" datetime="2023-03-17T10:43:50+08:00">2023-03-17</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-03-31 18:05:06" itemprop="dateModified" datetime="2023-03-31T18:05:06+08:00">2023-03-31</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>组件是 Angular 应用的主要构造块。每个组件包括如下部分：</p>
+<ul>
+<li><p>一个 HTML 模板，用于声明页面要渲染的内容</p>
+</li>
+<li><p>一个用于定义行为的 TypeScript 类</p>
+</li>
+<li><p>一个 CSS 选择器，用于定义组件在模板中的使用方式</p>
+</li>
+<li><p>（可选）要应用在模板上的 CSS 样式</p>
+</li>
+</ul>
+<h1 id="创建一个组件"><a href="#创建一个组件" class="headerlink" title="创建一个组件"></a>创建一个组件</h1><p>运行 <code>ng generate component &lt;component-name&gt;</code> 命令，其中 <code>&lt;component-name&gt;</code> 是新组件的名字。</p>
+<h2 id="指定组件的-CSS-选择器"><a href="#指定组件的-CSS-选择器" class="headerlink" title="指定组件的 CSS 选择器"></a>指定组件的 CSS 选择器</h2><p>每个组件都需要一个 CSS 选择器。选择器会告诉 Angular：当在模板 HTML 中找到相应的标签时，就把该组件实例化在那里。<br>比如，考虑一个组件 hello-world.component.ts，它的选择器定义为 app-hello-world。当 <app-hello-world> 出现在模板中时，这个选择器就会让 Angular 实例化该组件。</p>
+<p>在 @Component 装饰器中添加一个 selector 语句来指定组件的选择器。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-component-overview&#x27;</span>,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<h2 id="定义一个组件的模板"><a href="#定义一个组件的模板" class="headerlink" title="定义一个组件的模板"></a>定义一个组件的模板</h2><p>模板是一段 HTML，它告诉 Angular 如何在应用中渲染组件。可以通过以下两种方式之一为组件定义模板：引用外部文件，或直接写在组件内部。</p>
+<p>要把模板定义为外部文件，就要把 templateUrl 添加到 @Component 装饰器中。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-component-overview&#x27;</span>,</span><br><span class="line">  <span class="attr">templateUrl</span>: <span class="string">&#x27;./component-overview.component.html&#x27;</span>,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>要在组件中定义模板，就要把一个 template 属性添加到 @Component 中，该属性的内容是要使用的 HTML。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-component-overview&#x27;</span>,</span><br><span class="line">  <span class="attr">template</span>: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;h1&gt;Hello World!&lt;/h1&gt;</span></span><br><span class="line"><span class="string">    &lt;p&gt;This template definition spans multiple lines.&lt;/p&gt;</span></span><br><span class="line"><span class="string">  `</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Angular 组件需要一个用 template 或 templateUrl 定义的模板。但你不能在组件中同时拥有这两个语句。</p>
+</blockquote>
+<h2 id="声明组件的样式"><a href="#声明组件的样式" class="headerlink" title="声明组件的样式"></a>声明组件的样式</h2><p>有两种方式可以为组件的模板声明样式：引用一个外部文件，或直接写在组件内部。</p>
+<p>要在单独的文件中声明组件的样式，就要把 styleUrls 属性添加到 @Component 装饰器中。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-component-overview&#x27;</span>,</span><br><span class="line">  <span class="attr">templateUrl</span>: <span class="string">&#x27;./component-overview.component.html&#x27;</span>,</span><br><span class="line">  <span class="attr">styleUrls</span>: [<span class="string">&#x27;./component-overview.component.css&#x27;</span>]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+<p>要想在组件内部声明样式，就要把 styles 属性添加到 @Component，该属性的内容是你要用的样式。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-component-overview&#x27;</span>,</span><br><span class="line">  <span class="attr">template</span>: <span class="string">&#x27;&lt;h1&gt;Hello World!&lt;/h1&gt;&#x27;</span>,</span><br><span class="line">  <span class="attr">styles</span>: [<span class="string">&#x27;h1 &#123; font-weight: normal; &#125;&#x27;</span>]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h1 id="组件生命周期"><a href="#组件生命周期" class="headerlink" title="组件生命周期"></a>组件生命周期</h1><p>当 Angular 实例化组件类并渲染组件视图及其子视图时，组件实例的生命周期就开始了。生命周期一直伴随着变更检测，Angular 会检查数据绑定属性何时发生变化，并按需更新视图和组件实例。当 Angular 销毁组件实例并从 DOM 中移除它渲染的模板时，生命周期就结束了。当 Angular 在执行过程中创建、更新和销毁实例时，指令就有了类似的生命周期。</p>
+<p>应用可以使用生命周期钩子方法来触发组件或指令生命周期中的关键事件，以初始化新实例，需要时启动变更检测，在变更检测过程中响应更新，并在删除实例之前进行清理。</p>
+<h2 id="生命周期的顺序"><a href="#生命周期的顺序" class="headerlink" title="生命周期的顺序"></a>生命周期的顺序</h2><p>当你的应用通过调用构造函数来实例化一个组件或指令时，Angular 就会调用那个在该实例生命周期的适当位置实现了的那些钩子方法。</p>
+<p>Angular 会按以下顺序执行钩子方法。可以用它来执行以下类型的操作。</p>
+<h3 id="ngOnChanges"><a href="#ngOnChanges" class="headerlink" title="ngOnChanges()"></a>ngOnChanges()</h3><h4 id="时机"><a href="#时机" class="headerlink" title="时机"></a>时机</h4><p>如果组件绑定过输入属性，那么在 ngOnInit() 之前以及所绑定的一个或多个输入属性的值发生变化时都会调用。</p>
+<p>如果你的组件没有输入属性，或者你使用它时没有提供任何输入属性，那么框架就不会调用 ngOnChanges()。</p>
+<h4 id="用途"><a href="#用途" class="headerlink" title="用途"></a>用途</h4><p>当 Angular 设置或重新设置数据绑定的输入属性时响应。该方法接受当前和上一属性值的 SimpleChanges 对象</p>
+<p>注意：这发生得比较频繁，所以你在这里执行的任何操作都会显著影响性能。</p>
+<h3 id="ngOnInit"><a href="#ngOnInit" class="headerlink" title="ngOnInit()"></a>ngOnInit()</h3><h4 id="时机-1"><a href="#时机-1" class="headerlink" title="时机"></a>时机</h4><p>在第一轮 ngOnChanges() 完成之后调用，只调用一次。而且即使没有调用过 ngOnChanges()，也仍然会调用 ngOnInit()（比如当模板中没有绑定任何输入属性时）。</p>
+<h4 id="用途-1"><a href="#用途-1" class="headerlink" title="用途"></a>用途</h4><p>在 Angular 第一次显示数据绑定和设置指令&#x2F;组件的输入属性之后，初始化指令&#x2F;组件。</p>
+<h3 id="ngDoCheck"><a href="#ngDoCheck" class="headerlink" title="ngDoCheck()"></a>ngDoCheck()</h3><h4 id="时机-2"><a href="#时机-2" class="headerlink" title="时机"></a>时机</h4><p>紧跟在每次执行变更检测时的 ngOnChanges() 和 首次执行变更检测时的 ngOnInit() 后调用。</p>
+<h4 id="用途-2"><a href="#用途-2" class="headerlink" title="用途"></a>用途</h4><p>检测，并在发生 Angular 无法或不愿意自己检测的变化时作出反应。</p>
+<h3 id="ngAfterContentInit"><a href="#ngAfterContentInit" class="headerlink" title="ngAfterContentInit()"></a>ngAfterContentInit()</h3><h4 id="时机-3"><a href="#时机-3" class="headerlink" title="时机"></a>时机</h4><p>第一次 ngDoCheck() 之后调用，只调用一次。</p>
+<h4 id="用途-3"><a href="#用途-3" class="headerlink" title="用途"></a>用途</h4><p>当 Angular 把外部内容投影进组件视图或指令所在的视图之后调用。</p>
+<h3 id="ngAfterContentChecked"><a href="#ngAfterContentChecked" class="headerlink" title="ngAfterContentChecked()"></a>ngAfterContentChecked()</h3><h4 id="时机-4"><a href="#时机-4" class="headerlink" title="时机"></a>时机</h4><p>ngAfterContentInit() 和每次 ngDoCheck() 之后调用。</p>
+<h4 id="用途-4"><a href="#用途-4" class="headerlink" title="用途"></a>用途</h4><p>每当 Angular 检查完被投影到组件或指令中的内容之后调用。</p>
+<h3 id="ngAfterViewInit"><a href="#ngAfterViewInit" class="headerlink" title="ngAfterViewInit()"></a>ngAfterViewInit()</h3><h4 id="时机-5"><a href="#时机-5" class="headerlink" title="时机"></a>时机</h4><p>第一次 ngAfterContentChecked() 之后调用，只调用一次。</p>
+<h4 id="用途-5"><a href="#用途-5" class="headerlink" title="用途"></a>用途</h4><p>当 Angular 初始化完组件视图及其子视图或包含该指令的视图之后调用。</p>
+<h3 id="ngAfterViewChecked"><a href="#ngAfterViewChecked" class="headerlink" title="ngAfterViewChecked()"></a>ngAfterViewChecked()</h3><h4 id="时机-6"><a href="#时机-6" class="headerlink" title="时机"></a>时机</h4><p>ngAfterViewInit() 和每次 ngAfterContentChecked() 之后调用。</p>
+<h4 id="用途-6"><a href="#用途-6" class="headerlink" title="用途"></a>用途</h4><p>每当 Angular 做完组件视图和子视图或包含该指令的视图的变更检测之后调用。</p>
+<h3 id="ngOnDestroy"><a href="#ngOnDestroy" class="headerlink" title="ngOnDestroy()"></a>ngOnDestroy()</h3><h4 id="时机-7"><a href="#时机-7" class="headerlink" title="时机"></a>时机</h4><p>在 Angular 销毁指令或组件之前立即调用。</p>
+<h4 id="用途-7"><a href="#用途-7" class="headerlink" title="用途"></a>用途</h4><p>每当 Angular 每次销毁指令&#x2F;组件之前调用并清扫。在这儿反订阅可观察对象和分离事件处理器，以防内存泄漏。</p>
+<h2 id="所有生命周期事件的顺序和频率"><a href="#所有生命周期事件的顺序和频率" class="headerlink" title="所有生命周期事件的顺序和频率"></a>所有生命周期事件的顺序和频率</h2><table>
+<thead>
+<tr>
+<th>顺序</th>
+<th>事件</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1</td>
+<td>OnChanges</td>
+</tr>
+<tr>
+<td>2</td>
+<td>OnInit</td>
+</tr>
+<tr>
+<td>3</td>
+<td>DoCheck</td>
+</tr>
+<tr>
+<td>4</td>
+<td>AfterContentInit</td>
+</tr>
+<tr>
+<td>5</td>
+<td>AfterContentChecked</td>
+</tr>
+<tr>
+<td>6</td>
+<td>AfterViewInit</td>
+</tr>
+<tr>
+<td>7</td>
+<td>AfterViewChecked</td>
+</tr>
+<tr>
+<td>8</td>
+<td>DoCheck</td>
+</tr>
+<tr>
+<td>9</td>
+<td>AfterContentChecked</td>
+</tr>
+<tr>
+<td>10</td>
+<td>AfterViewChecked</td>
+</tr>
+<tr>
+<td>11</td>
+<td>OnDestroy</td>
+</tr>
+</tbody></table>
+<h1 id="视图封装"><a href="#视图封装" class="headerlink" title="视图封装"></a>视图封装</h1><p>在 Angular 中，组件的样式可以封装在组件的宿主元素中，这样它们就不会影响应用程序的其余部分。</p>
+<p>Component 的装饰器提供了 encapsulation 选项，可用来控制如何基于每个组件应用视图封装。</p>
+<h2 id="ViewEncapsulation-ShadowDom"><a href="#ViewEncapsulation-ShadowDom" class="headerlink" title="ViewEncapsulation.ShadowDom"></a>ViewEncapsulation.ShadowDom</h2><p>Angular 使用浏览器内置的 Shadow DOM API 将组件的视图包含在 ShadowRoot（用作组件的宿主元素）中，并以隔离的方式应用所提供的样式。</p>
+<h2 id="ViewEncapsulation-Emulated"><a href="#ViewEncapsulation-Emulated" class="headerlink" title="ViewEncapsulation.Emulated"></a>ViewEncapsulation.Emulated</h2><p>Angular 会修改组件的 CSS 选择器，使它们只应用于组件的视图，不影响应用程序中的其他元素（模拟 Shadow DOM 行为）</p>
+<h2 id="ViewEncapsulation-None"><a href="#ViewEncapsulation-None" class="headerlink" title="ViewEncapsulation.None"></a>ViewEncapsulation.None</h2><p>Angular 不应用任何形式的视图封装，这意味着为组件指定的任何样式实际上都是全局应用的，并且可以影响应用程序中存在的任何 HTML 元素。这种模式本质上与将样式包含在 HTML 本身中是一样的。</p>
+<h1 id="组件之间的交互"><a href="#组件之间的交互" class="headerlink" title="组件之间的交互"></a>组件之间的交互</h1><p>Angular 中的一个常见模式就是在父组件和一个或多个子组件之间共享数据。可以用 @Input() 和 @Output() 来实现这个模式。</p>
+<p>考虑以下层次结构：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">parent-component</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">child-component</span>&gt;</span><span class="tag">&lt;/<span class="name">child-component</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">parent-component</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>@Input() 允许父组件更新子组件中的数据。相反，@Output() 允许子组件向父组件发送数据。</p>
+<h2 id="把数据发送到子组件"><a href="#把数据发送到子组件" class="headerlink" title="把数据发送到子组件"></a>把数据发送到子组件</h2><p>子组件或指令中的 @Input() 装饰器表示该属性可以从其父组件中获取值。</p>
+<h3 id="配置子组件"><a href="#配置子组件" class="headerlink" title="配置子组件"></a>配置子组件</h3><p>要使用 @Input() 装饰器，首先要导入 Input，然后用 @Input() 装饰该属性，如下例所示。</p>
+<blockquote>
+<p>src&#x2F;app&#x2F;item-detail&#x2F;item-detail.component.ts</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>, <span class="title class_">Input</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>; <span class="comment">// First, import Input</span></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">ItemDetailComponent</span> &#123;</span><br><span class="line">  <span class="meta">@Input</span>() item = <span class="string">&#x27;&#x27;</span>; <span class="comment">// decorate the property with @Input()</span></span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，@Input() 会修饰属性 item，它的类型为 string，但 @Input() 属性可以是任意类型，比如 number、string、boolean 或 object。item 的值来自父组件。</p>
+</blockquote>
+<p>接下来，在子组件模板中添加以下内容：</p>
+<blockquote>
+<p>src&#x2F;app&#x2F;item-detail&#x2F;item-detail.component.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span></span><br><span class="line"> Today&#x27;s item: &#123;&#123;item&#125;&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+</blockquote>
+<h3 id="配置父组件"><a href="#配置父组件" class="headerlink" title="配置父组件"></a>配置父组件</h3><p>使用属性绑定把子组件的 item 属性绑定到父组件的 currentItem 属性上。</p>
+<blockquote>
+<p>src&#x2F;app&#x2F;app.component.html</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">app-item-detail</span> [<span class="attr">item</span>]=<span class="string">&quot;currentItem&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">app-item-detail</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在父组件类中，为 currentItem 指定一个值：<br>src&#x2F;app&#x2F;app.component.ts</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br><span class="line"> currentItem = <span class="string">&#x27;Television&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过 @Input()，Angular 把 currentItem 的值传给子组件，以便 item 渲染为 Television。</p>
+</blockquote>
+<h3 id="监视-Input-的变更"><a href="#监视-Input-的变更" class="headerlink" title="监视 @Input() 的变更"></a>监视 @Input() 的变更</h3><p>要想监视 @Input() 属性的变化，可以用 Angular 的生命周期钩子OnChanges 或 使用一个输入属性的 setter，以拦截父组件中值的变化。</p>
+<h4 id="通过-ngOnChanges-来截听输入属性值的变化"><a href="#通过-ngOnChanges-来截听输入属性值的变化" class="headerlink" title="通过 ngOnChanges() 来截听输入属性值的变化"></a>通过 ngOnChanges() 来截听输入属性值的变化</h4><p>VersionParentComponent 提供 minor 和 major 值，把修改它们值的方法绑定到按钮上。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-version-parent&#x27;</span>,</span><br><span class="line">  <span class="attr">template</span>: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;h2&gt;Source code version&lt;/h2&gt;</span></span><br><span class="line"><span class="string">    &lt;button type=&quot;button&quot; (click)=&quot;newMinor()&quot;&gt;New minor version&lt;/button&gt;</span></span><br><span class="line"><span class="string">    &lt;button type=&quot;button&quot; (click)=&quot;newMajor()&quot;&gt;New major version&lt;/button&gt;</span></span><br><span class="line"><span class="string">    &lt;app-version-child [major]=&quot;major&quot; [minor]=&quot;minor&quot;&gt;&lt;/app-version-child&gt;</span></span><br><span class="line"><span class="string">  `</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">VersionParentComponent</span> &#123;</span><br><span class="line">  major = <span class="number">1</span>;</span><br><span class="line">  minor = <span class="number">23</span>;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">newMinor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">minor</span>++;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">newMajor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">major</span>++;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">minor</span> = <span class="number">0</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个 VersionChildComponent 会监测输入属性 major 和 minor 的变化，并把这些变化编写成日志以报告这些变化。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>, <span class="title class_">Input</span>, <span class="title class_">OnChanges</span>, <span class="title class_">SimpleChanges</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-version-child&#x27;</span>,</span><br><span class="line">  <span class="attr">template</span>: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;h3&gt;Version &#123;&#123;major&#125;&#125;.&#123;&#123;minor&#125;&#125;&lt;/h3&gt;</span></span><br><span class="line"><span class="string">    &lt;h4&gt;Change log:&lt;/h4&gt;</span></span><br><span class="line"><span class="string">    &lt;ul&gt;</span></span><br><span class="line"><span class="string">      &lt;li *ngFor=&quot;let change of changeLog&quot;&gt;&#123;&#123;change&#125;&#125;&lt;/li&gt;</span></span><br><span class="line"><span class="string">    &lt;/ul&gt;</span></span><br><span class="line"><span class="string">  `</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">VersionChildComponent</span> <span class="keyword">implements</span> <span class="title class_">OnChanges</span> &#123;</span><br><span class="line">  <span class="meta">@Input</span>() major = <span class="number">0</span>;</span><br><span class="line">  <span class="meta">@Input</span>() minor = <span class="number">0</span>;</span><br><span class="line">  <span class="attr">changeLog</span>: <span class="built_in">string</span>[] = [];</span><br><span class="line"></span><br><span class="line">  <span class="title function_">ngOnChanges</span>(<span class="params">changes: SimpleChanges</span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> <span class="attr">log</span>: <span class="built_in">string</span>[] = [];</span><br><span class="line">    <span class="keyword">for</span> (<span class="keyword">const</span> propName <span class="keyword">in</span> changes) &#123;</span><br><span class="line">      <span class="keyword">const</span> changedProp = changes[propName];</span><br><span class="line">      <span class="keyword">const</span> to = <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(changedProp.<span class="property">currentValue</span>);</span><br><span class="line">      <span class="keyword">if</span> (changedProp.<span class="title function_">isFirstChange</span>()) &#123;</span><br><span class="line">        log.<span class="title function_">push</span>(<span class="string">`Initial value of <span class="subst">$&#123;propName&#125;</span> set to <span class="subst">$&#123;to&#125;</span>`</span>);</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">const</span> <span class="keyword">from</span> = <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(changedProp.<span class="property">previousValue</span>);</span><br><span class="line">        log.<span class="title function_">push</span>(<span class="string">`<span class="subst">$&#123;propName&#125;</span> changed from <span class="subst">$&#123;<span class="keyword">from</span>&#125;</span> to <span class="subst">$&#123;to&#125;</span>`</span>);</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">changeLog</span>.<span class="title function_">push</span>(log.<span class="title function_">join</span>(<span class="string">&#x27;, &#x27;</span>));</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="通过-setter-截听输入属性值的变化"><a href="#通过-setter-截听输入属性值的变化" class="headerlink" title="通过 setter 截听输入属性值的变化"></a>通过 setter 截听输入属性值的变化</h3><p>使用一个输入属性的 setter，以拦截父组件中值的变化，并采取行动。</p>
+<p>NameParentComponent 展示了各种名字的处理方式，包括一个全是空格的名字。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-name-parent&#x27;</span>,</span><br><span class="line">  <span class="attr">template</span>: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;h2&gt;Master controls &#123;&#123;names.length&#125;&#125; names&lt;/h2&gt;</span></span><br><span class="line"><span class="string">    &lt;app-name-child *ngFor=&quot;let name of names&quot; [name]=&quot;name&quot;&gt;&lt;/app-name-child&gt;`</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">NameParentComponent</span> &#123;</span><br><span class="line">  <span class="comment">// Displays &#x27;Dr. IQ&#x27;, &#x27;&lt;no name set&gt;&#x27;, &#x27;Bombasto&#x27;</span></span><br><span class="line">  names = [<span class="string">&#x27;Dr. IQ&#x27;</span>, <span class="string">&#x27;   &#x27;</span>, <span class="string">&#x27;  Bombasto  &#x27;</span>];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>子组件 NameChildComponent 的输入属性 name 上的这个 setter，会 trim 掉名字里的空格，并把空值替换成默认字符串。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>, <span class="title class_">Input</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-name-child&#x27;</span>,</span><br><span class="line">  <span class="attr">template</span>: <span class="string">&#x27;&lt;h3&gt;&quot;&#123;&#123;name&#125;&#125;&quot;&lt;/h3&gt;&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">NameChildComponent</span> &#123;</span><br><span class="line">  <span class="meta">@Input</span>()</span><br><span class="line">  <span class="keyword">get</span> <span class="title function_">name</span>(): <span class="built_in">string</span> &#123; <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">_name</span>; &#125;</span><br><span class="line">  <span class="keyword">set</span> <span class="title function_">name</span>(<span class="params">name: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">_name</span> = (name &amp;&amp; name.<span class="title function_">trim</span>()) || <span class="string">&#x27;&lt;no name set&gt;&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">private</span> _name = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="把数据发送到父组件"><a href="#把数据发送到父组件" class="headerlink" title="把数据发送到父组件"></a>把数据发送到父组件</h2><p>子组件或指令中的 @Output() 装饰器允许数据从子组件传给父组件。</p>
+<p>@Output() 在子组件中标记了一个属性，作为数据从子组件传递到父组件的途径。</p>
+<p>子组件使用 @Output() 属性来引发事件，以通知父组件这一变化。为了引发事件，@Output() 必须是 EventEmitter 类型，它是 @angular&#x2F;core 中用来发出自定义事件的类。</p>
+<h3 id="配置子组件-1"><a href="#配置子组件-1" class="headerlink" title="配置子组件"></a>配置子组件</h3><p>子组件的模板有两个控件。第一个是带有模板引用变量 #newItem 的 <input>，用户可在其中输入条目名称。#newItem 变量的 value 属性存储了用户输入到 <input> 中的值。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;item-input&quot;</span>&gt;</span>Add an item:<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">id</span>=<span class="string">&quot;item-input&quot;</span> #<span class="attr">newItem</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> (<span class="attr">click</span>)=<span class="string">&quot;addNewItem(newItem.value)&quot;</span>&gt;</span>Add to parent&#x27;s list<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>(click) 事件绑定到了子组件类中 addNewItem() 方法。addNewItem() 方法接受一个 #newItem.value 属性的值作为参数。</p>
+<p>在子组件类中导入 Output 和 EventEmitter，用 @Output() 装饰一个属性。下面的例子中 newItemEvent 这个 @Output() 的类型为 EventEmitter，这意味着它是一个事件。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">ItemOutputComponent</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Output</span>() newItemEvent = <span class="keyword">new</span> <span class="title class_">EventEmitter</span>&lt;<span class="built_in">string</span>&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="title function_">addNewItem</span>(<span class="params">value: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">newItemEvent</span>.<span class="title function_">emit</span>(value);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>addNewItem() 函数使用 newItemEvent 这个 @Output() 来引发一个事件，该事件带有用户输入；</p>
+<h3 id="配置父组件-1"><a href="#配置父组件-1" class="headerlink" title="配置父组件"></a>配置父组件</h3><p>在父模板中，把父组件的方法绑定到子组件的事件上。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">app-item-output</span> (<span class="attr">newItemEvent</span>)=<span class="string">&quot;addItem($event)&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">app-item-output</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>事件绑定 (newItemEvent)&#x3D;’addItem($event)’ 会把子组件中的 newItemEvent 事件连接到父组件的 addItem() 方法。</p>
+<p>$event 中包含用户在子组件模板上的 <input> 中键入的数据。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br><span class="line">  items = [<span class="string">&#x27;item1&#x27;</span>, <span class="string">&#x27;item2&#x27;</span>, <span class="string">&#x27;item3&#x27;</span>, <span class="string">&#x27;item4&#x27;</span>];</span><br><span class="line"></span><br><span class="line">  <span class="title function_">addItem</span>(<span class="params">newItem: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">items</span>.<span class="title function_">push</span>(newItem);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>addItem() 方法接受一个字符串形式的参数，然后把该字符串添加到 items 数组中。</p>
+<h2 id="父组件与子组件通过本地变量互动"><a href="#父组件与子组件通过本地变量互动" class="headerlink" title="父组件与子组件通过本地变量互动"></a>父组件与子组件通过本地变量互动</h2><p>父组件不能使用数据绑定来读取子组件的属性或调用子组件的方法。但可以在父组件模板里，新建一个本地变量来代表子组件，然后利用这个变量来读取子组件的属性和调用子组件的方法，如下例所示。</p>
+<p>宿主组件 CountdownLocalVarParentComponent 如下：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">CountdownTimerComponent</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./countdown-timer.component&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-countdown-parent-lv&#x27;</span>,</span><br><span class="line">  <span class="attr">template</span>: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;h3&gt;Countdown to Liftoff (via local variable)&lt;/h3&gt;</span></span><br><span class="line"><span class="string">    &lt;button type=&quot;button&quot; (click)=&quot;timer.start()&quot;&gt;Start&lt;/button&gt;</span></span><br><span class="line"><span class="string">    &lt;button type=&quot;button&quot; (click)=&quot;timer.stop()&quot;&gt;Stop&lt;/button&gt;</span></span><br><span class="line"><span class="string">    &lt;div class=&quot;seconds&quot;&gt;&#123;&#123;timer.seconds&#125;&#125;&lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;app-countdown-timer #timer&gt;&lt;/app-countdown-timer&gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">  <span class="attr">styleUrls</span>: [<span class="string">&#x27;../assets/demo.css&#x27;</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">CountdownLocalVarParentComponent</span> &#123; &#125;</span><br></pre></td></tr></table></figure>
+
+<p>子组件 CountdownTimerComponent 进行倒计时，归零时发射一个导弹。start 和 stop 方法负责控制时钟并在模板里显示倒计时的状态信息。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>, <span class="title class_">OnDestroy</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-countdown-timer&#x27;</span>,</span><br><span class="line">  <span class="attr">template</span>: <span class="string">&#x27;&lt;p&gt;&#123;&#123;message&#125;&#125;&lt;/p&gt;&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">CountdownTimerComponent</span> <span class="keyword">implements</span> <span class="title class_">OnDestroy</span> &#123;</span><br><span class="line"></span><br><span class="line">  intervalId = <span class="number">0</span>;</span><br><span class="line">  message = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">  seconds = <span class="number">11</span>;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">ngOnDestroy</span>(<span class="params"></span>) &#123; <span class="variable language_">this</span>.<span class="title function_">clearTimer</span>(); &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">start</span>(<span class="params"></span>) &#123; <span class="variable language_">this</span>.<span class="title function_">countDown</span>(); &#125;</span><br><span class="line">  <span class="title function_">stop</span>(<span class="params"></span>)  &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">clearTimer</span>();</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">message</span> = <span class="string">`Holding at T-<span class="subst">$&#123;<span class="variable language_">this</span>.seconds&#125;</span> seconds`</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="title function_">clearTimer</span>(<span class="params"></span>) &#123; <span class="built_in">clearInterval</span>(<span class="variable language_">this</span>.<span class="property">intervalId</span>); &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="title function_">countDown</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">clearTimer</span>();</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">intervalId</span> = <span class="variable language_">window</span>.<span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">seconds</span> -= <span class="number">1</span>;</span><br><span class="line">      <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">seconds</span> === <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">message</span> = <span class="string">&#x27;Blast off!&#x27;</span>;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">seconds</span> &lt; <span class="number">0</span>) &#123; <span class="variable language_">this</span>.<span class="property">seconds</span> = <span class="number">10</span>; &#125; <span class="comment">// reset</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">message</span> = <span class="string">`T-<span class="subst">$&#123;<span class="variable language_">this</span>.seconds&#125;</span> seconds and counting`</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>父组件不能通过数据绑定使用子组件的 start 和 stop 方法，也不能访问子组件的 seconds 属性。</p>
+<p>把本地变量(#timer)放到(<app-countdown-timer>)标签中，用来代表子组件。这样父组件的模板就得到了子组件的引用，于是可以在父组件的模板中访问子组件的所有属性和方法。</p>
+<p>这个例子把父组件的按钮绑定到子组件的 start 和 stop 方法，并用插值来显示子组件的 seconds 属性。</p>
+<h2 id="父级调用-ViewChild"><a href="#父级调用-ViewChild" class="headerlink" title="父级调用 @ViewChild()"></a>父级调用 @ViewChild()</h2><p>这个本地变量方法是个简单明了的方法。但是它也有局限性，因为父组件-子组件的连接必须全部在父组件的模板中进行。父组件本身的代码对子组件没有访问权。如果父组件的类需要依赖于子组件类，就不能使用本地变量方法。</p>
+<p>当父组件类需要访问时子组件类时，可以把子组件作为 ViewChild，注入到父组件里面。</p>
+<p>下面是父组件 CountdownViewChildParentComponent:</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">AfterViewInit</span>, <span class="title class_">ViewChild</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">CountdownTimerComponent</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./countdown-timer.component&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-countdown-parent-vc&#x27;</span>,</span><br><span class="line">  <span class="attr">template</span>: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;h3&gt;Countdown to Liftoff (via ViewChild)&lt;/h3&gt;</span></span><br><span class="line"><span class="string">    &lt;button type=&quot;button&quot; (click)=&quot;start()&quot;&gt;Start&lt;/button&gt;</span></span><br><span class="line"><span class="string">    &lt;button type=&quot;button&quot; (click)=&quot;stop()&quot;&gt;Stop&lt;/button&gt;</span></span><br><span class="line"><span class="string">    &lt;div class=&quot;seconds&quot;&gt;&#123;&#123; seconds() &#125;&#125;&lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;app-countdown-timer&gt;&lt;/app-countdown-timer&gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">  <span class="attr">styleUrls</span>: [<span class="string">&#x27;../assets/demo.css&#x27;</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">CountdownViewChildParentComponent</span> <span class="keyword">implements</span> <span class="title class_">AfterViewInit</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@ViewChild</span>(<span class="title class_">CountdownTimerComponent</span>)</span><br><span class="line">  <span class="keyword">private</span> timerComponent!: <span class="title class_">CountdownTimerComponent</span>;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">seconds</span>(<span class="params"></span>) &#123; <span class="keyword">return</span> <span class="number">0</span>; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">ngAfterViewInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// Redefine `seconds()` to get from the `CountdownTimerComponent.seconds` ...</span></span><br><span class="line">    <span class="comment">// but wait a tick first to avoid one-time devMode</span></span><br><span class="line">    <span class="comment">// unidirectional-data-flow-violation error</span></span><br><span class="line">    <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> <span class="variable language_">this</span>.<span class="property">seconds</span> = <span class="function">() =&gt;</span> <span class="variable language_">this</span>.<span class="property">timerComponent</span>.<span class="property">seconds</span>, <span class="number">0</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">start</span>(<span class="params"></span>) &#123; <span class="variable language_">this</span>.<span class="property">timerComponent</span>.<span class="title function_">start</span>(); &#125;</span><br><span class="line">  <span class="title function_">stop</span>(<span class="params"></span>) &#123; <span class="variable language_">this</span>.<span class="property">timerComponent</span>.<span class="title function_">stop</span>(); &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>把子组件的视图插入到父组件类需要做一点额外的工作。</p>
+<p>首先，你必须导入对装饰器 ViewChild 以及生命周期钩子 AfterViewInit 的引用。</p>
+<p>接着，通过 @ViewChild 属性装饰器，将子组件 CountdownTimerComponent 注入到私有属性 timerComponent 里面。</p>
+<p>组件元数据里就不再需要 #timer 本地变量了。而是把按钮绑定到父组件自己的 start 和 stop 方法，使用父组件的 seconds 方法的插值来展示秒数变化。</p>
+<p>这些方法可以直接访问被注入的计时器组件。</p>
+<p>ngAfterViewInit() 生命周期钩子是非常重要的一步。被注入的计时器组件只有在 Angular 显示了父组件视图之后才能访问，所以它先把秒数显示为 0。</p>
+<p>然后 Angular 会调用 ngAfterViewInit 生命周期钩子，但这时候再更新父组件视图的倒计时就已经太晚了。Angular 的单向数据流规则会阻止在同一个周期内更新父组件视图。应用在显示秒数之前会被迫再等一轮。</p>
+<p>使用 setTimeout() 来等下一轮，然后改写 seconds() 方法，这样它接下来就会从注入的这个计时器组件里获取秒数的值。</p>
+<h2 id="父组件和子组件通过服务来通讯"><a href="#父组件和子组件通过服务来通讯" class="headerlink" title="父组件和子组件通过服务来通讯"></a>父组件和子组件通过服务来通讯</h2><p>父组件和它的子组件共享同一个服务，利用该服务在组件家族内部实现双向通讯。</p>
+<p>该服务实例的作用域被限制在父组件和其子组件内。这个组件子树之外的组件将无法访问该服务或者与它们通讯。</p>
+<p>这个 MissionService 把 MissionControlComponent 和多个 AstronautComponent 子组件连接起来。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Injectable</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Subject</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Injectable</span>()</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">MissionService</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Observable string sources</span></span><br><span class="line">  <span class="keyword">private</span> missionAnnouncedSource = <span class="keyword">new</span> <span class="title class_">Subject</span>&lt;<span class="built_in">string</span>&gt;();</span><br><span class="line">  <span class="keyword">private</span> missionConfirmedSource = <span class="keyword">new</span> <span class="title class_">Subject</span>&lt;<span class="built_in">string</span>&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Observable string streams</span></span><br><span class="line">  missionAnnounced$ = <span class="variable language_">this</span>.<span class="property">missionAnnouncedSource</span>.<span class="title function_">asObservable</span>();</span><br><span class="line">  missionConfirmed$ = <span class="variable language_">this</span>.<span class="property">missionConfirmedSource</span>.<span class="title function_">asObservable</span>();</span><br><span class="line"></span><br><span class="line">  <span class="comment">// Service message commands</span></span><br><span class="line">  <span class="title function_">announceMission</span>(<span class="params">mission: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">missionAnnouncedSource</span>.<span class="title function_">next</span>(mission);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">confirmMission</span>(<span class="params">astronaut: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">missionConfirmedSource</span>.<span class="title function_">next</span>(astronaut);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>MissionControlComponent 提供服务的实例，并将其共享给它的子组件(通过 providers 元数据数组)，子组件可以通过构造函数将该实例注入到自身。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">MissionService</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./mission.service&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-mission-control&#x27;</span>,</span><br><span class="line">  <span class="attr">template</span>: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;h2&gt;Mission Control&lt;/h2&gt;</span></span><br><span class="line"><span class="string">    &lt;button type=&quot;button&quot; (click)=&quot;announce()&quot;&gt;Announce mission&lt;/button&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &lt;app-astronaut</span></span><br><span class="line"><span class="string">      *ngFor=&quot;let astronaut of astronauts&quot;</span></span><br><span class="line"><span class="string">      [astronaut]=&quot;astronaut&quot;&gt;</span></span><br><span class="line"><span class="string">    &lt;/app-astronaut&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &lt;h3&gt;History&lt;/h3&gt;</span></span><br><span class="line"><span class="string">    &lt;ul&gt;</span></span><br><span class="line"><span class="string">      &lt;li *ngFor=&quot;let event of history&quot;&gt;&#123;&#123;event&#125;&#125;&lt;/li&gt;</span></span><br><span class="line"><span class="string">    &lt;/ul&gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">  <span class="attr">providers</span>: [<span class="title class_">MissionService</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">MissionControlComponent</span> &#123;</span><br><span class="line">  astronauts = [<span class="string">&#x27;Lovell&#x27;</span>, <span class="string">&#x27;Swigert&#x27;</span>, <span class="string">&#x27;Haise&#x27;</span>];</span><br><span class="line">  <span class="attr">history</span>: <span class="built_in">string</span>[] = [];</span><br><span class="line">  missions = [<span class="string">&#x27;Fly to the moon!&#x27;</span>,</span><br><span class="line">              <span class="string">&#x27;Fly to mars!&#x27;</span>,</span><br><span class="line">              <span class="string">&#x27;Fly to Vegas!&#x27;</span>];</span><br><span class="line">  nextMission = <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> missionService: MissionService</span>) &#123;</span><br><span class="line">    missionService.<span class="property">missionConfirmed$</span>.<span class="title function_">subscribe</span>(</span><br><span class="line">      <span class="function"><span class="params">astronaut</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">history</span>.<span class="title function_">push</span>(<span class="string">`<span class="subst">$&#123;astronaut&#125;</span> confirmed the mission`</span>);</span><br><span class="line">      &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">announce</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="keyword">const</span> mission = <span class="variable language_">this</span>.<span class="property">missions</span>[<span class="variable language_">this</span>.<span class="property">nextMission</span>++];</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">missionService</span>.<span class="title function_">announceMission</span>(mission);</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">history</span>.<span class="title function_">push</span>(<span class="string">`Mission &quot;<span class="subst">$&#123;mission&#125;</span>&quot; announced`</span>);</span><br><span class="line">    <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">nextMission</span> &gt;= <span class="variable language_">this</span>.<span class="property">missions</span>.<span class="property">length</span>) &#123; <span class="variable language_">this</span>.<span class="property">nextMission</span> = <span class="number">0</span>; &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>AstronautComponent 也通过自己的构造函数注入该服务。由于每个 AstronautComponent 都是 MissionControlComponent 的子组件，所以它们获取到的也是父组件的这个服务实例。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>, <span class="title class_">Input</span>, <span class="title class_">OnDestroy</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">MissionService</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./mission.service&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Subscription</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-astronaut&#x27;</span>,</span><br><span class="line">  <span class="attr">template</span>: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;p&gt;</span></span><br><span class="line"><span class="string">      &#123;&#123;astronaut&#125;&#125;: &lt;strong&gt;&#123;&#123;mission&#125;&#125;&lt;/strong&gt;</span></span><br><span class="line"><span class="string">      &lt;button</span></span><br><span class="line"><span class="string">        type=&quot;button&quot;</span></span><br><span class="line"><span class="string">        (click)=&quot;confirm()&quot;</span></span><br><span class="line"><span class="string">        [disabled]=&quot;!announced || confirmed&quot;&gt;</span></span><br><span class="line"><span class="string">        Confirm</span></span><br><span class="line"><span class="string">      &lt;/button&gt;</span></span><br><span class="line"><span class="string">    &lt;/p&gt;</span></span><br><span class="line"><span class="string">  `</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AstronautComponent</span> <span class="keyword">implements</span> <span class="title class_">OnDestroy</span> &#123;</span><br><span class="line">  <span class="meta">@Input</span>() astronaut = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">  mission = <span class="string">&#x27;&lt;no mission announced&gt;&#x27;</span>;</span><br><span class="line">  confirmed = <span class="literal">false</span>;</span><br><span class="line">  announced = <span class="literal">false</span>;</span><br><span class="line">  <span class="attr">subscription</span>: <span class="title class_">Subscription</span>;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> missionService: MissionService</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">subscription</span> = missionService.<span class="property">missionAnnounced$</span>.<span class="title function_">subscribe</span>(</span><br><span class="line">      <span class="function"><span class="params">mission</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">mission</span> = mission;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">announced</span> = <span class="literal">true</span>;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">confirmed</span> = <span class="literal">false</span>;</span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">confirm</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">confirmed</span> = <span class="literal">true</span>;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">missionService</span>.<span class="title function_">confirmMission</span>(<span class="variable language_">this</span>.<span class="property">astronaut</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">ngOnDestroy</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// prevent memory leak when component destroyed</span></span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">subscription</span>.<span class="title function_">unsubscribe</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>History 日志证明了：在父组件 MissionControlComponent 和子组件 AstronautComponent 之间，信息通过该服务实现了双向传递。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/03/01/expression/%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A0%91/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/03/01/expression/%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A0%91/" class="post-title-link" itemprop="url">表达式树</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-03-01 12:31:32 / 修改时间：19:07:42" itemprop="dateCreated datePublished" datetime="2023-03-01T12:31:32+08:00">2023-03-01</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>在创建 LINQ 查询时，通常使用 Lambda 表达式编写函数参数。 在典型的 LINQ 查询中，这些函数参数会被转换为编译器创建的委托。</p>
+<p>当想要进行更丰富的交互时，需要使用表达式树。 表达式树将代码表示为可以检查、修改或执行的结构。 这些工具让你能够在运行时操作代码。 可以编写检查正在运行的算法的代码，或插入新的功能。 在更加高级的方案中，你可以修改正在运行的算法，甚至可以将 C# 表达式转换为另一种形式从而可在另一环境中执行。</p>
+<h1 id="表达式树说明"><a href="#表达式树说明" class="headerlink" title="表达式树说明"></a>表达式树说明</h1><p>让我们来举一个简单的示例。 以下是一个代码行：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sum = <span class="number">1</span> + <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
+<p>直观地看，整个语句是一棵树：应从根节点开始，浏览到树中的每个节点，以查看构成该语句的代码：</p>
+<ul>
+<li>具有赋值 (var sum &#x3D; 1 + 2;) 的变量声明语句<ul>
+<li>隐式变量类型声明 (var sum)<ul>
+<li>隐式 var 关键字 (var)</li>
+<li>变量名称声明 (sum)</li>
+</ul>
+</li>
+<li>赋值运算符 (&#x3D;)</li>
+<li>二进制加法表达式 (1 + 2)<ul>
+<li>左操作数 (1)</li>
+<li>加法运算符 (+)</li>
+<li>右操作数 (2)</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p>表达式树的结构非常一致。 了解基础知识后，你甚至可以理解以表达式树形式表示的最复杂的代码。 优美的数据结构说明了 C# 编译器如何分析最复杂的 C# 程序并从该复杂的源代码创建正确的输出。</p>
+<p>不能执行的操作是修改表达式树。 表达式树是不可变的数据结构。 如果想要改变（更改）表达式树，则必须创建基于原始树副本但包含所需更改的新树。</p>
+<h1 id="支持表达式树的框架类型"><a href="#支持表达式树的框架类型" class="headerlink" title="支持表达式树的框架类型"></a>支持表达式树的框架类型</h1><h2 id="这一切都始于-System-Linq-Expression"><a href="#这一切都始于-System-Linq-Expression" class="headerlink" title="这一切都始于 System.Linq.Expression"></a>这一切都始于 System.Linq.Expression</h2><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Expression&lt;Func&lt;<span class="built_in">int</span>, <span class="built_in">int</span>&gt;&gt; addFive = (num) =&gt; num + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (addFive.NodeType == ExpressionType.Lambda)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> lambdaExp = (LambdaExpression)addFive;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> parameter = lambdaExp.Parameters.First();</span><br><span class="line"></span><br><span class="line">    Console.WriteLine(parameter.Name);</span><br><span class="line">    Console.WriteLine(parameter.Type);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>例如，此代码将打印变量访问表达式的变量的名称。 我的做法是，先查看节点类型，再转换为变量访问表达式，然后查看特定表达式类型的属性：</p>
+<h2 id="创建表达式树"><a href="#创建表达式树" class="headerlink" title="创建表达式树"></a>创建表达式树</h2><p>System.Linq.Expression 类还包含许多创建表达式的静态方法。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Addition is an add expression for &quot;1 + 2&quot;</span></span><br><span class="line"><span class="keyword">var</span> one = Expression.Constant(<span class="number">1</span>, <span class="keyword">typeof</span>(<span class="built_in">int</span>));</span><br><span class="line"><span class="keyword">var</span> two = Expression.Constant(<span class="number">2</span>, <span class="keyword">typeof</span>(<span class="built_in">int</span>));</span><br><span class="line"><span class="keyword">var</span> addition = Expression.Add(one, two);</span><br></pre></td></tr></table></figure>
+
+<h2 id="导航-API"><a href="#导航-API" class="headerlink" title="导航 API"></a>导航 API</h2><p>存在映射到 C# 语言的几乎所有语法元素的表达式节点类型。 每种类型都有针对该种语言元素的特定方法。 需要一次性记住的内容很多。 我不会记住所有内容，而是会采用有关使用表达式树的技巧，如下所示：</p>
+<ul>
+<li>查看 ExpressionType 枚举的成员以确定应检查的可能节点。 如果想要遍历和理解表达式树，这将非常有用。</li>
+<li>查看 Expression 类的静态成员以生成表达式。 这些方法可以从其子节点集生成任何表达式类型。</li>
+<li>查看 ExpressionVisitor 类，以生成一个经过修改的表达式树。</li>
+</ul>
+<h1 id="执行表达式树"><a href="#执行表达式树" class="headerlink" title="执行表达式树"></a>执行表达式树</h1><p>表达式树是表示一些代码的数据结构。 它不是已编译且可执行的代码。 如果想要执行由表达式树表示的 .NET 代码，则必须将其转换为可执行的 IL 指令。</p>
+<h2 id="Lambda-表达式到函数"><a href="#Lambda-表达式到函数" class="headerlink" title="Lambda 表达式到函数"></a>Lambda 表达式到函数</h2><blockquote>
+<p>可以将任何 LambdaExpression 或派生自 LambdaExpression 的任何类型转换为可执行的 IL。<br>其他表达式类型不能直接转换为代码。 此限制在实践中影响不大。<br>Lambda 表达式是你可通过转换为可执行的中间语言 (IL) 来执行的唯一表达式类型。 </p>
+</blockquote>
+<p>LambdaExpression 类型包含用于将表达式树转换为可执行代码的 Compile 和 CompileToMethod 成员。 Compile 方法创建委托。 CompileToMethod 方法通过表示表达式树的已编译输出的 IL 更新 MethodBuilder 对象。 </p>
+<p>请注意，CompileToMethod 仅在完整的桌面框架中可用，不能用于 .NET Core。</p>
+<p>使用下面的代码将表达式转换为委托：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Expression&lt;Func&lt;<span class="built_in">int</span>&gt;&gt; <span class="keyword">add</span> = () =&gt; <span class="number">1</span> + <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> func = <span class="keyword">add</span>.Compile(); <span class="comment">// Create Delegate</span></span><br><span class="line"><span class="keyword">var</span> answer = func(); <span class="comment">// Invoke Delegate</span></span><br><span class="line">Console.WriteLine(answer);</span><br></pre></td></tr></table></figure>
+<p>请注意，该委托类型基于表达式类型。 如果想要以强类型的方式使用委托对象，则必须知道返回类型和参数列表。 LambdaExpression.Compile() 方法返回 Delegate 类型。 必须将其转换为正确的委托类型，以便使任何编译时工具检查参数列表或返回类型。</p>
+<p>在此提醒你不要通过避免不必要的编译调用尝试创建用于提高性能的任何更复杂的缓存机制。 比较两个任意的表达式树，以确定如果它们表示相同的算法，是否也会花费很长的时间来执行。 你可能会发现，通过避免对 LambdaExpression.Compile() 的任何额外调用所节省的计算时间将多于执行代码（该代码确定可导致相同可执行代码的两个不同表达式树）所花费的时间。</p>
+<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>将 lambda 表达式编译为委托并调用该委托是可对表达式树执行的最简单的操作之一。 但是，即使是执行这个简单的操作，也存在一些必须注意的事项。</p>
+<p>Lambda 表达式将对表达式中引用的任何局部变量创建闭包。 必须保证作为委托的一部分的任何变量在调用 Compile 的位置处和执行结果委托时可用。</p>
+<p>一般情况下，编译器会确保这一点。 但是，如果表达式访问实现 IDisposable 的变量，则代码可能在表达式树仍保留有对象时释放该对象。</p>
+<p>例如，此代码工作正常，因为 int 不实现 IDisposable：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Func&lt;<span class="built_in">int</span>, <span class="built_in">int</span>&gt; <span class="title">CreateBoundFunc</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> constant = <span class="number">5</span>; <span class="comment">// constant is captured by the expression tree</span></span><br><span class="line">    Expression&lt;Func&lt;<span class="built_in">int</span>, <span class="built_in">int</span>&gt;&gt; expression = (b) =&gt; constant + b;</span><br><span class="line">    <span class="keyword">var</span> rVal = expression.Compile();</span><br><span class="line">    <span class="keyword">return</span> rVal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>委托已捕获对局部变量 constant 的引用。 在稍后执行 CreateBoundFunc 返回的函数之后，可随时访问该变量。</p>
+<p>但是，请考虑实现 IDisposable 的此（人为设计的）类：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Resource</span> : <span class="title">IDisposable</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">bool</span> isDisposed = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> Argument</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">get</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (!isDisposed)</span><br><span class="line">                <span class="keyword">return</span> <span class="number">5</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">throw</span> <span class="keyword">new</span> ObjectDisposedException(<span class="string">&quot;Resource&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Dispose</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        isDisposed = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果将其用于如下所示的表达式中，则在执行 Resource.Argument 属性引用的代码时将出现 ObjectDisposedException：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Func&lt;<span class="built_in">int</span>, <span class="built_in">int</span>&gt; <span class="title">CreateBoundResource</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">using</span> (<span class="keyword">var</span> constant = <span class="keyword">new</span> Resource()) <span class="comment">// constant is captured by the expression tree</span></span><br><span class="line">    &#123;</span><br><span class="line">        Expression&lt;Func&lt;<span class="built_in">int</span>, <span class="built_in">int</span>&gt;&gt; expression = (b) =&gt; constant.Argument + b;</span><br><span class="line">        <span class="keyword">var</span> rVal = expression.Compile();</span><br><span class="line">        <span class="keyword">return</span> rVal;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从此方法返回的委托已对释放了的 constant 对象闭包。 （它已被释放，因为它已在 using 语句中进行声明。）</p>
+<p>现在，在执行从此方法返回的委托时，将在执行时引发 ObjectDisposedException。</p>
+<p>定义表达式时，请谨慎访问局部变量，且在创建可由公共 API 返回的表达式树时，谨慎访问当前对象（由 this 表示）中的状态。</p>
+<p>表达式中的代码可能引用其他程序集中的方法或属性。 对表达式进行定义、编译或在调用结果委托时，该程序集必须可访问。 在它不存在的情况下，将遇到 ReferencedAssemblyNotFoundException。</p>
+<h1 id="生成表达式树"><a href="#生成表达式树" class="headerlink" title="生成表达式树"></a>生成表达式树</h1><p>到目前为止，你所看到的所有表达式树都是由 C# 编译器创建的。 你所要做的是创建一个 lambda 表达式，将其分配给一个类型为 Expression&lt;Func<T>&gt; 或某种相似类型的变量。 这不是创建表达式树的唯一方法。 很多情况下，可能需要在运行时在内存中生成一个表达式。</p>
+<p>由于这些表达式树是不可变的，所以生成表达式树很复杂。 不可变意味着必须以从叶到根的方式生成表达式树。 用于生成表达式树的 API 体现了这一点：用于生成节点的方法将其所有子级用作参数。 让我们通过几个示例来了解相关技巧。</p>
+<h2 id="创建节点"><a href="#创建节点" class="headerlink" title="创建节点"></a>创建节点</h2><p>让我们再次从相对简单的内容开始。 我们将使用在这些部分中一直使用的加法表达式：</p>
+<h2 id="生成树"><a href="#生成树" class="headerlink" title="生成树"></a>生成树</h2><p>这是在内存中生成表达式树的基础知识。 更复杂的树通常意味着更多的节点类型，并且树中有更多的节点。 让我们再浏览一个示例，了解通常在创建表达式树时创建的其他两个节点类型：参数节点和方法调用节点。</p>
+<p>生成一个表达式树以创建此表达式：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Expression&lt;Func&lt;<span class="built_in">double</span>, <span class="built_in">double</span>, <span class="built_in">double</span>&gt;&gt; distanceCalc =</span><br><span class="line">    (x, y) =&gt; Math.Sqrt(x * x + y * y);</span><br></pre></td></tr></table></figure>
+<p>首先，创建 x 和 y 的参数表达式：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xParameter = Expression.Parameter(<span class="keyword">typeof</span>(<span class="built_in">double</span>), <span class="string">&quot;x&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> yParameter = Expression.Parameter(<span class="keyword">typeof</span>(<span class="built_in">double</span>), <span class="string">&quot;y&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>按照你所看到的模式创建乘法和加法表达式：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xSquared = Expression.Multiply(xParameter, xParameter);</span><br><span class="line"><span class="keyword">var</span> ySquared = Expression.Multiply(yParameter, yParameter);</span><br><span class="line"><span class="keyword">var</span> sum = Expression.Add(xSquared, ySquared);</span><br></pre></td></tr></table></figure>
+<p>接下来，需要为调用 Math.Sqrt 创建方法调用表达式。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sqrtMethod = <span class="keyword">typeof</span>(Math).GetMethod(<span class="string">&quot;Sqrt&quot;</span>, <span class="keyword">new</span>[] &#123; <span class="keyword">typeof</span>(<span class="built_in">double</span>) &#125;);</span><br><span class="line"><span class="keyword">var</span> distance = Expression.Call(sqrtMethod, sum);</span><br></pre></td></tr></table></figure>
+<p>最后，将方法调用放入 Lambda 表达式，并确保定义 Lambda 表达式的参数：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> distanceLambda = Expression.Lambda(</span><br><span class="line">    distance,</span><br><span class="line">    xParameter,</span><br><span class="line">    yParameter);</span><br></pre></td></tr></table></figure>
+<p>在这个更复杂的示例中，你看到了创建表达式树通常使用的其他几种技巧。</p>
+<p>首先，在使用它们之前，需要创建表示参数或局部变量的对象。 创建这些对象后，可以在表达式树中任何需要的位置使用它们。</p>
+<p>其次，需要使用反射 API 的一个子集来创建 MethodInfo 对象，以便创建表达式树以访问该方法。 必须仅限于 .NET Core 平台上提供的反射 API 的子集。 同样，这些技术将扩展到其他表达式树。</p>
+<h2 id="深度生成代码"><a href="#深度生成代码" class="headerlink" title="深度生成代码"></a>深度生成代码</h2><p>不仅限于使用这些 API 可以生成的代码。 但是，要生成的表达式树越复杂，代码就越难以管理和阅读。</p>
+<p>让我们生成一个与此代码等效的表达式树：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Func&lt;<span class="built_in">int</span>, <span class="built_in">int</span>&gt; factorialFunc = (n) =&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> res = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (n &gt; <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        res = res * n;</span><br><span class="line">        n--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>请注意上面我未生成表达式树，只是生成了委托。 使用 Expression 类不能生成语句 lambda。 下面是生成相同的功能所需的代码。 它很复杂，这是因为没有用于生成 while 循环的 API，而是需要生成一个包含条件测试的循环和一个用于中断循环的标签目标。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> nArgument = Expression.Parameter(<span class="keyword">typeof</span>(<span class="built_in">int</span>), <span class="string">&quot;n&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> result = Expression.Variable(<span class="keyword">typeof</span>(<span class="built_in">int</span>), <span class="string">&quot;result&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Creating a label that represents the return value</span></span><br><span class="line">LabelTarget label = Expression.Label(<span class="keyword">typeof</span>(<span class="built_in">int</span>));</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> initializeResult = Expression.Assign(result, Expression.Constant(<span class="number">1</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// This is the inner block that performs the multiplication,</span></span><br><span class="line"><span class="comment">// and decrements the value of &#x27;n&#x27;</span></span><br><span class="line"><span class="keyword">var</span> block = Expression.Block(</span><br><span class="line">    Expression.Assign(result,</span><br><span class="line">        Expression.Multiply(result, nArgument)),</span><br><span class="line">    Expression.PostDecrementAssign(nArgument)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Creating a method body.</span></span><br><span class="line">BlockExpression body = Expression.Block(</span><br><span class="line">    <span class="keyword">new</span>[] &#123; result &#125;,</span><br><span class="line">    initializeResult,</span><br><span class="line">    Expression.Loop(</span><br><span class="line">        Expression.IfThenElse(</span><br><span class="line">            Expression.GreaterThan(nArgument, Expression.Constant(<span class="number">1</span>)),</span><br><span class="line">            block,</span><br><span class="line">            Expression.Break(label, result)</span><br><span class="line">        ),</span><br><span class="line">        label</span><br><span class="line">    )</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
+<p>用于生成阶乘函数的表达式树的代码相对更长、更复杂，它充满了标签和 break 语句以及我们在日常编码任务中想要避免的其他元素。</p>
+<h1 id="转换表达式树"><a href="#转换表达式树" class="headerlink" title="转换表达式树"></a>转换表达式树</h1>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1654,344 +2409,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2022/12/14/ABP/%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93%E5%AF%B9%E8%B1%A1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="InfoPool">
-      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | InfoPool">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/12/14/ABP/%E6%95%B0%E6%8D%AE%E4%BC%A0%E8%BE%93%E5%AF%B9%E8%B1%A1/" class="post-title-link" itemprop="url">数据传输对象</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-12-14 13:52:12" itemprop="dateCreated datePublished" datetime="2022-12-14T13:52:12+08:00">2022-12-14</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-03-11 17:56:10" itemprop="dateModified" datetime="2023-03-11T17:56:10+08:00">2023-03-11</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>数据传输对象(DTO)用于在应用层和表示层或其他类型的客户端之间传输数据.</p>
-<p>通常用DTO作为参数在表示层(可选)调用应用服务. 它使用领域对象执行某些特定的业务逻辑,并(可选)将DTO返回到表示层.因此表示层与领域层完全隔离.</p>
-<h2 id="数据隐藏"><a href="#数据隐藏" class="headerlink" title="数据隐藏"></a>数据隐藏</h2><p>假设你有一个具有属性Id,名称,电子邮件地址和密码的 User 实体. 如果 UserAppService 的 GetAllUsers() 方法返回 List<User>,任何人都可以访问你所有用户的密码,即使你没有在屏幕上显示它. 这不仅关乎安全,还关乎数据隐藏. 应用程序服务应该只返回表示层(或客户端)所需要的内容,不多也不少.</p>
-<h2 id="序列化和延迟加载问题"><a href="#序列化和延迟加载问题" class="headerlink" title="序列化和延迟加载问题"></a>序列化和延迟加载问题</h2><p>当你将数据(一个对象)返回到表示层时,它很可能是序列化的. 例如在返回JSON的REST API中,你的对象将被序列化为JSON并发送给客户端. 在这方面将实体返回到表示层可能会有问题,尤其是在使用关系数据库和像Entity Framework Core这样的ORM提供者时.</p>
-<p>在真实的应用程序中你的实体可以相互引用. User 实体可以引用它的角色. 如果你想序列化用户,它的角色也必须是序列化的. Role 类可以有 List <Permission>,而 Permission 类可以有一个对 PermissionGroup 类的引用,依此类推…想象一下所有这些对象都被立即序列化了. 你可能会意外地序列化整个数据库! 同样,如果你的对象具有循环引用,则它们可能根本不会序列化成功.</p>
-<p>几乎所有的O&#x2F;RM框架都支持延迟加载. 此功能可在需要时从数据库加载实体. 假设 User 类具有对 Role 类的引用. 当你从数据库中获取用户时,Role 属性(或集合)不会被立即填充. 首次读取 Role 属性时,它是从数据库加载的. 因此如果将这样的实体返回到表示层,它将通过执行额外的查询从数据库中检索额外的实体. 如果序列化工具读取实体,它会递归读取所有属性,并且可以再次检索整个数据库(如果实体之间存在关系).</p>
-<p>如果在表示层中使用实体,可能会出现更多问题.最好不要在表示层中引用领域&#x2F;业务层程序集.</p>
-<p>ABP并不强迫你使用DTO,但是强烈建议将DTO作为最佳实践.</p>
-<h2 id="标准接口和基类"><a href="#标准接口和基类" class="headerlink" title="标准接口和基类"></a>标准接口和基类</h2><p>DTO是一个没有依赖性的简单类,你可以用任何方式进行设计. 但是ABP引入了一些接口来确定命名标准属性和基类的约定,以免在声明公共属性时重复工作.</p>
-<h3 id="实体相关DTO"><a href="#实体相关DTO" class="headerlink" title="实体相关DTO"></a>实体相关DTO</h3><p>通常你需要创建与你的实体相对应的DTO,从而生成与实体类似的类. ABP框架在创建DTO时提供了一些基类来简化.</p>
-<h3 id="EntityDto"><a href="#EntityDto" class="headerlink" title="EntityDto"></a>EntityDto</h3><p>IEntityDto<TKey> 是一个只定义 Id 属性的简单接口. 你可以实现它或从 EntityDto<TKey> 继承.</p>
-<h3 id="审计DTO"><a href="#审计DTO" class="headerlink" title="审计DTO"></a>审计DTO</h3><p>如果你的实体继承自被审计的实体类(或实现审计接口)可以使用以下基类来创建DTO:</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">CreationAuditedEntityDto</span><br><span class="line">CreationAuditedEntityWithUserDto</span><br><span class="line">AuditedEntityDto</span><br><span class="line">AuditedEntityWithUserDto</span><br><span class="line">FullAuditedEntityDto</span><br><span class="line">FullAuditedEntityWithUserDto</span><br></pre></td></tr></table></figure>
-<h3 id="可扩展的DTO"><a href="#可扩展的DTO" class="headerlink" title="可扩展的DTO"></a>可扩展的DTO</h3><p>如果你想为你的DTO使用对象扩展系统,你可以使用或继承以下DTO类:</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">ExtensibleObject 实现 IHasExtraProperties (其它类继承这个类).</span><br><span class="line">ExtensibleEntityDto</span><br><span class="line">ExtensibleCreationAuditedEntityDto</span><br><span class="line">ExtensibleCreationAuditedEntityWithUserDto</span><br><span class="line">ExtensibleAuditedEntityDto</span><br><span class="line">ExtensibleAuditedEntityWithUserDto</span><br><span class="line">ExtensibleFullAuditedEntityDto</span><br><span class="line">ExtensibleFullAuditedEntityWithUserDto</span><br></pre></td></tr></table></figure>
-<h3 id="列表结果"><a href="#列表结果" class="headerlink" title="列表结果"></a>列表结果</h3><p>通常将DTO列表返回给客户端. IListResult<T> 接口和 ListResultDto<T> 类用于使其成为标准.</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">AbpDemo</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ProductAppService</span> : <span class="title">ApplicationService</span>, <span class="title">IProductAppService</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> IRepository&lt;Product, Guid&gt; _productRepository;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">ProductAppService</span>(<span class="params">IRepository&lt;Product, Guid&gt; productRepository</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            _productRepository = productRepository;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">async</span> Task&lt;ListResultDto&lt;ProductDto&gt;&gt; GetListAsync()</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//Get entities from the repository</span></span><br><span class="line">            List&lt;Product&gt; products = <span class="keyword">await</span> _productRepository.GetListAsync();</span><br><span class="line"></span><br><span class="line">            <span class="comment">//Map entities to DTOs</span></span><br><span class="line">            List&lt;ProductDto&gt; productDtos =</span><br><span class="line">                ObjectMapper.Map&lt;List&lt;Product&gt;, List&lt;ProductDto&gt;&gt;(products);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//Return the result</span></span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">new</span> ListResultDto&lt;ProductDto&gt;(productDtos);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>你可以简单地返回 productDtos 对象(并更改方法的返回类型), 这也没有错. 返回一个 ListResultDto 会使List<ProductDto> 做为 Item 属性包装到另一个对象中. 这具有一个优点:以后可以在不破坏远程客户端的情况下(当它们作为JSON结果获得值时)在返回值中添加更多属性. 在开发可重用的应用程序模块时特别建议使用这种方式.</p>
-<h3 id="分页-amp-排序列表结果"><a href="#分页-amp-排序列表结果" class="headerlink" title="分页 &amp; 排序列表结果"></a>分页 &amp; 排序列表结果</h3><p>从服务器请求分页列表并将分页列表返回给客户端是更常见的情况. ABP定义了一些接口和类来对其进行标准化:</p>
-<h4 id="输入-请求-类型"><a href="#输入-请求-类型" class="headerlink" title="输入 (请求) 类型"></a>输入 (请求) 类型</h4><p>建议你继承以下基类DTO类之一,而不是手动实现接口:</p>
-<ul>
-<li>LimitedResultRequestDto 实现了 ILimitedResultRequest.</li>
-<li>PagedResultRequestDto 实现了 IPagedResultRequest (和继承自 LimitedResultRequestDto).</li>
-<li>PagedAndSortedResultRequestDto 实现了 IPagedAndSortedResultRequest (和继承自 PagedResultRequestDto).</li>
-</ul>
-<h4 id="最大返回数量"><a href="#最大返回数量" class="headerlink" title="最大返回数量"></a>最大返回数量</h4><p>LimitedResultRequestDto(和其它固有的)通过以下规则限制和验证 MaxResultCount;</p>
-<p>最大返回数量<br>LimitedResultRequestDto(和其它固有的)通过以下规则限制和验证 MaxResultCount;</p>
-<ul>
-<li>如果客户端未设置 MaxResultCount,则假定为10(默认页面大小). 可以通过设置 LimitedResultRequestDto.DefaultMaxResultCount 静态属性来更改此值.</li>
-<li>如果客户端发送的 MaxResultCount 大于1,000,则会产生验证错误. 保护服务器免受滥用服务很重要. 如果需要可以通过设置 LimitedResultRequestDto.MaxMaxResultCount 静态属性来更改此值.</li>
-</ul>
-<p>建议在应用程序启动时设置静态属性,因为它们是静态的(全局).</p>
-<h4 id="输出-响应-类型"><a href="#输出-响应-类型" class="headerlink" title="输出 (响应) 类型"></a>输出 (响应) 类型</h4><p>以下接口和类用于标准化发送给客户端的输出.</p>
-<p>建议你继承以下基类DTO类之一,而不是手动实现接口:</p>
-<ul>
-<li>PagedResultDto<T> 继承自 ListResultDto<T> 和实现了 IPagedResult<T>.</li>
-</ul>
-<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><p>你可以自由设计DTO类,然而这里有一些你可能想要遵循的最佳实践和建议.</p>
-<h3 id="共同原则"><a href="#共同原则" class="headerlink" title="共同原则"></a>共同原则</h3><ul>
-<li><p>DTO应该是可序列化的,因为它们通常是序列化和反序列化的(JSON或其他格式). 如果你有另一个带参数的构造函数,建议使用空(无参数)的公共构造函数.</p>
-</li>
-<li><p>除某些验证代码外,DTO不应包含任何业务逻辑.</p>
-</li>
-<li><p>DTO不要继承实体,也不要引用实体. 应用程序启动模板已经通过分隔项目来阻止它.</p>
-</li>
-<li><p>如果你使用自动对象到对象映射库,如AutoMapper,请启用映射配置验证以防止潜在的错误.</p>
-</li>
-<li><h3 id="输入DTO原则"><a href="#输入DTO原则" class="headerlink" title="输入DTO原则"></a>输入DTO原则</h3></li>
-<li><p>只定义用例所需的属性. 不要包含不用于用例的属性,这样做会使开发人员感到困惑.</p>
-</li>
-<li><p>不要在不同的应用程序服务方法之间重用输入DTO. 因为不同的用例将需要和使用DTO的不同属性.</p>
-</li>
-</ul>
-<h3 id="输出DTO原则"><a href="#输出DTO原则" class="headerlink" title="输出DTO原则"></a>输出DTO原则</h3><p>如果在所有情况下填充所有属性,就可以重用输出DTO.</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2022/12/14/ABP/%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="InfoPool">
-      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | InfoPool">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/12/14/ABP/%E5%BA%94%E7%94%A8%E6%9C%8D%E5%8A%A1/" class="post-title-link" itemprop="url">应用服务</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-12-14 13:33:08" itemprop="dateCreated datePublished" datetime="2022-12-14T13:33:08+08:00">2022-12-14</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-03-11 17:56:10" itemprop="dateModified" datetime="2023-03-11T17:56:10+08:00">2023-03-11</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>应用服务实现应用程序的用例, 将领域层逻辑公开给表示层.</p>
-<p>假设你有一个Book实体(聚合根), 如下所示:</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Book</span> : <span class="title">AggregateRoot</span>&lt;<span class="title">Guid</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">const</span> <span class="built_in">int</span> MaxNameLength = <span class="number">128</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">virtual</span> <span class="built_in">string</span> Name &#123; <span class="keyword">get</span>; <span class="keyword">protected</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">virtual</span> BookType Type &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">virtual</span> <span class="built_in">float</span>? Price &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">Book</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Book</span>(<span class="params">Guid id, [NotNull] <span class="built_in">string</span> name, BookType type, <span class="built_in">float</span>? price = <span class="number">0</span></span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        Id = id;</span><br><span class="line">        Name = CheckName(name);</span><br><span class="line">        Type = type;</span><br><span class="line">        Price = price;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">virtual</span> <span class="keyword">void</span> <span class="title">ChangeName</span>(<span class="params">[NotNull] <span class="built_in">string</span> name</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        Name = CheckName(name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="keyword">static</span> <span class="built_in">string</span> <span class="title">CheckName</span>(<span class="params"><span class="built_in">string</span> name</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="built_in">string</span>.IsNullOrWhiteSpace(name))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentException(<span class="string">$&quot;name can not be empty or white space!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (name.Length &gt; MaxNameLength)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentException(<span class="string">$&quot;name can not be longer than <span class="subst">&#123;MaxNameLength&#125;</span> chars!&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> name;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="IBookAppService接口"><a href="#IBookAppService接口" class="headerlink" title="IBookAppService接口"></a>IBookAppService接口</h2><p>在ABP中应用程序服务应该实现IApplicationService接口. 推荐每个应用程序服务创建一个接口:</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">IBookAppService</span> : <span class="title">IApplicationService</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function">Task <span class="title">CreateAsync</span>(<span class="params">CreateBookDto input</span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>我们将实现Create方法作为示例. CreateBookDto定义如下:</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CreateBookDto</span></span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">Required</span>]</span><br><span class="line">    [<span class="meta">StringLength(Book.MaxNameLength)</span>]</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> Name &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> BookType Type &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">float</span>? Price &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="BookAppService-实现"><a href="#BookAppService-实现" class="headerlink" title="BookAppService(实现)"></a>BookAppService(实现)</h2><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">BookAppService</span> : <span class="title">ApplicationService</span>, <span class="title">IBookAppService</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> IRepository&lt;Book, Guid&gt; _bookRepository;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BookAppService</span>(<span class="params">IRepository&lt;Book, Guid&gt; bookRepository</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        _bookRepository = bookRepository;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">CreateAsync</span>(<span class="params">CreateBookDto input</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> book = <span class="keyword">new</span> Book(</span><br><span class="line">            GuidGenerator.Create(),</span><br><span class="line">            input.Name,</span><br><span class="line">            input.Type,</span><br><span class="line">            input.Price</span><br><span class="line">        );</span><br><span class="line"></span><br><span class="line">        <span class="keyword">await</span> _bookRepository.InsertAsync(book);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ul>
-<li>BookAppService继承了基类ApplicationService· 这不是必需的, 但是ApplicationService提供了应用服务常见的需求(比如本示例服务中使用的GuidGenerator). 如果不继承它, 我们需要在服务中手动注入IGuidGenerator</li>
-<li>BookAppService按照预期实现了IBookAppService</li>
-<li>BookAppService 注入了 IRepository&lt;Book, Guid&gt;(请参见仓储)在CreateAsync方法内部使用仓储将新实体插入数据库.</li>
-<li>CreateAsync使用Book实体的构造函数从给定的Input值创建新的Book对象</li>
-</ul>
-<h2 id="数据传输对象"><a href="#数据传输对象" class="headerlink" title="数据传输对象"></a>数据传输对象</h2><p>应用服务使用并返回DTO而不是实体. ABP不会强制执行此规则. 但是将实体暴露给表示层(或远程客户端)存在重大问题, 所以不建议返回实体.</p>
-<h2 id="CRUD应用服务"><a href="#CRUD应用服务" class="headerlink" title="CRUD应用服务"></a>CRUD应用服务</h2><p>如果需要创建具有Create,Update,Delete和Get方法的简单CRUD应用服务,则可以使用ABP的基类轻松构建服务. 你可以继承CrudAppService.</p>
-<p>创建继承ICrudAppService接口的IBookAppService接口.</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">IBookAppService</span> : </span><br><span class="line">    <span class="title">ICrudAppService</span>&lt; //<span class="title">Defines</span> <span class="title">CRUD</span> <span class="title">methods</span></span><br><span class="line">        <span class="title">BookDto</span>, //<span class="title">Used</span> <span class="title">to</span> <span class="title">show</span> <span class="title">books</span></span><br><span class="line">        <span class="title">Guid</span>, //<span class="title">Primary</span> <span class="title">key</span> <span class="title">of</span> <span class="title">the</span> <span class="title">book</span> <span class="title">entity</span></span><br><span class="line">        <span class="title">PagedAndSortedResultRequestDto</span>, //<span class="title">Used</span> <span class="title">for</span> <span class="title">paging</span>/<span class="title">sorting</span> <span class="title">on</span> <span class="title">getting</span> <span class="title">a</span> <span class="title">list</span> <span class="title">of</span> <span class="title">books</span></span><br><span class="line">        <span class="title">CreateUpdateBookDto</span>, //<span class="title">Used</span> <span class="title">to</span> <span class="title">create</span> <span class="title">a</span> <span class="title">new</span> <span class="title">book</span></span><br><span class="line">        <span class="title">CreateUpdateBookDto</span>&gt; <span class="comment">//Used to update a book</span></span><br><span class="line">&#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>ICrudAppService 有泛型参数来获取实体的主键类型和CRUD操作的DTO类型(它不获取实体类型,因为实体类型未向客户端公开使用此接口).</p>
-<p>最后BookAppService实现非常简单:</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">BookAppService</span> : </span><br><span class="line">    <span class="title">CrudAppService</span>&lt;<span class="title">Book</span>, <span class="title">BookDto</span>, <span class="title">Guid</span>, <span class="title">PagedAndSortedResultRequestDto</span>,</span><br><span class="line">                        <span class="title">CreateUpdateBookDto</span>, <span class="title">CreateUpdateBookDto</span>&gt;,</span><br><span class="line">    <span class="title">IBookAppService</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">BookAppService</span>(<span class="params">IRepository&lt;Book, Guid&gt; repository</span>) </span></span><br><span class="line"><span class="function">        : <span class="title">base</span>(<span class="params">repository</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>CrudAppService实现了ICrudAppService接口中声明的所有方法. 然后,你可以添加自己的自定义方法或重写和自定义实现.</p>
-<h2 id="AbstractKeyCrudAppService"><a href="#AbstractKeyCrudAppService" class="headerlink" title="AbstractKeyCrudAppService"></a>AbstractKeyCrudAppService</h2><p>CrudAppService 要求你的实体拥有一个Id属性做为主键. 如果你使用的是复合主键,那么你无法使用它.</p>
-<p>AbstractKeyCrudAppService 实现了相同的 ICrudAppService 接口,但它没有要求实体有主键.</p>
-<p>假设你有实体 District,它的CityId 和 Name 做为复合主键,使用 AbstractKeyCrudAppService 时需要你自己实现 DeleteByIdAsync 和 GetEntityByIdAsync 方法:</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">DistrictAppService</span></span><br><span class="line">    : <span class="title">AbstractKeyCrudAppService</span>&lt;<span class="title">District</span>, <span class="title">DistrictDto</span>, <span class="title">DistrictKey</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">DistrictAppService</span>(<span class="params">IRepository&lt;District&gt; repository</span>)</span></span><br><span class="line"><span class="function">        : <span class="title">base</span>(<span class="params">repository</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">async</span> <span class="keyword">override</span> Task <span class="title">DeleteByIdAsync</span>(<span class="params">DistrictKey id</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">await</span> Repository.DeleteAsync(d =&gt; d.CityId == id.CityId &amp;&amp; d.Name == id.Name);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">async</span> <span class="keyword">override</span> Task&lt;District&gt; <span class="title">GetEntityByIdAsync</span>(<span class="params">DistrictKey id</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">await</span> AsyncQueryableExecuter.FirstOrDefaultAsync(</span><br><span class="line">            Repository.Where(d =&gt; d.CityId == id.CityId &amp;&amp; d.Name == id.Name)</span><br><span class="line">        );</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>这个实现需要你创建一个类做为复合键:</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">DistrictKey</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> Guid CityId &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> Name &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h2><p>应用服务的生命周期是transient的,它们会自动注册到依赖注入系统.</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
-<li>将实体对象作为方法参数，而不是其id值。如果接受其id值，则需要从领域服务内的数据库中检索实体。这种方法使应用程序代码在同一请求（用例）的不同位置多次加载同一实体，这是低效的，并导致错误。</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2022/12/14/ABP/%E8%A7%84%E7%BA%A6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="InfoPool">
-      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | InfoPool">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2022/12/14/ABP/%E8%A7%84%E7%BA%A6/" class="post-title-link" itemprop="url">规约</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2022-12-14 11:11:18" itemprop="dateCreated datePublished" datetime="2022-12-14T11:11:18+08:00">2022-12-14</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-03-11 17:56:10" itemprop="dateModified" datetime="2023-03-11T17:56:10+08:00">2023-03-11</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>规约模式用于为实体和其他业务对象定义 命名、可复用、可组合和可测试的过滤器 .<br>规约是领域层的一部分.</p>
-<h2 id="定义规约"><a href="#定义规约" class="headerlink" title="定义规约"></a>定义规约</h2><p>你可以创建一个由 Specification<Customer> 派生的新规约类.</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">MyProject</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Age18PlusCustomerSpecification</span> : <span class="title">Specification</span>&lt;<span class="title">Customer</span>&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">override</span> Expression&lt;Func&lt;Customer, <span class="built_in">bool</span>&gt;&gt; ToExpression()</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> c =&gt; c.Age &gt;= <span class="number">18</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>你也可以直接实现ISpecification<T>接口,但是基类Specification<T>做了大量简化.</p>
-<h2 id="使用规约"><a href="#使用规约" class="headerlink" title="使用规约"></a>使用规约</h2><p>这里有两种常见的规约用例.</p>
-<h3 id="IsSatisfiedBy"><a href="#IsSatisfiedBy" class="headerlink" title="IsSatisfiedBy"></a>IsSatisfiedBy</h3><p>IsSatisfiedBy 方法可以用于检查单个对象是否满足规约.</p>
-<p>例如:如果顾客不满足年龄规定,则抛出异常</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">MyProject</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CustomerService</span> : <span class="title">ITransientDependency</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">BuyAlcohol</span>(<span class="params">Customer customer</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (!<span class="keyword">new</span> Age18PlusCustomerSpecification().IsSatisfiedBy(customer))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> Exception(</span><br><span class="line">                    <span class="string">&quot;这位顾客不满足年龄规定!&quot;</span></span><br><span class="line">                );</span><br><span class="line">            &#125;</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//TODO...</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h3 id="ToExpression-amp-Repositories"><a href="#ToExpression-amp-Repositories" class="headerlink" title="ToExpression &amp; Repositories"></a>ToExpression &amp; Repositories</h3><p>ToExpression() 方法可用于将规约转化为表达式.通过这种方式,你可以使用规约在数据库查询时过滤实体.</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">MyProject</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CustomerManager</span> : <span class="title">DomainService</span>, <span class="title">ITransientDependency</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> IRepository&lt;Customer, Guid&gt; _customerRepository;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">CustomerManager</span>(<span class="params">IRepository&lt;Customer, Guid&gt; customerRepository</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            _customerRepository = customerRepository;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">async</span> Task&lt;List&lt;Customer&gt;&gt; GetCustomersCanBuyAlcohol()</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> queryable = <span class="keyword">await</span> _customerRepository.GetQueryableAsync();</span><br><span class="line">            <span class="keyword">var</span> query = queryable.Where(</span><br><span class="line">                <span class="keyword">new</span> Age18PlusCustomerSpecification().ToExpression()</span><br><span class="line">            );</span><br><span class="line">            </span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">await</span> AsyncExecuter.ToListAsync(query);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>规约被正确地转换为SQL&#x2F;数据库查询语句,并且在DBMS端高效执行.虽然它与规约无关,但如果你想了解有关 AsyncExecuter 的更多信息,请参阅仓储文档.</p>
-<p>实际上,没有必要使用 ToExpression() 方法,因为规约会自动转换为表达式.这也会起作用:</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> queryable = <span class="keyword">await</span> _customerRepository.GetQueryableAsync();</span><br><span class="line"><span class="keyword">var</span> query = queryable.Where(</span><br><span class="line">    <span class="keyword">new</span> Age18PlusCustomerSpecification()</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<h2 id="编写规约"><a href="#编写规约" class="headerlink" title="编写规约"></a>编写规约</h2><p>规约有一个强大的功能是,它们可以与And、Or、Not以及AndNot扩展方法组合使用.</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">MyProject</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">PremiumCustomerSpecification</span> : <span class="title">Specification</span>&lt;<span class="title">Customer</span>&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">override</span> Expression&lt;Func&lt;Customer, <span class="built_in">bool</span>&gt;&gt; ToExpression()</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> (customer) =&gt; (customer.Balance &gt;= <span class="number">100000</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line">你可以将 PremiumCustomerSpecification 和 Age18PlusCustomerSpecification 结合起来,查询优质成人顾客的数量,如下所示:</span><br><span class="line"></span><br><span class="line">~~~C<span class="meta">#</span></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">MyProject</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">CustomerManager</span> : <span class="title">DomainService</span>, <span class="title">ITransientDependency</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> IRepository&lt;Customer, Guid&gt; _customerRepository;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">CustomerManager</span>(<span class="params">IRepository&lt;Customer, Guid&gt; customerRepository</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            _customerRepository = customerRepository;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task&lt;<span class="built_in">int</span>&gt; <span class="title">GetAdultPremiumCustomerCountAsync</span>()</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> <span class="keyword">await</span> _customerRepository.CountAsync(</span><br><span class="line">                <span class="keyword">new</span> Age18PlusCustomerSpecification()</span><br><span class="line">                .And(<span class="keyword">new</span> PremiumCustomerSpecification()).ToExpression()</span><br><span class="line">            );</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果你想让这个组合成为一个可复用的规约,你可以创建这样一个组合的规约类,它派生自AndSpecification:</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> Volo.Abp.Specifications;</span><br><span class="line"></span><br><span class="line"><span class="keyword">namespace</span> <span class="title">MyProject</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">AdultPremiumCustomerSpecification</span> : <span class="title">AndSpecification</span>&lt;<span class="title">Customer</span>&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">AdultPremiumCustomerSpecification</span>() </span></span><br><span class="line"><span class="function">            : <span class="title">base</span>(<span class="params"><span class="keyword">new</span> Age18PlusCustomerSpecification(</span>),</span></span><br><span class="line"><span class="function">                   <span class="keyword">new</span> <span class="title">PremiumCustomerSpecification</span>())</span></span><br><span class="line">        &#123;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<h2 id="何时使用规约"><a href="#何时使用规约" class="headerlink" title="何时使用规约"></a>何时使用规约</h2><p>使用规约的一些好处:</p>
-<ul>
-<li>可复用:假设你在代码库的许多地方都需要用到优质顾客过滤器.如果使用表达式而不创建规约,那么如果以后更改“优质顾客”的定义会发生什么?假设你想将最低余额从100000美元更改为250000美元,并添加另一个条件,成为顾客超过3年.如果使用了规约,只需修改一个类.如果在任何其他地方重复（复制&#x2F;粘贴）相同的表达式,则需要更改所有的表达式.</li>
-<li>可组合:可以组合多个规约来创建新规约.这是另一种可复用性.</li>
-<li>可命名:PremiumCustomerSpecification 更好地解释了为什么使用规约,而不是复杂的表达式.因此,如果在你的业务中使用了一个有意义的表达式,请考虑使用规约.</li>
-<li>可测试:规约是一个单独（且易于）测试的对象.</li>
-</ul>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

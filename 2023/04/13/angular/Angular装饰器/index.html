@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leetao50.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="我们使用装饰器为Angular中的类声明、方法、访问器、属性和参数提供元数据。我们使用它来装饰组件、指令、模块等。在本文中，让我们了解什么是装饰器，为什么需要它，以及如何创建自定义装饰器。我们还要了解Angular支持的内置装饰器。 Angular 装饰器Angular 装饰器是一个函数，我们使用它将元数据附加到类、方法、访问器、属性或参数。 我们以@expression形式使用装饰器，其中exp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular装饰器">
+<meta property="og:url" content="https://leetao50.github.io/2023/04/13/angular/Angular%E8%A3%85%E9%A5%B0%E5%99%A8/index.html">
+<meta property="og:site_name" content="InfoPool">
+<meta property="og:description" content="我们使用装饰器为Angular中的类声明、方法、访问器、属性和参数提供元数据。我们使用它来装饰组件、指令、模块等。在本文中，让我们了解什么是装饰器，为什么需要它，以及如何创建自定义装饰器。我们还要了解Angular支持的内置装饰器。 Angular 装饰器Angular 装饰器是一个函数，我们使用它将元数据附加到类、方法、访问器、属性或参数。 我们以@expression形式使用装饰器，其中exp">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-04-13T07:29:52.000Z">
+<meta property="article:modified_time" content="2023-04-13T09:28:50.804Z">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://leetao50.github.io/2023/04/13/angular/Angular%E8%A3%85%E9%A5%B0%E5%99%A8/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leetao50.github.io/2023/04/13/angular/Angular%E8%A3%85%E9%A5%B0%E5%99%A8/","path":"2023/04/13/angular/Angular装饰器/","title":"Angular装饰器"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Angular装饰器 | InfoPool</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">InfoPool</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">私人信息记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Angular-%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="nav-number">1.</span> <span class="nav-text">Angular 装饰器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%88%9B%E5%BB%BA%E6%96%B0%E7%9A%84%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="nav-number">2.</span> <span class="nav-text">创建新的装饰器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%A6%E5%8F%82%E6%95%B0%E7%9A%84%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="nav-number">3.</span> <span class="nav-text">带参数的装饰器</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Angular-%E8%A3%85%E9%A5%B0%E5%99%A8-%E5%88%97%E8%A1%A8"><span class="nav-number">4.</span> <span class="nav-text">Angular 装饰器 列表</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%B1%BB%E8%A3%85%E9%A5%B0%E5%99%A8"><span class="nav-number">5.</span> <span class="nav-text">类装饰器</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description">记录信息来源网络，内容只为方便查找，非公开信息，非请勿入</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">33</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/04/13/angular/Angular%E8%A3%85%E9%A5%B0%E5%99%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Angular装饰器 | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Angular装饰器
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-04-13 15:29:52 / 修改时间：17:28:50" itemprop="dateCreated datePublished" datetime="2023-04-13T15:29:52+08:00">2023-04-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>我们使用装饰器为Angular中的类声明、方法、访问器、属性和参数提供元数据。我们使用它来装饰组件、指令、模块等。在本文中，让我们了解什么是装饰器，为什么需要它，以及如何创建自定义装饰器。我们还要了解Angular支持的内置装饰器。</p>
+<h1 id="Angular-装饰器"><a href="#Angular-装饰器" class="headerlink" title="Angular 装饰器"></a>Angular 装饰器</h1><p>Angular 装饰器是一个函数，我们使用它将元数据附加到类、方法、访问器、属性或参数。</p>
+<p>我们以@expression形式使用装饰器，其中expression是装饰器的名称。</p>
+<p>例如，@Component是一个装饰器，我们将其附加到一个Angular组件。当Angular看到@Component装饰器应用于一个类时，它将该类视为一个组件类。在下面的示例中，正是@Component装饰器使AppComponent成为一个Angular组件。如果没有装饰器，AppComponent就像其他类一样。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br><span class="line">  title = <span class="string">&#x27;app&#x27;</span>;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
+
+<p>decorator装饰器是一个Typescript特性，它仍然不是Javascript的一部分。它仍处于提案阶段。</p>
+<p>要启用Angular 装饰器，我们需要将experialDecorators添加到tsconfig.json文件中。ng-new命令会自动为我们添加此内容。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;compilerOptions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;target&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ES5&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;experimentalDecorators&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="创建新的装饰器"><a href="#创建新的装饰器" class="headerlink" title="创建新的装饰器"></a>创建新的装饰器</h1><p>在下面的例子中，我们创建了一个函数simpleDecorator。我们将使用它来装饰AppComponent类。该函数不接受任何参数。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>, <span class="variable constant_">VERSION</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@simpleDecorator</span>      </span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;my-app&#x27;</span>,</span><br><span class="line">  <span class="attr">templateUrl</span>: <span class="string">&#x27;./app.component.html&#x27;</span>,</span><br><span class="line">  <span class="attr">styleUrls</span>: [<span class="string">&#x27;./app.component.css&#x27;</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br><span class="line">  name = <span class="string">&#x27;Angular &#x27;</span> + <span class="variable constant_">VERSION</span>.<span class="property">major</span>;</span><br><span class="line"> </span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Hello from Class constructor&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  <span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>((<span class="variable language_">this</span> <span class="keyword">as</span> <span class="built_in">any</span>).<span class="property">value1</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>((<span class="variable language_">this</span> <span class="keyword">as</span> <span class="built_in">any</span>).<span class="property">value2</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">function</span> <span class="title function_">simpleDecorator</span>(<span class="params">target: <span class="built_in">any</span></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Hello from Decorator&#x27;</span>);</span><br><span class="line"> </span><br><span class="line">  <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(target.<span class="property"><span class="keyword">prototype</span></span>, <span class="string">&#x27;value1&#x27;</span>, &#123;</span><br><span class="line">    <span class="attr">value</span>: <span class="number">100</span>,</span><br><span class="line">    <span class="attr">writable</span>: <span class="literal">false</span></span><br><span class="line">  &#125;);</span><br><span class="line"> </span><br><span class="line">  <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(target.<span class="property"><span class="keyword">prototype</span></span>, <span class="string">&#x27;value2&#x27;</span>, &#123;</span><br><span class="line">    <span class="attr">value</span>: <span class="number">200</span>,</span><br><span class="line">    <span class="attr">writable</span>: <span class="literal">false</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">**** <span class="title class_">Console</span> ***</span><br><span class="line"> </span><br><span class="line"><span class="title class_">Hello</span> <span class="keyword">from</span> <span class="title class_">Decorator</span></span><br><span class="line"><span class="title class_">Hello</span> <span class="keyword">from</span> <span class="title class_">Class</span> constructor</span><br><span class="line"><span class="number">100</span></span><br><span class="line"><span class="number">200</span></span><br></pre></td></tr></table></figure>
+
+<p>正如我们前面所说，d装饰器 是一个常规的JavaScript函数。由于我们在类上使用它，因此它获取AppComponent的实例作为参数（目标）</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">simpleDecorator</span>(<span class="params">target: <span class="built_in">any</span></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Hello from Decorator&#x27;</span>);</span><br><span class="line"> </span><br><span class="line"><span class="comment">//target is instance of AppComponent</span></span><br></pre></td></tr></table></figure>
+
+<p>在函数内部，我们将两个自定义属性value1和value2添加到AppComponent。请注意，我们使用defineProperty属性向组件类添加一个新属性。此外，我们将其添加到类的原型属性中。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(target.<span class="property"><span class="keyword">prototype</span></span>, <span class="string">&#x27;value1&#x27;</span>, &#123;</span><br><span class="line">    <span class="attr">value</span>: <span class="number">100</span>,</span><br><span class="line">    <span class="attr">writable</span>: <span class="literal">false</span></span><br><span class="line">  &#125;);</span><br><span class="line"> </span><br><span class="line">  <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(target.<span class="property"><span class="keyword">prototype</span></span>, <span class="string">&#x27;value2&#x27;</span>, &#123;</span><br><span class="line">    <span class="attr">value</span>: <span class="number">200</span>,</span><br><span class="line">    <span class="attr">writable</span>: <span class="literal">false</span></span><br><span class="line">  &#125;);</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+<p>现在，我们可以使用它来装饰我们的AppComponent</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@simpleDecorator</span></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;my-app&#x27;</span>,</span><br><span class="line">  <span class="attr">templateUrl</span>: <span class="string">&#x27;./app.component.html&#x27;</span>,</span><br><span class="line">  <span class="attr">styleUrls</span>: [<span class="string">&#x27;./app.component.css&#x27;</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br></pre></td></tr></table></figure>
+<p>在组件内部，我们可以使用关键字“this”访问新的属性。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>((<span class="variable language_">this</span> <span class="keyword">as</span> <span class="built_in">any</span>).<span class="property">value1</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>((<span class="variable language_">this</span> <span class="keyword">as</span> <span class="built_in">any</span>).<span class="property">value2</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="带参数的装饰器"><a href="#带参数的装饰器" class="headerlink" title="带参数的装饰器"></a>带参数的装饰器</h1><p>要创建一个带参数的装饰器，我们需要创建一个工厂函数，该函数返回装饰器函数。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>, <span class="variable constant_">VERSION</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@simpleDecorator</span>(&#123;</span><br><span class="line">  <span class="attr">value1</span>: <span class="string">&#x27;100&#x27;</span>,</span><br><span class="line">  <span class="attr">value2</span>: <span class="string">&#x27;200&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;my-app&#x27;</span>,</span><br><span class="line">  <span class="attr">templateUrl</span>: <span class="string">&#x27;./app.component.html&#x27;</span>,</span><br><span class="line">  <span class="attr">styleUrls</span>: [<span class="string">&#x27;./app.component.css&#x27;</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br><span class="line">  name = <span class="string">&#x27;Angular &#x27;</span> + <span class="variable constant_">VERSION</span>.<span class="property">major</span>;</span><br><span class="line"> </span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Hello from Class constructor&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  <span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>((<span class="variable language_">this</span> <span class="keyword">as</span> <span class="built_in">any</span>).<span class="property">value1</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>((<span class="variable language_">this</span> <span class="keyword">as</span> <span class="built_in">any</span>).<span class="property">value2</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">function</span> <span class="title function_">simpleDecorator</span>(<span class="params">args</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(args);</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span>(<span class="params">target: <span class="built_in">any</span></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Hello from Decorator&#x27;</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="keyword">typeof</span> target);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(target);</span><br><span class="line"> </span><br><span class="line">    <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(target.<span class="property"><span class="keyword">prototype</span></span>, <span class="string">&#x27;value1&#x27;</span>, &#123;</span><br><span class="line">      <span class="attr">value</span>: args.<span class="property">value1</span>,</span><br><span class="line">      <span class="attr">writable</span>: <span class="literal">false</span></span><br><span class="line">    &#125;);</span><br><span class="line"> </span><br><span class="line">    <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(target.<span class="property"><span class="keyword">prototype</span></span>, <span class="string">&#x27;value2&#x27;</span>, &#123;</span><br><span class="line">      <span class="attr">value</span>: args.<span class="property">value2</span>,</span><br><span class="line">      <span class="attr">writable</span>: <span class="literal">false</span></span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> simpleDecorator将args作为参数，并返回 装饰器函数。除了使用参数填充财产之外，其余代码与上面的代码相同。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">simpleDecorator</span>(<span class="params">args</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(args);</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span>(<span class="params">target: <span class="built_in">any</span></span>) &#123;</span><br></pre></td></tr></table></figure>
+
+<p> 我们在组件上应用simpleDecorator，如下所示</p>
+<h1 id="Angular-装饰器-列表"><a href="#Angular-装饰器-列表" class="headerlink" title="Angular 装饰器 列表"></a>Angular 装饰器 列表</h1><p>Angular提供了几个内置的装饰器。我们可以把它们分为四类</p>
+<p>以下是Angular中装饰器的完整列表。</p>
+<ul>
+<li>类装饰器<ul>
+<li>@NgModule</li>
+<li>@Component</li>
+<li>@Injectable</li>
+<li>@Directive</li>
+<li>@Pipe</li>
+</ul>
+</li>
+<li>属性装饰器<ul>
+<li>@Input</li>
+<li>@Output</li>
+<li>@HostBinding</li>
+<li>@ContentChild</li>
+<li>@ContentChildren</li>
+<li>@ViewChild</li>
+<li>@ViewChildren</li>
+</ul>
+</li>
+<li>方法装饰器<ul>
+<li>@HostListener</li>
+</ul>
+</li>
+<li>参数装饰器<ul>
+<li>@Inject</li>
+<li>@Self</li>
+<li>@SkipSelf</li>
+<li>@Optional</li>
+<li>@Host</li>
+</ul>
+</li>
+</ul>
+<h1 id="类装饰器"><a href="#类装饰器" class="headerlink" title="类装饰器"></a>类装饰器</h1>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/04/06/angular/%E4%BD%BF%E7%94%A8Renderer2%E6%93%8D%E4%BD%9CDOM%E5%85%83%E7%B4%A0/" rel="prev" title="使用Renderer2操作DOM元素">
+                  <i class="fa fa-chevron-left"></i> 使用Renderer2操作DOM元素
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/04/14/angular/observable/Angular-Observable-%E7%AE%80%E4%BB%8B/" rel="next" title="Angular Observable 简介">
+                  Angular Observable 简介 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
