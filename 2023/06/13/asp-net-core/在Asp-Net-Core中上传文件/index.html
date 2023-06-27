@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leetao50.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="ASP.NET Core 支持使用缓冲模型绑定（针对较小文件）和无缓冲流式传输（针对较大文件）上传一个或多个文件。 小型和大型文件小型和大型文件的定义取决于可用的计算资源。 应用应对存储方法进行基准测试，以确保它可以处理预期的大小。 基准内存、CPU、磁盘和数据库性能。 虽然无法针对部署的“小”与“大”提供特定边界，但以下是 AspNetCore 针对 FormOptions 的一些相关默认值：">
+<meta property="og:type" content="article">
+<meta property="og:title" content="在Asp.Net Core中上传文件">
+<meta property="og:url" content="https://leetao50.github.io/2023/06/13/asp-net-core/%E5%9C%A8Asp-Net-Core%E4%B8%AD%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/index.html">
+<meta property="og:site_name" content="InfoPool">
+<meta property="og:description" content="ASP.NET Core 支持使用缓冲模型绑定（针对较小文件）和无缓冲流式传输（针对较大文件）上传一个或多个文件。 小型和大型文件小型和大型文件的定义取决于可用的计算资源。 应用应对存储方法进行基准测试，以确保它可以处理预期的大小。 基准内存、CPU、磁盘和数据库性能。 虽然无法针对部署的“小”与“大”提供特定边界，但以下是 AspNetCore 针对 FormOptions 的一些相关默认值：">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://leetao50.github.io/images/05b5758c723550ec46c30044b11fed4d3e320c873e5be4119880eb18a6e68ca8.png">
+<meta property="og:image" content="https://leetao50.github.io/images/4124ba308caa8cc3c6e27d799e236f978cd372aa825b45a90b8175d92b1a0c26.png">
+<meta property="article:published_time" content="2023-06-13T03:25:44.000Z">
+<meta property="article:modified_time" content="2023-06-27T02:09:44.031Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://leetao50.github.io/images/05b5758c723550ec46c30044b11fed4d3e320c873e5be4119880eb18a6e68ca8.png">
+
+
+<link rel="canonical" href="https://leetao50.github.io/2023/06/13/asp-net-core/%E5%9C%A8Asp-Net-Core%E4%B8%AD%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leetao50.github.io/2023/06/13/asp-net-core/%E5%9C%A8Asp-Net-Core%E4%B8%AD%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/","path":"2023/06/13/asp-net-core/在Asp-Net-Core中上传文件/","title":"在Asp.Net Core中上传文件"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>在Asp.Net Core中上传文件 | InfoPool</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">InfoPool</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">私人信息记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B0%8F%E5%9E%8B%E5%92%8C%E5%A4%A7%E5%9E%8B%E6%96%87%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">小型和大型文件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E6%96%B9%E6%A1%88"><span class="nav-number">2.</span> <span class="nav-text">文件上传方案</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E7%BC%93%E5%86%B2%E7%9A%84%E6%A8%A1%E5%9E%8B%E7%BB%91%E5%AE%9A%E5%B0%86%E5%B0%8F%E5%9E%8B%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%88%B0%E7%89%A9%E7%90%86%E5%AD%98%E5%82%A8"><span class="nav-number">3.</span> <span class="nav-text">通过缓冲的模型绑定将小型文件上传到物理存储</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%BC%93%E5%86%B2%E7%9A%84%E6%A8%A1%E5%9E%8B%E7%BB%91%E5%AE%9A%E5%B0%86%E5%B0%8F%E5%9E%8B%E6%96%87%E4%BB%B6%E4%B8%8A%E4%BC%A0%E5%88%B0%E6%95%B0%E6%8D%AE%E5%BA%93"><span class="nav-number">4.</span> <span class="nav-text">使用缓冲的模型绑定将小型文件上传到数据库</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%80%9A%E8%BF%87%E6%B5%81%E5%BC%8F%E4%BC%A0%E8%BE%93%E4%B8%8A%E4%BC%A0%E5%A4%A7%E5%9E%8B%E6%96%87%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">通过流式传输上传大型文件</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description">记录信息来源网络，内容只为方便查找，非公开信息，非请勿入</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/06/13/asp-net-core/%E5%9C%A8Asp-Net-Core%E4%B8%AD%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="在Asp.Net Core中上传文件 | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          在Asp.Net Core中上传文件
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-06-13 11:25:44" itemprop="dateCreated datePublished" datetime="2023-06-13T11:25:44+08:00">2023-06-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-06-27 10:09:44" itemprop="dateModified" datetime="2023-06-27T10:09:44+08:00">2023-06-27</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>ASP.NET Core 支持使用缓冲模型绑定（针对较小文件）和无缓冲流式传输（针对较大文件）上传一个或多个文件。</p>
+<h1 id="小型和大型文件"><a href="#小型和大型文件" class="headerlink" title="小型和大型文件"></a>小型和大型文件</h1><p>小型和大型文件的定义取决于可用的计算资源。 应用应对存储方法进行基准测试，以确保它可以处理预期的大小。 基准内存、CPU、磁盘和数据库性能。</p>
+<p>虽然无法针对部署的“小”与“大”提供特定边界，但以下是 AspNetCore 针对 FormOptions 的一些相关默认值：</p>
+<ul>
+<li>默认情况下， HttpRequest.Form 不会缓冲整个请求正文 (BufferBody) ，但会缓冲包含的任何多部分表单文件。</li>
+<li>MultipartBodyLengthLimit 是缓冲表单文件的最大大小，默认值为 128MB。</li>
+<li>MemoryBufferThreshold 指示在转换为磁盘上的缓冲区文件之前，内存中的文件缓冲量，默认为 64KB。 MemoryBufferThreshold 充当小型和大型文件之间的边界，这些文件根据应用资源和方案而引发或</li>
+</ul>
+<h1 id="文件上传方案"><a href="#文件上传方案" class="headerlink" title="文件上传方案"></a>文件上传方案</h1><p>缓冲和流式传输是上传文件的两种常见方法。</p>
+<p><em><strong>缓冲</strong></em></p>
+<p>将整个文件读入 IFormFile。 IFormFile 是用于处理或保存文件的文件的 C# 表示形式。</p>
+<p>文件上传使用的磁盘和内存取决于并发文件上传的数量和大小。 如果应用尝试缓冲过多上传，站点就会在内存或磁盘空间不足时崩溃。 如果文件上传的大小或频率会消耗应用资源，请使用流式传输。</p>
+<p>会将大于 64 KB 的所有单个缓冲文件从内存移到磁盘的临时文件。</p>
+<p>较大请求的临时文件将写入环境变量中 ASPNETCORE_TEMP 名为 的位置。 如果未 ASPNETCORE_TEMP 定义 ，则文件将写入当前用户的临时文件夹。</p>
+<p><strong>流式处理</strong></p>
+<p>从多部分请求收到文件，然后应用直接处理或保存它。 流式传输无法显著提高性能。 流式传输可降低上传文件时对内存或磁盘空间的需求。</p>
+<h1 id="通过缓冲的模型绑定将小型文件上传到物理存储"><a href="#通过缓冲的模型绑定将小型文件上传到物理存储" class="headerlink" title="通过缓冲的模型绑定将小型文件上传到物理存储"></a>通过缓冲的模型绑定将小型文件上传到物理存储</h1><p>要上传小文件，请使用多部分窗体或使用 JavaScript 构造 POST 请求。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="string">&quot;use strict&quot;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">AJAXSubmit</span> (oFormElement) &#123;</span><br><span class="line">    <span class="keyword">var</span> oReq = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();</span><br><span class="line">    oReq.<span class="property">onload</span> = <span class="keyword">function</span>(<span class="params">e</span>) &#123; </span><br><span class="line">    oFormElement.<span class="property">elements</span>.<span class="title function_">namedItem</span>(<span class="string">&quot;result&quot;</span>).<span class="property">value</span> = </span><br><span class="line">      <span class="string">&#x27;Result: &#x27;</span> + <span class="variable language_">this</span>.<span class="property">status</span> + <span class="string">&#x27; &#x27;</span> + <span class="variable language_">this</span>.<span class="property">statusText</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">    oReq.<span class="title function_">open</span>(<span class="string">&quot;post&quot;</span>, oFormElement.<span class="property">action</span>);</span><br><span class="line">    oReq.<span class="title function_">send</span>(<span class="keyword">new</span> <span class="title class_">FormData</span>(oFormElement));</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+<p>如下示例中：</p>
+<ul>
+<li>循环访问一个或多个上传的文件。</li>
+<li>使用 Path.GetTempFileName 返回文件的完整路径，包括文件名称。</li>
+<li>使用应用生成的文件名将文件保存到本地文件系统。</li>
+<li>返回上传的文件的总数量和总大小。<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task&lt;IActionResult&gt; <span class="title">OnPostUploadAsync</span>(<span class="params">List&lt;IFormFile&gt; files</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">long</span> size = files.Sum(f =&gt; f.Length);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">foreach</span> (<span class="keyword">var</span> formFile <span class="keyword">in</span> files)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (formFile.Length &gt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> filePath = Path.GetTempFileName();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">using</span> (<span class="keyword">var</span> stream = System.IO.File.Create(filePath))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">await</span> formFile.CopyToAsync(stream);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Process uploaded files</span></span><br><span class="line">    <span class="comment">// Don&#x27;t rely on or trust the FileName property without validation.</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> Ok(<span class="keyword">new</span> &#123; count = files.Count, size &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<p>使用 Path.GetRandomFileName 生成文件名（不含路径）。 在下面的示例中，从配置获取路径：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">foreach</span> (<span class="keyword">var</span> formFile <span class="keyword">in</span> files)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (formFile.Length &gt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> filePath = Path.Combine(_config[<span class="string">&quot;StoredFilesPath&quot;</span>], </span><br><span class="line">            Path.GetRandomFileName());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">using</span> (<span class="keyword">var</span> stream = System.IO.File.Create(filePath))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">await</span> formFile.CopyToAsync(stream);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>传递给 FileStream 的路径必须包含文件名。 如果未提供文件名，则会在运行时引发 UnauthorizedAccessException。</p>
+<p>使用 IFormFile 技术上传的文件在处理之前会缓冲在内存中或服务器的磁盘中。 在操作方法中，IFormFile 内容可作为 Stream 访问。 除本地文件系统之外，还可以将文件保存到网络共享或文件存储服务，如 Azure Blob 存储。</p>
+<blockquote>
+<p>如果在未删除先前临时文件的情况下创建了 65,535 个以上的文件，则 Path.GetTempFileName 将抛出一个 IOException。 65,535 个文件限制是每个服务器的限制。 有关 Windows 操作系统上的此限制的详细信息，请参阅以下主题中的说明：</p>
+<ul>
+<li>GetTempFileNameA 函数</li>
+<li>GetTempFileName</li>
+</ul>
+</blockquote>
+<h1 id="使用缓冲的模型绑定将小型文件上传到数据库"><a href="#使用缓冲的模型绑定将小型文件上传到数据库" class="headerlink" title="使用缓冲的模型绑定将小型文件上传到数据库"></a>使用缓冲的模型绑定将小型文件上传到数据库</h1><p>要使用实体框架将二进制文件数据存储在数据库中，请在实体上定义 Byte 数组属性：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">AppFile</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> Id &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">byte</span>[] Content &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//为包括 IFormFile 的类指定页模型属性：</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">BufferedSingleFileUploadDbModel</span> : <span class="title">PageModel</span></span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    [<span class="meta">BindProperty</span>]</span><br><span class="line">    <span class="keyword">public</span> BufferedSingleFileUploadDb FileUpload &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">BufferedSingleFileUploadDb</span></span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">Required</span>]</span><br><span class="line">    [<span class="meta">Display(Name=<span class="string">&quot;File&quot;</span>)</span>]</span><br><span class="line">    <span class="keyword">public</span> IFormFile FormFile &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>将窗体发布到服务器后，将 IFormFile 复制到流，并将它作为字节数组保存在数据库中。 在下面的示例中，_dbContext 存储应用的数据库上下文：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task&lt;IActionResult&gt; <span class="title">OnPostUploadAsync</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">using</span> (<span class="keyword">var</span> memoryStream = <span class="keyword">new</span> MemoryStream())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">await</span> FileUpload.FormFile.CopyToAsync(memoryStream);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Upload the file if less than 2 MB</span></span><br><span class="line">        <span class="keyword">if</span> (memoryStream.Length &lt; <span class="number">2097152</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> file = <span class="keyword">new</span> AppFile()</span><br><span class="line">            &#123;</span><br><span class="line">                Content = memoryStream.ToArray()</span><br><span class="line">            &#125;;</span><br><span class="line"></span><br><span class="line">            _dbContext.File.Add(file);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">await</span> _dbContext.SaveChangesAsync();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            ModelState.AddModelError(<span class="string">&quot;File&quot;</span>, <span class="string">&quot;The file is too large.&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> Page();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="通过流式传输上传大型文件"><a href="#通过流式传输上传大型文件" class="headerlink" title="通过流式传输上传大型文件"></a>通过流式传输上传大型文件</h1><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task&lt;IActionResult&gt; <span class="title">UploadDatabase</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!MultipartRequestHelper.IsMultipartContentType(Request.ContentType))</span><br><span class="line">    &#123;</span><br><span class="line">        ModelState.AddModelError(<span class="string">&quot;File&quot;</span>, </span><br><span class="line">            <span class="string">$&quot;The request couldn&#x27;t be processed (Error 1).&quot;</span>);</span><br><span class="line">        <span class="comment">// Log error</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> BadRequest(ModelState);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Accumulate the form data key-value pairs in the request (formAccumulator).</span></span><br><span class="line">    <span class="keyword">var</span> formAccumulator = <span class="keyword">new</span> KeyValueAccumulator();</span><br><span class="line">    <span class="keyword">var</span> trustedFileNameForDisplay = <span class="built_in">string</span>.Empty;</span><br><span class="line">    <span class="keyword">var</span> untrustedFileNameForStorage = <span class="built_in">string</span>.Empty;</span><br><span class="line">    <span class="keyword">var</span> streamedFileContent = Array.Empty&lt;<span class="built_in">byte</span>&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> boundary = MultipartRequestHelper.GetBoundary(</span><br><span class="line">        MediaTypeHeaderValue.Parse(Request.ContentType),</span><br><span class="line">        _defaultFormOptions.MultipartBoundaryLengthLimit);</span><br><span class="line">    <span class="keyword">var</span> reader = <span class="keyword">new</span> MultipartReader(boundary, HttpContext.Request.Body);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> section = <span class="keyword">await</span> reader.ReadNextSectionAsync();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (section != <span class="literal">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> hasContentDispositionHeader = </span><br><span class="line">            ContentDispositionHeaderValue.TryParse(</span><br><span class="line">                section.ContentDisposition, <span class="keyword">out</span> <span class="keyword">var</span> contentDisposition);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (hasContentDispositionHeader)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (MultipartRequestHelper</span><br><span class="line">                .HasFileContentDisposition(contentDisposition))</span><br><span class="line">            &#123;</span><br><span class="line">                untrustedFileNameForStorage = contentDisposition.FileName.Value;</span><br><span class="line">                <span class="comment">// Don&#x27;t trust the file name sent by the client. To display</span></span><br><span class="line">                <span class="comment">// the file name, HTML-encode the value.</span></span><br><span class="line">                trustedFileNameForDisplay = WebUtility.HtmlEncode(</span><br><span class="line">                        contentDisposition.FileName.Value);</span><br><span class="line"></span><br><span class="line">                streamedFileContent = </span><br><span class="line">                    <span class="keyword">await</span> FileHelpers.ProcessStreamedFile(section, contentDisposition, </span><br><span class="line">                        ModelState, _permittedExtensions, _fileSizeLimit);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (!ModelState.IsValid)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">return</span> BadRequest(ModelState);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (MultipartRequestHelper</span><br><span class="line">                .HasFormDataContentDisposition(contentDisposition))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// Don&#x27;t limit the key name length because the </span></span><br><span class="line">                <span class="comment">// multipart headers length limit is already in effect.</span></span><br><span class="line">                <span class="keyword">var</span> key = HeaderUtilities</span><br><span class="line">                    .RemoveQuotes(contentDisposition.Name).Value;</span><br><span class="line">                <span class="keyword">var</span> encoding = GetEncoding(section);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (encoding == <span class="literal">null</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    ModelState.AddModelError(<span class="string">&quot;File&quot;</span>, </span><br><span class="line">                        <span class="string">$&quot;The request couldn&#x27;t be processed (Error 2).&quot;</span>);</span><br><span class="line">                    <span class="comment">// Log error</span></span><br><span class="line"></span><br><span class="line">                    <span class="keyword">return</span> BadRequest(ModelState);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">using</span> (<span class="keyword">var</span> streamReader = <span class="keyword">new</span> StreamReader(</span><br><span class="line">                    section.Body,</span><br><span class="line">                    encoding,</span><br><span class="line">                    detectEncodingFromByteOrderMarks: <span class="literal">true</span>,</span><br><span class="line">                    bufferSize: <span class="number">1024</span>,</span><br><span class="line">                    leaveOpen: <span class="literal">true</span>))</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">// The value length limit is enforced by </span></span><br><span class="line">                    <span class="comment">// MultipartBodyLengthLimit</span></span><br><span class="line">                    <span class="keyword">var</span> <span class="keyword">value</span> = <span class="keyword">await</span> streamReader.ReadToEndAsync();</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> (<span class="built_in">string</span>.Equals(<span class="keyword">value</span>, <span class="string">&quot;undefined&quot;</span>, </span><br><span class="line">                        StringComparison.OrdinalIgnoreCase))</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">value</span> = <span class="built_in">string</span>.Empty;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    formAccumulator.Append(key, <span class="keyword">value</span>);</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> (formAccumulator.ValueCount &gt; </span><br><span class="line">                        _defaultFormOptions.ValueCountLimit)</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="comment">// Form key count limit of </span></span><br><span class="line">                        <span class="comment">// _defaultFormOptions.ValueCountLimit </span></span><br><span class="line">                        <span class="comment">// is exceeded.</span></span><br><span class="line">                        ModelState.AddModelError(<span class="string">&quot;File&quot;</span>, </span><br><span class="line">                            <span class="string">$&quot;The request couldn&#x27;t be processed (Error 3).&quot;</span>);</span><br><span class="line">                        <span class="comment">// Log error</span></span><br><span class="line"></span><br><span class="line">                        <span class="keyword">return</span> BadRequest(ModelState);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Drain any remaining section body that hasn&#x27;t been consumed and</span></span><br><span class="line">        <span class="comment">// read the headers for the next section.</span></span><br><span class="line">        section = <span class="keyword">await</span> reader.ReadNextSectionAsync();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Bind form data to the model</span></span><br><span class="line">    <span class="keyword">var</span> formData = <span class="keyword">new</span> FormData();</span><br><span class="line">    <span class="keyword">var</span> formValueProvider = <span class="keyword">new</span> FormValueProvider(</span><br><span class="line">        BindingSource.Form,</span><br><span class="line">        <span class="keyword">new</span> FormCollection(formAccumulator.GetResults()),</span><br><span class="line">        CultureInfo.CurrentCulture);</span><br><span class="line">    <span class="keyword">var</span> bindingSuccessful = <span class="keyword">await</span> TryUpdateModelAsync(formData, prefix: <span class="string">&quot;&quot;</span>,</span><br><span class="line">        valueProvider: formValueProvider);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!bindingSuccessful)</span><br><span class="line">    &#123;</span><br><span class="line">        ModelState.AddModelError(<span class="string">&quot;File&quot;</span>, </span><br><span class="line">            <span class="string">&quot;The request couldn&#x27;t be processed (Error 5).&quot;</span>);</span><br><span class="line">        <span class="comment">// Log error</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> BadRequest(ModelState);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// **WARNING!**</span></span><br><span class="line">    <span class="comment">// In the following example, the file is saved without</span></span><br><span class="line">    <span class="comment">// scanning the file&#x27;s contents. In most production</span></span><br><span class="line">    <span class="comment">// scenarios, an anti-virus/anti-malware scanner API</span></span><br><span class="line">    <span class="comment">// is used on the file before making the file available</span></span><br><span class="line">    <span class="comment">// for download or for use by other systems. </span></span><br><span class="line">    <span class="comment">// For more information, see the topic that accompanies </span></span><br><span class="line">    <span class="comment">// this sample app.</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> file = <span class="keyword">new</span> AppFile()</span><br><span class="line">    &#123;</span><br><span class="line">        Content = streamedFileContent,</span><br><span class="line">        UntrustedName = untrustedFileNameForStorage,</span><br><span class="line">        Note = formData.Note,</span><br><span class="line">        Size = streamedFileContent.Length, </span><br><span class="line">        UploadDT = DateTime.UtcNow</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    _context.File.Add(file);</span><br><span class="line">    <span class="keyword">await</span> _context.SaveChangesAsync();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> Created(<span class="keyword">nameof</span>(StreamingController), <span class="literal">null</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><img src="/images/05b5758c723550ec46c30044b11fed4d3e320c873e5be4119880eb18a6e68ca8.png" alt="图 2">  </p>
+<p><img src="/../../../images/4124ba308caa8cc3c6e27d799e236f978cd372aa825b45a90b8175d92b1a0c26.png" alt="图 3">  </p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/04/25/angular/observable/%E4%BB%8EAngular%E4%B8%AD%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E3%80%81%E6%95%B0%E7%BB%84%E5%92%8C%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA%E5%8F%AF%E8%A7%82%E5%AF%9F%E5%AF%B9%E8%B1%A1/" rel="prev" title="从Angular中的字符串、数组和对象创建可观察对象">
+                  <i class="fa fa-chevron-left"></i> 从Angular中的字符串、数组和对象创建可观察对象
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/06/15/asp-net-core/Asp-Net-Core-%E8%AF%BB%E5%8F%96Request-Body%E7%9A%84%E6%AD%A3%E5%8F%96%E6%96%B9%E5%BC%8F/" rel="next" title="Asp.Net Core 读取Request.Body的正取方式">
+                  Asp.Net Core 读取Request.Body的正取方式 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

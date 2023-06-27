@@ -1,0 +1,346 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leetao50.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="常用读取方式123456789public override void OnActionExecuting(ActionExecutingContext context)&amp;#123;    &#x2F;&#x2F;在ASP.NET Core中Request Body是Stream的形式    StreamReader stream &#x3D; new StreamReader(context.HttpContext.Requ">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Asp.Net Core 读取Request.Body的正取方式">
+<meta property="og:url" content="https://leetao50.github.io/2023/06/15/asp-net-core/Asp-Net-Core-%E8%AF%BB%E5%8F%96Request-Body%E7%9A%84%E6%AD%A3%E5%8F%96%E6%96%B9%E5%BC%8F/index.html">
+<meta property="og:site_name" content="InfoPool">
+<meta property="og:description" content="常用读取方式123456789public override void OnActionExecuting(ActionExecutingContext context)&amp;#123;    &#x2F;&#x2F;在ASP.NET Core中Request Body是Stream的形式    StreamReader stream &#x3D; new StreamReader(context.HttpContext.Requ">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-06-15T03:10:31.000Z">
+<meta property="article:modified_time" content="2023-06-27T02:08:42.644Z">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://leetao50.github.io/2023/06/15/asp-net-core/Asp-Net-Core-%E8%AF%BB%E5%8F%96Request-Body%E7%9A%84%E6%AD%A3%E5%8F%96%E6%96%B9%E5%BC%8F/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leetao50.github.io/2023/06/15/asp-net-core/Asp-Net-Core-%E8%AF%BB%E5%8F%96Request-Body%E7%9A%84%E6%AD%A3%E5%8F%96%E6%96%B9%E5%BC%8F/","path":"2023/06/15/asp-net-core/Asp-Net-Core-读取Request-Body的正取方式/","title":"Asp.Net Core 读取Request.Body的正取方式"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Asp.Net Core 读取Request.Body的正取方式 | InfoPool</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">InfoPool</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">私人信息记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E8%AF%BB%E5%8F%96%E6%96%B9%E5%BC%8F"><span class="nav-number">1.</span> <span class="nav-text">常用读取方式</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%90%8C%E6%AD%A5%E8%AF%BB%E5%8F%96"><span class="nav-number">1.1.</span> <span class="nav-text">同步读取</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%BC%82%E6%AD%A5%E8%AF%BB%E5%8F%96"><span class="nav-number">1.2.</span> <span class="nav-text">异步读取</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%87%8D%E5%A4%8D%E8%AF%BB%E5%8F%96"><span class="nav-number">2.</span> <span class="nav-text">重复读取</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%BA%90%E7%A0%81%E6%8E%A2%E7%A9%B6"><span class="nav-number">3.</span> <span class="nav-text">源码探究</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#StreamReader%E5%92%8CStream%E7%9A%84%E5%85%B3%E7%B3%BB"><span class="nav-number">3.1.</span> <span class="nav-text">StreamReader和Stream的关系</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#HttpRequest%E7%9A%84Body"><span class="nav-number">4.</span> <span class="nav-text">HttpRequest的Body</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EnableBuffering%E7%A5%9E%E5%A5%87%E7%9A%84%E8%83%8C%E5%90%8E"><span class="nav-number">5.</span> <span class="nav-text">EnableBuffering神奇的背后</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">6.</span> <span class="nav-text">总结</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description">记录信息来源网络，内容只为方便查找，非公开信息，非请勿入</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/06/15/asp-net-core/Asp-Net-Core-%E8%AF%BB%E5%8F%96Request-Body%E7%9A%84%E6%AD%A3%E5%8F%96%E6%96%B9%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Asp.Net Core 读取Request.Body的正取方式 | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Asp.Net Core 读取Request.Body的正取方式
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-06-15 11:10:31" itemprop="dateCreated datePublished" datetime="2023-06-15T11:10:31+08:00">2023-06-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-06-27 10:08:42" itemprop="dateModified" datetime="2023-06-27T10:08:42+08:00">2023-06-27</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="常用读取方式"><a href="#常用读取方式" class="headerlink" title="常用读取方式"></a>常用读取方式</h1><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">OnActionExecuting</span>(<span class="params">ActionExecutingContext context</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//在ASP.NET Core中Request Body是Stream的形式</span></span><br><span class="line">    StreamReader stream = <span class="keyword">new</span> StreamReader(context.HttpContext.Request.Body);</span><br><span class="line">    <span class="built_in">string</span> body = stream.ReadToEnd();</span><br><span class="line">    _logger.LogDebug(<span class="string">&quot;body content:&quot;</span> + body);</span><br><span class="line">    <span class="keyword">base</span>.OnActionExecuting(context);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>直接报一个这个错System.InvalidOperationException: Synchronous operations are disallowed. Call ReadAsync or set AllowSynchronousIO to true instead.大致的意思就是同步操作不被允许，请使用ReadAsync的方式或设置AllowSynchronousIO为true。</p>
+<h2 id="同步读取"><a href="#同步读取" class="headerlink" title="同步读取"></a>同步读取</h2><p>如何设置AllowSynchronousIO的值。第一种方式是在ConfigureServices中配置，操作如下</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">services.Configure&lt;KestrelServerOptions&gt;(options =&gt;</span><br><span class="line">&#123;</span><br><span class="line">    options.AllowSynchronousIO = <span class="literal">true</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>还有一种方式，可以不用在ConfigureServices中设置，通过IHttpBodyControlFeature的方式设置，具体如下</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">OnActionExecuting</span>(<span class="params">ActionExecutingContext context</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> syncIOFeature = context.HttpContext.Features.Get&lt;IHttpBodyControlFeature&gt;();</span><br><span class="line">    <span class="keyword">if</span> (syncIOFeature != <span class="literal">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        syncIOFeature.AllowSynchronousIO = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    StreamReader stream = <span class="keyword">new</span> StreamReader(context.HttpContext.Request.Body);</span><br><span class="line">    <span class="built_in">string</span> body = stream.ReadToEnd();</span><br><span class="line">    _logger.LogDebug(<span class="string">&quot;body content:&quot;</span> + body);</span><br><span class="line">    <span class="keyword">base</span>.OnActionExecuting(context);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这种方式同样有效，通过这种方式操作，不需要每次读取Body的时候都去设置，只要在准备读取Body之前设置一次即可。这两种方式都是去设置AllowSynchronousIO为true，但是我们需要思考一点，微软为何设置AllowSynchronousIO默认为false，说明微软并不希望我们去同步读取Body。通过查找资料得出了这么一个结论</p>
+<blockquote>
+<p>Kestrel：默认情况下禁用 AllowSynchronousIO（同步IO），线程不足会导致应用崩溃，而同步I&#x2F;O API（例如HttpRequest.Body.Read）是导致线程不足的常见原因。</p>
+</blockquote>
+<h2 id="异步读取"><a href="#异步读取" class="headerlink" title="异步读取"></a>异步读取</h2><p>通过上面我们了解到微软并不希望我们通过设置AllowSynchronousIO的方式去操作，因为会影响性能。那我们可以使用异步的方式去读取，这里所说的异步方式其实就是使用Stream自带的异步方法去读取，如下所示</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">OnActionExecuting</span>(<span class="params">ActionExecutingContext context</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    StreamReader stream = <span class="keyword">new</span> StreamReader(context.HttpContext.Request.Body);</span><br><span class="line">    <span class="built_in">string</span> body = stream.ReadToEndAsync().GetAwaiter().GetResult();</span><br><span class="line">    _logger.LogDebug(<span class="string">&quot;body content:&quot;</span> + body);</span><br><span class="line">    <span class="keyword">base</span>.OnActionExecuting(context);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>ASP.NET Core中许多操作都是异步操作，甚至是过滤器或中间件都可以直接返回Task类型的方法，因此我们可以直接使用异步操作</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">async</span> Task <span class="title">OnActionExecutionAsync</span>(<span class="params">ActionExecutingContext context, ActionExecutionDelegate next</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    StreamReader stream = <span class="keyword">new</span> StreamReader(context.HttpContext.Request.Body);</span><br><span class="line">    <span class="built_in">string</span> body = <span class="keyword">await</span> stream.ReadToEndAsync();</span><br><span class="line">    _logger.LogDebug(<span class="string">&quot;body content:&quot;</span> + body);</span><br><span class="line">    <span class="keyword">await</span> next();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这两种方式的操作优点是不需要额外设置别的，只是通过异步方法读取即可，也是我们比较推荐的做法。</p>
+<h1 id="重复读取"><a href="#重复读取" class="headerlink" title="重复读取"></a>重复读取</h1><p>上面我们演示了使用同步方式和异步方式读取RequestBody，但是这样真的就可以了吗？其实并不行，这种方式每次请求只能读取一次正确的Body结果，如果继续对RequestBody这个Stream进行读取，将读取不到任何内容，首先来举个例子</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">async</span> Task <span class="title">OnActionExecutionAsync</span>(<span class="params">ActionExecutingContext context, ActionExecutionDelegate next</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    StreamReader stream = <span class="keyword">new</span> StreamReader(context.HttpContext.Request.Body);</span><br><span class="line">    <span class="built_in">string</span> body = <span class="keyword">await</span> stream.ReadToEndAsync();</span><br><span class="line">    _logger.LogDebug(<span class="string">&quot;body content:&quot;</span> + body);</span><br><span class="line"></span><br><span class="line">    StreamReader stream2 = <span class="keyword">new</span> StreamReader(context.HttpContext.Request.Body);</span><br><span class="line">    <span class="built_in">string</span> body2 = <span class="keyword">await</span> stream2.ReadToEndAsync();</span><br><span class="line">    _logger.LogDebug(<span class="string">&quot;body2 content:&quot;</span> + body2);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">await</span> next();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的例子中body里有正确的RequestBody的结果，但是body2中是空字符串。</p>
+<p>那到底该如何解决呢？也很简单，微软知道自己刨下了坑，自然给我们提供了解决办法，用起来也很简单就是加EnableBuffering</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">async</span> Task <span class="title">OnActionExecutionAsync</span>(<span class="params">ActionExecutingContext context, ActionExecutionDelegate next</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//操作Request.Body之前加上EnableBuffering即可</span></span><br><span class="line">    context.HttpContext.Request.EnableBuffering();</span><br><span class="line"></span><br><span class="line">    StreamReader stream = <span class="keyword">new</span> StreamReader(context.HttpContext.Request.Body);</span><br><span class="line">    <span class="built_in">string</span> body = <span class="keyword">await</span> stream.ReadToEndAsync();</span><br><span class="line">    _logger.LogDebug(<span class="string">&quot;body content:&quot;</span> + body);</span><br><span class="line"></span><br><span class="line">    context.HttpContext.Request.Body.Seek(<span class="number">0</span>, SeekOrigin.Begin);</span><br><span class="line">    StreamReader stream2 = <span class="keyword">new</span> StreamReader(context.HttpContext.Request.Body);</span><br><span class="line">    <span class="comment">//注意这里！！！我已经使用了同步读取的方式</span></span><br><span class="line">    <span class="built_in">string</span> body2 = stream2.ReadToEnd();</span><br><span class="line">    context.HttpContext.Request.Body.Seek(<span class="number">0</span>, SeekOrigin.Begin);</span><br><span class="line">    _logger.LogDebug(<span class="string">&quot;body2 content:&quot;</span> + body2);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">await</span> next();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>通过添加Request.EnableBuffering()我们就可以重复的读取RequestBody了，看名字我们可以大概的猜出来，他是和缓存RequestBody有关，需要注意的是Request.EnableBuffering()要加在准备读取RequestBody之前才有效果，否则将无效，而且每次请求只需要添加一次即可。而且大家看到了我第二次读取Body的时候使用了同步的方式去读取的RequestBody，是不是很神奇，待会的时候我们会从源码的角度分析这个问题。</p>
+<h1 id="源码探究"><a href="#源码探究" class="headerlink" title="源码探究"></a>源码探究</h1><p>上面我们看到了通过StreamReader的ReadToEnd同步读取Request.Body需要设置AllowSynchronousIO为true才能操作，但是使用StreamReader的ReadToEndAsync方法却可以直接操作。</p>
+<h2 id="StreamReader和Stream的关系"><a href="#StreamReader和Stream的关系" class="headerlink" title="StreamReader和Stream的关系"></a>StreamReader和Stream的关系</h2><p>我们看到了都是通过操作StreamReader的方法即可，那关我Request.Body啥事，别急咱们先看一看这里的操作，首先来大致看下ReadToEnd的实现了解一下StreamReader到底和Stream有啥关联，找到ReadToEnd方法</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="built_in">string</span> <span class="title">ReadToEnd</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    ThrowIfDisposed();</span><br><span class="line">    CheckAsyncTaskInProgress();</span><br><span class="line">    <span class="comment">// 调用ReadBuffer，然后从charBuffer中提取数据。 </span></span><br><span class="line">    StringBuilder sb = <span class="keyword">new</span> StringBuilder(_charLen - _charPos);</span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//循环拼接读取内容</span></span><br><span class="line">        sb.Append(_charBuffer, _charPos, _charLen - _charPos);</span><br><span class="line">        _charPos = _charLen; </span><br><span class="line">        <span class="comment">//读取buffer，这是核心操作</span></span><br><span class="line">        ReadBuffer();</span><br><span class="line">    &#125; <span class="keyword">while</span> (_charLen &gt; <span class="number">0</span>);</span><br><span class="line">    <span class="comment">//返回读取内容</span></span><br><span class="line">    <span class="keyword">return</span> sb.ToString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过这段源码我们了解到了这么个信息，一个是StreamReader的ReadToEnd其实本质是通过循环读取ReadBuffer然后通过StringBuilder去拼接读取的内容，核心是读取ReadBuffer方法，由于代码比较多，我们找到大致呈现一下核心操作</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (_checkPreamble)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//通过这里我们可以知道本质就是使用要读取的Stream里的Read方法</span></span><br><span class="line">    <span class="built_in">int</span> len = _stream.Read(_byteBuffer, _bytePos, _byteBuffer.Length - _bytePos);</span><br><span class="line">    <span class="keyword">if</span> (len == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (_byteLen &gt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            _charLen += _decoder.GetChars(_byteBuffer, <span class="number">0</span>, _byteLen, _charBuffer, _charLen);</span><br><span class="line">            _bytePos = _byteLen = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> _charLen;</span><br><span class="line">    &#125;</span><br><span class="line">    _byteLen += len;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//通过这里我们可以知道本质就是使用要读取的Stream里的Read方法</span></span><br><span class="line">    _byteLen = _stream.Read(_byteBuffer, <span class="number">0</span>, _byteBuffer.Length);</span><br><span class="line">    <span class="keyword">if</span> (_byteLen == <span class="number">0</span>) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> _charLen;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过上面的代码我们可以了解到StreamReader其实是工具类，只是封装了对Stream的原始操作，简化我们的代码ReadToEnd方法本质是读取Stream的Read方法。接下来我们看一下ReadToEndAsync方法的具体实现</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> Task&lt;<span class="built_in">string</span>&gt; <span class="title">ReadToEndAsync</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (GetType() != <span class="keyword">typeof</span>(StreamReader))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">base</span>.ReadToEndAsync();</span><br><span class="line">    &#125;</span><br><span class="line">    ThrowIfDisposed();</span><br><span class="line">    CheckAsyncTaskInProgress();</span><br><span class="line">    <span class="comment">//本质是ReadToEndAsyncInternal方法</span></span><br><span class="line">    Task&lt;<span class="built_in">string</span>&gt; task = ReadToEndAsyncInternal();</span><br><span class="line">    _asyncReadTask = task;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> task;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">async</span> Task&lt;<span class="built_in">string</span>&gt; <span class="title">ReadToEndAsyncInternal</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//也是循环拼接读取的内容</span></span><br><span class="line">    StringBuilder sb = <span class="keyword">new</span> StringBuilder(_charLen - _charPos);</span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span> tmpCharPos = _charPos;</span><br><span class="line">        sb.Append(_charBuffer, tmpCharPos, _charLen - tmpCharPos);</span><br><span class="line">        _charPos = _charLen; </span><br><span class="line">        <span class="comment">//核心操作是ReadBufferAsync方法</span></span><br><span class="line">        <span class="keyword">await</span> ReadBufferAsync(CancellationToken.None).ConfigureAwait(<span class="literal">false</span>);</span><br><span class="line">    &#125; <span class="keyword">while</span> (_charLen &gt; <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> sb.ToString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过这个我们可以看到核心操作是ReadBufferAsync方法，代码比较多我们同样看一下核心实现</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">byte</span>[] tmpByteBuffer = _byteBuffer;</span><br><span class="line"><span class="comment">//Stream赋值给tmpStream </span></span><br><span class="line">Stream tmpStream = _stream;</span><br><span class="line"><span class="keyword">if</span> (_checkPreamble)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">int</span> tmpBytePos = _bytePos;</span><br><span class="line">    <span class="comment">//本质是调用Stream的ReadAsync方法</span></span><br><span class="line">    <span class="built_in">int</span> len = <span class="keyword">await</span> tmpStream.ReadAsync(<span class="keyword">new</span> Memory&lt;<span class="built_in">byte</span>&gt;(tmpByteBuffer, tmpBytePos, tmpByteBuffer.Length - tmpBytePos), cancellationToken).ConfigureAwait(<span class="literal">false</span>);</span><br><span class="line">    <span class="keyword">if</span> (len == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (_byteLen &gt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            _charLen += _decoder.GetChars(tmpByteBuffer, <span class="number">0</span>, _byteLen, _charBuffer, _charLen);</span><br><span class="line">            _bytePos = <span class="number">0</span>; _byteLen = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> _charLen;</span><br><span class="line">    &#125;</span><br><span class="line">    _byteLen += len;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//本质是调用Stream的ReadAsync方法</span></span><br><span class="line">    _byteLen = <span class="keyword">await</span> tmpStream.ReadAsync(<span class="keyword">new</span> Memory&lt;<span class="built_in">byte</span>&gt;(tmpByteBuffer), cancellationToken).ConfigureAwait(<span class="literal">false</span>);</span><br><span class="line">    <span class="keyword">if</span> (_byteLen == <span class="number">0</span>) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> _charLen;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过上面代码我可以了解到StreamReader的本质就是读取Stream的包装，核心方法还是来自Stream本身。我们之所以大致介绍了StreamReader类，就是为了给大家呈现出StreamReader和Stream的关系，否则怕大家误解这波操作是StreamReader的里的实现，而不是Request.Body的问题，其实并不是这样的所有的一切都是指向Stream的Request的Body就是Stream这个大家可以自己查看一下，了解到这一步我们就可以继续了。</p>
+<h1 id="HttpRequest的Body"><a href="#HttpRequest的Body" class="headerlink" title="HttpRequest的Body"></a>HttpRequest的Body</h1><p>上面我们说到了Request的Body本质就是Stream，Stream本身是抽象类，所以Request.Body是Stream的实现类。默认情况下Request.Body的是HttpRequestStream的实例，我们这里说了是默认，因为它是可以改变的，我们一会再说。我们从上面StreamReader的结论中得到ReadToEnd本质还是调用的Stream的Read方法，即这里的HttpRequestStream的Read方法，我们来看一下具体实现</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="built_in">int</span> <span class="title">Read</span>(<span class="params"><span class="built_in">byte</span>[] buffer, <span class="built_in">int</span> offset, <span class="built_in">int</span> count</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//知道同步读取Body为啥报错了吧</span></span><br><span class="line">    <span class="keyword">if</span> (!_bodyControl.AllowSynchronousIO)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> InvalidOperationException(CoreStrings.SynchronousReadsDisallowed);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//本质是调用ReadAsync</span></span><br><span class="line">    <span class="keyword">return</span> ReadAsync(buffer, offset, count).GetAwaiter().GetResult();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>通过这段代码我们就可以知道了为啥在不设置AllowSynchronousIO为true的情下读取Body会抛出异常了吧，这个是程序级别的控制，而且我们还了解到Read的本质还是在调用ReadAsync异步方法</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> ValueTask&lt;<span class="built_in">int</span>&gt; <span class="title">ReadAsync</span>(<span class="params">Memory&lt;<span class="built_in">byte</span>&gt; destination, CancellationToken cancellationToken = <span class="literal">default</span></span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> ReadAsyncWrapper(destination, cancellationToken);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ReadAsync本身并无特殊限制，所以直接操作ReadAsync不会存在类似Read的异常。</p>
+<blockquote>
+<p>通过这个我们得出了结论Request.Body即HttpRequestStream的同步读取Read会抛出异常，而异步读取ReadAsync并不会抛出异常只和HttpRequestStream的Read方法本身存在判断AllowSynchronousIO的值有关系。</p>
+</blockquote>
+<h1 id="EnableBuffering神奇的背后"><a href="#EnableBuffering神奇的背后" class="headerlink" title="EnableBuffering神奇的背后"></a>EnableBuffering神奇的背后</h1><p>我们在上面的示例中看到了，如果不添加EnableBuffering的话直接设置RequestBody的Position会报NotSupportedException这么一个错误，而且加了它之后我居然可以直接使用同步的方式去读取RequestBody，首先我们来看一下为啥会报错，我们从上面的错误了解到错误来自于HttpRequestStream这个类，上面我们也说了这个类继承了Stream抽象类,通过源码我们可以看到如下相关代码</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//不能使用Seek操作</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">override</span> <span class="built_in">bool</span> CanSeek =&gt; <span class="literal">false</span>;</span><br><span class="line"><span class="comment">//允许读</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">override</span> <span class="built_in">bool</span> CanRead =&gt; <span class="literal">true</span>;</span><br><span class="line"><span class="comment">//不允许写</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">override</span> <span class="built_in">bool</span> CanWrite =&gt; <span class="literal">false</span>;</span><br><span class="line"><span class="comment">//不能获取长度</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">override</span> <span class="built_in">long</span> Length =&gt; <span class="keyword">throw</span> <span class="keyword">new</span> NotSupportedException();</span><br><span class="line"><span class="comment">//不能读写Position</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">override</span> <span class="built_in">long</span> Position</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">get</span> =&gt; <span class="keyword">throw</span> <span class="keyword">new</span> NotSupportedException();</span><br><span class="line">    <span class="keyword">set</span> =&gt; <span class="keyword">throw</span> <span class="keyword">new</span> NotSupportedException();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//不能使用Seek方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="built_in">long</span> <span class="title">Seek</span>(<span class="params"><span class="built_in">long</span> offset, SeekOrigin origin</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> NotSupportedException();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>相信通过这些我们可以清楚的看到针对HttpRequestStream的设置或者写相关的操作是不被允许的，这也是为啥我们上面直接通过Seek设置Position的时候为啥会报错，还有一些其他操作的限制，总之默认是不希望我们对HttpRequestStream做过多的操作，特别是设置或者写相关的操作。但是我们使用EnableBuffering的时候却没有这些问题，究竟是为什么?接下来我们要揭开它的什么面纱了。首先我们从Request.EnableBuffering()这个方法入手</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 确保Request.Body可以被多次读取</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;request&quot;&gt;</span><span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">EnableBuffering</span>(<span class="params"><span class="keyword">this</span> HttpRequest request</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    BufferingHelper.EnableRewind(request);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//默认内存中可缓存的大小为30K,超过这个大小将会被存储到磁盘</span></span><br><span class="line"><span class="keyword">internal</span> <span class="keyword">const</span> <span class="built_in">int</span> DefaultBufferThreshold = <span class="number">1024</span> * <span class="number">30</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 这个方法也是HttpRequest扩展方法</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> HttpRequest <span class="title">EnableRewind</span>(<span class="params"><span class="keyword">this</span> HttpRequest request, <span class="built_in">int</span> bufferThreshold = DefaultBufferThreshold, <span class="built_in">long</span>? bufferLimit = <span class="literal">null</span></span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (request == <span class="literal">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentNullException(<span class="keyword">nameof</span>(request));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//先获取Request Body</span></span><br><span class="line">    <span class="keyword">var</span> body = request.Body;</span><br><span class="line">    <span class="comment">//默认情况Body是HttpRequestStream这个类CanSeek是false所以肯定会执行到if逻辑里面</span></span><br><span class="line">    <span class="keyword">if</span> (!body.CanSeek)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//实例化了FileBufferingReadStream这个类，看来这是关键所在</span></span><br><span class="line">        <span class="keyword">var</span> fileStream = <span class="keyword">new</span> FileBufferingReadStream(body, bufferThreshold,bufferLimit,AspNetCoreTempDirectory.TempDirectoryFactory);</span><br><span class="line">        <span class="comment">//赋值给Body，也就是说开启了EnableBuffering之后Request.Body类型将会是FileBufferingReadStream</span></span><br><span class="line">        request.Body = fileStream;</span><br><span class="line">        <span class="comment">//这里要把fileStream注册给Response便于释放</span></span><br><span class="line">        request.HttpContext.Response.RegisterForDispose(fileStream);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> request;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从上面这段源码实现中我们可以大致得到两个结论</p>
+<ul>
+<li>BufferingHelper的EnableRewind方法也是HttpRequest的扩展方法，可以直接通过Request.EnableRewind的形式调用，效果等同于调用Request.EnableBuffering因为EnableBuffering也是调用的EnableRewind</li>
+<li>启用了EnableBuffering这个操作之后实际上会使用FileBufferingReadStream替换掉默认的HttpRequestStream，所以后续处理RequestBody的操作将会是FileBufferingReadStream实例</li>
+</ul>
+<p>通过上面的分析我们也清楚的看到了，核心操作在于FileBufferingReadStream这个类，而且从名字也能看出来它肯定是也继承了Stream抽象类</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本篇文章篇幅比较多，如果你想深入的研究相关逻辑，希望本文能给你带来一些阅读源码的指导。为了防止大家深入文章当中而忘记了具体的流程逻辑，在这里我们就大致的总结一下关于正确读取RequestBody的全部结论</p>
+<ul>
+<li>首先关于同步读取Request.Body由于默认的RequestBody的实现是HttpRequestStream，但是HttpRequestStream在重写Read方法的时候会判断是否开启AllowSynchronousIO，如果未开启则直接抛出异常。但是HttpRequestStream的ReadAsync方法并无这种限制，所以使用异步方式的读取RequestBody并无异常。</li>
+<li>虽然通过设置AllowSynchronousIO或使用ReadAsync的方式我们可以读取RequestBody，但是RequestBody无法重复读取，这是因为HttpRequestStream的Position和Seek都是不允许进行修改操作的，设置了会直接抛出异常。为了可以重复读取，我们引入了Request的扩展方法EnableBuffering通过这个方法我们可以重置读取位置来实现RequestBody的重复读取。</li>
+<li>关于开启EnableBuffering方法每次请求设置一次即可，即在准备读取RequestBody之前设置。其本质其实是使用FileBufferingReadStream代替默认RequestBody的默认类型HttpRequestStream，这样我们在一次Http请求中操作Body的时候其实是操作FileBufferingReadStream，这个类重写Stream的时候Position和Seek都是可以设置的，这样我们就实现了重复读取。</li>
+<li>FileBufferingReadStream带给我们的不仅仅是可重复读取，还增加了对RequestBody的缓存功能，使得我们在一次请求中重复读取RequestBody的时候可以在Buffer里直接获取缓存内容而Buffer本身是一个MemoryStream。当然我们也可以自己实现一套逻辑来替换Body，只要我们重写的时候让这个Stream支持重置读取位置即可。</li>
+</ul>
+<p>摘抄 yi念之间 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/wucy/p/14699717.html">原文地址</a></p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/06/13/asp-net-core/%E5%9C%A8Asp-Net-Core%E4%B8%AD%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/" rel="prev" title="在Asp.Net Core中上传文件">
+                  <i class="fa fa-chevron-left"></i> 在Asp.Net Core中上传文件
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
