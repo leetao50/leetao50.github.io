@@ -121,7 +121,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -267,7 +267,7 @@
 <p>现在，在执行从此方法返回的委托时，将在执行时引发 ObjectDisposedException。</p>
 <p>定义表达式时，请谨慎访问局部变量，且在创建可由公共 API 返回的表达式树时，谨慎访问当前对象（由 this 表示）中的状态。</p>
 <p>表达式中的代码可能引用其他程序集中的方法或属性。 对表达式进行定义、编译或在调用结果委托时，该程序集必须可访问。 在它不存在的情况下，将遇到 ReferencedAssemblyNotFoundException。</p>
-<h1 id="生成表达式树"><a href="#生成表达式树" class="headerlink" title="生成表达式树"></a>生成表达式树</h1><p>到目前为止，你所看到的所有表达式树都是由 C# 编译器创建的。 你所要做的是创建一个 lambda 表达式，将其分配给一个类型为 Expression&lt;Func<T>&gt; 或某种相似类型的变量。 这不是创建表达式树的唯一方法。 很多情况下，可能需要在运行时在内存中生成一个表达式。</p>
+<h1 id="生成表达式树"><a href="#生成表达式树" class="headerlink" title="生成表达式树"></a>生成表达式树</h1><p>到目前为止，你所看到的所有表达式树都是由 C# 编译器创建的。 你所要做的是创建一个 lambda 表达式，将其分配给一个类型为 Expression&lt;Func<T>&gt; 或某种相似类型的变量。 这不是创建表达式树的唯一方法。 很多情况下，可能需要在运行时在内存中生成一个表达式。</T></p>
 <p>由于这些表达式树是不可变的，所以生成表达式树很复杂。 不可变意味着必须以从叶到根的方式生成表达式树。 用于生成表达式树的 API 体现了这一点：用于生成节点的方法将其所有子级用作参数。 让我们通过几个示例来了解相关技巧。</p>
 <h2 id="创建节点"><a href="#创建节点" class="headerlink" title="创建节点"></a>创建节点</h2><p>让我们再次从相对简单的内容开始。 我们将使用在这些部分中一直使用的加法表达式：</p>
 <h2 id="生成树"><a href="#生成树" class="headerlink" title="生成树"></a>生成树</h2><p>这是在内存中生成表达式树的基础知识。 更复杂的树通常意味着更多的节点类型，并且树中有更多的节点。 让我们再浏览一个示例，了解通常在创建表达式树时创建的其他两个节点类型：参数节点和方法调用节点。</p>

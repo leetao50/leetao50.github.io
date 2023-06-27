@@ -121,7 +121,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -265,7 +265,7 @@
 <p>然后，一个 ngFor 列出了 customers 数组中的每个 customer。</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">template</span>: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;div&gt;</span></span><br><span class="line"><span class="string">      &lt;!-- Hello, Padma --&gt;</span></span><br><span class="line"><span class="string">      &lt;h1&gt;Hello, &#123;&#123;customer&#125;&#125;&lt;/h1&gt;</span></span><br><span class="line"><span class="string">      &lt;ul&gt;</span></span><br><span class="line"><span class="string">        &lt;!-- Ebony and Chiho in a list--&gt;</span></span><br><span class="line"><span class="string">        &lt;li *ngFor=&quot;let customer of customers&quot;&gt;&#123;&#123; customer.value &#125;&#125;&lt;/li&gt;</span></span><br><span class="line"><span class="string">      &lt;/ul&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">  `</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br><span class="line">  customers = [&#123;<span class="attr">value</span>: <span class="string">&#x27;Ebony&#x27;</span>&#125;, &#123;<span class="attr">value</span>: <span class="string">&#x27;Chiho&#x27;</span>&#125;];</span><br><span class="line">  customer = <span class="string">&#x27;Padma&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>ngFor 中的 customer 处于一个 <ng-template> 的上下文中，所以它指向的是 customers 数组中的 customer，在这里是 Ebony 和 Chiho。此列表中不包含 Padma，因为那个 customer 位于 ngFor 以外的另一个上下文中。反之，<h1> 中的 customer 不包括 Ebony 或 Chiho，因为该 customer 的上下文是组件类，而这个类中 customer 的值是 Padma。</p>
+<p>ngFor 中的 customer 处于一个 <ng-template> 的上下文中，所以它指向的是 customers 数组中的 customer，在这里是 Ebony 和 Chiho。此列表中不包含 Padma，因为那个 customer 位于 ngFor 以外的另一个上下文中。反之，<h1> 中的 customer 不包括 Ebony 或 Chiho，因为该 customer 的上下文是组件类，而这个类中 customer 的值是 Padma。</h1></ng-template></p>
 <h1 id="属性绑定-Property"><a href="#属性绑定-Property" class="headerlink" title="属性绑定(Property)"></a>属性绑定(Property)</h1><p>Angular 中的属性绑定可帮助你设置 HTML 元素或指令的属性值。使用属性绑定，可以执行诸如切换按钮、以编程方式设置路径，以及在组件之间共享值之类的功能。</p>
 <h2 id="绑定到属性"><a href="#绑定到属性" class="headerlink" title="绑定到属性"></a>绑定到属性</h2><p>要绑定到元素的属性 ，请将其括在方括号 [] 内，这会将此属性标为目标属性。目标属性就是你要对其进行赋值的 DOM 属性 。</p>
 <p>要为 image 元素的目标属性（src）赋值，请键入以下代码：</p>
@@ -287,12 +287,12 @@
 <p>当表达式解析为 null 或 undefined 时，Angular 会完全删除该 Attribute。</p>
 </blockquote>
 <h2 id="绑定到-colspan"><a href="#绑定到-colspan" class="headerlink" title="绑定到 colspan"></a>绑定到 colspan</h2><p>Attribute 绑定的另一个常见用例是绑定到表格中的 colspan Attribute。colspan Attribute 可帮助你以编程方式让表格保持动态。根据应用中用来填充表的数据量，某一行要跨越的列数可能会发生变化。</p>
-<p>要将 Attribute 绑定到 <td> 的 colspan Attribute</p>
+<p>要将 Attribute 绑定到 <td> 的 colspan Attribute</td></p>
 <p>使用以下语法指定 colspan：[attr.colspan]。</p>
 <p>将 [attr.colspan] 设置为等于某个表达式。</p>
 <p>在下面的示例中，我们将 colspan Attribute 绑定到表达式 1 + 1。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--  expression calculates colspan=2 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span><span class="tag">&lt;<span class="name">td</span> [<span class="attr">attr.colspan</span>]=<span class="string">&quot;1 + 1&quot;</span>&gt;</span>One-Two<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>此绑定会导致 <tr> 跨越两列。</p>
+<p>此绑定会导致 <tr> 跨越两列。</tr></p>
 <h1 id="样式-class和style-绑定"><a href="#样式-class和style-绑定" class="headerlink" title="样式(class和style)绑定"></a>样式(class和style)绑定</h1><p>使用类和样式绑定从元素的 class 属性中添加和删除 CSS 类名，以及动态设置样式。</p>
 <h2 id="绑定到单个-CSS-class"><a href="#绑定到单个-CSS-class" class="headerlink" title="绑定到单个 CSS class"></a>绑定到单个 CSS class</h2><p>要创建单个类绑定，请键入以下内容：</p>
 <p>[class.sale]&#x3D;”onSale”</p>
@@ -452,7 +452,7 @@
 </li>
 <li><p>如果在标准的 HTML 标记上声明变量，该变量就会引用该元素。</p>
 </li>
-<li><p>如果你在 <ng-template> 元素上声明变量，该变量就会引用一个 TemplateRef 实例来代表此模板。</p>
+<li><p>如果你在 <ng-template> 元素上声明变量，该变量就会引用一个 TemplateRef 实例来代表此模板。</ng-template></p>
 </li>
 </ul>
 <h2 id="指定名称的变量"><a href="#指定名称的变量" class="headerlink" title="指定名称的变量"></a>指定名称的变量</h2><p>如果该变量在右侧指定了一个名字，比如 #var&#x3D;”ngModel”，那么该变量就会引用所在元素上具有这个 exportAs 名字的指令或组件。</p>

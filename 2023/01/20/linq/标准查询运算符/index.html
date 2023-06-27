@@ -121,7 +121,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -214,16 +214,16 @@
     
     
     <div class="post-body" itemprop="articleBody">
-        <p>标准查询运算符是组成 LINQ 模式的方法。 这些方法中的大多数都作用于序列；其中序列指其类型实现 IEnumerable<T> 接口或 IQueryable<T> 接口的对象。 标准查询运算符提供包括筛选、投影、聚合、排序等在内的查询功能。</p>
-<p>共有两组 LINQ 标准查询运算符，一组作用于类型 IEnumerable<T> 的对象，另一组作用于类型 IQueryable<T> 的对象。 </p>
+        <p>标准查询运算符是组成 LINQ 模式的方法。 这些方法中的大多数都作用于序列；其中序列指其类型实现 IEnumerable<T> 接口或 IQueryable<T> 接口的对象。 标准查询运算符提供包括筛选、投影、聚合、排序等在内的查询功能。</T></T></p>
+<p>共有两组 LINQ 标准查询运算符，一组作用于类型 IEnumerable<T> 的对象，另一组作用于类型 IQueryable<T> 的对象。 </T></T></p>
 <p>构成每个集合的方法分别是 Enumerable 和 Queryable 类的静态成员。 这些方法被定义为作为方法运行目标的类型的扩展方法。 </p>
 <p>各个标准查询运算符在执行时间上有所不同，具体情况取决于它们是返回单一值还是值序列。 返回单一实例值的这些方法（例如 Average 和 Sum）立即执行。 返回序列的方法会延迟查询执行，并返回一个可枚举的对象。</p>
-<p>对于在内存中集合上运行的方法（即扩展 IEnumerable<T> 的那些方法），返回的可枚举对象将捕获传递到方法的参数。 在枚举该对象时，将使用查询运算符的逻辑，并返回查询结果。</p>
-<p>相反，扩展 IQueryable<T> 的方法不会实现任何查询行为。 它们生成一个表示要执行的查询的表达式树。 源 IQueryable<T> 对象执行查询处理。</p>
+<p>对于在内存中集合上运行的方法（即扩展 IEnumerable<T> 的那些方法），返回的可枚举对象将捕获传递到方法的参数。 在枚举该对象时，将使用查询运算符的逻辑，并返回查询结果。</T></p>
+<p>相反，扩展 IQueryable<T> 的方法不会实现任何查询行为。 它们生成一个表示要执行的查询的表达式树。 源 IQueryable<T> 对象执行查询处理。</T></T></p>
 <p>查询语法和方法语法在语义上是相同的，但是许多人发现查询语法更简单且更易于阅读。 某些查询必须表示为方法调用。</p>
 <p>下面的示例演示一个简单查询表达式以及编写为基于方法的查询的语义上等效的查询。</p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">QueryVMethodSyntax</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span>[] numbers = &#123; <span class="number">5</span>, <span class="number">10</span>, <span class="number">8</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">12</span>&#125;;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//Query syntax:</span></span><br><span class="line">        IEnumerable&lt;<span class="built_in">int</span>&gt; numQuery1 =</span><br><span class="line">            <span class="keyword">from</span> num <span class="keyword">in</span> numbers</span><br><span class="line">            <span class="keyword">where</span> num % <span class="number">2</span> == <span class="number">0</span></span><br><span class="line">            <span class="keyword">orderby</span> num</span><br><span class="line">            <span class="keyword">select</span> num;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//Method syntax:</span></span><br><span class="line">        IEnumerable&lt;<span class="built_in">int</span>&gt; numQuery2 = numbers.Where(num =&gt; num % <span class="number">2</span> == <span class="number">0</span>).OrderBy(n =&gt; n);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">foreach</span> (<span class="built_in">int</span> i <span class="keyword">in</span> numQuery1)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.Write(i + <span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        Console.WriteLine(System.Environment.NewLine);</span><br><span class="line">        <span class="keyword">foreach</span> (<span class="built_in">int</span> i <span class="keyword">in</span> numQuery2)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.Write(i + <span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Keep the console open in debug mode.</span></span><br><span class="line">        Console.WriteLine(System.Environment.NewLine);</span><br><span class="line">        Console.WriteLine(<span class="string">&quot;Press any key to exit&quot;</span>);</span><br><span class="line">        Console.ReadKey();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    Output:</span></span><br><span class="line"><span class="comment">    6 8 10 12</span></span><br><span class="line"><span class="comment">    6 8 10 12</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
-<p> 这两个示例的输出是相同的。 可以看到查询变量的类型在两种形式中是相同的：IEnumerable<T>。</p>
+<p> 这两个示例的输出是相同的。 可以看到查询变量的类型在两种形式中是相同的：IEnumerable<T>。</T></p>
 <h2 id="标准查询运算符的查询表达式语法"><a href="#标准查询运算符的查询表达式语法" class="headerlink" title="标准查询运算符的查询表达式语法"></a>标准查询运算符的查询表达式语法</h2><table>
 <thead>
 <tr>
@@ -240,19 +240,19 @@
 <td>group … by - 或 - group … by … into</td>
 </tr>
 <tr>
-<td>GroupJoin&lt;TOuter,TInner,TKey,TResult&gt;(IEnumerable<TOuter>, IEnumerable<TInner>, Func&lt;TOuter,TKey&gt;, Func&lt;TInner,TKey&gt;, Func&lt;TOuter,IEnumerable<TInner>, TResult&gt;)</td>
+<td>GroupJoin&lt;TOuter,TInner,TKey,TResult&gt;(IEnumerable<TOuter>, IEnumerable<TInner>, Func&lt;TOuter,TKey&gt;, Func&lt;TInner,TKey&gt;, Func&lt;TOuter,IEnumerable<TInner>, TResult&gt;)</TInner></TInner></TOuter></td>
 <td>join … in … on … equals … into …</td>
 </tr>
 <tr>
-<td>Join&lt;TOuter,TInner,TKey,TResult&gt;(IEnumerable<TOuter>, IEnumerable<TInner>, Func&lt;TOuter,TKey&gt;, Func&lt;TInner,TKey&gt;, Func&lt;TOuter,TInner,TResult&gt;)</td>
+<td>Join&lt;TOuter,TInner,TKey,TResult&gt;(IEnumerable<TOuter>, IEnumerable<TInner>, Func&lt;TOuter,TKey&gt;, Func&lt;TInner,TKey&gt;, Func&lt;TOuter,TInner,TResult&gt;)</TInner></TOuter></td>
 <td>join … in … on … equals …</td>
 </tr>
 <tr>
-<td>OrderBy&lt;TSource,TKey&gt;(IEnumerable<TSource>, Func&lt;TSource,TKey&gt;)</td>
+<td>OrderBy&lt;TSource,TKey&gt;(IEnumerable<TSource>, Func&lt;TSource,TKey&gt;)</TSource></td>
 <td>orderby</td>
 </tr>
 <tr>
-<td>OrderByDescending&lt;TSource,TKey&gt;(IEnumerable<TSource>, Func&lt;TSource,TKey&gt;)</td>
+<td>OrderByDescending&lt;TSource,TKey&gt;(IEnumerable<TSource>, Func&lt;TSource,TKey&gt;)</TSource></td>
 <td>orderby … descending</td>
 </tr>
 <tr>
@@ -264,11 +264,11 @@
 <td>多个 from 子句</td>
 </tr>
 <tr>
-<td>ThenBy&lt;TSource,TKey&gt;(IOrderedEnumerable<TSource>, Func&lt;TSource,TKey&gt;)</td>
+<td>ThenBy&lt;TSource,TKey&gt;(IOrderedEnumerable<TSource>, Func&lt;TSource,TKey&gt;)</TSource></td>
 <td>orderby …, …</td>
 </tr>
 <tr>
-<td>ThenByDescending&lt;TSource,TKey&gt;(IOrderedEnumerable<TSource>, Func&lt;TSource,TKey&gt;)</td>
+<td>ThenByDescending&lt;TSource,TKey&gt;(IOrderedEnumerable<TSource>, Func&lt;TSource,TKey&gt;)</TSource></td>
 <td>orderby …, … descending</td>
 </tr>
 <tr>
@@ -283,7 +283,7 @@
 <h3 id="推迟"><a href="#推迟" class="headerlink" title="推迟"></a>推迟</h3><p>延迟执行指的是不在代码中声明查询的位置执行运算。 仅当对查询变量进行枚举时才执行运算，例如通过使用 foreach 语句执行。 </p>
 <p>这意味着，查询的执行结果取决于执行查询而非定义查询时的数据源内容。 </p>
 <p>如果多次枚举查询变量，则每次结果可能都不同。 </p>
-<p>几乎所有返回类型为 IEnumerable<T> 或 IOrderedEnumerable<TElement> 的标准查询运算符皆以延迟方式执行。 </p>
+<p>几乎所有返回类型为 IEnumerable<T> 或 IOrderedEnumerable<TElement> 的标准查询运算符皆以延迟方式执行。 </TElement></T></p>
 <p>延迟执行提供了查询重用功能，因为在每次循环访问查询结果时，查询都会从数据源中提取更新的数据。</p>
 <h4 id="流式处理"><a href="#流式处理" class="headerlink" title="流式处理"></a>流式处理</h4><p>流式处理运算符不需要在生成元素前读取所有源数据。 在执行时，流式处理运算符一边读取每个源元素，一边对该源元素执行运算，并在可行时生成元素。 </p>
 <p>流式处理运算符将持续读取源元素直到可以生成结果元素。 这意味着可能要读取多个源元素才能生成一个结果元素。</p>

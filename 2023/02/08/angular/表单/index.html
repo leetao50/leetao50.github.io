@@ -122,7 +122,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -423,7 +423,7 @@
 </tr>
 <tr>
 <td>FormControl</td>
-<td>管理单体表单控件的值和有效性状态。它对应于 HTML 的表单控件，比如 <input> 或 <select>。</td>
+<td>管理单体表单控件的值和有效性状态。它对应于 HTML 的表单控件，比如 <input> 或 <select>。</select></td>
 </tr>
 <tr>
 <td>FormGroup</td>
@@ -487,7 +487,7 @@
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> email = <span class="keyword">new</span> <span class="title class_">FormControl</span>(<span class="string">&#x27;angularrox@gmail.com&#x27;</span>);</span><br><span class="line">email.<span class="title function_">reset</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(email.<span class="property">value</span>); <span class="comment">// null</span></span><br></pre></td></tr></table></figure>
 <p>TypeScript 将强制你始终处理控件已变为 null 的可能性。如果要使此控件不可为空，可以用 nonNullable 选项。这将导致控件重置为其初始值，而不是 null ：</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> email = <span class="keyword">new</span> <span class="title class_">FormControl</span>(<span class="string">&#x27;angularrox@gmail.com&#x27;</span>, &#123;<span class="attr">nonNullable</span>: <span class="literal">true</span>&#125;);</span><br><span class="line">email.<span class="title function_">reset</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(email.<span class="property">value</span>); <span class="comment">// angularrox@gmail.com</span></span><br></pre></td></tr></table></figure>
-<h4 id="指定显式类型"><a href="#指定显式类型" class="headerlink" title="指定显式类型"></a>指定显式类型</h4><p>可以指定类型，而不是依赖推理。考虑一个初始化为 null 的控件。因为初始值为 null，所以 TypeScript 将推断 FormControl<null>，这比我们想要的要窄。</p>
+<h4 id="指定显式类型"><a href="#指定显式类型" class="headerlink" title="指定显式类型"></a>指定显式类型</h4><p>可以指定类型，而不是依赖推理。考虑一个初始化为 null 的控件。因为初始值为 null，所以 TypeScript 将推断 FormControl<null>，这比我们想要的要窄。</null></p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> email = <span class="keyword">new</span> <span class="title class_">FormControl</span>(<span class="literal">null</span>);</span><br><span class="line">email.<span class="title function_">setValue</span>(<span class="string">&#x27;angularrox@gmail.com&#x27;</span>); <span class="comment">// Error!</span></span><br></pre></td></tr></table></figure>
 <p>为防止这种情况，我们将类型显式指定为 string|null</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> email = <span class="keyword">new</span> <span class="title class_">FormControl</span>&lt;<span class="built_in">string</span>|<span class="literal">null</span>&gt;(<span class="literal">null</span>);</span><br><span class="line">email.<span class="title function_">setValue</span>(<span class="string">&#x27;angularrox@gmail.com&#x27;</span>);</span><br></pre></td></tr></table></figure>

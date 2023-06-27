@@ -121,7 +121,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -215,9 +215,9 @@
     
     <div class="post-body" itemprop="articleBody">
         <p>规约模式用于为实体和其他业务对象定义 命名、可复用、可组合和可测试的过滤器 .<br>规约是领域层的一部分.</p>
-<h2 id="定义规约"><a href="#定义规约" class="headerlink" title="定义规约"></a>定义规约</h2><p>你可以创建一个由 Specification<Customer> 派生的新规约类.</p>
+<h2 id="定义规约"><a href="#定义规约" class="headerlink" title="定义规约"></a>定义规约</h2><p>你可以创建一个由 Specification<Customer> 派生的新规约类.</Customer></p>
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">MyProject</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Age18PlusCustomerSpecification</span> : <span class="title">Specification</span>&lt;<span class="title">Customer</span>&gt;</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">override</span> Expression&lt;Func&lt;Customer, <span class="built_in">bool</span>&gt;&gt; ToExpression()</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">return</span> c =&gt; c.Age &gt;= <span class="number">18</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>你也可以直接实现ISpecification<T>接口,但是基类Specification<T>做了大量简化.</p>
+<p>你也可以直接实现ISpecification<T>接口,但是基类Specification<T>做了大量简化.</T></T></p>
 <h2 id="使用规约"><a href="#使用规约" class="headerlink" title="使用规约"></a>使用规约</h2><p>这里有两种常见的规约用例.</p>
 <h3 id="IsSatisfiedBy"><a href="#IsSatisfiedBy" class="headerlink" title="IsSatisfiedBy"></a>IsSatisfiedBy</h3><p>IsSatisfiedBy 方法可以用于检查单个对象是否满足规约.</p>
 <p>例如:如果顾客不满足年龄规定,则抛出异常</p>

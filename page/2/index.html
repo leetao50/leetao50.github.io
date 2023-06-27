@@ -118,7 +118,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">35</span>
+          <span class="site-state-item-count">36</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -152,6 +152,192 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/03/30/angular/Ng-Content-%E4%B8%8E-%E5%86%85%E5%AE%B9%E6%8A%95%E5%BD%B1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/03/30/angular/Ng-Content-%E4%B8%8E-%E5%86%85%E5%AE%B9%E6%8A%95%E5%BD%B1/" class="post-title-link" itemprop="url">Ng-Content 与 内容投影</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-03-30 15:59:03" itemprop="dateCreated datePublished" datetime="2023-03-30T15:59:03+08:00">2023-03-30</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-04-08 15:56:45" itemprop="dateModified" datetime="2023-04-08T15:56:45+08:00">2023-04-08</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>让我们探索如何使用ng-content在模板中添加外部内容。我们知道如何使用@Input装饰器将数据从父组件传递到子组件。但它仅限于数据，我们不能使用该技术将包含HTML、CSS等元素的内容传递给子组件。要做到这一点，我们必须利用内容投影。</p>
+<p>内容投影是将HTML内容从父组件传递到子组件的一种方式。子组件将在指定位置显示模板内容。</p>
+<p>我们使用ng-content素在子组件的模板中指定一个位置。ng-content还允许我们使用选择器属性创建多个插入位置。</p>
+<h1 id="什么是-Ng-Content"><a href="#什么是-Ng-Content" class="headerlink" title="什么是 Ng-Content"></a>什么是 Ng-Content</h1><p>ng-content标记充当占位符，用于插入外部或动态内容。父组件将外部内容传递给子组件。Angular解析模板时，会在子组件模板中ng-content出现的位置插入外部内容。</p>
+<p>我们可以使用内容投影来创建一个可重用的组件。具有类似逻辑和布局的组件，可以在应用程序的许多地方使用。</p>
+<p>以卡片组件为例。它有页眉部分、页脚部分和正文部分。这些部分的内容会有所不同。ng-content将允许我们将这些部分从父组件传递到卡片组件。这使我们能够在应用程序的许多地方使用卡片组件。</p>
+<p>要了解内容投影是如何使用ng-content工作的，首先让我们构建一个没有ng-content的简单按钮组件。</p>
+<h1 id="无Ng-Content例子"><a href="#无Ng-Content例子" class="headerlink" title="无Ng-Content例子"></a>无Ng-Content例子</h1><p>创建一个新的angular应用程序，并创建一个新的btn.component.ts组件。这是一个简单的组件，它显示一个标题为“点击我”的按钮</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line"> <span class="attr">selector</span>: <span class="string">&#x27;app-btn&#x27;</span>,</span><br><span class="line"> <span class="attr">template</span>: <span class="string">`&lt;button&gt;</span></span><br><span class="line"><span class="string">       Click Me</span></span><br><span class="line"><span class="string">     &lt;/button&gt;`</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">BtnComponent</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>现在切换到app.component.html.</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>Simple Button Demo<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">app-btn</span>&gt;</span><span class="tag">&lt;/<span class="name">app-btn</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">app-btn</span>&gt;</span><span class="tag">&lt;/<span class="name">app-btn</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>在上面的代码中，我们添加了两个标题为Click Me的按钮组件，他们按预期显示在屏幕上。</p>
+<p>如果我们想从父组件更改标题，该怎么办。我们可以使用@Input属性来实现这一点。但使用@input，我们只能设置按钮的标题，无法改变子组件的外观。</p>
+<h1 id="ng-content-例子"><a href="#ng-content-例子" class="headerlink" title="ng-content 例子"></a>ng-content 例子</h1><p>创建新的组件(FancyBtnComponent)，从上面的例子中复制全部代码，删除Click Me并添加<code>&lt;ng-content&gt;&lt;/ng-content&gt;</code>。此标记充当占位符。您也可以将其视为组件的一个参数。</p>
+<p>打开  app.component.html 文件并修改内容如下：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>Button Demo With ng-content<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">app-fancybtn</span>&gt;</span>Click Me<span class="tag">&lt;/<span class="name">app-fancybtn</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">app-fancybtn</span>&gt;</span><span class="tag">&lt;<span class="name">b</span>&gt;</span>Submit<span class="tag">&lt;/<span class="name">b</span>&gt;</span><span class="tag">&lt;/<span class="name">app-fancybtn</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p><code>&lt;app-fancybtn&gt;&lt;/app-fancybdn&gt;</code>之间的内容将传递给我们的FancyBtnComponent组件。该组件将其显示在ng-content的位置。</p>
+<p>这种解决方案的优点是可以传递任何HTML内容。</p>
+<h2 id="事件"><a href="#事件" class="headerlink" title="事件"></a>事件</h2><p>点击、输入等事件都会向上冒泡传递，因此可以在父对象中捕获，如下所示</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">**app.<span class="property">component</span>.<span class="property">html</span>**</span><br><span class="line"> </span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>Button with click event<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">app-fancybtn</span> (<span class="attr">click</span>)=<span class="string">&quot;btnClicked($event)&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">b</span>&gt;</span>Submit<span class="tag">&lt;/<span class="name">b</span>&gt;</span><span class="tag">&lt;/<span class="name">app-fancybtn</span>&gt;</span></span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">** <span class="title class_">App</span>.<span class="property">component</span>.<span class="property">ts</span> ***</span><br><span class="line"> </span><br><span class="line"> <span class="title function_">btnClicked</span>(<span class="params">$event</span>) &#123;</span><br><span class="line">   <span class="variable language_">console</span>.<span class="title function_">log</span>($event)</span><br><span class="line">   <span class="title function_">alert</span>(<span class="string">&#x27;button clicked&#x27;</span>)</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>但是，如果您有多个按钮，那么您可以通过检查$event参数来，确定是哪个按钮触发的该事件。</p>
+<h2 id="自定义事件"><a href="#自定义事件" class="headerlink" title="自定义事件"></a>自定义事件</h2><p>你可以使用@output来创建自定义事件，如下所示</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> </span><br><span class="line"><span class="meta">@Output</span>() <span class="attr">someEvent</span>:<span class="title class_">EventEmitter</span> =<span class="keyword">new</span> <span class="title class_">EventEmitter</span>();</span><br><span class="line"> </span><br><span class="line"><span class="title function_">raiseSomeEvent</span>(<span class="params"></span>) &#123;</span><br><span class="line"> <span class="variable language_">this</span>.<span class="property">someEvent</span>.<span class="title function_">emit</span>(args);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在父组件中</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">app-fancybtn</span> (<span class="attr">someEvent</span>)=<span class="string">”DoSomething($event)”</span>&gt;</span><span class="tag">&lt;<span class="name">b</span>&gt;</span>Submit<span class="tag">&lt;/<span class="name">b</span>&gt;</span><span class="tag">&lt;/<span class="name">app-fancybtn</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="使用ng-content实现多投影"><a href="#使用ng-content实现多投影" class="headerlink" title="使用ng-content实现多投影"></a>使用ng-content实现多投影</h1><p>如下例所示, 创建一个新的组件card.component.ts</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-card&#x27;</span>,</span><br><span class="line">  <span class="attr">template</span>: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;div class=&quot;card&quot;&gt;</span></span><br><span class="line"><span class="string">    &lt;div class=&quot;header&quot;&gt;</span></span><br><span class="line"><span class="string">      &lt;ng-content select=&quot;header&quot; &gt;&lt;/ng-content&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;div class=&quot;content&quot;&gt;</span></span><br><span class="line"><span class="string">      &lt;ng-content select=&quot;content&quot; &gt;&lt;/ng-content&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;div class=&quot;footer&quot;&gt;</span></span><br><span class="line"><span class="string">      &lt;ng-content select=&quot;footer&quot; &gt;&lt;/ng-content&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">  <span class="attr">styles</span>: [</span><br><span class="line">    <span class="string">` .card &#123; min- width: 280px;  margin: 5px;  float:left  &#125; </span></span><br><span class="line"><span class="string">      .header &#123; color: blue&#125;</span></span><br><span class="line"><span class="string">    `</span></span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">CardComponent</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上面的例子中，我们有三个ng-content 标签，他们的选择器分别是 header、content、footer。</p>
+<p>现在我们打开app.component.html文件，添加如下代码</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">app-card</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">header</span>&gt;</span><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Angular<span class="tag">&lt;/<span class="name">h1</span>&gt;</span><span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">content</span>&gt;</span>One framework. Mobile &amp; desktop.<span class="tag">&lt;/<span class="name">content</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">footer</span>&gt;</span><span class="tag">&lt;<span class="name">b</span>&gt;</span>Super-powered by Google <span class="tag">&lt;/<span class="name">b</span>&gt;</span><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">app-card</span>&gt;</span></span><br><span class="line">  </span><br><span class="line"><span class="tag">&lt;<span class="name">app-card</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">header</span>&gt;</span><span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">&quot;color:red;&quot;</span>&gt;</span>React<span class="tag">&lt;/<span class="name">h1</span>&gt;</span><span class="tag">&lt;/<span class="name">header</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">content</span>&gt;</span>A JavaScript library for building user interfaces<span class="tag">&lt;/<span class="name">content</span>&gt;</span></span><br><span class="line"> <span class="tag">&lt;<span class="name">footer</span>&gt;</span><span class="tag">&lt;<span class="name">b</span>&gt;</span>Facebook Open Source <span class="tag">&lt;/<span class="name">b</span>&gt;</span><span class="tag">&lt;/<span class="name">footer</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">app-card</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Select属性是CSS选择器"><a href="#Select属性是CSS选择器" class="headerlink" title="Select属性是CSS选择器"></a>Select属性是CSS选择器</h2><p>您可以使用任何CSS选择器作为ng-content的select属性。比如class、element、id属性等。例如，下面使用CSS类的卡片组件。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;card&#x27;</span>,</span><br><span class="line">  <span class="attr">template</span>: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;div class=&quot;card&quot;&gt;</span></span><br><span class="line"><span class="string">    &lt;div class=&quot;header&quot;&gt;</span></span><br><span class="line"><span class="string">      &lt;ng-content select=&quot;.header&quot; &gt;&lt;/ng-content&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;div class=&quot;content&quot;&gt;</span></span><br><span class="line"><span class="string">      &lt;ng-content select=&quot;.content&quot; &gt;&lt;/ng-content&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;div class=&quot;footer&quot;&gt;</span></span><br><span class="line"><span class="string">      &lt;ng-content select=&quot;.footer&quot; &gt;&lt;/ng-content&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">  <span class="attr">styles</span>: [</span><br><span class="line">    <span class="string">` .card &#123; width: 280px;  margin: 5px;  float:left; border-width:1px; border-style:solid ; &#125; </span></span><br><span class="line"><span class="string">      .header &#123; color: blue&#125;</span></span><br><span class="line"><span class="string">    `</span></span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">CardComponent</span> &#123;</span><br></pre></td></tr></table></figure>
+<p>我们可以如下使用它。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">card</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;header&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>Angular<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;content&quot;</span>&gt;</span>One framework. Mobile &amp; desktop.<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;footer&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">b</span>&gt;</span>Super-powered by Google <span class="tag">&lt;/<span class="name">b</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">card</span>&gt;</span></span><br><span class="line"> </span><br><span class="line"><span class="tag">&lt;<span class="name">card</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;header&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">&quot;color:red;&quot;</span>&gt;</span>React<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;content&quot;</span>&gt;</span>A JavaScript library for building user interfaces<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;footer&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">b</span>&gt;</span>Facebook Open Source <span class="tag">&lt;/<span class="name">b</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">card</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>类似地，您可以使用如下所示的各种CSS选择器</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ng-content</span> <span class="attr">select</span>=<span class="string">&quot;custom-element&quot;</span> &gt;</span><span class="tag">&lt;/<span class="name">ng-content</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ng-content</span> <span class="attr">select</span>=<span class="string">&quot;.custom-class&quot;</span> &gt;</span><span class="tag">&lt;/<span class="name">ng-content</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ng-content</span> <span class="attr">select</span>=<span class="string">&quot;[custom-attribute]&quot;</span> &gt;</span><span class="tag">&lt;/<span class="name">ng-content</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="不带select属性的-Ng-Content-会捕获全部内嵌HTML"><a href="#不带select属性的-Ng-Content-会捕获全部内嵌HTML" class="headerlink" title="不带select属性的 Ng-Content 会捕获全部内嵌HTML"></a>不带select属性的 Ng-Content 会捕获全部内嵌HTML</h2><p> 在下面的示例中，最后一段HTML不属于任何ng-content，因此，ng-content不会投影最后一段，因为它无法确定添加到哪里。</p>
+ <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"> <span class="tag">&lt;<span class="name">card</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;header&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Typescript<span class="tag">&lt;/<span class="name">h1</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;content&quot;</span>&gt;</span>Typescript is a javascript for any scale<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;footer&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">b</span>&gt;</span>Microsoft <span class="tag">&lt;/<span class="name">b</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>This text will not be shown<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">card</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>为了解决上述问题，我们可以添加一个没有select属性的Ng-Content。它将显示那些不能投影到其他Ng-Content中的HTML。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-card&#x27;</span>,</span><br><span class="line">  <span class="attr">template</span>: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;div class=&quot;card&quot;&gt;</span></span><br><span class="line"><span class="string">    &lt;div class=&quot;header&quot;&gt;</span></span><br><span class="line"><span class="string">      &lt;ng-content select=&quot;header&quot; &gt;&lt;/ng-content&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;div class=&quot;content&quot;&gt;</span></span><br><span class="line"><span class="string">      &lt;ng-content select=&quot;content&quot; &gt;&lt;/ng-content&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;div class=&quot;footer&quot;&gt;</span></span><br><span class="line"><span class="string">      &lt;ng-content select=&quot;footer&quot; &gt;&lt;/ng-content&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">    &lt;ng-content&gt;&lt;/ng-content&gt;                      </span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">  <span class="attr">styles</span>: [</span><br><span class="line">    <span class="string">` .card &#123; min- width: 280px;  margin: 5px;  float:left  &#125; </span></span><br><span class="line"><span class="string">      .header &#123; color: blue&#125;</span></span><br><span class="line"><span class="string">    `</span></span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">CardComponent</span> &#123;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<h1 id="ngProjectAs"><a href="#ngProjectAs" class="headerlink" title="ngProjectAs"></a>ngProjectAs</h1><p>有时候需要使用 ng-container 包装 组件，这种情况多数是使用结构指令 如 ngif、ngSwitch等</p>
+<p>在下面的示例中，我们将标头封装在ng-container中。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">card</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ng-container</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;header&quot;</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">&quot;color:red;&quot;</span>&gt;</span>React<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ng-container</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;content&quot;</span>&gt;</span>A JavaScript library for building user interfaces<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;footer&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">b</span>&gt;</span>Facebook Open Source <span class="tag">&lt;/<span class="name">b</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">card</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>由于ng-container的原因，标头部分不会投影到标头标记位置。相反，它被投影到没有select选择器的ng-content中。</p>
+<p>您可以使用ngProjectAs属性，来解决这种情况，如下所示。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">card</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ng-container</span> <span class="attr">ngProjectAs</span>=<span class="string">&quot;header&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">h1</span> <span class="attr">style</span>=<span class="string">&quot;color:red;&quot;</span>&gt;</span>React<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;/<span class="name">ng-container</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;content&quot;</span>&gt;</span>A JavaScript library for building user interfaces<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;footer&quot;</span>&gt;</span><span class="tag">&lt;<span class="name">b</span>&gt;</span>Facebook Open Source <span class="tag">&lt;/<span class="name">b</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">card</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>ng-content允许我们在模板中添加外部内容。与@Input不同，使用ng-content，我们可以传递包括HTML元素、CSS等的数据，这也被称为内容投影。我们还可以使用选择器属性定义不同的插入位置。这些选择器允许我们向不同的ng-content添加不同的内容。</p>
+<h1 id="Contentchild-amp-ContentChilden"><a href="#Contentchild-amp-ContentChilden" class="headerlink" title="Contentchild &amp; ContentChilden"></a>Contentchild &amp; ContentChilden</h1><p>ContentChild和ContentChildren是装饰器，我们使用它们来查询和获取对DOM中投影内容的引用。投影内容是组件从父组件接收的内容。</p>
+<p>ContentChild和ContentChildren与ViewChild和ViewChildren非常相似。我们使用ViewChild或ViewChildren来查询和获取组件中DOM元素的引用。DOM元素可以是HTML元素、子组件或指令等。但是，我们不能使用ViewChild或ViewChildren来获取使用投影插入的模板实例。</p>
+<h1 id="内容投影回顾"><a href="#内容投影回顾" class="headerlink" title="内容投影回顾"></a>内容投影回顾</h1><p>内容投影是将HTML内容从父组件传递到子组件的一种方式。子组件将在指定位置显示投影进来的模板。我们使用ng-content元素在子组件的模板中为投影进来的模板指定一个位置。ng-content还允许我们使用选择器属性创建多个投影位置。父组件可以向每个投影位置发送不同的内容。</p>
+<h1 id="ContentChild-and-ContentChildren-例子"><a href="#ContentChild-and-ContentChildren-例子" class="headerlink" title="ContentChild and ContentChildren 例子"></a>ContentChild and ContentChildren 例子</h1><p>为了理解ContentChild和ContentChildren是如何工作的，让我们创建一个简单的卡片应用程序。该应用程序有一个CardComponent，它显示单个卡片。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;card&#x27;</span>,</span><br><span class="line">  <span class="attr">template</span>: <span class="string">`</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">    &lt;div class=&quot;card&quot;&gt;</span></span><br><span class="line"><span class="string">      &lt;ng-content select=&quot;header&quot;&gt;&lt;/ng-content&gt;</span></span><br><span class="line"><span class="string">      &lt;ng-content select=&quot;content&quot;&gt;&lt;/ng-content&gt;</span></span><br><span class="line"><span class="string">      &lt;ng-content select=&quot;footer&quot;&gt;&lt;/ng-content&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt; </span></span><br><span class="line"><span class="string">   </span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">  <span class="attr">styles</span>: [</span><br><span class="line">    <span class="string">` .card &#123; min- width: 280px;  margin: 5px;  float:left  &#125; </span></span><br><span class="line"><span class="string">    `</span></span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">CardComponent</span> &#123;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该组件通过三个Ng-Content定义了多个插槽。插槽的名称分别为页眉、内容和页脚。使用组件的用户可以将内容发送到这三个插槽中的任何一个或全部。</p>
+<p>以下代码来CardListComponent组件的，CardListComponent组件实例化了三个CardComponent组件，并分别发送了页眉、内容和页脚的内容。</p>
+<p>此外，请注意，我们在页眉内容的h1标签上有#header模板引用变量。现在让我们在CardComponent组件中使用ContentChild来访问h1元素。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;card-list&#x27;</span>,</span><br><span class="line">  <span class="attr">template</span>: <span class="string">`</span></span><br><span class="line"><span class="string">  </span></span><br><span class="line"><span class="string">  &lt;h1&gt; Card List&lt;/h1&gt;</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">      &lt;card&gt;</span></span><br><span class="line"><span class="string">        &lt;header&gt;&lt;h1 #header&gt;Angular&lt;/h1&gt;&lt;/header&gt;</span></span><br><span class="line"><span class="string">        &lt;content&gt;One framework. Mobile &amp; desktop.&lt;/content&gt;</span></span><br><span class="line"><span class="string">        &lt;footer&gt;&lt;b&gt;Super-powered by Google &lt;/b&gt;&lt;/footer&gt;</span></span><br><span class="line"><span class="string">      &lt;/card&gt;</span></span><br><span class="line"><span class="string">        </span></span><br><span class="line"><span class="string">      &lt;card&gt;</span></span><br><span class="line"><span class="string">        &lt;header&gt;&lt;h1 #header style=&quot;color:red;&quot;&gt;React&lt;/h1&gt;&lt;/header&gt;</span></span><br><span class="line"><span class="string">        &lt;content&gt;A JavaScript library for building user interfaces&lt;/content&gt;</span></span><br><span class="line"><span class="string">        &lt;footer&gt;&lt;b&gt;Facebook Open Source &lt;/b&gt;&lt;/footer&gt;</span></span><br><span class="line"><span class="string">      &lt;/card&gt;</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">      &lt;card&gt;</span></span><br><span class="line"><span class="string">        &lt;header&gt; &lt;h1 #header&gt;Typescript&lt;/h1&gt; &lt;/header&gt;</span></span><br><span class="line"><span class="string">        &lt;content&gt;&lt;a href=&quot;https://www.tektutorialshub.com/typescript-tutorial/&quot;&gt; Typescript&lt;/a&gt; is a javascript for any scale&lt;/content&gt;</span></span><br><span class="line"><span class="string">        &lt;footer&gt;&lt;i&gt;Microsoft &lt;/i&gt;&lt;/footer&gt;</span></span><br><span class="line"><span class="string">      &lt;/card&gt;</span></span><br><span class="line"><span class="string"> </span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">CardListComponent</span> &#123;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="使用-ContentChild-和-ContentChildren"><a href="#使用-ContentChild-和-ContentChildren" class="headerlink" title="使用 ContentChild 和 ContentChildren"></a>使用 ContentChild 和 ContentChildren</h2><p>让我们返回 CardComponent 组件</p>
+<p>首先，导入 ContentChild 元素</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>, <span class="title class_">ContentChild</span>, <span class="title class_">ContentChildren</span>, <span class="title class_">ElementRef</span>, <span class="title class_">Renderer2</span>,  <span class="title class_">ViewChild</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br></pre></td></tr></table></figure>
+<p>然后，使用它在投影内容中查询 header元素</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ContentChild</span>(<span class="string">&quot;header&quot;</span>) <span class="attr">cardContentHeader</span>: <span class="title class_">ElementRef</span>;</span><br></pre></td></tr></table></figure>
+<p>这里，cardContentHeader是变量。我们对该变量应用@ContentChild装饰器。header是我们想要读取的模板变量，它应用于h1元素上。</p>
+<p>cardContentHeader变量无法立即使用。因为组件生命周期挂钩，angular首先初始化组件，然后它会引发ngOnChanges、ngOnInit和ngDoCheck挂钩。接下来将初始化投影的组件，然后Angular抛出AfterContentInit和AfterContentChecked钩子。因此，cardContentHeader只能在AfterContentInit挂钩之后使用。</p>
+<p>一旦我们引用了DOM元素，我们就可以使用renderor2来操纵它的样式等。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="title function_">ngAfterContentInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">   </span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">renderor</span>.<span class="title function_">setStyle</span>(<span class="variable language_">this</span>.<span class="property">cardContentHeader</span>.<span class="property">nativeElement</span>,<span class="string">&quot;font-size&quot;</span>,<span class="string">&quot;20px&quot;</span>)</span><br><span class="line"> </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="ViewChild-Vs-ContentChild"><a href="#ViewChild-Vs-ContentChild" class="headerlink" title="ViewChild Vs ContentChild"></a>ViewChild Vs ContentChild</h1><p>例如，在CardComponent组件中，使用ViewChild查询来读取页眉元素。您会发现cardViewHeader是未定义</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ViewChild</span>(<span class="string">&quot;header&quot;</span>) <span class="attr">cardViewHeader</span>: <span class="title class_">ElementRef</span>;</span><br></pre></td></tr></table></figure>
+
+<h1 id="ContentChild语法"><a href="#ContentChild语法" class="headerlink" title="ContentChild语法"></a>ContentChild语法</h1><p>ContentChild查询DOM并返回第一个匹配元素，然后更新组件中对应的变量</p>
+<h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><p>ContentChild的语法如下所示。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">ContentChild</span>(<span class="attr">selector</span>: <span class="built_in">string</span> | <span class="title class_">Function</span> | <span class="title class_">Type</span>&lt;<span class="built_in">any</span>&gt;, <span class="attr">opts</span>: &#123; read?: <span class="built_in">any</span>; <span class="attr">static</span>: <span class="built_in">boolean</span>; &#125;): <span class="built_in">any</span></span><br></pre></td></tr></table></figure>
+
+<p>我们在组件属性上应用contentChild装饰器，它有两个参数，第一个参数是selector选择器，第二个参数是opts选项。</p>
+<p>selector（查询选择器）：用于查询的指令类型或查询字符串名称</p>
+<p>opts：有两个选项。</p>
+<p>static：设置为True：解析查询结果在变更检测之前执行，设置为false：解析查询结果在更改检测之后执行，默认为false。</p>
+<p>read：使用它从查询的元素中读取不同的令牌</p>
+<p>变更检测查找第一个与selecter匹配的元素，并使用该元素更新组件中的参数。如果DOM发生更改，并且有一个新元素与selecter匹配，则变更检测会更新组件中的对应参数。</p>
+<h2 id="Selector"><a href="#Selector" class="headerlink" title="Selector"></a>Selector</h2><p>查询选择器可以是字符串、类型或返回字符串或类型的函数。支持以下选择器。</p>
+<ul>
+<li>组件或指令类型</li>
+<li>作为字符串的模板引用变量</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/<span class="title class_">Using</span> a <span class="title class_">Template</span> <span class="title class_">Reference</span> <span class="title class_">Variable</span></span><br><span class="line"><span class="meta">@ContentChild</span>(<span class="string">&quot;header&quot;</span>) <span class="attr">cardContentHeader</span>: <span class="title class_">ElementRef</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Using component/directive as type</span></span><br><span class="line"><span class="meta">@ContentChild</span>(childComponent) <span class="attr">cardChildComponent</span>: childComponent;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Static"><a href="#Static" class="headerlink" title="Static"></a>Static</h2><p>确定何时解析查询。设置为True：当视图首次初始化（在第一次更改检测之前）解析，设置为False：在每次变更检测之后解析。</p>
+<h2 id="Read"><a href="#Read" class="headerlink" title="Read"></a>Read</h2><p>使用它可以从查询的元素中读取不同的令牌。</p>
+<p>例如，考虑以下投影内容。nameInput可以是输入元素，也可以是ngModel指令。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> #<span class="attr">nameInput</span> [(<span class="attr">ngModel</span>)]=<span class="string">&quot;name&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>以下代码中的ContentChild将输入元素作为elementRef返回。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ContentChild</span>(<span class="string">&#x27;nameInput&#x27;</span>,&#123;<span class="attr">static</span>:<span class="literal">false</span>&#125;) nameVar;</span><br></pre></td></tr></table></figure>
+
+<p>您可以使用read令牌来要求ContentChild返回正确的类型。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ContentChild</span>(<span class="string">&#x27;nameInput&#x27;</span>,&#123;<span class="attr">static</span>:<span class="literal">false</span>, <span class="attr">read</span>: <span class="title class_">NgModel</span>&#125;) nameVarAsNgModel;</span><br><span class="line"><span class="meta">@ContentChild</span>(<span class="string">&#x27;nameInput&#x27;</span>,&#123;<span class="attr">static</span>:<span class="literal">false</span>, <span class="attr">read</span>: <span class="title class_">ElementRef</span>&#125;) nameVarAsElementRef;</span><br><span class="line"><span class="meta">@ContentChild</span>(<span class="string">&#x27;nameInput&#x27;</span>, &#123;<span class="title class_">Static</span>:<span class="literal">false</span>, <span class="attr">read</span>: <span class="title class_">ViewContainerRef</span> &#125;) nameVarAsViewContainerRef;</span><br></pre></td></tr></table></figure>
+
+<h1 id="ContentChildren"><a href="#ContentChildren" class="headerlink" title="ContentChildren"></a>ContentChildren</h1><p>使用ContentChildren装饰器从投影的内容中获取元素引用的列表。</p>
+<p>ContentChildren与ContentChild不同。ContentChild总是返回对单个元素的引用。如果存在多个元素，则ContentChild返回第一个匹配元素，ContentChildren总是将所有匹配的元素作为QueryList返回。您可以遍历列表并访问每个元素。</p>
+<h2 id="语法-1"><a href="#语法-1" class="headerlink" title="语法"></a>语法</h2><p>contentChildren的语法如下所示。它与contentChild的语法非常相似，它没有Static选项，但又descendants选项</p>
+<p>将descendants设为True以包括所有子元素，否则仅包括直接子元素。</p>
+<p>ContentChildren总是在更改检测之后解析。即为什么它没有static选项。而且，您不能在ngOnInit钩子中引用它，因为它还没有初始化。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -458,7 +644,7 @@
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Directive</span>, <span class="title class_">ElementRef</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Directive</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;[appHighlight]&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">HighlightDirective</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> el: ElementRef</span>) &#123;</span><br><span class="line">       <span class="variable language_">this</span>.<span class="property">el</span>.<span class="property">nativeElement</span>.<span class="property">style</span>.<span class="property">backgroundColor</span> = <span class="string">&#x27;yellow&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="应用属性型指令"><a href="#应用属性型指令" class="headerlink" title="应用属性型指令"></a>应用属性型指令</h2><ol>
-<li>要使用 HighlightDirective，请将 <p> 元素添加到 HTML 模板中，并以伪指令作为属性。</li>
+<li>要使用 HighlightDirective，请将 <p> 元素添加到 HTML 模板中，并以伪指令作为属性。</p></li>
 </ol>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">appHighlight</span>&gt;</span>Highlight me!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
@@ -685,7 +871,7 @@
 <p>然后，一个 ngFor 列出了 customers 数组中的每个 customer。</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">template</span>: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;div&gt;</span></span><br><span class="line"><span class="string">      &lt;!-- Hello, Padma --&gt;</span></span><br><span class="line"><span class="string">      &lt;h1&gt;Hello, &#123;&#123;customer&#125;&#125;&lt;/h1&gt;</span></span><br><span class="line"><span class="string">      &lt;ul&gt;</span></span><br><span class="line"><span class="string">        &lt;!-- Ebony and Chiho in a list--&gt;</span></span><br><span class="line"><span class="string">        &lt;li *ngFor=&quot;let customer of customers&quot;&gt;&#123;&#123; customer.value &#125;&#125;&lt;/li&gt;</span></span><br><span class="line"><span class="string">      &lt;/ul&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">  `</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br><span class="line">  customers = [&#123;<span class="attr">value</span>: <span class="string">&#x27;Ebony&#x27;</span>&#125;, &#123;<span class="attr">value</span>: <span class="string">&#x27;Chiho&#x27;</span>&#125;];</span><br><span class="line">  customer = <span class="string">&#x27;Padma&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>ngFor 中的 customer 处于一个 <ng-template> 的上下文中，所以它指向的是 customers 数组中的 customer，在这里是 Ebony 和 Chiho。此列表中不包含 Padma，因为那个 customer 位于 ngFor 以外的另一个上下文中。反之，<h1> 中的 customer 不包括 Ebony 或 Chiho，因为该 customer 的上下文是组件类，而这个类中 customer 的值是 Padma。</p>
+<p>ngFor 中的 customer 处于一个 <ng-template> 的上下文中，所以它指向的是 customers 数组中的 customer，在这里是 Ebony 和 Chiho。此列表中不包含 Padma，因为那个 customer 位于 ngFor 以外的另一个上下文中。反之，<h1> 中的 customer 不包括 Ebony 或 Chiho，因为该 customer 的上下文是组件类，而这个类中 customer 的值是 Padma。</h1></ng-template></p>
 <h1 id="属性绑定-Property"><a href="#属性绑定-Property" class="headerlink" title="属性绑定(Property)"></a>属性绑定(Property)</h1><p>Angular 中的属性绑定可帮助你设置 HTML 元素或指令的属性值。使用属性绑定，可以执行诸如切换按钮、以编程方式设置路径，以及在组件之间共享值之类的功能。</p>
 <h2 id="绑定到属性"><a href="#绑定到属性" class="headerlink" title="绑定到属性"></a>绑定到属性</h2><p>要绑定到元素的属性 ，请将其括在方括号 [] 内，这会将此属性标为目标属性。目标属性就是你要对其进行赋值的 DOM 属性 。</p>
 <p>要为 image 元素的目标属性（src）赋值，请键入以下代码：</p>
@@ -707,12 +893,12 @@
 <p>当表达式解析为 null 或 undefined 时，Angular 会完全删除该 Attribute。</p>
 </blockquote>
 <h2 id="绑定到-colspan"><a href="#绑定到-colspan" class="headerlink" title="绑定到 colspan"></a>绑定到 colspan</h2><p>Attribute 绑定的另一个常见用例是绑定到表格中的 colspan Attribute。colspan Attribute 可帮助你以编程方式让表格保持动态。根据应用中用来填充表的数据量，某一行要跨越的列数可能会发生变化。</p>
-<p>要将 Attribute 绑定到 <td> 的 colspan Attribute</p>
+<p>要将 Attribute 绑定到 <td> 的 colspan Attribute</td></p>
 <p>使用以下语法指定 colspan：[attr.colspan]。</p>
 <p>将 [attr.colspan] 设置为等于某个表达式。</p>
 <p>在下面的示例中，我们将 colspan Attribute 绑定到表达式 1 + 1。</p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--  expression calculates colspan=2 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span><span class="tag">&lt;<span class="name">td</span> [<span class="attr">attr.colspan</span>]=<span class="string">&quot;1 + 1&quot;</span>&gt;</span>One-Two<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>此绑定会导致 <tr> 跨越两列。</p>
+<p>此绑定会导致 <tr> 跨越两列。</tr></p>
 <h1 id="样式-class和style-绑定"><a href="#样式-class和style-绑定" class="headerlink" title="样式(class和style)绑定"></a>样式(class和style)绑定</h1><p>使用类和样式绑定从元素的 class 属性中添加和删除 CSS 类名，以及动态设置样式。</p>
 <h2 id="绑定到单个-CSS-class"><a href="#绑定到单个-CSS-class" class="headerlink" title="绑定到单个 CSS class"></a>绑定到单个 CSS class</h2><p>要创建单个类绑定，请键入以下内容：</p>
 <p>[class.sale]&#x3D;”onSale”</p>
@@ -872,7 +1058,7 @@
 </li>
 <li><p>如果在标准的 HTML 标记上声明变量，该变量就会引用该元素。</p>
 </li>
-<li><p>如果你在 <ng-template> 元素上声明变量，该变量就会引用一个 TemplateRef 实例来代表此模板。</p>
+<li><p>如果你在 <ng-template> 元素上声明变量，该变量就会引用一个 TemplateRef 实例来代表此模板。</ng-template></p>
 </li>
 </ul>
 <h2 id="指定名称的变量"><a href="#指定名称的变量" class="headerlink" title="指定名称的变量"></a>指定名称的变量</h2><p>如果该变量在右侧指定了一个名字，比如 #var&#x3D;”ngModel”，那么该变量就会引用所在元素上具有这个 exportAs 名字的指令或组件。</p>
@@ -984,7 +1170,7 @@
 </li>
 </ul>
 <h1 id="创建一个组件"><a href="#创建一个组件" class="headerlink" title="创建一个组件"></a>创建一个组件</h1><p>运行 <code>ng generate component &lt;component-name&gt;</code> 命令，其中 <code>&lt;component-name&gt;</code> 是新组件的名字。</p>
-<h2 id="指定组件的-CSS-选择器"><a href="#指定组件的-CSS-选择器" class="headerlink" title="指定组件的 CSS 选择器"></a>指定组件的 CSS 选择器</h2><p>每个组件都需要一个 CSS 选择器。选择器会告诉 Angular：当在模板 HTML 中找到相应的标签时，就把该组件实例化在那里。<br>比如，考虑一个组件 hello-world.component.ts，它的选择器定义为 app-hello-world。当 <app-hello-world> 出现在模板中时，这个选择器就会让 Angular 实例化该组件。</p>
+<h2 id="指定组件的-CSS-选择器"><a href="#指定组件的-CSS-选择器" class="headerlink" title="指定组件的 CSS 选择器"></a>指定组件的 CSS 选择器</h2><p>每个组件都需要一个 CSS 选择器。选择器会告诉 Angular：当在模板 HTML 中找到相应的标签时，就把该组件实例化在那里。<br>比如，考虑一个组件 hello-world.component.ts，它的选择器定义为 app-hello-world。当 <app-hello-world> 出现在模板中时，这个选择器就会让 Angular 实例化该组件。</app-hello-world></p>
 <p>在 @Component 装饰器中添加一个 selector 语句来指定组件的选择器。</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-component-overview&#x27;</span>,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 <h2 id="定义一个组件的模板"><a href="#定义一个组件的模板" class="headerlink" title="定义一个组件的模板"></a>定义一个组件的模板</h2><p>模板是一段 HTML，它告诉 Angular 如何在应用中渲染组件。可以通过以下两种方式之一为组件定义模板：引用外部文件，或直接写在组件内部。</p>
@@ -1139,7 +1325,7 @@
 <p>子组件 CountdownTimerComponent 进行倒计时，归零时发射一个导弹。start 和 stop 方法负责控制时钟并在模板里显示倒计时的状态信息。</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>, <span class="title class_">OnDestroy</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-countdown-timer&#x27;</span>,</span><br><span class="line">  <span class="attr">template</span>: <span class="string">&#x27;&lt;p&gt;&#123;&#123;message&#125;&#125;&lt;/p&gt;&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">CountdownTimerComponent</span> <span class="keyword">implements</span> <span class="title class_">OnDestroy</span> &#123;</span><br><span class="line"></span><br><span class="line">  intervalId = <span class="number">0</span>;</span><br><span class="line">  message = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">  seconds = <span class="number">11</span>;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">ngOnDestroy</span>(<span class="params"></span>) &#123; <span class="variable language_">this</span>.<span class="title function_">clearTimer</span>(); &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">start</span>(<span class="params"></span>) &#123; <span class="variable language_">this</span>.<span class="title function_">countDown</span>(); &#125;</span><br><span class="line">  <span class="title function_">stop</span>(<span class="params"></span>)  &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">clearTimer</span>();</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">message</span> = <span class="string">`Holding at T-<span class="subst">$&#123;<span class="variable language_">this</span>.seconds&#125;</span> seconds`</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="title function_">clearTimer</span>(<span class="params"></span>) &#123; <span class="built_in">clearInterval</span>(<span class="variable language_">this</span>.<span class="property">intervalId</span>); &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="title function_">countDown</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">clearTimer</span>();</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">intervalId</span> = <span class="variable language_">window</span>.<span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">seconds</span> -= <span class="number">1</span>;</span><br><span class="line">      <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">seconds</span> === <span class="number">0</span>) &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">message</span> = <span class="string">&#x27;Blast off!&#x27;</span>;</span><br><span class="line">      &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">if</span> (<span class="variable language_">this</span>.<span class="property">seconds</span> &lt; <span class="number">0</span>) &#123; <span class="variable language_">this</span>.<span class="property">seconds</span> = <span class="number">10</span>; &#125; <span class="comment">// reset</span></span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">message</span> = <span class="string">`T-<span class="subst">$&#123;<span class="variable language_">this</span>.seconds&#125;</span> seconds and counting`</span>;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;, <span class="number">1000</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>父组件不能通过数据绑定使用子组件的 start 和 stop 方法，也不能访问子组件的 seconds 属性。</p>
-<p>把本地变量(#timer)放到(<app-countdown-timer>)标签中，用来代表子组件。这样父组件的模板就得到了子组件的引用，于是可以在父组件的模板中访问子组件的所有属性和方法。</p>
+<p>把本地变量(#timer)放到(<app-countdown-timer>)标签中，用来代表子组件。这样父组件的模板就得到了子组件的引用，于是可以在父组件的模板中访问子组件的所有属性和方法。</app-countdown-timer></p>
 <p>这个例子把父组件的按钮绑定到子组件的 start 和 stop 方法，并用插值来显示子组件的 seconds 属性。</p>
 <h2 id="父级调用-ViewChild"><a href="#父级调用-ViewChild" class="headerlink" title="父级调用 @ViewChild()"></a>父级调用 @ViewChild()</h2><p>这个本地变量方法是个简单明了的方法。但是它也有局限性，因为父组件-子组件的连接必须全部在父组件的模板中进行。父组件本身的代码对子组件没有访问权。如果父组件的类需要依赖于子组件类，就不能使用本地变量方法。</p>
 <p>当父组件类需要访问时子组件类时，可以把子组件作为 ViewChild，注入到父组件里面。</p>
@@ -1291,7 +1477,7 @@
 <p>现在，在执行从此方法返回的委托时，将在执行时引发 ObjectDisposedException。</p>
 <p>定义表达式时，请谨慎访问局部变量，且在创建可由公共 API 返回的表达式树时，谨慎访问当前对象（由 this 表示）中的状态。</p>
 <p>表达式中的代码可能引用其他程序集中的方法或属性。 对表达式进行定义、编译或在调用结果委托时，该程序集必须可访问。 在它不存在的情况下，将遇到 ReferencedAssemblyNotFoundException。</p>
-<h1 id="生成表达式树"><a href="#生成表达式树" class="headerlink" title="生成表达式树"></a>生成表达式树</h1><p>到目前为止，你所看到的所有表达式树都是由 C# 编译器创建的。 你所要做的是创建一个 lambda 表达式，将其分配给一个类型为 Expression&lt;Func<T>&gt; 或某种相似类型的变量。 这不是创建表达式树的唯一方法。 很多情况下，可能需要在运行时在内存中生成一个表达式。</p>
+<h1 id="生成表达式树"><a href="#生成表达式树" class="headerlink" title="生成表达式树"></a>生成表达式树</h1><p>到目前为止，你所看到的所有表达式树都是由 C# 编译器创建的。 你所要做的是创建一个 lambda 表达式，将其分配给一个类型为 Expression&lt;Func<T>&gt; 或某种相似类型的变量。 这不是创建表达式树的唯一方法。 很多情况下，可能需要在运行时在内存中生成一个表达式。</T></p>
 <p>由于这些表达式树是不可变的，所以生成表达式树很复杂。 不可变意味着必须以从叶到根的方式生成表达式树。 用于生成表达式树的 API 体现了这一点：用于生成节点的方法将其所有子级用作参数。 让我们通过几个示例来了解相关技巧。</p>
 <h2 id="创建节点"><a href="#创建节点" class="headerlink" title="创建节点"></a>创建节点</h2><p>让我们再次从相对简单的内容开始。 我们将使用在这些部分中一直使用的加法表达式：</p>
 <h2 id="生成树"><a href="#生成树" class="headerlink" title="生成树"></a>生成树</h2><p>这是在内存中生成表达式树的基础知识。 更复杂的树通常意味着更多的节点类型，并且树中有更多的节点。 让我们再浏览一个示例，了解通常在创建表达式树时创建的其他两个节点类型：参数节点和方法调用节点。</p>
@@ -1553,7 +1739,7 @@
 <h3 id="值提供者：useValue"><a href="#值提供者：useValue" class="headerlink" title="值提供者：useValue"></a>值提供者：useValue</h3><p>useValue 允许你将固定值与某个 DI 令牌相关联。可以用此技术提供运行时配置常量，例如网站基址和特性标志。你还可以在单元测试中使用值提供者来提供模拟数据以代替生产级数据服务。</p>
 <h2 id="使用-InjectionToken-对象"><a href="#使用-InjectionToken-对象" class="headerlink" title="使用 InjectionToken 对象"></a>使用 InjectionToken 对象</h2><p>可以定义和使用一个 InjectionToken 对象来为非类的依赖选择一个提供者令牌。下列例子定义了一个类型为 InjectionToken 的 APP_CONFIG。</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">InjectionToken</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="variable constant_">APP_CONFIG</span> = <span class="keyword">new</span> <span class="title class_">InjectionToken</span>&lt;<span class="title class_">AppConfig</span>&gt;(<span class="string">&#x27;app.config&#x27;</span>);</span><br></pre></td></tr></table></figure>
-<p>可选的参数 <AppConfig> 和令牌描述 app.config 指明了此令牌的用途。</p>
+<p>可选的参数 <AppConfig> 和令牌描述 app.config 指明了此令牌的用途。</AppConfig></p>
 <p>接着，用 APP_CONFIG 这个 InjectionToken 对象在组件中注册依赖提供者。</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">providers</span>: [&#123; <span class="attr">provide</span>: <span class="variable constant_">APP_CONFIG</span>, <span class="attr">useValue</span>: <span class="variable constant_">HERO_DI_CONFIG</span> &#125;]</span><br></pre></td></tr></table></figure>
 <p>现在，借助参数装饰器 @Inject()，你可以把这个配置对象注入到构造函数中。</p>
@@ -1574,7 +1760,7 @@
 </li>
 </ul>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">template: `</span><br><span class="line">  <span class="tag">&lt;<span class="name">app-hero-bio</span> [<span class="attr">heroId</span>]=<span class="string">&quot;1&quot;</span>&gt;</span> <span class="tag">&lt;<span class="name">app-hero-contact</span>&gt;</span><span class="tag">&lt;/<span class="name">app-hero-contact</span>&gt;</span> <span class="tag">&lt;/<span class="name">app-hero-bio</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">app-hero-bio</span> [<span class="attr">heroId</span>]=<span class="string">&quot;2&quot;</span>&gt;</span> <span class="tag">&lt;<span class="name">app-hero-contact</span>&gt;</span><span class="tag">&lt;/<span class="name">app-hero-contact</span>&gt;</span> <span class="tag">&lt;/<span class="name">app-hero-bio</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">app-hero-bio</span> [<span class="attr">heroId</span>]=<span class="string">&quot;3&quot;</span>&gt;</span> <span class="tag">&lt;<span class="name">app-hero-contact</span>&gt;</span><span class="tag">&lt;/<span class="name">app-hero-contact</span>&gt;</span> <span class="tag">&lt;/<span class="name">app-hero-bio</span>&gt;</span>`,</span><br></pre></td></tr></table></figure>
-<p>  在 <hero-bio> 标签中是一个新的 <hero-contact> 元素。Angular 就会把相应的 HeroContactComponent投影(transclude)进 HeroBioComponent 的视图里，将它放在 HeroBioComponent 模板的 <ng-content> 标签槽里。<br>  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">template: `</span><br><span class="line"><span class="tag">&lt;<span class="name">h4</span>&gt;</span>&#123;&#123;hero.name&#125;&#125;<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ng-content</span>&gt;</span><span class="tag">&lt;/<span class="name">ng-content</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">textarea</span> <span class="attr">cols</span>=<span class="string">&quot;25&quot;</span> [(<span class="attr">ngModel</span>)]=<span class="string">&quot;hero.description&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span>`,</span><br></pre></td></tr></table></figure></p>
+<p>  在 <hero-bio> 标签中是一个新的 <hero-contact> 元素。Angular 就会把相应的 HeroContactComponent投影(transclude)进 HeroBioComponent 的视图里，将它放在 HeroBioComponent 模板的 <ng-content> 标签槽里。<br>  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">template: `</span><br><span class="line"><span class="tag">&lt;<span class="name">h4</span>&gt;</span>&#123;&#123;hero.name&#125;&#125;<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ng-content</span>&gt;</span><span class="tag">&lt;/<span class="name">ng-content</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">textarea</span> <span class="attr">cols</span>=<span class="string">&quot;25&quot;</span> [(<span class="attr">ngModel</span>)]=<span class="string">&quot;hero.description&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span>`,</span><br></pre></td></tr></table></figure></ng-content></hero-contact></hero-bio></p>
 <h2 id="使用-Inject-指定自定义提供者"><a href="#使用-Inject-指定自定义提供者" class="headerlink" title="使用 @Inject 指定自定义提供者"></a>使用 @Inject 指定自定义提供者</h2><p>  自定义提供者让你可以为隐式依赖提供一个具体的实现，比如内置浏览器 API。下面的例子使用 InjectionToken 来提供 localStorage，将其作为 BrowserStorageService 的依赖项。<br>  <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">  <span class="keyword">import</span> &#123; <span class="title class_">Inject</span>, <span class="title class_">Injectable</span>, <span class="title class_">InjectionToken</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">const</span> <span class="variable constant_">BROWSER_STORAGE</span> = <span class="keyword">new</span> <span class="title class_">InjectionToken</span>&lt;<span class="title class_">Storage</span>&gt;(<span class="string">&#x27;Browser Storage&#x27;</span>, &#123;</span><br><span class="line">  <span class="attr">providedIn</span>: <span class="string">&#x27;root&#x27;</span>,</span><br><span class="line">  <span class="attr">factory</span>: <span class="function">() =&gt;</span> <span class="variable language_">localStorage</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="meta">@Injectable</span>(&#123;</span><br><span class="line">  <span class="attr">providedIn</span>: <span class="string">&#x27;root&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">BrowserStorageService</span> &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"><span class="meta">@Inject</span>(BROWSER_STORAGE) <span class="keyword">public</span> storage: Storage</span>) &#123;&#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">get</span>(<span class="params">key: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">storage</span>.<span class="title function_">getItem</span>(key);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">set</span>(<span class="params">key: <span class="built_in">string</span>, value: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">storage</span>.<span class="title function_">setItem</span>(key, value);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">remove</span>(<span class="params">key: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">storage</span>.<span class="title function_">removeItem</span>(key);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">clear</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">storage</span>.<span class="title function_">clear</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure><br>factory 函数返回 window 对象上的 localStorage 属性。Inject 装饰器修饰一个构造函数参数，用于为某个依赖提供自定义提供者。</p>
 <h2 id="使用-Self-和-SkipSelf-来修改提供者的搜索方式"><a href="#使用-Self-和-SkipSelf-来修改提供者的搜索方式" class="headerlink" title="使用 @Self 和 @SkipSelf 来修改提供者的搜索方式"></a>使用 @Self 和 @SkipSelf 来修改提供者的搜索方式</h2><p>注入器也可以通过构造函数的参数装饰器来指定范围。下面的例子就在 Component 类的 providers 中使用浏览器的 sessionStorage API 覆盖了 BROWSER_STORAGE 令牌。同一个 BrowserStorageService 在构造函数中使用 @Self 和 @SkipSelf 装饰器注入了两次，来分别指定由哪个注入器来提供依赖。</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>, <span class="title class_">OnInit</span>, <span class="title class_">Self</span>, <span class="title class_">SkipSelf</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="variable constant_">BROWSER_STORAGE</span>, <span class="title class_">BrowserStorageService</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;./storage.service&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-storage&#x27;</span>,</span><br><span class="line">  <span class="attr">template</span>: <span class="string">`</span></span><br><span class="line"><span class="string">    Open the inspector to see the local/session storage keys:</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &lt;h3&gt;Session Storage&lt;/h3&gt;</span></span><br><span class="line"><span class="string">    &lt;button type=&quot;button&quot; (click)=&quot;setSession()&quot;&gt;Set Session Storage&lt;/button&gt;</span></span><br><span class="line"><span class="string"></span></span><br><span class="line"><span class="string">    &lt;h3&gt;Local Storage&lt;/h3&gt;</span></span><br><span class="line"><span class="string">    &lt;button type=&quot;button&quot; (click)=&quot;setLocal()&quot;&gt;Set Local Storage&lt;/button&gt;</span></span><br><span class="line"><span class="string">  `</span>,</span><br><span class="line">  <span class="attr">providers</span>: [</span><br><span class="line">    <span class="title class_">BrowserStorageService</span>,</span><br><span class="line">    &#123; <span class="attr">provide</span>: <span class="variable constant_">BROWSER_STORAGE</span>, <span class="attr">useFactory</span>: <span class="function">() =&gt;</span> sessionStorage &#125;</span><br><span class="line">  ]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">StorageComponent</span> <span class="keyword">implements</span> <span class="title class_">OnInit</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span></span><br><span class="line"><span class="params">    <span class="meta">@Self</span>() <span class="keyword">private</span> sessionStorageService: BrowserStorageService,</span></span><br><span class="line"><span class="params">    <span class="meta">@SkipSelf</span>() <span class="keyword">private</span> localStorageService: BrowserStorageService,</span></span><br><span class="line"><span class="params">  </span>) &#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">setSession</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">sessionStorageService</span>.<span class="title function_">set</span>(<span class="string">&#x27;hero&#x27;</span>, <span class="string">&#x27;Dr Nice - Session&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">setLocal</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">localStorageService</span>.<span class="title function_">set</span>(<span class="string">&#x27;hero&#x27;</span>, <span class="string">&#x27;Dr Nice - Local&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -1640,7 +1826,7 @@
 <p>如果 Angular 在任何 ElementInjector 中都找不到提供者，它将返回到发起请求的元素，并在 ModuleInjector 层次结构中进行查找。如果 Angular 仍然找不到提供者，它将引发错误。</p>
 <p>如果你已在不同级别注册了相同 DI 令牌的提供者，则 Angular 会用遇到的第一个来解析该依赖。比如，如果提供者已经在需要此服务的组件中本地注册了，则 Angular 不会再寻找同一服务的其它提供者。</p>
 <h2 id="模板的逻辑结构"><a href="#模板的逻辑结构" class="headerlink" title="模板的逻辑结构"></a>模板的逻辑结构</h2><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">app-root</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">app-child</span>&gt;</span><span class="tag">&lt;/<span class="name">app-child</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">app-root</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>下面是如何将 <app-root> 和 <app-child> 视图树组合为单个逻辑树的范例：</p>
+<p>下面是如何将 <app-root> 和 <app-child> 视图树组合为单个逻辑树的范例：</app-child></app-root></p>
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">app-root</span>&gt;</span></span><br><span class="line">  &lt;#VIEW&gt;</span><br><span class="line">    <span class="tag">&lt;<span class="name">app-child</span>&gt;</span></span><br><span class="line">     &lt;#VIEW&gt;</span><br><span class="line">       …content goes here…</span><br><span class="line">     &lt;/#VIEW&gt;</span><br><span class="line">    <span class="tag">&lt;/<span class="name">app-child</span>&gt;</span></span><br><span class="line">  &lt;/#VIEW&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">app-root</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>当你在组件类中配置服务时，了解这种 &lt;#VIEW&gt; 划界的思想尤其重要。</p>
 <h3 id="使用-viewProviders-数组"><a href="#使用-viewProviders-数组" class="headerlink" title="使用 viewProviders 数组"></a>使用 viewProviders 数组</h3><p>使用 viewProviders 数组是在 @Component() 装饰器中提供服务的另一种方法。使用 viewProviders 使服务在 &lt;#VIEW&gt; 中可见。</p>
@@ -1650,10 +1836,10 @@
 <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">app-root</span> @<span class="attr">NgModule</span>(<span class="attr">AppModule</span>)</span></span><br><span class="line"><span class="tag">         @<span class="attr">Inject</span>(<span class="attr">AnimalService</span>) <span class="attr">animal</span>=&gt;</span>&quot;🐳&quot;&gt;</span><br><span class="line">  &lt;#VIEW&gt;</span><br><span class="line">    <span class="tag">&lt;<span class="name">app-child</span>&gt;</span></span><br><span class="line">      &lt;#VIEW @Provide(AnimalService=&quot;🐶&quot;)</span><br><span class="line">            @Inject(AnimalService=&gt;&quot;🐶&quot;)&gt;</span><br><span class="line">        <span class="comment">&lt;!-- ^^using viewProviders means AnimalService is available in &lt;#VIEW&gt;--&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">p</span>&gt;</span>Emoji from AnimalService: &#123;&#123;animal.emoji&#125;&#125; (🐶)<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">  </span><br><span class="line">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;container&quot;</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">h3</span>&gt;</span>Content projection<span class="tag">&lt;/<span class="name">h3</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;<span class="name">app-inspector</span> @<span class="attr">Inject</span>(<span class="attr">AnimalService</span>) <span class="attr">animal</span>=&gt;</span>&quot;🐳&quot;&gt;</span><br><span class="line">            <span class="tag">&lt;<span class="name">p</span>&gt;</span>Emoji from AnimalService: &#123;&#123;animal.emoji&#125;&#125; (🐳)<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">          <span class="tag">&lt;/<span class="name">app-inspector</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line">  </span><br><span class="line">      &lt;/#VIEW&gt;</span><br><span class="line">      <span class="tag">&lt;<span class="name">app-inspector</span>&gt;</span></span><br><span class="line">        &lt;#VIEW&gt;</span><br><span class="line">          <span class="tag">&lt;<span class="name">p</span>&gt;</span>Emoji from AnimalService: &#123;&#123;animal.emoji&#125;&#125; (🐶)<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line">        &lt;/#VIEW&gt;</span><br><span class="line">      <span class="tag">&lt;/<span class="name">app-inspector</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">app-child</span>&gt;</span></span><br><span class="line">  &lt;/#VIEW&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">app-root</span>&gt;</span></span><br></pre></td></tr></table></figure>
 <p>这四个绑定说明了 providers 和 viewProviders 之间的区别。由于🐶（小狗）在 &lt;#VIEW&gt; 中声明，因此投影内容不可见。投影的内容中会看到🐳（鲸鱼）。</p>
 <p>但是下一部分，InspectorComponent 是 ChildComponent 的子组件，InspectorComponent 在 &lt;#VIEW&gt; 内部，因此当它请求 AnimalService 时，它会看到🐶（小狗）。</p>
-<p><app-inspector> 的投影内容中看到了🐳（鲸鱼），而不是🐶（小狗），因为🐶（小狗）在 <app-child> 的 &lt;#VIEW&gt; 中。如果 <app-inspector> 也位于 &lt;#VIEW&gt; 则只能看到🐶（小狗）。</p>
+<p><app-inspector> 的投影内容中看到了🐳（鲸鱼），而不是🐶（小狗），因为🐶（小狗）在 <app-child> 的 &lt;#VIEW&gt; 中。如果 <app-inspector> 也位于 &lt;#VIEW&gt; 则只能看到🐶（小狗）。</app-inspector></app-child></app-inspector></p>
 <h3 id="Host-和-viewProviders"><a href="#Host-和-viewProviders" class="headerlink" title="@Host() 和 viewProviders"></a>@Host() 和 viewProviders</h3><p> @Host() 将搜索的上限限制为父节点的 &lt;#VIEW&gt;</p>
  <figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">app-root</span> @<span class="attr">NgModule</span>(<span class="attr">AppModule</span>)</span></span><br><span class="line"><span class="tag">        @<span class="attr">Inject</span>(<span class="attr">AnimalService</span>=&gt;</span>&quot;🐳&quot;)&gt;</span><br><span class="line">  &lt;#VIEW @Provide(AnimalService=&quot;🦔&quot;)</span><br><span class="line">         @Inject(AnimalService, @Optional)=&gt;&quot;🦔&quot;&gt;</span><br><span class="line">    <span class="comment">&lt;!-- ^^@SkipSelf() starts here,  @Host() stops here^^ --&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">app-child</span>&gt;</span></span><br><span class="line">      &lt;#VIEW @Provide(AnimalService=&quot;🐶&quot;)</span><br><span class="line">             @Inject(AnimalService, @SkipSelf, @Host, @Optional)=&gt;&quot;🦔&quot;&gt;</span><br><span class="line">               <span class="comment">&lt;!-- Add @SkipSelf ^^--&gt;</span></span><br><span class="line">      &lt;/#VIEW&gt;</span><br><span class="line">      <span class="tag">&lt;/<span class="name">app-child</span>&gt;</span></span><br><span class="line">  &lt;/#VIEW&gt;</span><br><span class="line"><span class="tag">&lt;/<span class="name">app-root</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>@SkipSelf() 导致注入器从 <app-root> 而不是 <app-child> 处开始对 AnimalService 进行搜索，而 @Host() 会在 <app-root> 的 &lt;#VIEW&gt; 处停止搜索。 由于 AnimalService 是通过 viewProviders 数组提供的，因此注入程序会在 &lt;#VIEW&gt; 找到🦔（刺猬）。</p>
+<p>@SkipSelf() 导致注入器从 <app-root> 而不是 <app-child> 处开始对 AnimalService 进行搜索，而 @Host() 会在 <app-root> 的 &lt;#VIEW&gt; 处停止搜索。 由于 AnimalService 是通过 viewProviders 数组提供的，因此注入程序会在 &lt;#VIEW&gt; 找到🦔（刺猬）。</app-root></app-child></app-root></p>
 
       
     </div>
@@ -2150,7 +2336,7 @@
 </tr>
 <tr>
 <td>FormControl</td>
-<td>管理单体表单控件的值和有效性状态。它对应于 HTML 的表单控件，比如 <input> 或 <select>。</td>
+<td>管理单体表单控件的值和有效性状态。它对应于 HTML 的表单控件，比如 <input> 或 <select>。</select></td>
 </tr>
 <tr>
 <td>FormGroup</td>
@@ -2214,7 +2400,7 @@
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> email = <span class="keyword">new</span> <span class="title class_">FormControl</span>(<span class="string">&#x27;angularrox@gmail.com&#x27;</span>);</span><br><span class="line">email.<span class="title function_">reset</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(email.<span class="property">value</span>); <span class="comment">// null</span></span><br></pre></td></tr></table></figure>
 <p>TypeScript 将强制你始终处理控件已变为 null 的可能性。如果要使此控件不可为空，可以用 nonNullable 选项。这将导致控件重置为其初始值，而不是 null ：</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> email = <span class="keyword">new</span> <span class="title class_">FormControl</span>(<span class="string">&#x27;angularrox@gmail.com&#x27;</span>, &#123;<span class="attr">nonNullable</span>: <span class="literal">true</span>&#125;);</span><br><span class="line">email.<span class="title function_">reset</span>();</span><br><span class="line"><span class="variable language_">console</span>.<span class="title function_">log</span>(email.<span class="property">value</span>); <span class="comment">// angularrox@gmail.com</span></span><br></pre></td></tr></table></figure>
-<h4 id="指定显式类型"><a href="#指定显式类型" class="headerlink" title="指定显式类型"></a>指定显式类型</h4><p>可以指定类型，而不是依赖推理。考虑一个初始化为 null 的控件。因为初始值为 null，所以 TypeScript 将推断 FormControl<null>，这比我们想要的要窄。</p>
+<h4 id="指定显式类型"><a href="#指定显式类型" class="headerlink" title="指定显式类型"></a>指定显式类型</h4><p>可以指定类型，而不是依赖推理。考虑一个初始化为 null 的控件。因为初始值为 null，所以 TypeScript 将推断 FormControl<null>，这比我们想要的要窄。</null></p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> email = <span class="keyword">new</span> <span class="title class_">FormControl</span>(<span class="literal">null</span>);</span><br><span class="line">email.<span class="title function_">setValue</span>(<span class="string">&#x27;angularrox@gmail.com&#x27;</span>); <span class="comment">// Error!</span></span><br></pre></td></tr></table></figure>
 <p>为防止这种情况，我们将类型显式指定为 string|null</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> email = <span class="keyword">new</span> <span class="title class_">FormControl</span>&lt;<span class="built_in">string</span>|<span class="literal">null</span>&gt;(<span class="literal">null</span>);</span><br><span class="line">email.<span class="title function_">setValue</span>(<span class="string">&#x27;angularrox@gmail.com&#x27;</span>);</span><br></pre></td></tr></table></figure>
@@ -2233,340 +2419,6 @@
 <p>此外，还有一个额外的构建器：NonNullableFormBuilder。它是在所有控件都上指定 {nonNullable: true} 的简写，用来在大型非空表单中消除主要的样板代码。你可以用 FormBuilder 上的 nonNullable 属性访问它：</p>
 <figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fb = <span class="keyword">new</span> <span class="title class_">FormBuilder</span>();</span><br><span class="line"><span class="keyword">const</span> login = fb.<span class="property">nonNullable</span>.<span class="title function_">group</span>(&#123;</span><br><span class="line">    <span class="attr">email</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">    <span class="attr">password</span>: <span class="string">&#x27;&#x27;</span>,</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>在上面的示例中，两个内部控件都将不可为空</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/01/20/linq/%E6%A0%87%E5%87%86%E6%9F%A5%E8%AF%A2%E8%BF%90%E7%AE%97%E7%AC%A6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="InfoPool">
-      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | InfoPool">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/01/20/linq/%E6%A0%87%E5%87%86%E6%9F%A5%E8%AF%A2%E8%BF%90%E7%AE%97%E7%AC%A6/" class="post-title-link" itemprop="url">标准查询运算符</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-01-20 13:58:14" itemprop="dateCreated datePublished" datetime="2023-01-20T13:58:14+08:00">2023-01-20</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-01-31 18:29:13" itemprop="dateModified" datetime="2023-01-31T18:29:13+08:00">2023-01-31</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>标准查询运算符是组成 LINQ 模式的方法。 这些方法中的大多数都作用于序列；其中序列指其类型实现 IEnumerable<T> 接口或 IQueryable<T> 接口的对象。 标准查询运算符提供包括筛选、投影、聚合、排序等在内的查询功能。</p>
-<p>共有两组 LINQ 标准查询运算符，一组作用于类型 IEnumerable<T> 的对象，另一组作用于类型 IQueryable<T> 的对象。 </p>
-<p>构成每个集合的方法分别是 Enumerable 和 Queryable 类的静态成员。 这些方法被定义为作为方法运行目标的类型的扩展方法。 </p>
-<p>各个标准查询运算符在执行时间上有所不同，具体情况取决于它们是返回单一值还是值序列。 返回单一实例值的这些方法（例如 Average 和 Sum）立即执行。 返回序列的方法会延迟查询执行，并返回一个可枚举的对象。</p>
-<p>对于在内存中集合上运行的方法（即扩展 IEnumerable<T> 的那些方法），返回的可枚举对象将捕获传递到方法的参数。 在枚举该对象时，将使用查询运算符的逻辑，并返回查询结果。</p>
-<p>相反，扩展 IQueryable<T> 的方法不会实现任何查询行为。 它们生成一个表示要执行的查询的表达式树。 源 IQueryable<T> 对象执行查询处理。</p>
-<p>查询语法和方法语法在语义上是相同的，但是许多人发现查询语法更简单且更易于阅读。 某些查询必须表示为方法调用。</p>
-<p>下面的示例演示一个简单查询表达式以及编写为基于方法的查询的语义上等效的查询。</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title">QueryVMethodSyntax</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">static</span> <span class="keyword">void</span> <span class="title">Main</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span>[] numbers = &#123; <span class="number">5</span>, <span class="number">10</span>, <span class="number">8</span>, <span class="number">3</span>, <span class="number">6</span>, <span class="number">12</span>&#125;;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//Query syntax:</span></span><br><span class="line">        IEnumerable&lt;<span class="built_in">int</span>&gt; numQuery1 =</span><br><span class="line">            <span class="keyword">from</span> num <span class="keyword">in</span> numbers</span><br><span class="line">            <span class="keyword">where</span> num % <span class="number">2</span> == <span class="number">0</span></span><br><span class="line">            <span class="keyword">orderby</span> num</span><br><span class="line">            <span class="keyword">select</span> num;</span><br><span class="line"></span><br><span class="line">        <span class="comment">//Method syntax:</span></span><br><span class="line">        IEnumerable&lt;<span class="built_in">int</span>&gt; numQuery2 = numbers.Where(num =&gt; num % <span class="number">2</span> == <span class="number">0</span>).OrderBy(n =&gt; n);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">foreach</span> (<span class="built_in">int</span> i <span class="keyword">in</span> numQuery1)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.Write(i + <span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        Console.WriteLine(System.Environment.NewLine);</span><br><span class="line">        <span class="keyword">foreach</span> (<span class="built_in">int</span> i <span class="keyword">in</span> numQuery2)</span><br><span class="line">        &#123;</span><br><span class="line">            Console.Write(i + <span class="string">&quot; &quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Keep the console open in debug mode.</span></span><br><span class="line">        Console.WriteLine(System.Environment.NewLine);</span><br><span class="line">        Console.WriteLine(<span class="string">&quot;Press any key to exit&quot;</span>);</span><br><span class="line">        Console.ReadKey();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment">    Output:</span></span><br><span class="line"><span class="comment">    6 8 10 12</span></span><br><span class="line"><span class="comment">    6 8 10 12</span></span><br><span class="line"><span class="comment"> */</span></span><br></pre></td></tr></table></figure>
-<p> 这两个示例的输出是相同的。 可以看到查询变量的类型在两种形式中是相同的：IEnumerable<T>。</p>
-<h2 id="标准查询运算符的查询表达式语法"><a href="#标准查询运算符的查询表达式语法" class="headerlink" title="标准查询运算符的查询表达式语法"></a>标准查询运算符的查询表达式语法</h2><table>
-<thead>
-<tr>
-<th>方法</th>
-<th>查询表达式</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Cast</td>
-<td>使用显式类型化范围变量，例如：from int i in numbers</td>
-</tr>
-<tr>
-<td>GroupBy</td>
-<td>group … by - 或 - group … by … into</td>
-</tr>
-<tr>
-<td>GroupJoin&lt;TOuter,TInner,TKey,TResult&gt;(IEnumerable<TOuter>, IEnumerable<TInner>, Func&lt;TOuter,TKey&gt;, Func&lt;TInner,TKey&gt;, Func&lt;TOuter,IEnumerable<TInner>, TResult&gt;)</td>
-<td>join … in … on … equals … into …</td>
-</tr>
-<tr>
-<td>Join&lt;TOuter,TInner,TKey,TResult&gt;(IEnumerable<TOuter>, IEnumerable<TInner>, Func&lt;TOuter,TKey&gt;, Func&lt;TInner,TKey&gt;, Func&lt;TOuter,TInner,TResult&gt;)</td>
-<td>join … in … on … equals …</td>
-</tr>
-<tr>
-<td>OrderBy&lt;TSource,TKey&gt;(IEnumerable<TSource>, Func&lt;TSource,TKey&gt;)</td>
-<td>orderby</td>
-</tr>
-<tr>
-<td>OrderByDescending&lt;TSource,TKey&gt;(IEnumerable<TSource>, Func&lt;TSource,TKey&gt;)</td>
-<td>orderby … descending</td>
-</tr>
-<tr>
-<td>Select</td>
-<td>select</td>
-</tr>
-<tr>
-<td>SelectMany</td>
-<td>多个 from 子句</td>
-</tr>
-<tr>
-<td>ThenBy&lt;TSource,TKey&gt;(IOrderedEnumerable<TSource>, Func&lt;TSource,TKey&gt;)</td>
-<td>orderby …, …</td>
-</tr>
-<tr>
-<td>ThenByDescending&lt;TSource,TKey&gt;(IOrderedEnumerable<TSource>, Func&lt;TSource,TKey&gt;)</td>
-<td>orderby …, … descending</td>
-</tr>
-<tr>
-<td>Where</td>
-<td>where</td>
-</tr>
-</tbody></table>
-<h2 id="标准查询运算符按执行方式的分类"><a href="#标准查询运算符按执行方式的分类" class="headerlink" title="标准查询运算符按执行方式的分类"></a>标准查询运算符按执行方式的分类</h2><p>标准查询运算符方法的 <code>LINQ to Objects</code> 实现主要通过两种方法之一执行：立即执行和延迟执行。 使用延迟执行的查询运算符可以进一步分为两种类别：流式处理和非流式处理。 </p>
-<h3 id="即时"><a href="#即时" class="headerlink" title="即时"></a>即时</h3><p>立即执行指的是读取数据源并执行一次运算。 返回标量结果的所有标准查询运算符都立即执行。 </p>
-<p>可以使用 Enumerable.ToList 或 Enumerable.ToArray 方法强制查询立即执行。</p>
-<p>立即执行可重用查询结果，而不是查询声明。 结果被检索一次，然后存储以供将来使用。</p>
-<h3 id="推迟"><a href="#推迟" class="headerlink" title="推迟"></a>推迟</h3><p>延迟执行指的是不在代码中声明查询的位置执行运算。 仅当对查询变量进行枚举时才执行运算，例如通过使用 foreach 语句执行。 </p>
-<p>这意味着，查询的执行结果取决于执行查询而非定义查询时的数据源内容。 </p>
-<p>如果多次枚举查询变量，则每次结果可能都不同。 </p>
-<p>几乎所有返回类型为 IEnumerable<T> 或 IOrderedEnumerable<TElement> 的标准查询运算符皆以延迟方式执行。 </p>
-<p>延迟执行提供了查询重用功能，因为在每次循环访问查询结果时，查询都会从数据源中提取更新的数据。</p>
-<h4 id="流式处理"><a href="#流式处理" class="headerlink" title="流式处理"></a>流式处理</h4><p>流式处理运算符不需要在生成元素前读取所有源数据。 在执行时，流式处理运算符一边读取每个源元素，一边对该源元素执行运算，并在可行时生成元素。 </p>
-<p>流式处理运算符将持续读取源元素直到可以生成结果元素。 这意味着可能要读取多个源元素才能生成一个结果元素。</p>
-<h3 id="非流式处理"><a href="#非流式处理" class="headerlink" title="非流式处理"></a>非流式处理</h3><p>非流式处理运算符必须先读取所有源数据，然后才能生成结果元素。 </p>
-<p>排序或分组等运算均属于此类别。 在执行时，非流式处理查询运算符将读取所有源数据，将其放入数据结构，执行运算，然后生成结果元素。</p>
-<h2 id="分类表"><a href="#分类表" class="headerlink" title="分类表"></a>分类表</h2><table>
-<thead>
-<tr>
-<th>标准查询运算符</th>
-<th>返回类型</th>
-<th>立即执行</th>
-<th>延迟的流式处理执行</th>
-<th>延迟非流式处理执行</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Aggregate</td>
-<td>TSource</td>
-<td>X</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>All</td>
-<td>Boolen</td>
-<td>X</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Any</td>
-<td>Boolen</td>
-<td>X</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>AsEnumerable</td>
-<td><code>IEnumerable&lt;T&gt;</code></td>
-<td></td>
-<td>X</td>
-<td></td>
-</tr>
-<tr>
-<td>Average</td>
-<td>单个数值</td>
-<td>X</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Cast</td>
-<td><code>IEnumerable&lt;T&gt;</code></td>
-<td></td>
-<td>X</td>
-<td></td>
-</tr>
-<tr>
-<td>Concat</td>
-<td><code>IEnumerable&lt;T&gt;</code></td>
-<td></td>
-<td>X</td>
-<td></td>
-</tr>
-<tr>
-<td>Contains</td>
-<td>Boolen</td>
-<td>X</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Count</td>
-<td>Int32</td>
-<td>X</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>DefaultIfEmpty</td>
-<td><code>IEnumerable&lt;T&gt;</code></td>
-<td></td>
-<td>X</td>
-<td></td>
-</tr>
-<tr>
-<td>Distinct</td>
-<td><code>IEnumerable&lt;T&gt;</code></td>
-<td></td>
-<td>X</td>
-<td></td>
-</tr>
-<tr>
-<td>ElementAt</td>
-<td>TSource</td>
-<td>X</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>ElementAtOrDefault</td>
-<td>TSource</td>
-<td>X</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Empty</td>
-<td>TSource</td>
-<td>X</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>Except</td>
-<td>TSource</td>
-<td></td>
-<td>X</td>
-<td>X</td>
-</tr>
-<tr>
-<td>First</td>
-<td>TSource</td>
-<td>X</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>FirstOrDefault</td>
-<td>TSource</td>
-<td>X</td>
-<td></td>
-<td></td>
-</tr>
-<tr>
-<td>GroupBy</td>
-<td>TSource</td>
-<td></td>
-<td></td>
-<td>X</td>
-</tr>
-<tr>
-<td>GroupJoin</td>
-<td>TSource</td>
-<td></td>
-<td>X</td>
-<td>X</td>
-</tr>
-</tbody></table>
-<h3 id="Aggregate"><a href="#Aggregate" class="headerlink" title="Aggregate"></a>Aggregate</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TResult <span class="title">Aggregate</span>&lt;<span class="title">TSource</span>,<span class="title">TAccumulate</span>,<span class="title">TResult</span>&gt; (<span class="params"><span class="keyword">this</span> System.Collections.Generic.IEnumerable&lt;TSource&gt; source, TAccumulate seed, Func&lt;TAccumulate,TSource,TAccumulate&gt; func, Func&lt;TAccumulate,TResult&gt; resultSelector</span>)</span>;</span><br></pre></td></tr></table></figure>
-<p>对序列应用累加器函数。 将指定的种子值用作累加器的初始值，并使用指定的函数选择结果值。</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TAccumulate <span class="title">Aggregate</span>&lt;<span class="title">TSource</span>,<span class="title">TAccumulate</span>&gt; (<span class="params"><span class="keyword">this</span> System.Collections.Generic.IEnumerable&lt;TSource&gt; source, TAccumulate seed, Func&lt;TAccumulate,TSource,TAccumulate&gt; func</span>)</span>;</span><br></pre></td></tr></table></figure>
-<p>对序列应用累加器函数。 将指定的种子值用作累加器初始值。</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> TSource <span class="title">Aggregate</span>&lt;<span class="title">TSource</span>&gt; (<span class="params"><span class="keyword">this</span> System.Collections.Generic.IEnumerable&lt;TSource&gt; source, Func&lt;TSource,TSource,TSource&gt; func</span>)</span>;</span><br></pre></td></tr></table></figure>
-<p>对序列应用累加器函数。</p>
-<h3 id="ALL"><a href="#ALL" class="headerlink" title="ALL"></a>ALL</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">bool</span> <span class="title">All</span>&lt;<span class="title">TSource</span>&gt; (<span class="params"><span class="keyword">this</span> System.Collections.Generic.IEnumerable&lt;TSource&gt; source, Func&lt;TSource,<span class="built_in">bool</span>&gt; predicate</span>)</span>;</span><br></pre></td></tr></table></figure>
-<p>确定序列中的所有元素是否都满足条件。如果源序列中的每个元素都通过指定谓词中的测试，或者序列为空，则为 true；否则为 false。</p>
-<h3 id="Any"><a href="#Any" class="headerlink" title="Any"></a>Any</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">bool</span> <span class="title">Any</span>&lt;<span class="title">TSource</span>&gt; (<span class="params"><span class="keyword">this</span> System.Collections.Generic.IEnumerable&lt;TSource&gt; source</span>)</span>;</span><br></pre></td></tr></table></figure>
-<p>确定序列是否包含任何元素。<br>此方法不返回集合中的任何一个元素， 而是确定集合是否包含任何元素。</p>
-<p>一旦可以确定结果，就会停止枚举 source 。</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">bool</span> <span class="title">Any</span>&lt;<span class="title">TSource</span>&gt; (<span class="params"><span class="keyword">this</span> System.Collections.Generic.IEnumerable&lt;TSource&gt; source, Func&lt;TSource,<span class="built_in">bool</span>&gt; predicate</span>)</span>;</span><br></pre></td></tr></table></figure>
-<p>确定序列中是否存在任意一个元素满足条件。</p>
-<p>如果源序列不为空，并且至少有一个元素通过指定谓词中的测试，则为 true；否则为 false。</p>
-<h3 id="AsEnumerable"><a href="#AsEnumerable" class="headerlink" title="AsEnumerable"></a>AsEnumerable</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> System.Collections.Generic.<span class="function"><span class="title">IEnumerable</span>&lt;<span class="title">TSource</span>&gt; <span class="title">AsEnumerable</span>&lt;<span class="title">TSource</span>&gt; (<span class="params"><span class="keyword">this</span> System.Collections.Generic.IEnumerable&lt;TSource&gt; source</span>)</span>;</span><br></pre></td></tr></table></figure>
-
-<p>返回类型化为 <code>IEnumerable&lt;T&gt;</code> 的输入。</p>
-<h3 id="Average"><a href="#Average" class="headerlink" title="Average"></a>Average</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">float</span> <span class="title">Average</span> (<span class="params"><span class="keyword">this</span> System.Collections.Generic.IEnumerable&lt;<span class="built_in">float</span>&gt; source</span>)</span>;</span><br></pre></td></tr></table></figure>
-<p>计算 Single 值序列的平均值。</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> <span class="built_in">double</span>? Average&lt;TSource&gt; (<span class="keyword">this</span> System.Collections.Generic.IEnumerable&lt;TSource&gt; source, Func&lt;TSource,<span class="built_in">int</span>?&gt; selector);</span><br></pre></td></tr></table></figure>
-<p>计算可以为 null 的 Int32 值序列的平均值，这些值可通过对输入序列的每个元素调用转换函数获得。</p>
-<p>如果源序列为空或仅包含为 null 的值，则为null；否则为值序列的平均值。</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span>[] fruits = &#123; <span class="string">&quot;apple&quot;</span>, <span class="string">&quot;banana&quot;</span>, <span class="string">&quot;mango&quot;</span>, <span class="string">&quot;orange&quot;</span>, <span class="string">&quot;passionfruit&quot;</span>, <span class="string">&quot;grape&quot;</span> &#125;;</span><br><span class="line"></span><br><span class="line"><span class="built_in">double</span> average = fruits.Average(s =&gt; s.Length);</span><br><span class="line"></span><br><span class="line">Console.WriteLine(<span class="string">&quot;The average string length is &#123;0&#125;.&quot;</span>, average);</span><br><span class="line"></span><br><span class="line"><span class="comment">// This code produces the following output:</span></span><br><span class="line"><span class="comment">//</span></span><br><span class="line"><span class="comment">// The average string length is 6.5.</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="Cast"><a href="#Cast" class="headerlink" title="Cast"></a>Cast</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> System.Collections.Generic.<span class="function"><span class="title">IEnumerable</span>&lt;<span class="title">TResult</span>&gt; <span class="title">Cast</span>&lt;<span class="title">TResult</span>&gt; (<span class="params"><span class="keyword">this</span> System.Collections.IEnumerable source</span>)</span>;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>将 IEnumerable 的元素强制转换为指定的类型。</p>
-<h3 id="Concat"><a href="#Concat" class="headerlink" title="Concat"></a>Concat</h3><p>连接两个序列。</p>
-<h3 id="ElementAtOrDefault"><a href="#ElementAtOrDefault" class="headerlink" title="ElementAtOrDefault"></a>ElementAtOrDefault</h3><p>返回序列中指定索引处的元素；如果索引超出范围，则返回默认值。</p>
-<h3 id="Empty"><a href="#Empty" class="headerlink" title="Empty"></a>Empty</h3><p>返回具有指定类型参数的空 <code>IEnumerable&lt;T&gt;</code>。</p>
-<h3 id="Except"><a href="#Except" class="headerlink" title="Except"></a>Except</h3><p>生成两个序列的差集。</p>
-<h3 id="First"><a href="#First" class="headerlink" title="First"></a>First</h3><p>返回序列中的第一个元素。</p>
-<h3 id="FirstOrDefault"><a href="#FirstOrDefault" class="headerlink" title="FirstOrDefault"></a>FirstOrDefault</h3><p>返回序列中的第一个元素；如果未找到该元素，则返回默认值。</p>
-<h3 id="GroupBy"><a href="#GroupBy" class="headerlink" title="GroupBy"></a>GroupBy</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">static</span> System.Collections.Generic.<span class="function"><span class="title">IEnumerable</span>&lt;<span class="title">TResult</span>&gt; <span class="title">GroupBy</span>&lt;<span class="title">TSource</span>,<span class="title">TKey</span>,<span class="title">TElement</span>,<span class="title">TResult</span>&gt; (<span class="params"><span class="keyword">this</span> System.Collections.Generic.IEnumerable&lt;TSource&gt; source, Func&lt;TSource,TKey&gt; keySelector, Func&lt;TSource,TElement&gt; elementSelector, Func&lt;TKey,System.Collections.Generic.IEnumerable&lt;TElement&gt;,TResult&gt; resultSelector</span>)</span>;</span><br></pre></td></tr></table></figure>
-<p>根据指定的键选择器函数对序列中的元素进行分组，并且从每个组及其键中创建结果值。 通过使用指定的函数对每个组的元素进行投影。</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GroupBy&lt;TSource,TKey,TElement,TResult&gt;(IEnumerable&lt;TSource&gt;, Func&lt;TSource, TKey&gt;, Func&lt;TSource,TElement&gt;, Func&lt;TKey,IEnumerable&lt;TElement&gt;, TResult&gt;, IEqualityComparer&lt;TKey&gt;)</span><br></pre></td></tr></table></figure>
-
-
-<h3 id="GroupJoin"><a href="#GroupJoin" class="headerlink" title="GroupJoin"></a>GroupJoin</h3><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GroupJoin&lt;TOuter,TInner,TKey,TResult&gt;(IEnumerable&lt;TOuter&gt;, IEnumerable&lt;TInner&gt;, Func&lt;TOuter,TKey&gt;, Func&lt;TInner,TKey&gt;, Func&lt;TOuter,IEnumerable&lt;TInner&gt;, TResult&gt;, IEqualityComparer&lt;TKey&gt;)</span><br></pre></td></tr></table></figure>
-<p>基于键值等同性对两个序列的元素进行关联，并对结果进行分组。使用指定的 <code>IEqualityComparer&lt;T&gt;</code> 对键进行比较。</p>
 
       
     </div>
