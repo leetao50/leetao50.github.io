@@ -14,6 +14,10 @@
 <link rel="stylesheet" href="/css/main.css">
 
 
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
 <script class="next-config" data-name="main" type="application/json">{"hostname":"leetao50.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
 
     <meta name="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
@@ -114,7 +118,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-count">41</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -148,6 +152,554 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/07/26/css/flex%E5%85%83%E7%B4%A0%E5%9C%A8%E4%B8%BB%E8%BD%B4%E4%B8%8A%E7%9A%84%E6%AF%94%E4%BE%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/07/26/css/flex%E5%85%83%E7%B4%A0%E5%9C%A8%E4%B8%BB%E8%BD%B4%E4%B8%8A%E7%9A%84%E6%AF%94%E4%BE%8B/" class="post-title-link" itemprop="url">flex元素在主轴上的比例</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-07-26 18:57:30" itemprop="dateCreated datePublished" datetime="2023-07-26T18:57:30+08:00">2023-07-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-07-27 17:40:50" itemprop="dateModified" datetime="2023-07-27T17:40:50+08:00">2023-07-27</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>我们将探索应用于弹性（flex）元素的三个属性，它们能使我们在主轴方向上控制弹性元素的尺寸和伸缩性——flex-grow、flex-shrink 和 flex-basis。</p>
+<p>这三个属性控制弹性元素的以下几个方面的灵活性：</p>
+<ul>
+<li>flex-grow：该元素(拉伸)获得多少正可用空间</li>
+<li>flex-shrink：该元素(收缩)要消除多少负可用空间</li>
+<li>flex-basis：在该元素未拉伸和收缩之前，它所占空间</li>
+</ul>
+<p>在考虑 flex 属性如何在主轴方向上控制比率之前，有一些概念值得我们去深究。这涉及到弹性元素在任何伸缩之前的自然尺寸，以及可用空间（free space）的概念。</p>
+<h1 id="弹性元素的尺寸"><a href="#弹性元素的尺寸" class="headerlink" title="弹性元素的尺寸"></a>弹性元素的尺寸</h1><p>在 CSS 中还有 min-content 和 max-content 这两个概念；这两个关键字可以用来代替长度单位。</p>
+<ul>
+<li>min-content：本质上讲，就是字符串中最长的单词长度决定的大小。</li>
+<li>max-content：代表了内容的最大宽度或最大高度。对于文本内容而言，这意味着内容即便溢出也不会被换行。</li>
+</ul>
+<h1 id="正负可用空间"><a href="#正负可用空间" class="headerlink" title="正负可用空间"></a>正负可用空间</h1><p>当一个弹性容器有正可用空间时，它就有更多的空间用于在容器内显示弹性元素。比如说，如果我们有 500px 宽的容器，flex-direction 属性值为 row，三个 100px 宽的弹性元素，那么我们还有 200px 的正可用空间，如果我们想要填充整个容器，则可将其分配到元素中。</p>
+<p><img src="/../../../images/013a3fcd15f1a891c7f058aea7734ce4fdaa5e25b84b142c6cf36af095021eee.png" alt="图 0">  </p>
+<p>当弹性元素的自然尺寸加起来比弹性容器内的可用空间大时，我们产生了负可用空间。比如我们有一个像上面那样的 500px 宽的容器，但是三个弹性元素每个都为 200px 宽，那我们就一共需要 600px 宽，因此就有了 100px 的负可用空间。这可以从弹性元素中删除以使其能适应容器。</p>
+<p><img src="/../../../images/77d3b003f9cdced2c3bc092a7beeb5fcbe5e02dc8af2c236f1423fb1e3c5f030.png" alt="图 1">  </p>
+<h1 id="flex-basis-属性"><a href="#flex-basis-属性" class="headerlink" title="flex-basis 属性"></a>flex-basis 属性</h1><p>flex-basis 属性在任何空间分配发生之前初始化弹性元素的尺寸。此属性的初始值为 auto。如果 flex-basis 设置为 auto，浏览器会先检查元素的主尺寸是否设置了绝对值再计算出它们的初始值。比如说你已经给你的元素设置了 200px 的宽，则 200px 就是这个元素的 flex-basis。</p>
+<p>如果你的元素为自动调整大小，则 auto 会解析为其内容的大小。此时你所熟知的 min-content 和 max-content 大小会变得有用，弹性盒子会将元素的 max-content 大小作为 flex-basis。</p>
+<p>空间分配时，如果你想要弹性盒子完全忽略元素的尺寸就需要设置 flex-basis 为 0。这显式地说明弹性盒子可用抢占所有空间，并按比例进行分配。</p>
+<p>flex-basis属性会覆盖项目的width属性（当主轴方向水平时）或height属性（当主轴方向垂直时），然而，flex-basis属性仍然受max-width&#x2F;max-height和min-width&#x2F;min-height属性的约束。</p>
+<h1 id="flex-grow-属性"><a href="#flex-grow-属性" class="headerlink" title="flex-grow 属性"></a>flex-grow 属性</h1><p>flex-grow 属性指定了弹性增长因子（flex grow factor），这决定了在分配正可用空间时，弹性元素相对于弹性容器中的其余弹性元素的增长程度。</p>
+<p>如果 flex-grow 的值全部相同，并且在弹性容器中还有正可用空间，那么它就会被平均地分配给所有元素。</p>
+<h1 id="flex-shrink-属性"><a href="#flex-shrink-属性" class="headerlink" title="flex-shrink 属性"></a>flex-shrink 属性</h1><p>flex-shrink 属性指定了弹性收缩因子（flex shrink factor），它确定在分配负可用空间时，弹性元素相对于弹性容器中其余弹性元素收缩的程度。</p>
+<h1 id="掌握弹性元素的大小"><a href="#掌握弹性元素的大小" class="headerlink" title="掌握弹性元素的大小"></a>掌握弹性元素的大小</h1><h2 id="什么设置了元素的基本大小？"><a href="#什么设置了元素的基本大小？" class="headerlink" title="什么设置了元素的基本大小？"></a>什么设置了元素的基本大小？</h2><ol>
+<li>flex-basis 设置为 auto，且元素设置了宽度，元素的大小将会基于设置的宽度。</li>
+<li>flex-basis 设置为 auto 或 content（在支持的浏览器中），元素的大小为原始大小。</li>
+<li>flex-basis 设置为 非0的长度，那这就是元素的大小。</li>
+<li>flex-basis 设为了 0，则元素的大小不在空间分配计算的考虑之内。</li>
+</ol>
+<h2 id="我们有可用空间吗？"><a href="#我们有可用空间吗？" class="headerlink" title="我们有可用空间吗？"></a>我们有可用空间吗？</h2><ol>
+<li>元素没有正可用空间就不会增长，没有负可用空间就不会缩小。</li>
+<li>如果我们把所有元素的宽度相加（如果在列方向工作则为高度），总和小于容器的总宽度（或高度），那么你有正可用空间，并且 flex-grow 会发挥作用。</li>
+<li>如果我们把所有的元素的宽度相加（如果在列方向工作则为高度），总和大于容器的总宽度（或高度），那么你有负可用空间，并且 flex-shrink 会发挥作用。</li>
+</ol>
+<h2 id="关于flex-grow属性的计算过程为"><a href="#关于flex-grow属性的计算过程为" class="headerlink" title="关于flex-grow属性的计算过程为"></a>关于flex-grow属性的计算过程为</h2><ol>
+<li>flex-grow属性小于等于0的项目不受影响，不会伸长。</li>
+<li>对剩余项目的flex-grow属性进行求和，将结果记为sum。</li>
+<li>分以下情况进行讨论。</li>
+</ol>
+<p><strong>sum ≥ 1 时 计算过程：</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">800px</span>;</span><br><span class="line">  <span class="selector-class">.item1</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">50px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.item2</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">flex-grow</span>: <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.item3</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">150px</span>;</span><br><span class="line">    <span class="attribute">flex-grow</span>: <span class="number">3</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.item4</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">flex-grow</span>: <span class="number">6</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>计算剩余宽度：剩余宽度 &#x3D; 容器宽度 - 项目总宽度，所以：剩余宽度 &#x3D; 800px - 500px &#x3D; 300px。</li>
+<li>计算各项目权重占比：权重 &#x3D; <flex-grow>，所以：<ol>
+<li>总权重 &#x3D; sum &#x3D; 1 + 3 + 6 &#x3D; 10。</li>
+<li>项目2权重 &#x3D; 1，项目2权重占比 &#x3D; 1 &#x2F; 10 &#x3D; 0.1。</li>
+<li>项目3权重 &#x3D; 3，项目3权重占比 &#x3D; 3 &#x2F; 10 &#x3D; 0.3。</li>
+<li>项目4权重 &#x3D; 6，项目4权重占比 &#x3D; 6 &#x2F; 10 &#x3D; 0.6。</li>
+</ol>
+</flex-grow></li>
+<li>计算各项目伸长宽度：伸长宽度 &#x3D; 权重占比 * 剩余宽度，所以：<ol>
+<li>项目2伸长宽度 &#x3D; 0.1 * 300px &#x3D; 30px。</li>
+<li>项目3伸长宽度 &#x3D; 0.3 * 300px &#x3D; 90px。</li>
+<li>项目4伸长宽度 &#x3D; 0.6 * 300px &#x3D; 180px。</li>
+</ol>
+</li>
+<li>计算各项目伸长后宽度：伸长后宽度 &#x3D; <flex-basis> + 伸长宽度，所以：<ol>
+<li>项目2伸长后宽度 &#x3D; 100px + 30px &#x3D; 130px。</li>
+<li>项目3伸长后宽度 &#x3D; 150px + 90px &#x3D; 240px。</li>
+<li>项目4伸长后宽度 &#x3D; 200px + 180px &#x3D; 380px。</li>
+</ol>
+</flex-basis></li>
+</ol>
+<p><strong>sum &lt; 1 时</strong></p>
+<blockquote>
+<p>计算过程基本与sum &gt; 1时的情况相同，但在第 3 步中，各项目的伸长宽度为sum * 权重占比 * 剩余宽度。</p>
+</blockquote>
+<h2 id="关于flex-shrink属性的计算过程为"><a href="#关于flex-shrink属性的计算过程为" class="headerlink" title="关于flex-shrink属性的计算过程为"></a>关于flex-shrink属性的计算过程为</h2><ol>
+<li>flex-shrink属性小于等于0的项目不受影响，不会缩短。</li>
+<li>对剩余项目的flex-shrink属性进行求和，将结果记为sum。</li>
+<li>分以下情况进行讨论。</li>
+</ol>
+<p><strong>sum ≥ 1 时</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">800px</span>;</span><br><span class="line">  <span class="selector-class">.item1</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">100px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.item2</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">flex-shrink</span>: <span class="number">6</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.item3</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">300px</span>;</span><br><span class="line">    <span class="attribute">flex-shrink</span>: <span class="number">3</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.item4</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">400px</span>;</span><br><span class="line">    <span class="attribute">flex-shrink</span>: <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>计算溢出宽度：溢出宽度 &#x3D; 项目总宽度 - 容器宽度，所以：溢出宽度 &#x3D; 800px - 1000px &#x3D; 200px。</li>
+<li>计算各项目权重占比：权重 &#x3D; <flex-shrink> * <flex-basis>，所以：<ol>
+<li>总权重 &#x3D; 1200 + 900 + 400 &#x3D; 2500。</li>
+<li>项目2权重 &#x3D; 1200，项目2权重占比 &#x3D; 1200 &#x2F; 2500 &#x3D; 0.48。</li>
+<li>项目3权重 &#x3D; 900，项目3权重占比 &#x3D; 900 &#x2F; 2500 &#x3D; 0.36。</li>
+<li>项目4权重 &#x3D; 400，项目4权重占比 &#x3D; 400 &#x2F; 2500 &#x3D; 0.16。</li>
+</ol>
+</flex-basis></flex-shrink></li>
+<li>计算各项目缩短宽度：缩短宽度 &#x3D; 权重占比 * 溢出宽度，所以：<ol>
+<li>项目2伸长宽度 &#x3D; 0.48 * 200px &#x3D; 96px。</li>
+<li>项目3伸长宽度 &#x3D; 0.36 * 200px &#x3D; 72px。</li>
+<li>项目4伸长宽度 &#x3D; 0.16 * 200px &#x3D; 32px。</li>
+</ol>
+</li>
+<li>计算各项目缩短后宽度：缩短后宽度 &#x3D; 原始宽度 - 缩短宽度，所以：<ol>
+<li>项目2缩短后宽度 &#x3D; 200px - 96px &#x3D; 104px。</li>
+<li>项目3缩短后宽度 &#x3D; 300px - 72px &#x3D; 228px。</li>
+<li>项目4缩短后宽度 &#x3D; 400px - 32px &#x3D; 368px。</li>
+</ol>
+</li>
+</ol>
+<p><strong>sum &lt; 1 时</strong></p>
+<blockquote>
+<p>计算过程基本与sum &gt; 1时的情况相同，但在第 3 步中，各项目的缩短宽度为sum * 权重占比 * 溢出宽度。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/07/26/css/flex%E5%AE%B9%E5%99%A8%E4%B8%AD%E7%9A%84%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/07/26/css/flex%E5%AE%B9%E5%99%A8%E4%B8%AD%E7%9A%84%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F/" class="post-title-link" itemprop="url">flex容器中的对齐方式</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-07-26 11:48:46" itemprop="dateCreated datePublished" datetime="2023-07-26T11:48:46+08:00">2023-07-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-07-28 11:17:50" itemprop="dateModified" datetime="2023-07-28T11:17:50+08:00">2023-07-28</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>flexbox 之所以能迅速吸引开发者的注意，其中一个原因就是它首次为网页样式居中提供了合适的方案。得益于它提供的合适的垂直居中能力，我们可以很轻松地把一个盒子居中。</p>
+<p>通过align-items属性，可以将交叉轴上的 item 对齐。而使用justify-content则可以对齐主轴上的项目。</p>
+<p><img src="1519b53666a0b4c9fa64ef3ea43ed9ee8f50b01cc641c36d6ad07894a581a747.png" alt="图 0">  </p>
+<h1 id="控制对齐的属性"><a href="#控制对齐的属性" class="headerlink" title="控制对齐的属性"></a>控制对齐的属性</h1><ul>
+<li>justify-content - 控制主轴（横轴）上所有 flex 项目的对齐。</li>
+<li>align-items - 控制交叉轴（纵轴）上单行内 flex 项目的对齐。</li>
+<li>align-content - 控制“多条主轴”的 flex 项目在交叉轴的对齐。</li>
+<li>align-self - 控制交叉轴（纵轴）上的单个 flex 项目的对齐。</li>
+</ul>
+<h1 id="交叉轴"><a href="#交叉轴" class="headerlink" title="交叉轴"></a>交叉轴</h1><p>如果我们在父级的容器元素上添加display: flex 属性，那么容器里的所有子元素将会变成横向排列的flex项目。所有的flex项目会撑满交叉轴方向的高度，因为display: flex 属性会将 flex 项目的高定义成容器的高度。</p>
+<p><img src="b881a8ce38800651a3014c72308e13dc40b351b955624f088e96d56074875d78.png" alt="图 1">  </p>
+<p>flex items 的高度全都变成一样的原因是 align-items 属性的初始值默认为 stretch 控制交叉轴对齐。</p>
+<p>我们可以使用其他的值来控制 flex items 的对齐方式：</p>
+<ul>
+<li>align-items: flex-start 单行内flex项目的开始端对齐</li>
+<li>align-items: flex-end 单行内flex项目的结束端对齐</li>
+<li>align-items: center 单行内flex项目居中对齐</li>
+<li>align-items: stretch 单行内flex项目撑满flex容器</li>
+<li>align-items: baseline 单行内flex项目的基线对齐</li>
+</ul>
+<h2 id="align-self-用于对齐单个-flex子项"><a href="#align-self-用于对齐单个-flex子项" class="headerlink" title="align-self 用于对齐单个 flex子项"></a>align-self 用于对齐单个 flex子项</h2><p>align-items 属性是给所有 flex 项目统一设置 align-self 的对齐属性。这意味着你能给单个 flex 项目明确地声明 align-self 属性。align-self 拥有 align-items 的所有属性值，另外还有一个 auto 能重置自身的值为 align-items 定义的值。</p>
+<p><img src="0b3129ed666dbe58c1945d8e709a4d631606ec62d8e2b7d31a20f5d7b1314b77.png" alt="图 2">  </p>
+<p>在上面的一个例子中，flex 容器为 align-items: flex-start，这意思是所有的 flex 项目都在交叉轴方向的开始端对齐。我用 first-child 选择器给第一个 flex 项目设置了 align-self: stretch ；另外一个selected 项目用设置成 align-self: center 。</p>
+<h2 id="改变主轴方向"><a href="#改变主轴方向" class="headerlink" title="改变主轴方向"></a>改变主轴方向</h2><p>flex-direction 是 row,意味着主轴是水平方向，交叉轴对齐则是垂直方向由上至下。</p>
+<p><img src="7d9061a996562cb702c28b0c2344f9a9c6941fa15cf822a69976160dffd1fd28.png" alt="图 3">  </p>
+<p>flex-direction 为 column ，意味着主轴是垂直方向，交叉轴对齐则是水平方向由左至右。</p>
+<p><img src="379a697f65a783c13e5f66cd03f04f3adaf71ce4a9f77d784b214e7658b0338a.png" alt="图 4">  </p>
+<h2 id="轴对齐内容——-align-content-属性"><a href="#轴对齐内容——-align-content-属性" class="headerlink" title="轴对齐内容—— align-content 属性"></a>轴对齐内容—— align-content 属性</h2><p>如果你有一个折行的多条 flex 项目的 flex 容器，你可以使用 align-content 来控制每行之间空间的分配，在这种特定的场景叫做packing flex lines。</p>
+<p>要使得 align-content 生效，你需要你的 flex 容器的 height 要大于 flex 项目的可视内容。然后它会将所有的 flex 项目打包成一块之后再对齐剩下的空间。</p>
+<p><strong>align-content 属性的值如下：</strong></p>
+<ul>
+<li>align-content: flex-start</li>
+<li>align-content: flex-end</li>
+<li>align-content: center</li>
+<li>align-content: space-between</li>
+<li>align-content: space-around</li>
+<li>align-content: stretch</li>
+<li>align-content: space-evenly （没有在 Flexbox 特性中定义）</li>
+</ul>
+<p>在下面的例子，有一个 400px 高的 flex 容器，能足够地显示 flex 项目。align-content 的值为 space-between 等同于分配 flex 行之间的空间。</p>
+<p><img src="349d24de44ed04ad892b3351953ceabcd79754d37dc95f7e74fd985d5334c7e0.png" alt="图 5">  </p>
+<p>在强调一次我们可以切换我们的 flex-direction 为 column 去观察这个属性的行为是怎样的。和之前一样，我们需要足够的交叉轴空间去显示所有的 flex 项目之外还有有一定的自由空间。</p>
+<p><img src="8f1b5d22bfbe757ba7cc1a82da5104aa550df363bb713c3338d0571f9e18e231.png" alt="图 6">  </p>
+<h1 id="对齐主轴内容"><a href="#对齐主轴内容" class="headerlink" title="对齐主轴内容"></a>对齐主轴内容</h1><p>到目前我们已经看到 flex 项目是如何在交叉轴上对齐的，现在我们可以看一下主轴上的对齐。这里只有一个属性是用于主轴上对齐—— justify-content </p>
+<p><img src="718d519a0ef428b424897511611a47456a3b0ddd5ebbffc658b94ed987ff65a6.png" alt="图 7">  </p>
+<p><strong>justify-content 属性有和 align-content 一样的属性值：</strong></p>
+<ul>
+<li>justify-content: flex-start</li>
+<li>justify-content: flex-end</li>
+<li>justify-content: center</li>
+<li>justify-content: space-between</li>
+<li>justify-content: space-around</li>
+<li>justify-content: stretch</li>
+<li>justify-content: space-evenly （没有在 flexbox 特性中定义）</li>
+</ul>
+<h2 id="对齐和书写模式"><a href="#对齐和书写模式" class="headerlink" title="对齐和书写模式"></a>对齐和书写模式</h2><p>记得这些所有的对齐方法，属性值 flex-start 和 flex-end 是受书写模式的影响的。如果 justify-content 的值是 flex-start 而已你的书写模式是从左到右的话，那么 flex items 就会从 flex container 的左边开始排列。</p>
+<p><img src="013a3fcd15f1a891c7f058aea7734ce4fdaa5e25b84b142c6cf36af095021eee.png" alt="图 8">  </p>
+<p>反之，则会 flex 项目就会从 flex 容器的右边开始排列。</p>
+<p><img src="3171d71c0cdef26a57eda1440d917e17b613714972a9febf065bb7e90b684fca.png" alt="图 9">  </p>
+<h2 id="对齐和-flex-direction"><a href="#对齐和-flex-direction" class="headerlink" title="对齐和 flex-direction"></a>对齐和 flex-direction</h2><p>如果你改变 flex-direction 属性，主轴起始线也会改变——例如，使用 row-reverse 代替 row。</p>
+<p><img src="a04f8a413e400b2ed43a0b47bedb3002094bb1d974dd0e63ce77819f1a2e559e.png" alt="图 10">  </p>
+<p>这似乎有一点令人困惑，需要记住的规则就是，当没有设置 flex-direction 时，flex 项目的排列方向与文档语言的文本沿行内轴的排列方向一致。flex-start 就是一个句子中文本的起始处。</p>
+<p><img src="013a3fcd15f1a891c7f058aea7734ce4fdaa5e25b84b142c6cf36af095021eee.png" alt="图 11">  </p>
+<p>你可以通过设置 flex-direction: column，使弹性项目沿着文档语言的块级轴方向显示。那样话，flex-start 就是文本第一个段落的顶端起始处。</p>
+<p><img src="cdf1a6cdc84760777959a7b4d4b2378d4c675de3d26a56e65e580d89377833e9.png" alt="图 12">  </p>
+<p>如果你将 flex-direction 的值改成 row-reverse 或者 column-revers ，那么flex 项目会沿着文档语言的文本书写方向的相反方向，从轴的尾端开始排列。flex-start 就会变为轴的尾端。也就是说，沿着行内轴时，这个位置就是每行文本的换行处；沿着块级轴时，就是文本最后一个段落的底部。</p>
+<p><img src="ee5458aeb82c96dfe8c16da3f65ddd6f05034b06b53f8314d5014cbd038d1b41.png" alt="图 13">  </p>
+<p><img src="c78fbb2f3c90461f0755b9e0418334e53801afd56c80bf862b0ffb9401a1a54c.png" alt="图 14">  </p>
+<h2 id="在主轴上使用margin-对齐"><a href="#在主轴上使用margin-对齐" class="headerlink" title="在主轴上使用margin 对齐"></a>在主轴上使用margin 对齐</h2><p>我们想要处理个别flex 项目在主轴上的对齐，但是没有 justify-items 属性或者 justify-self 属性可用，因为flex 项目会被当成一个组来对齐。然而，我们可以使用 margin 来处理一些flex 项目或者一组flex 项目想和其他flex 项目分离开的对齐情况。</p>
+<p>在下面这个在线例子中，flex 项目按默认方式简单地沿行排列，而样式类 push 有设置有 margin-left: auto。你可以尝试删除它，或者把这个类名加到别的flex 项目上，你会看到它是怎样影响flex 项目排列的。<br><img src="ccd12ac430230cac7e845d2f1614c0205d2d507b99c977c081f75505ef745fc5.png" alt="图 15">  </p>
+<h1 id="order-属性"><a href="#order-属性" class="headerlink" title="order 属性"></a>order 属性</h1><p>order属性旨在按顺序排列项目。这意味着为项目分配了代表其组的整数。然后，按照该整数（最低的值）首先按照视觉顺序放置项目。如果多个项目具有相同的整数值，则在该组中按照源顺序对项目进行布局。</p>
+<p>flex 项目默认 order 值为 0, 因此整数值大于 0 的项目，将会显示在那些未指定 order 值的项目之后。</p>
+<p>您还可以使用负值，这很有用。如果要先显示一个项目，并保持所有其他项目的顺序不变，则可以将该项目的顺序设为-1。由于该值小于 0，因此始终会首先显示该项目。</p>
+<p><img src="6c655b34cca6b5efb8ed61fd0c48c2ec6fa014bcbb00f1fcfb9e757999c1bcdb.png" alt="图 16">  </p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ol>
+<li>容器属性</li>
+</ol>
+<ul>
+<li><p>dispaly:</p>
+</li>
+<li><p>flex-direction: 控制主轴方向；</p>
+</li>
+<li><p>flex-warp：控制主轴是否换行；</p>
+</li>
+<li><p>flex-flow:</p>
+</li>
+<li><p>justify-content:控制主轴对齐方式</p>
+</li>
+<li><p>align-item:控制交叉轴行内元素对齐方式</p>
+</li>
+<li><p>align-content:控制“多条主轴”的flex项目在交叉轴的对齐</p>
+</li>
+</ul>
+<ol start="2">
+<li>flex元素属性</li>
+</ol>
+<ul>
+<li><p>flex-grow:控制元素拉伸</p>
+</li>
+<li><p>flex-shrink:控制元素压缩</p>
+</li>
+<li><p>flex-basis:控制元素空间大小</p>
+</li>
+<li><p>flex</p>
+</li>
+<li><p>align-self:控制交叉轴上的单个flex项目的对齐</p>
+</li>
+</ul>
+<p><strong>align-items与align-content 的区别</strong></p>
+<ol>
+<li>align-items：</li>
+</ol>
+<ul>
+<li>作用对象：弹性盒子容器(flex containers)；</li>
+<li>描述：该属性可以控制弹性容器中成员在当前行内的对齐方式。当成员设置了align-self 属性时，父容器的 align-items 值则不再对它生效；</li>
+</ul>
+<ol start="2">
+<li>align-content：</li>
+</ol>
+<ul>
+<li>作用对象：弹性盒子容器多行的控制(multi-line flex containers)；</li>
+<li>描述：当弹性容器在正交轴方向还存在空白时，该属性可以控制其中所有行的对齐方式。Note：该属性无法作用于单行 (flex-wrap: no-wrap) 弹性盒子；</li>
+</ul>
+<ol start="3">
+<li>对比</li>
+</ol>
+<ul>
+<li>相同点：都被用来设置对齐行为。</li>
+<li>不同点：<ul>
+<li>align-items 的设置对象是行内成员;</li>
+<li>align-content 的设置对象是所有行，且只有在多行弹性盒子容器中才生效。</li>
+</ul>
+</li>
+</ul>
+<p>align-content 显示效果<br><img src="4f42bb7e8fc4aa649c46e695b097a06ef549998ce129b492eebe225b3cce8b37.png" alt="图 17">  </p>
+<p>默认设置 display:flex后；<br>flex-direction:row<br>flex-warp:nowarp<br>justify-content:flex-start<br>align-item:stretch</p>
+<p>flex-basis:auto<br>flex-grow:1<br>flex-shrink:1<br>align-self:stretch</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/07/25/css/flex%E5%B8%83%E5%B1%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/07/25/css/flex%E5%B8%83%E5%B1%80/" class="post-title-link" itemprop="url">flex布局</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-07-25 18:28:29" itemprop="dateCreated datePublished" datetime="2023-07-25T18:28:29+08:00">2023-07-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-07-28 09:51:33" itemprop="dateModified" datetime="2023-07-28T09:51:33+08:00">2023-07-28</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>传统的布局方案，基于盒模型，依赖display属性、position属性和float属性。其对于某些特殊的布局（如垂直居中），实现起来比较麻烦。<br>在 2009 年，W3C 提出了一种新的布局方案——Flex 布局（Flexible Box 布局，弹性盒子布局），其相比于传统的布局方案，更为灵活和简便。目前，Flex 布局已经得到了所有浏览器的支持。<br>将元素的display属性设置为flex或inline-flex后，即可开启 Flex 布局：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 块级元素</span><br><span class="line"><span class="selector-class">.block-box</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 行内元素</span><br><span class="line"><span class="selector-class">.inline-box</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: inline-flex;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>同时，该元素会自动成为 Flex 容器，简称容器。且容器的所有子元素会自动成为 Flex 容器成员，简称项目。项目的float、clear、vertical-align属性将失效。<br>容器中默认存在两根轴：主轴和交叉轴。主轴和交叉轴互相垂直，类似于平面坐标系中的 x 轴和 y 轴。项目将自动沿着主轴方向排列，排满时将沿交叉轴方向堆砌，即在交叉轴方向上换行（前提是容器flex-wrap属性不为nowrap）。</p>
+<h1 id="flexbox-的两根轴线"><a href="#flexbox-的两根轴线" class="headerlink" title="flexbox 的两根轴线"></a>flexbox 的两根轴线</h1><p>当使用 flex 布局时，首先想到的是两根轴线 — 主轴和交叉轴。<strong>主轴由 flex-direction 定义</strong>，另一根轴垂直于它。我们使用 flexbox 的所有属性都跟这两根轴线有关，所以有必要在一开始首先理解它。</p>
+<h2 id="主轴"><a href="#主轴" class="headerlink" title="主轴"></a>主轴</h2><p>主轴由 flex-direction 定义，可以取 4 个值：</p>
+<ul>
+<li>row</li>
+<li>row-reverse</li>
+<li>column</li>
+<li>column-reverse</li>
+</ul>
+<p>如果你选择了 row 或者 row-reverse，你的主轴将沿着 inline 方向延伸。<br><img src="3e36d0e94c21fe3663a00ab2ff0d7c7cbccb246f897a7e36febc8a50d3bba7a8.png" alt="图 0">  </p>
+<p>选择 column 或者 column-reverse 时，你的主轴会沿着上下方向延伸 — 也就是 block 排列的方向。</p>
+<p><img src="0234ac4fbb2520dd27a685ad671962718aaf3dcfb37d8af61ebf49a820b057be.png" alt="图 1">  </p>
+<h2 id="交叉轴"><a href="#交叉轴" class="headerlink" title="交叉轴"></a>交叉轴</h2><p>交叉轴垂直于主轴，所以如果你的flex-direction (主轴) 设成了 row 或者 row-reverse 的话，交叉轴的方向就是沿着列向下的。</p>
+<p><img src="f9c6ce02dca6af6bbd3544a265f4793edbc2e0d28d520880255d6fc3ea44120a.png" alt="图 2">  </p>
+<p>如果主轴方向设成了 column 或者 column-reverse，交叉轴就是水平方向。<br><img src="57fc207072143e04b94a6224c9e8ffba413efdacb3d0cc520f6a4baab922d4a9.png" alt="图 3">  </p>
+<p>理解主轴和交叉轴的概念对于对齐 flexbox 里面的元素是很重要的；flexbox 的特性是沿着主轴或者交叉轴对齐之中的元素。</p>
+<h1 id="起始线和终止线"><a href="#起始线和终止线" class="headerlink" title="起始线和终止线"></a>起始线和终止线</h1><p>过去，CSS 的书写模式主要被认为是水平的，从左到右的。现代的布局方式涵盖了书写模式的范围，所以我们不再假设一行文字是从文档的左上角开始向右书写，新的行也不是必须出现在另一行的下面。</p>
+<p>如果 flex-direction 是 row ，并且我是在书写英文，那么主轴的起始线是左边，终止线是右边。<br><img src="013a3fcd15f1a891c7f058aea7734ce4fdaa5e25b84b142c6cf36af095021eee.png" alt="图 4"><br>如果我在书写阿拉伯文，那么主轴的起始线是右边，终止线是左边。</p>
+<p>在这两种情况下，交叉轴的起始线是 flex 容器的顶部，终止线是底部，因为两种语言都是水平书写模式。</p>
+<h1 id="Flex-容器"><a href="#Flex-容器" class="headerlink" title="Flex 容器"></a>Flex 容器</h1><p>文档中采用了<code>flexbox</code>的区域就叫做<code>flex</code>容器。为了创建 <code>flex</code>容器，我们把一个容器的<code>display</code>属性值改为<code>flex</code> 或者<code>inline-flex</code>。完成这一步之后，容器中的直系子元素就会变为<code>flex</code>元素。所有 CSS 属性都会有一个初始值，所以 flex 容器中的所有 flex 元素都会有下列行为：</p>
+<ul>
+<li>元素排列为一行 (flex-direction 属性的初始值是 row)。</li>
+<li>元素从主轴的起始线开始。</li>
+<li>元素不会在主维度方向拉伸，但是可以缩小。</li>
+<li>元素被拉伸来填充交叉轴大小。</li>
+<li>flex-basis 属性为 auto。</li>
+<li>flex-wrap 属性为 nowrap。</li>
+</ul>
+<p>这会让你的元素呈线形排列，并且把自己的大小作为主轴上的大小。如果有太多元素超出容器，它们会溢出而不会换行。如果一些元素比其他元素高，那么元素会沿交叉轴被拉伸来填满它的大小。</p>
+<h2 id="更改-flex-方向-flex-direction"><a href="#更改-flex-方向-flex-direction" class="headerlink" title="更改 flex 方向 flex-direction"></a>更改 flex 方向 flex-direction</h2><p>设置 flex-direction: row-reverse 可以让元素沿着行的方向显示，但是起始线和终止线位置会交换。</p>
+<p>把 flex 容器的属性 flex-direction 改为 column ，主轴和交叉轴交换，元素沿着列的方向排列显示。改为 column-reverse ，起始线和终止线交换。</p>
+<h2 id="用-flex-wrap-实现多行-Flex-容器"><a href="#用-flex-wrap-实现多行-Flex-容器" class="headerlink" title="用 flex-wrap 实现多行 Flex 容器"></a>用 flex-wrap 实现多行 Flex 容器</h2><p>虽然flexbox是一维模型，但可以使我们的flex项目应用到多行中。在这样做的时候，您应该把每一行看作一个新的flex容器。任何空间分布都将在该行上发生，而不影响该空间分布的其他行。</p>
+<p>为了实现多行效果，请为属性flex-wrap添加一个属性值wrap。现在，如果您的项目太大而无法全部显示在一行中，则会换行显示。下面的实时例子包含已给出宽度的项目，对于flex容器，项目的子元素总宽度大于容器最大宽度。由于flex-wrap的值设置为wrap，所以项目的子元素换行显示。若将其设置为nowrap，这也是初始值，它们将会缩小以适应容器，因为它们使用的是允许缩小的初始Flexbox值。如果项目的子元素无法缩小，使用nowrap会导致溢出，或者缩小程度还不够小。</p>
+<p><img src="c1e0b2ad4c4da9d3f941bed60cd51d9c1a02169b0d193847cb51e35b8bf63bd7.png" alt="图 5">  </p>
+<h1 id="简写属性-flex-flow"><a href="#简写属性-flex-flow" class="headerlink" title="简写属性 flex-flow"></a>简写属性 flex-flow</h1><p>你可以将两个属性 flex-direction 和 flex-wrap 组合为简写属性 flex-flow。第一个指定的值为 flex-direction ，第二个指定的值为 flex-wrap</p>
+<p>在下面的例子中，尝试将第一个值修改为 flex-direction 的允许取值之一，即 row, row-reverse, column 或 column-reverse, 并尝试将第二个指定值修改为 wrap 或 nowrap。</p>
+<p><img src="77182811930e5556e1e8e1a90dfdbc910a1d2b5024abbf19fcb2b4c5cbb587ff.png" alt="图 6">  </p>
+<h1 id="flex-元素上的属性"><a href="#flex-元素上的属性" class="headerlink" title="flex 元素上的属性"></a>flex 元素上的属性</h1><p>为了更好地控制 flex 元素，有三个属性可以作用于它们：</p>
+<ul>
+<li>flex-grow</li>
+<li>flex-shrink</li>
+<li>flex-basis</li>
+</ul>
+<p>在考虑这几个属性的作用之前，需要先了解一下 可用空间 available space 这个概念。这几个 flex 属性的作用其实就是改变了 flex 容器中的可用空间的行为。同时，可用空间对于 flex 元素的对齐行为也是很重要的。</p>
+<p>假设在 1 个 500px 的容器中，我们有 3 个 100px 宽的元素，那么这 3 个元素需要占 300px 的宽，剩下 200px 的可用空间。在默认情况下，flexbox 的行为会把这 200px 的空间留在最后一个元素的后面。</p>
+<p><img src="a426a1ea867ad32df9dbe25afab2b1122106f66a1d6ca49102f931bc7fe4f90e.png" alt="图 7">  </p>
+<h2 id="flex-basis"><a href="#flex-basis" class="headerlink" title="flex-basis"></a>flex-basis</h2><p>flex-basis 定义了该元素的空间大小（the size of that item in terms of the space），flex 容器里除了元素所占的空间以外的富余空间就是可用空间 available space。该属性的默认值是 auto 。此时，浏览器会检测这个元素是否具有确定的尺寸。在上面的例子中，所有元素都设定了宽度（width）为 100px，所以 flex-basis 的值为 100px。</p>
+<p>如果没有给元素设定尺寸，flex-basis 的值采用元素内容的尺寸。这就解释了：我们给只要给 Flex 元素的父元素声明 display: flex ，所有子元素就会排成一行，且自动分配小大以充分展示元素的内容。</p>
+<h2 id="flex-grow"><a href="#flex-grow" class="headerlink" title="flex-grow"></a>flex-grow</h2><p>flex-grow 若被赋值为一个正整数，flex 元素会以 flex-basis 为基础，沿主轴方向增长尺寸。这会使该元素延展，并占据此方向轴上的可用空间（available space）。如果有其他元素也被允许延展，那么他们会各自占据可用空间的一部分。</p>
+<p>如果我们给上例中的所有元素设定 flex-grow 值为 1，容器中的可用空间会被这些元素平分。它们会延展以填满容器主轴方向上的空间。</p>
+<p>flex-grow 属性可以按比例分配空间。如果第一个元素 flex-grow 值为 2，其他元素值为 1，则第一个元素将占有 2&#x2F;4（上例中，即为 200px 中的 100px）, 另外两个元素各占有 1&#x2F;4（各 50px）。</p>
+<h2 id="flex-shrink"><a href="#flex-shrink" class="headerlink" title="flex-shrink"></a>flex-shrink</h2><p>flex-grow属性是处理 flex 元素在主轴上增加空间的问题，相反flex-shrink属性是处理 flex 元素收缩的问题。如果我们的容器中没有足够排列 flex 元素的空间，那么可以把 flex 元素flex-shrink属性设置为正整数来缩小它所占空间到flex-basis以下。与flex-grow属性一样，可以赋予不同的值来控制 flex 元素收缩的程度 —— 给flex-shrink属性赋予更大的数值可以比赋予小数值的同级元素收缩程度更大。</p>
+<p>在计算 flex 元素收缩的大小时，它的最小尺寸也会被考虑进去，就是说实际上 flex-shrink 属性可能会和 flex-grow 属性表现的不一致。</p>
+<h2 id="Flex-属性的简写"><a href="#Flex-属性的简写" class="headerlink" title="Flex 属性的简写"></a>Flex 属性的简写</h2><p>你可能很少看到 flex-grow，flex-shrink，和 flex-basis 属性单独使用，而是混合着写在 flex 简写形式中。 Flex 简写形式允许你把三个数值按这个顺序书写 — flex-grow，flex-shrink，flex-basis。</p>
+<p><img src="218e8a3a66b6b36cbfa4906f454aa314b67233c2ce93b7abe6482d8d1e05d859.png" alt="图 8">  </p>
+<p>在这个教程中你可能经常会看到这种写法，许多情况下你都可以这么使用。下面是几种预定义的值：</p>
+<ul>
+<li>flex: initial（flex: 0 1 auto）不能拉伸但可以缩小 flex 元素来防止它们溢出，flex-basis 的值为 auto. Flex 元素尺寸可以是在主维度上设置的，也可以是根据内容自动得到的</li>
+<li>flex: auto（flex: 1 1 auto）flex 元素在需要的时候既可以拉伸也可以收缩</li>
+<li>flex: none（flex: 0 0 auto）元素既不能拉伸或者收缩，但是元素会按具有 flex-basis: auto 属性的 flexbox 进行布局</li>
+<li>flex: <positive-number> 你在教程中常看到的 flex: 1 或者 flex: 2 等等。它相当于flex: 1 1 0 或者 flex: 2 1 0。元素可以在 flex-basis 为 0 的基础上伸缩</positive-number></li>
+</ul>
+<h1 id="元素间的对齐和空间分配"><a href="#元素间的对齐和空间分配" class="headerlink" title="元素间的对齐和空间分配"></a>元素间的对齐和空间分配</h1><p>Flexbox 的一个关键特性是能够设置 flex 元素沿主轴方向和交叉轴方向的对齐方式，以及它们之间的空间分配。</p>
+<h2 id="align-items-属性可以使元素在交叉轴方向对齐。"><a href="#align-items-属性可以使元素在交叉轴方向对齐。" class="headerlink" title="align-items 属性可以使元素在交叉轴方向对齐。"></a>align-items 属性可以使元素在交叉轴方向对齐。</h2><p>这个属性的初始值为stretch，这就是为什么 flex 元素会默认被拉伸到最高元素的高度。实际上，它们被拉伸来填满 flex 容器 —— 最高的元素定义了容器的高度。</p>
+<p>align-items属性的值：</p>
+<ul>
+<li>stretch</li>
+<li>flex-start</li>
+<li>flex-end</li>
+<li>center</li>
+</ul>
+<h2 id="justify-content属性用来使元素在主轴方向上对齐"><a href="#justify-content属性用来使元素在主轴方向上对齐" class="headerlink" title="justify-content属性用来使元素在主轴方向上对齐"></a>justify-content属性用来使元素在主轴方向上对齐</h2><p>justify-content属性的值：</p>
+<ul>
+<li>stretch</li>
+<li>flex-start</li>
+<li>flex-end</li>
+<li>center</li>
+<li>space-around</li>
+<li>space-between</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/24372279">https://zhuanlan.zhihu.com/p/24372279</a></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1413,365 +1965,6 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/04/25/angular/observable/%E4%BB%8EAngular%E4%B8%AD%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E3%80%81%E6%95%B0%E7%BB%84%E5%92%8C%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA%E5%8F%AF%E8%A7%82%E5%AF%9F%E5%AF%B9%E8%B1%A1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="InfoPool">
-      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | InfoPool">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/04/25/angular/observable/%E4%BB%8EAngular%E4%B8%AD%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E3%80%81%E6%95%B0%E7%BB%84%E5%92%8C%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA%E5%8F%AF%E8%A7%82%E5%AF%9F%E5%AF%B9%E8%B1%A1/" class="post-title-link" itemprop="url">从Angular中的字符串、数组和对象创建可观察对象</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-04-25 17:03:43" itemprop="dateCreated datePublished" datetime="2023-04-25T17:03:43+08:00">2023-04-25</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-04-26 10:42:43" itemprop="dateModified" datetime="2023-04-26T10:42:43+08:00">2023-04-26</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="Observable-的创建功能"><a href="#Observable-的创建功能" class="headerlink" title="Observable 的创建功能"></a>Observable 的创建功能</h1><p>有很多方法可以在Angular中创建Observable对象。您可以使用Observable构造函数，如Observable教程中所示。还有许多函数可以用来创建新的Observable。这些函数帮助我们从数组、字符串、promise等创建Observable。</p>
-<ul>
-<li>create</li>
-<li>defer</li>
-<li>empty</li>
-<li>from</li>
-<li>fromEvent</li>
-<li>interval</li>
-<li>of</li>
-<li>range</li>
-<li>throw</li>
-<li>timer<br>所有与创建相关的操作符都是RxJs核心库的一部分。您可以从“rxjs”库导入它</li>
-</ul>
-<h1 id="Create"><a href="#Create" class="headerlink" title="Create"></a>Create</h1><p>调用Create方法是创建Observable最简单的方式。Create是Observable对象的内容方法，所以您不必导入它。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line"> </span><br><span class="line">   <span class="comment">//Observable from Create Method</span></span><br><span class="line">   <span class="keyword">const</span> obsUsingCreate = <span class="title class_">Observable</span>.<span class="title function_">create</span>( <span class="function"><span class="params">observer</span> =&gt;</span> &#123;</span><br><span class="line">     observer.<span class="title function_">next</span>( <span class="string">&#x27;1&#x27;</span> )</span><br><span class="line">     observer.<span class="title function_">next</span>( <span class="string">&#x27;2&#x27;</span> )</span><br><span class="line">     observer.<span class="title function_">next</span>( <span class="string">&#x27;3&#x27;</span> )</span><br><span class="line">     observer.<span class="title function_">complete</span>()</span><br><span class="line">   &#125;)</span><br><span class="line">    obsUsingCreate</span><br><span class="line">      .<span class="title function_">subscribe</span>(<span class="function"><span class="params">val</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(val),</span><br><span class="line">              <span class="function"><span class="params">error</span>=&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;error&quot;</span>),</span><br><span class="line">              <span class="function">() =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;complete&quot;</span>))</span><br><span class="line">&#125;</span><br><span class="line">****<span class="title class_">Output</span> *****</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="title class_">Complete</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="Observable-构造函数"><a href="#Observable-构造函数" class="headerlink" title="Observable 构造函数"></a>Observable 构造函数</h2><p>我们在上一个示例中可以看到这一点，Observable.create方法和Observable构造函数之间没有区别。Observable的Create方法实际在幕后调用Observable的构造函数。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">   <span class="comment">//Observable Using Constructor</span></span><br><span class="line">   <span class="keyword">const</span> obsUsingConstructor = <span class="keyword">new</span> <span class="title class_">Observable</span>( <span class="function"><span class="params">observer</span> =&gt;</span> &#123;</span><br><span class="line">      observer.<span class="title function_">next</span>( <span class="string">&#x27;1&#x27;</span> )</span><br><span class="line">      observer.<span class="title function_">next</span>( <span class="string">&#x27;2&#x27;</span> )</span><br><span class="line">      observer.<span class="title function_">next</span>( <span class="string">&#x27;3&#x27;</span> )</span><br><span class="line"> </span><br><span class="line">      observer.<span class="title function_">complete</span>()</span><br><span class="line">   &#125;)</span><br><span class="line"> </span><br><span class="line">   obsUsingConstructor</span><br><span class="line">        .<span class="title function_">subscribe</span>(<span class="function"><span class="params">val</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(val),</span><br><span class="line">                <span class="function"><span class="params">error</span>=&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;error&quot;</span>),</span><br><span class="line">                <span class="function">() =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;complete&quot;</span>))</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">****<span class="title class_">Output</span> *****</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line">complete</span><br></pre></td></tr></table></figure>
-
-<h1 id="Of-操作符-Of-a-b-c"><a href="#Of-操作符-Of-a-b-c" class="headerlink" title="Of 操作符 Of(a,b,c)"></a>Of 操作符 Of(a,b,c)</h1><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> array=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>]</span><br><span class="line">  <span class="keyword">const</span> obsof1=<span class="title function_">of</span>(array);</span><br><span class="line">  obsof1.<span class="title function_">subscribe</span>(<span class="function"><span class="params">val</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(val),</span><br><span class="line">           <span class="function"><span class="params">error</span>=&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;error&quot;</span>),</span><br><span class="line">          <span class="function">() =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;complete&quot;</span>))</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line">**** <span class="title class_">Output</span> ***</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>]</span><br><span class="line">complete</span><br></pre></td></tr></table></figure>
-
-<h1 id="From-操作符-from-1-2-3"><a href="#From-操作符-from-1-2-3" class="headerlink" title="From 操作符 from([1,2,3])"></a>From 操作符 from([1,2,3])</h1><p>From 操作符受一个可以迭代的参数，并将其转换为Observable的参数。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">const</span> array3 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>]</span><br><span class="line">    <span class="keyword">const</span> obsfrom1 = <span class="title function_">from</span>(array3);</span><br><span class="line">    obsfrom1.<span class="title function_">subscribe</span>(<span class="function"><span class="params">val</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(val),</span><br><span class="line">      <span class="function"><span class="params">error</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;error&quot;</span>),</span><br><span class="line">      <span class="function">() =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;complete&quot;</span>))</span><br><span class="line">&#125;</span><br><span class="line">*** <span class="title class_">Output</span> ****</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">6</span></span><br><span class="line"><span class="number">7</span></span><br><span class="line">complete</span><br><span class="line"></span><br><span class="line"><span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123; </span><br><span class="line">  <span class="keyword">const</span> obsfrom2 = <span class="title function_">from</span>(<span class="string">&#x27;Hello World&#x27;</span>);</span><br><span class="line">    obsfrom2.<span class="title function_">subscribe</span>(<span class="function"><span class="params">val</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(val),</span><br><span class="line">      <span class="function"><span class="params">error</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;error&quot;</span>),</span><br><span class="line">      <span class="function">() =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;complete&quot;</span>))</span><br><span class="line">&#125;</span><br><span class="line">*** <span class="title class_">Output</span> ****</span><br><span class="line">H</span><br><span class="line">e</span><br><span class="line">l</span><br><span class="line">l</span><br><span class="line">o</span><br><span class="line"> </span><br><span class="line">W</span><br><span class="line">o</span><br><span class="line">r</span><br><span class="line">l</span><br><span class="line">d</span><br><span class="line">complete</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h1 id="Of-Vs-From"><a href="#Of-Vs-From" class="headerlink" title="Of Vs From"></a>Of Vs From</h1><table>
-<thead>
-<tr>
-<th>Of</th>
-<th>From</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>接受变量(并不是参数)</td>
-<td>只接受一个参数</td>
-</tr>
-<tr>
-<td>在不更改任何内容的情况下按原样发出每个变量</td>
-<td>迭代参数并发出每个值</td>
-</tr>
-</tbody></table>
-<h1 id="fromEvent-操作符"><a href="#fromEvent-操作符" class="headerlink" title="fromEvent 操作符"></a>fromEvent 操作符</h1><h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fromEvent&lt;T&gt;(<span class="attr">target</span>: <span class="title class_">FromEventTarget</span>&lt;T&gt;, </span><br><span class="line">             <span class="attr">eventName</span>: <span class="built_in">string</span>, </span><br><span class="line">             <span class="attr">options</span>: <span class="title class_">EventListenerOptions</span>, </span><br><span class="line">             <span class="attr">resultSelector</span>: <span class="function">(<span class="params">...args: <span class="built_in">any</span>[]</span>) =&gt;</span> T): <span class="title class_">Observable</span>&lt;T&gt;</span><br></pre></td></tr></table></figure>
-
-<p>FromEventTarget：是fromvevent的第一个参数。它可以是DOM EventTarget、Node.js EventEmitter、类似JQuery的事件目标、NodeList或HTMLCollection。目标必须有一个方法来注册&#x2F;注销事件处理程序。（如果是DOM事件目标，则为addEventListener&#x2F;removeEventListener）</p>
-<p>eventName：是第二个参数，这是我们想要侦听的事件类型。</p>
-<p>eventListenerOptions：是我们在注册事件处理程序（即addEventListener）时要传递给的附加参数</p>
-<p>resultSelector：是可选的，在未来的版本中将不推荐使用</p>
-<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="string">`&lt;button #btn&gt;Button&lt;/button&gt;</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line"><span class="meta">@ViewChild</span>(<span class="string">&#x27;btn&#x27;</span>, &#123; <span class="attr">static</span>: <span class="literal">true</span> &#125;) <span class="attr">button</span>: <span class="title class_">ElementRef</span>;</span><br><span class="line"></span><br><span class="line"> <span class="title function_">buttonClick</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">buttonSubscription</span> =  <span class="title function_">fromEvent</span>(<span class="variable language_">this</span>.<span class="property">button</span>.<span class="property">nativeElement</span>, <span class="string">&#x27;click&#x27;</span>)</span><br><span class="line">        .<span class="title function_">subscribe</span>(<span class="function"><span class="params">res</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(res));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">ngAfterViewInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">buttonClick</span>();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>我们可以从ngAfterViewInit方法调用上述方法。请注意，@ViewChild在ngOnInit之前不会初始化btn元素。因此，我们在这里使用ngAfterViewInit。</p>
-<h1 id="pipe-操作符"><a href="#pipe-操作符" class="headerlink" title="pipe 操作符"></a>pipe 操作符</h1><p>Angular Observable的管道方法用于将多个操作符链接在一起。我们可以将管道作为一个独立的方法使用，这有助于我们在多个地方重用它或将其作为一个实例方法。在本教程中，我们将了解管道，并了解如何在Angular应用程序中使用它。我们将向您展示使用map、filter和tap操作符的管道示例。</p>
-<h2 id="使用Pipe-链接操作符"><a href="#使用Pipe-链接操作符" class="headerlink" title="使用Pipe 链接操作符"></a>使用Pipe 链接操作符</h2><p>管道方法接受filter、map等运算符作为参数。每个参数必须用逗号分隔。运算符的顺序很重要，因为当用户订阅可观察对象时，管道会按添加运算符的顺序执行运算符。</p>
-<p>我们有两种方法可以使用这个管道。一种是作为observable的实例，另一种是作为独立方法使用</p>
-<h2 id="pipe作为实例方法"><a href="#pipe作为实例方法" class="headerlink" title="pipe作为实例方法"></a>pipe作为实例方法</h2><p>管道作为实例方法如下所示。我们将运算符op1、op2等作为参数传递给管道方法。op1方法的输出变成op2运算符的输入，依此类推。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">obs.<span class="title function_">pipe</span>(</span><br><span class="line">  <span class="title function_">op1</span>(),</span><br><span class="line">  <span class="title function_">op2</span>(),</span><br><span class="line">  <span class="title function_">op3</span>(),</span><br><span class="line">  <span class="title function_">op3</span>(),</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
-<p>以下是将管道与map &amp; filter操作符一起使用的示例。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>, <span class="title class_">OnInit</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Observable</span>, <span class="keyword">of</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; map, filter, tap &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs/operators&#x27;</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-root&#x27;</span>,</span><br><span class="line">  <span class="attr">templateUrl</span>: <span class="string">&#x27;./app.component.html&#x27;</span>,</span><br><span class="line">  <span class="attr">styleUrls</span>: [<span class="string">&#x27;./app.component.css&#x27;</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> <span class="keyword">implements</span> <span class="title class_">OnInit</span> &#123;</span><br><span class="line"> </span><br><span class="line">  obs = <span class="keyword">new</span> <span class="title class_">Observable</span>(<span class="function">(<span class="params">observer</span>) =&gt;</span> &#123;</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">1</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">2</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">3</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">4</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">5</span>)</span><br><span class="line">    observer.<span class="title function_">complete</span>()</span><br><span class="line">  &#125;).<span class="title function_">pipe</span>(</span><br><span class="line">    <span class="title function_">filter</span>(<span class="function"><span class="params">data</span> =&gt;</span> data &gt; <span class="number">2</span>),                    <span class="comment">//filter Operator</span></span><br><span class="line">    <span class="title function_">map</span>(<span class="function">(<span class="params">val</span>) =&gt;</span> &#123;<span class="keyword">return</span> val <span class="keyword">as</span> <span class="built_in">number</span> * <span class="number">2</span>&#125;),    <span class="comment">//map operator</span></span><br><span class="line">  )</span><br><span class="line"> </span><br><span class="line"> data = [];</span><br><span class="line"> </span><br><span class="line">  <span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">obs1</span>.<span class="title function_">subscribe</span>(</span><br><span class="line">      <span class="function"><span class="params">val</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">data</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment">//result</span></span><br><span class="line">[<span class="number">6</span>, <span class="number">8</span>, <span class="number">10</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>, <span class="title class_">OnInit</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Observable</span>, <span class="keyword">of</span>, pipe &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; map, filter, tap &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs/operators&#x27;</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-root&#x27;</span>,</span><br><span class="line">  <span class="attr">templateUrl</span>: <span class="string">&#x27;./app.component.html&#x27;</span>,</span><br><span class="line">  <span class="attr">styleUrls</span>: [<span class="string">&#x27;./app.component.css&#x27;</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> <span class="keyword">implements</span> <span class="title class_">OnInit</span> &#123;</span><br><span class="line"> </span><br><span class="line">  obs = <span class="keyword">new</span> <span class="title class_">Observable</span>(<span class="function">(<span class="params">observer</span>) =&gt;</span> &#123;</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">1</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">2</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">3</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">4</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">5</span>)</span><br><span class="line">    observer.<span class="title function_">complete</span>()</span><br><span class="line">  &#125;).<span class="title function_">pipe</span>(</span><br><span class="line">    <span class="title function_">tap</span>(<span class="function"><span class="params">data</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;tap &#x27;</span>+data)),           <span class="comment">//tap</span></span><br><span class="line">    <span class="title function_">filter</span>(<span class="function"><span class="params">data</span> =&gt;</span> data &gt; <span class="number">2</span>),                        <span class="comment">//filter</span></span><br><span class="line">    <span class="title function_">tap</span>(<span class="function"><span class="params">data</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;filter &#x27;</span>+data)),        <span class="comment">//tap</span></span><br><span class="line">    <span class="title function_">map</span>(<span class="function">(<span class="params">val</span>) =&gt;</span> &#123; <span class="keyword">return</span> val <span class="keyword">as</span> <span class="built_in">number</span> * <span class="number">2</span> &#125;),      <span class="comment">//map</span></span><br><span class="line">    <span class="title function_">tap</span>(<span class="function"><span class="params">data</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;final &#x27;</span>+data)),         <span class="comment">//tap</span></span><br><span class="line">  )</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">  data = [];</span><br><span class="line"> </span><br><span class="line">  <span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line"> </span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">obs</span>.<span class="title function_">subscribe</span>(</span><br><span class="line">      <span class="function"><span class="params">val</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">data</span>.<span class="title function_">push</span>(val)</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">data</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    )</span><br><span class="line"> </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="Pipe-作为单独方法"><a href="#Pipe-作为单独方法" class="headerlink" title="Pipe 作为单独方法"></a>Pipe 作为单独方法</h2><p>我们也可以将管道作为一个独立的函数来组成操作符，并在其他地方重用管道。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">customOperator = <span class="title function_">pipe</span>(</span><br><span class="line">    <span class="title function_">tap</span>(<span class="function"><span class="params">data</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;tap &#x27;</span>+data)),</span><br><span class="line">    <span class="title function_">filter</span>(<span class="function"><span class="params">data</span> =&gt;</span> data &gt; <span class="number">2</span>),</span><br><span class="line">    <span class="title function_">tap</span>(<span class="function"><span class="params">data</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;filter &#x27;</span>+data)),</span><br><span class="line">    <span class="title function_">map</span>(<span class="function">(<span class="params">val</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> val <span class="keyword">as</span> <span class="built_in">number</span> * <span class="number">2</span></span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="title function_">tap</span>(<span class="function"><span class="params">data</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;final &#x27;</span>+data)),</span><br><span class="line">  );</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">  obs = <span class="keyword">new</span> <span class="title class_">Observable</span>(<span class="function">(<span class="params">observer</span>) =&gt;</span> &#123;</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">1</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">2</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">3</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">4</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">5</span>)</span><br><span class="line">    observer.<span class="title function_">complete</span>()</span><br><span class="line">  &#125;)</span><br><span class="line">  </span><br><span class="line">  <span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">customOperator</span>(<span class="variable language_">this</span>.<span class="property">obs</span>).<span class="title function_">subscribe</span>();</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">  customOperator = <span class="title function_">pipe</span>(</span><br><span class="line">    <span class="title function_">tap</span>(<span class="function"><span class="params">data</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;tap &#x27;</span>+data)),</span><br><span class="line">    <span class="title function_">filter</span>(<span class="function"><span class="params">data</span> =&gt;</span> data &gt; <span class="number">2</span>),</span><br><span class="line">    <span class="title function_">tap</span>(<span class="function"><span class="params">data</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;filter &#x27;</span>+data)),</span><br><span class="line">    <span class="title function_">map</span>(<span class="function">(<span class="params">val</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> val <span class="keyword">as</span> <span class="built_in">number</span> * <span class="number">2</span></span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="title function_">tap</span>(<span class="function"><span class="params">data</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;final &#x27;</span>+data)),</span><br><span class="line">  );</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">  obs = <span class="keyword">new</span> <span class="title class_">Observable</span>(<span class="function">(<span class="params">observer</span>) =&gt;</span> &#123;</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">1</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">2</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">3</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">4</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">5</span>)</span><br><span class="line">    observer.<span class="title function_">complete</span>()</span><br><span class="line">  &#125;).<span class="title function_">pipe</span>(    </span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">customOperator</span>,</span><br><span class="line">    <span class="title function_">tap</span>(<span class="function"><span class="params">data</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;final &#x27;</span>+data)),</span><br><span class="line">  )</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">  data = [];</span><br><span class="line"> </span><br><span class="line">  <span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line"> </span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">obs</span>.<span class="title function_">subscribe</span>(</span><br><span class="line">      <span class="function"><span class="params">val</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">data</span>.<span class="title function_">push</span>(val)</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">data</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    )</span><br><span class="line"> </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>我们可以使用Create方法或Observable构造函数来创建一个新的Observable。<br>当您有类似数组的值时，Of运算符很有用，您可以将其作为单独的参数传递给Of方法以创建可观察的值。<br>From操作符试图迭代传递给它的任何东西，并从中创建一个可观察的对象。<br>RxJS库中有许多其他运算符或方法可用于创建和操作Angular observable。我们将在接下来的几个教程中学习其中的一些内容</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/04/14/angular/observable/Angular-Observable-%E7%AE%80%E4%BB%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="InfoPool">
-      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | InfoPool">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/04/14/angular/observable/Angular-Observable-%E7%AE%80%E4%BB%8B/" class="post-title-link" itemprop="url">Angular Observable 简介</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-04-14 11:51:36" itemprop="dateCreated datePublished" datetime="2023-04-14T11:51:36+08:00">2023-04-14</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-07-19 18:38:18" itemprop="dateModified" datetime="2023-07-19T18:38:18+08:00">2023-07-19</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="什么是RxJS"><a href="#什么是RxJS" class="headerlink" title="什么是RxJS"></a>什么是RxJS</h1><p>RxJS（Reactive Extensions Library for JavaScript）是一个使用可观察序列编写异步和基于事件的JavaScript库，RxJS 属于响应式编程，其思想是将时间看作数组，随着时间发生的事件被看作是数组的项，然后以操作数组的方式变换事件。</p>
-<p><strong>RxJS 中解决异步事件管理的基本概念有：</strong></p>
-<ul>
-<li><p><strong>Observable（可观察者）</strong>：它的本质其实就是一个随时间不断产生数据的一个集合，称之为流更容易理解。</p>
-</li>
-<li><p><strong>Observer（观察者）</strong>：从行为上来看，无非就是定义了如何处理上述流产生的数据，称之为流的处理方法，更容易理解。</p>
-</li>
-<li><p><strong>Subscription（订阅）</strong>：表示 Observable 的一次执行，它的本质就是暂存了一个启动后的流，每一个启动后的流都是相互独立的，而这个启动后的流，就存储在subscription中，提供了unsubscribe，来停止这个流。</p>
-</li>
-<li><p><strong>Operator（操作符）</strong>：是纯函数，可以使用 map、filter、concat、reduce 等操作来以函数式编程风格处理集合。</p>
-</li>
-<li><p><strong>Subject（主体）</strong>：相当于一个 EventEmitter，也是将一个值或事件多播到多个 Observers 的唯一方式。</p>
-</li>
-<li><p><strong>Scheduler（调度器）</strong>：是控制并发的集中化调度器，允许我们在计算发生时进行协调，例如 setTimeout 或 requestAnimationFrame 或其它。</p>
-</li>
-</ul>
-<p>Angular在其框架中大量使用RxJS库来实现响应式编程。使用响应式编程的一些示例如下：</p>
-<ul>
-<li>Angular中响应HTTP请求</li>
-<li>Angular中表单中值&#x2F;状态变更</li>
-<li>Router和Forms模块使用可观察性来监听和响应用户输入事件</li>
-<li>通过自定义事件从子组件发送observable输出数据到父组件</li>
-<li>HTTP模块使用Observable来处理AJAX请求和响应</li>
-</ul>
-<p>那么流是指什么呢？举个例子，代码中每1s输出一个数字，用户每一次对元素的点击，就像是在时间这个维度上，产生了一个数据集。这个数据集不像数组那样，它不是一开始都存在的，而是随着时间的流逝，一个一个数据被输出出来。这种异步行为产生的数据，就可以被称之为一个流，在Rxjs中，称之为observable（抛开英文，本质其实就是一个数据的集合，只是这些数据不一定是一开始就设定好的，而是随着时间而不断产生的）。而Rxjs，就是为了处理这种流而产生的工具，比如流与流的合并，流的截断，延迟，消抖等等操作。</p>
-<h1 id="理解基本定义-observable-observer-subscription"><a href="#理解基本定义-observable-observer-subscription" class="headerlink" title="理解基本定义: observable, observer, subscription"></a>理解基本定义: observable, observer, subscription</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Observable</span> &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 流的创建</span></span><br><span class="line"><span class="keyword">const</span> stream$ = <span class="keyword">new</span> <span class="title class_">Observable</span>(<span class="function"><span class="params">subscriber</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    subscriber.<span class="title function_">next</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);</span><br><span class="line">  &#125;, <span class="number">500</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如何消费流产生的数据，observer</span></span><br><span class="line"><span class="keyword">const</span> observer = &#123;</span><br><span class="line">  <span class="attr">complete</span>: <span class="function">() =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;done&quot;</span>),</span><br><span class="line">  <span class="attr">next</span>: <span class="function"><span class="params">v</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(v),</span><br><span class="line">  <span class="attr">error</span>: <span class="function">() =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;error&quot;</span>)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 启动流</span></span><br><span class="line"><span class="keyword">const</span> subscription = stream$.<span class="title function_">subscribe</span>(observer);</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 停止流</span></span><br><span class="line">  subscription.<span class="title function_">unsubscribe</span>();</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
-<p>上述过程中，涉及到了3个变量 :</p>
-<ol>
-<li><p>stream$, 对应到Rxjs中，就是一个observable，它的本质其实就是一个随时间不断产生数据的一个集合，称之为流更容易理解。而其对象存在一个subscribe方法，调用该方法后，才会启动这个流（也就是数据才会开始产生），这里需要注意的是多次启动的每一个流都是独立的，互不干扰。</p>
-</li>
-<li><p>observer，代码中是stream$.subscribe(observer)，对应到Rxjs中，也是称之为observer。从行为上来看，无非就是定义了如何处理上述流产生的数据，称之为流的处理方法，更容易理解。</p>
-</li>
-<li><p>subscription，也就是const subscription &#x3D; stream$.subscribe(observer); 它的本质就是暂存了一个启动后的流，之前提到，每一个启动后的流都是相互独立的，而这个启动后的流，就存储在subscription中，提供了unsubscribe，来停止这个流。</p>
-</li>
-</ol>
-<p>简单理解了这三个名词observable, observer, subscription后，从数据的角度来思考：observable定义了要生成一个什么样的数据，其subscribe方法，接收一个observer（定义了接收到数据如何处理），并开始产生数据，该方法的返回值，subscription, 存储了这个已经开启的流，同时具有unscbscribe方法，可以将这个流停止。</p>
-<p>整理成下面这个公式：</p>
-<blockquote>
-<p>Subscription &#x3D; Observable.subscribe(observer)</p>
-<ul>
-<li>observable: 随着时间产生的数据集合，可以理解为流，其subscribe方法可以启动该流</li>
-<li>observer: 决定如何处理数据</li>
-<li>subscription: 存储已经启动过的流，其unsubscribe方法可以停止该流</li>
-</ul>
-</blockquote>
-<p>这里有几个点：</p>
-<ol>
-<li>subscribe不是订阅，而是启动这个流，可以看到，subscribe后，才会执行next方法 </li>
-<li>构建observable的时候，会有一个subscriber.next，这里就是控制这个流中数据的输出。</li>
-<li>Observable流可以多次启动，多次启动的流之间是相互独立的。</li>
-<li>Observable.subscribe()的返回值subscription上存在一个方法unsubscribe，可以将流停止。</li>
-</ol>
-<h1 id="创建-Observable-对象"><a href="#创建-Observable-对象" class="headerlink" title="创建 Observable 对象"></a>创建 Observable 对象</h1><p>Observable 是个多值的惰性 Push 集合。他们填补了下表中的缺失点：</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>单值</th>
-<th>多值</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>拉</td>
-<td>Function</td>
-<td>Iterator</td>
-</tr>
-<tr>
-<td>推</td>
-<td>Promise</td>
-<td>Observable</td>
-</tr>
-<tr>
-<td></td>
-<td></td>
-<td></td>
-</tr>
-</tbody></table>
-<h2 id="创建-Observables"><a href="#创建-Observables" class="headerlink" title="创建 Observables"></a>创建 Observables</h2><p>Observable 的构造函数接受一个参数：subscribe 函数。</p>
-<p>下面的示例创建一个 Observable 以每秒向订阅者发送字符串 ‘hi’。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Observable</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> observable = <span class="keyword">new</span> <span class="title class_">Observable</span>(<span class="keyword">function</span> <span class="title function_">subscribe</span>(<span class="params">subscriber</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> id = <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    subscriber.<span class="title function_">next</span>(<span class="string">&#x27;hi&#x27;</span>);</span><br><span class="line">  &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h2 id="订阅-Observables"><a href="#订阅-Observables" class="headerlink" title="订阅 Observables"></a>订阅 Observables</h2><p>示例中的 Observable observable 可以被订阅，如下所示：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">observable.<span class="title function_">subscribe</span>(<span class="function">(<span class="params">x</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(x));</span><br></pre></td></tr></table></figure>
-<p>subscribe 调用只是一个启动“ Observable 的执行”并将一些值或事件传递给该执行过程的 Observer 的方法。<br>同一个 Observable 的多个 Observer 之间是不共享的。对 observable.subscribe 的每次调用都会为给定的订阅者触发其自己的独立处理方法。</p>
-<h2 id="执行-Observables"><a href="#执行-Observables" class="headerlink" title="执行 Observables"></a>执行 Observables</h2><p>在 Observable 执行中，可能会传递零个到无限个 Next 通知。如果发送了出错或完成通知，则之后将无法发送任何其它通知。</p>
-<p><strong>Observable 执行可以传递三种类型的值：</strong></p>
-<ul>
-<li><p>“Next（下一个）” 通知：发送数值、字符串、对象等。</p>
-</li>
-<li><p>“Error（出错）” 通知：发送 JavaScript 错误或异常。</p>
-</li>
-<li><p>“Complete（完成）”通知：不发送值。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Observable</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">const</span> observable = <span class="keyword">new</span> <span class="title class_">Observable</span>(<span class="keyword">function</span> <span class="title function_">subscribe</span>(<span class="params">subscriber</span>) &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    subscriber.<span class="title function_">next</span>(<span class="number">1</span>);</span><br><span class="line">    subscriber.<span class="title function_">next</span>(<span class="number">2</span>);</span><br><span class="line">    subscriber.<span class="title function_">next</span>(<span class="number">3</span>);</span><br><span class="line">    subscriber.<span class="title function_">complete</span>();</span><br><span class="line">  &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">    subscriber.<span class="title function_">error</span>(err); <span class="comment">// delivers an error if it caught one</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<h2 id="取消-Observable-执行"><a href="#取消-Observable-执行" class="headerlink" title="取消 Observable 执行"></a>取消 Observable 执行</h2><p>当 observable.subscribe 被调用时，此 Observer 被附加到新创建的 Observable 执行中。此调用还会返回一个对象 Subscription ：</p>
-</li>
-</ul>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> subscription = observable.<span class="title function_">subscribe</span>(<span class="function">(<span class="params">x</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(x));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>当你订阅时，你会得到一个 Subscription，它代表正在进行的执行。只需调用 unsubscribe() 即可取消执行。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="keyword">from</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> observable = <span class="title function_">from</span>([<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>]);</span><br><span class="line"><span class="keyword">const</span> subscription = observable.<span class="title function_">subscribe</span>(<span class="function">(<span class="params">x</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(x));</span><br><span class="line"><span class="comment">// Later:</span></span><br><span class="line">subscription.<span class="title function_">unsubscribe</span>();</span><br></pre></td></tr></table></figure>
-
-<p>当我们不再需要observable时，我们需要取消订阅以关闭它。如果不取消订阅，可能会导致内存泄漏和性能下降。<br>要从可观察到的订阅中取消订阅，我们需要对订阅调用Unsubscribe（）方法。它将清理所有侦听器并释放内存。</p>
-<p>当我们销毁组件时，可观察到的内容将被取消订阅并清除。但是，您不必每次订阅都取消订阅。例如，发出完整信号的可观测对象，自动关闭。</p>
-<h1 id="观察者（Observer）"><a href="#观察者（Observer）" class="headerlink" title="观察者（Observer）"></a>观察者（Observer）</h1><p>什么是 Observer？ Observer 是 Observable 传递的各个值的消费者。 Observer 只是一组回调，对应于 Observable 传递的每种类型的通知：next、error 和 complete。下面是一个典型的 Observer 对象的例子：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> observer = &#123;</span><br><span class="line">  <span class="attr">next</span>: <span class="function">(<span class="params">x</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Observer got a next value: &#x27;</span> + x),</span><br><span class="line">  <span class="attr">error</span>: <span class="function">(<span class="params">err</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Observer got an error: &#x27;</span> + err),</span><br><span class="line">  <span class="attr">complete</span>: <span class="function">() =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Observer got a complete notification&#x27;</span>),</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>要使用 Observer，请将其提供给 Observable 的 subscribe ：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">observable.<span class="title function_">subscribe</span>(observer);</span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>Observer 只是具有三个回调的对象，分别用于 Observable 可能传递的每种类型的通知。</p>
-</blockquote>
-<p>RxJS 中的 Observer 也可能是部分的。如果你不提供其中一个回调，Observable 的执行仍然会正常进行，除了某些类型的通知会被忽略，因为它们在 Observer 中没有对应的回调。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line"> </span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">obs</span>.<span class="title function_">subscribe</span>(</span><br><span class="line">      <span class="function"><span class="params">val</span> =&gt;</span> &#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(val) &#125;, <span class="comment">//next callback</span></span><br><span class="line">      <span class="function"><span class="params">error</span> =&gt;</span> &#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;error&quot;</span>) &#125;, <span class="comment">//error callback</span></span><br><span class="line">      <span class="function">() =&gt;</span> &#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Completed&quot;</span>) &#125; <span class="comment">//complete callback</span></span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="Observable-操作符"><a href="#Observable-操作符" class="headerlink" title="Observable 操作符"></a>Observable 操作符</h1><p>操作符是对Observable进行操作并返回新Observable的函数。</p>
-<p><strong>有两种操作符：</strong></p>
-<ul>
-<li>可联入管道的操作符：本质上是一个纯函数，它将一个 Observable 作为输入并生成另一个 Observable 作为输出。订阅此输出 Observable 也会同时订阅其输入 Observable。</li>
-<li>创建操作符：是另一种操作符，可以作为独立函数调用以创建新的 Observable。例如： of(1, 2, 3) 创建一个 observable，它将一个接一个地发出 1、2 和 3。</li>
-</ul>
-<p>以下示例显示了filer和map运算符使用管道链接到一起，filter运算符删除所有小于等于2的数据，map运算符将该值乘以2。<br>输入流为[1，2，3，4，5]，而输出流为[6，8，10]。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">obs.<span class="title function_">pipe</span>(</span><br><span class="line"> obs = <span class="keyword">new</span> <span class="title class_">Observable</span>(<span class="function">(<span class="params">observer</span>) =&gt;</span> &#123;</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">1</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">2</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">3</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">4</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">5</span>)</span><br><span class="line">    observer.<span class="title function_">complete</span>()</span><br><span class="line">  &#125;).<span class="title function_">pipe</span>(</span><br><span class="line">    <span class="title function_">filter</span>(<span class="function"><span class="params">data</span> =&gt;</span> data &gt; <span class="number">2</span>),   <span class="comment">//filter Operator</span></span><br><span class="line">    <span class="title function_">map</span>(<span class="function">(<span class="params">val</span>) =&gt;</span> &#123;<span class="keyword">return</span> val <span class="keyword">as</span> <span class="built_in">number</span> * <span class="number">2</span>&#125;), <span class="comment">//map operator</span></span><br><span class="line">  )</span><br></pre></td></tr></table></figure>
-
-<h1 id="弹珠图"><a href="#弹珠图" class="headerlink" title="弹珠图"></a>弹珠图</h1><p>要解释操作符的工作原理，文字描述通常是不够的。许多操作符都与时间有关，他们可能以不同的方式延迟、采样、节流或防抖后发出。图表通常是更好的工具。弹珠图是操作符如何工作的可视化表示，包括输入 Observable、操作符及其参数以及输出 Observable。</p>
-<h1 id="Subject"><a href="#Subject" class="headerlink" title="Subject"></a>Subject</h1><p>Subject 是一种特殊类型的 Observable，它允许将值多播到多个 Observer。</p>
-<ul>
-<li>每个 Subject 都是 Observable。给定一个 Subject，你可以 subscribe 它，提供一个 Observer，它将开始正常接收值。</li>
-<li>每个 Subject 也都是 Observer。它是一个具有方法 next(v)、error(e) 和 complete() 的对象。要为 Subject 提供一个新值，只需调用 next(theValue)，它将被多播到注册进来监听 Subject 的 Observer。</li>
-</ul>
-<p>Subject也是Rxjs中比较重要的概念，从英文上不太好理解，直接上代码：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Subject</span> &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建subject</span></span><br><span class="line"><span class="keyword">const</span> subject = <span class="keyword">new</span> <span class="title class_">Subject</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 订阅一个observer</span></span><br><span class="line">subject.<span class="title function_">subscribe</span>(<span class="function"><span class="params">v</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;stream 1&quot;</span>, v));</span><br><span class="line"><span class="comment">// 再订阅一个observer</span></span><br><span class="line">subject.<span class="title function_">subscribe</span>(<span class="function"><span class="params">v</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;stream 2&quot;</span>, v));</span><br><span class="line"><span class="comment">// 延时1s再订阅一个observer</span></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  subject.<span class="title function_">subscribe</span>(<span class="function"><span class="params">v</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;stream 3&quot;</span>, v));</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br><span class="line"><span class="comment">// 产生数据1</span></span><br><span class="line">subject.<span class="title function_">next</span>(<span class="number">1</span>);</span><br><span class="line"><span class="comment">// 产生数据2</span></span><br><span class="line">subject.<span class="title function_">next</span>(<span class="number">2</span>);</span><br><span class="line"><span class="comment">// 延时3s产生数据3</span></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  subject.<span class="title function_">next</span>(<span class="number">3</span>);</span><br><span class="line">&#125;, <span class="number">3000</span>);</span><br><span class="line"><span class="comment">// output</span></span><br><span class="line"><span class="comment">// stream 1 1 //立即输出</span></span><br><span class="line"><span class="comment">// stream 2 1 //立即输出</span></span><br><span class="line"><span class="comment">// stream 1 2 //立即输出</span></span><br><span class="line"><span class="comment">// stream 2 2 //立即输出</span></span><br><span class="line"><span class="comment">// stream 1 3 //3s后输出</span></span><br><span class="line"><span class="comment">// stream 2 3 //3s后输出</span></span><br><span class="line"><span class="comment">// stream 3 3 //3s后输出</span></span><br></pre></td></tr></table></figure>
-<p>可以看到，Subject的行为和发布订阅模式非常接近，subscribe去订阅，next触发。事件的订阅通过subscribe，事件的触发使用next，从而实现一个发布订阅的模式。</p>
-<p>由于 Subject 是 Observer，这也意味着你可以提供 Subject 作为任意 Observable subscribe 的参数，如下面的示例所示：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Subject</span>, <span class="keyword">from</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">const</span> subject = <span class="keyword">new</span> <span class="title class_">Subject</span>&lt;number&gt;();</span><br><span class="line"> </span><br><span class="line">subject.<span class="title function_">subscribe</span>(&#123;</span><br><span class="line">  <span class="attr">next</span>: <span class="function">(<span class="params">v</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`observerA: <span class="subst">$&#123;v&#125;</span>`</span>),</span><br><span class="line">&#125;);</span><br><span class="line">subject.<span class="title function_">subscribe</span>(&#123;</span><br><span class="line">  <span class="attr">next</span>: <span class="function">(<span class="params">v</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`observerB: <span class="subst">$&#123;v&#125;</span>`</span>),</span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line"><span class="keyword">const</span> observable = <span class="title function_">from</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);</span><br><span class="line"> </span><br><span class="line">observable.<span class="title function_">subscribe</span>(subject); <span class="comment">// You can subscribe providing a Subject</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">// Logs:</span></span><br><span class="line"><span class="comment">// observerA: 1</span></span><br><span class="line"><span class="comment">// observerB: 1</span></span><br><span class="line"><span class="comment">// observerA: 2</span></span><br><span class="line"><span class="comment">// observerB: 2</span></span><br><span class="line"><span class="comment">// observerA: 3</span></span><br><span class="line"><span class="comment">// observerB: 3</span></span><br></pre></td></tr></table></figure>
-<p>使用上述方法，我们基本上只是通过 Subject 将单播 Observable 执行转换为多播。这展示了 Subjects 是让任何 Observable 执行共享给多个 Observers 的唯一方法。</p>
-<h2 id="BehaviorSubject"><a href="#BehaviorSubject" class="headerlink" title="BehaviorSubject"></a>BehaviorSubject</h2><p>它存储发送给其消费者的最新值，并且每当有新的 Observer 订阅时，它将立即从 BehaviorSubject 接收到“当前值”。</p>
-<p>在下面的示例中，BehaviorSubject 使用第一个 Observer 在订阅时收到的值 0 进行初始化。第二个 Observer 接收到值 2，即使它是在发送值 2 之后订阅的。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">BehaviorSubject</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> subject = <span class="keyword">new</span> <span class="title class_">BehaviorSubject</span>(<span class="number">0</span>); <span class="comment">// 0 is the initial value</span></span><br><span class="line"></span><br><span class="line">subject.<span class="title function_">subscribe</span>(&#123;</span><br><span class="line">  <span class="attr">next</span>: <span class="function">(<span class="params">v</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`observerA: <span class="subst">$&#123;v&#125;</span>`</span>),</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">subject.<span class="title function_">next</span>(<span class="number">1</span>);</span><br><span class="line">subject.<span class="title function_">next</span>(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">subject.<span class="title function_">subscribe</span>(&#123;</span><br><span class="line">  <span class="attr">next</span>: <span class="function">(<span class="params">v</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`observerB: <span class="subst">$&#123;v&#125;</span>`</span>),</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">subject.<span class="title function_">next</span>(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Logs</span></span><br><span class="line"><span class="comment">// observerA: 0</span></span><br><span class="line"><span class="comment">// observerA: 1</span></span><br><span class="line"><span class="comment">// observerA: 2</span></span><br><span class="line"><span class="comment">// observerB: 2</span></span><br><span class="line"><span class="comment">// observerA: 3</span></span><br><span class="line"><span class="comment">// observerB: 3</span></span><br></pre></td></tr></table></figure>
-<h2 id="ReplaySubject"><a href="#ReplaySubject" class="headerlink" title="ReplaySubject"></a>ReplaySubject</h2><p>ReplaySubject 与 BehaviorSubject 类似，它可以将旧值发送给新订阅者，但它也可以记录 Observable 执行结果的一部分。</p>
-<p>创建 ReplaySubject 时，你可以指定要重播的值的数量：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ReplaySubject</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> subject = <span class="keyword">new</span> <span class="title class_">ReplaySubject</span>(<span class="number">3</span>); <span class="comment">// buffer 3 values for new subscribers</span></span><br><span class="line"></span><br><span class="line">subject.<span class="title function_">subscribe</span>(&#123;</span><br><span class="line">  <span class="attr">next</span>: <span class="function">(<span class="params">v</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`observerA: <span class="subst">$&#123;v&#125;</span>`</span>),</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">subject.<span class="title function_">next</span>(<span class="number">1</span>);</span><br><span class="line">subject.<span class="title function_">next</span>(<span class="number">2</span>);</span><br><span class="line">subject.<span class="title function_">next</span>(<span class="number">3</span>);</span><br><span class="line">subject.<span class="title function_">next</span>(<span class="number">4</span>);</span><br><span class="line"></span><br><span class="line">subject.<span class="title function_">subscribe</span>(&#123;</span><br><span class="line">  <span class="attr">next</span>: <span class="function">(<span class="params">v</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`observerB: <span class="subst">$&#123;v&#125;</span>`</span>),</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">subject.<span class="title function_">next</span>(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Logs:</span></span><br><span class="line"><span class="comment">// observerA: 1</span></span><br><span class="line"><span class="comment">// observerA: 2</span></span><br><span class="line"><span class="comment">// observerA: 3</span></span><br><span class="line"><span class="comment">// observerA: 4</span></span><br><span class="line"><span class="comment">// observerB: 2</span></span><br><span class="line"><span class="comment">// observerB: 3</span></span><br><span class="line"><span class="comment">// observerB: 4</span></span><br><span class="line"><span class="comment">// observerA: 5</span></span><br><span class="line"><span class="comment">// observerB: 5</span></span><br></pre></td></tr></table></figure>
-
-<p>除了缓冲区大小之外，你还可以指定一个以毫秒为单位的窗口时间，以确定记录的值可以存在多长时间。在以下示例中，我们使用 100 个元素的大型缓冲区，但窗口时间参数仅为 500 毫秒。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ReplaySubject</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> subject = <span class="keyword">new</span> <span class="title class_">ReplaySubject</span>(<span class="number">100</span>, <span class="number">500</span> <span class="comment">/* windowTime */</span>);</span><br><span class="line"></span><br><span class="line">subject.<span class="title function_">subscribe</span>(&#123;</span><br><span class="line">  <span class="attr">next</span>: <span class="function">(<span class="params">v</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`observerA: <span class="subst">$&#123;v&#125;</span>`</span>),</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> i = <span class="number">1</span>;</span><br><span class="line"><span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> subject.<span class="title function_">next</span>(i++), <span class="number">200</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  subject.<span class="title function_">subscribe</span>(&#123;</span><br><span class="line">    <span class="attr">next</span>: <span class="function">(<span class="params">v</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`observerB: <span class="subst">$&#123;v&#125;</span>`</span>),</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Logs</span></span><br><span class="line"><span class="comment">// observerA: 1</span></span><br><span class="line"><span class="comment">// observerA: 2</span></span><br><span class="line"><span class="comment">// observerA: 3</span></span><br><span class="line"><span class="comment">// observerA: 4</span></span><br><span class="line"><span class="comment">// observerA: 5</span></span><br><span class="line"><span class="comment">// observerB: 3</span></span><br><span class="line"><span class="comment">// observerB: 4</span></span><br><span class="line"><span class="comment">// observerB: 5</span></span><br><span class="line"><span class="comment">// observerA: 6</span></span><br><span class="line"><span class="comment">// observerB: 6</span></span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
-<h2 id="AsyncSubject"><a href="#AsyncSubject" class="headerlink" title="AsyncSubject"></a>AsyncSubject</h2><p>AsyncSubject 是一种变体，其中仅将 Observable 执行的最后一个值发送给其 Observer，并且仅在执行完成时发送。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">AsyncSubject</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> subject = <span class="keyword">new</span> <span class="title class_">AsyncSubject</span>();</span><br><span class="line"></span><br><span class="line">subject.<span class="title function_">subscribe</span>(&#123;</span><br><span class="line">  <span class="attr">next</span>: <span class="function">(<span class="params">v</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`observerA: <span class="subst">$&#123;v&#125;</span>`</span>),</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">subject.<span class="title function_">next</span>(<span class="number">1</span>);</span><br><span class="line">subject.<span class="title function_">next</span>(<span class="number">2</span>);</span><br><span class="line">subject.<span class="title function_">next</span>(<span class="number">3</span>);</span><br><span class="line">subject.<span class="title function_">next</span>(<span class="number">4</span>);</span><br><span class="line"></span><br><span class="line">subject.<span class="title function_">subscribe</span>(&#123;</span><br><span class="line">  <span class="attr">next</span>: <span class="function">(<span class="params">v</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`observerB: <span class="subst">$&#123;v&#125;</span>`</span>),</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">subject.<span class="title function_">next</span>(<span class="number">5</span>);</span><br><span class="line">subject.<span class="title function_">complete</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Logs:</span></span><br><span class="line"><span class="comment">// observerA: 5</span></span><br><span class="line"><span class="comment">// observerB: 5</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>响应式编程就是对流进行编程。RxJS库将响应式编程引入了Angular。使用RxJs，我们可以创建一个可观测对象，它可以向观测对象的订阅者发出值、错误和完成信号。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
     <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/04/13/angular/Angular%E8%A3%85%E9%A5%B0%E5%99%A8/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1896,111 +2089,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/04/08/angular/Angular%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="InfoPool">
-      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | InfoPool">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/04/08/angular/Angular%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90/" class="post-title-link" itemprop="url">Angular生命周期钩子</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-04-08 18:56:06" itemprop="dateCreated datePublished" datetime="2023-04-08T18:56:06+08:00">2023-04-08</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-06-28 09:22:51" itemprop="dateModified" datetime="2023-06-28T09:22:51+08:00">2023-06-28</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>AfterViewInit、AfterContentInit、AfterViewChecked和AfterContentChecked是生命周期钩子。Angular在组件的生命周期中，调用它们。在本教程中，我们将了解它们是什么以及Angular何时调用它们。我们还了解了AfterViewInit和AfterContentInit与AfterViewChecked和AfterContentChecked之间的差异。</p>
-<h1 id="生命周期回顾"><a href="#生命周期回顾" class="headerlink" title="生命周期回顾"></a>生命周期回顾</h1><p>当Angular实例化组件时，组件（或指令）的生命就开始了。实例化从调用组件的构造函数开始，并通过依赖注入服务。</p>
-<p>一旦Angular实例化了组件，它就会启动组件的变更检测，它检查并更新组件的输入数据绑定属性，并初始化组件。然后，它会引发以下生命周期钩子。</p>
-<p>Onchanges,如果Angular检测到Input属性的任何更改或angular检测到输入变化时，Onchanges都会被运行。</p>
-<p>OnInit，它告诉我们组件已经准备好了。这个钩子让我们有机会运行初始化逻辑，更新属性等。这个钩子只运行一次。</p>
-<p>DoCheck，这允许我们运行自定义更改检测，因为更改检测可能会忽略一些更改。该挂钩在每个变化检测周期中运行。</p>
-<p>在此之后，Angular又调用了四个钩子。它们是AfterContentInit、AfterContentChecked、AfterViewInit和AfterViewChecked。我们将详细研究它们。</p>
-<p>最后，当我们移除组件时，Angular调用ngOnDestroy钩子，销毁组件。</p>
-<h1 id="Content-Vs-View"><a href="#Content-Vs-View" class="headerlink" title="Content Vs View"></a>Content Vs View</h1><p>在深入研究这些挂钩之前，我们需要了解内容(Content)和视图(View)之间的区别。钩子AfterConentInit和AfterContentChecked处理内容(Content)，而AfterViewInit、AfterViewChecked处理视图(View)。</p>
-<h2 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h2><p>内容是指使用内容投影注入到该组件中的外部内容。<br>内容投影是将HTML内容从父组件传递到子组件的一种方式。子组件将在指定位置显示传入的内容。我们使用ng-content在子组件的模板中创建一个点，如下所示。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>Child Component<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ng-content</span>&gt;</span><span class="tag">&lt;/<span class="name">ng-content</span>&gt;</span>   <span class="comment">&lt;!-- place hodler for content from parent --&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>父元素在开始元素和结束元素之间注入内容。Angular将此内容传递给子组件。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Parent Component<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">app-child</span>&gt;</span> This <span class="tag">&lt;<span class="name">b</span>&gt;</span>content<span class="tag">&lt;/<span class="name">b</span>&gt;</span> is injected from parent<span class="tag">&lt;/<span class="name">app-child</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><p>视图是指组件的模板。</p>
-<h1 id="AfterContentInit"><a href="#AfterContentInit" class="headerlink" title="AfterContentInit"></a>AfterContentInit</h1><p>AfterContentInit是在组件的内容完全初始化并注入组件视图后，angular调用的生命周期挂钩。</p>
-<p>Angular在调用AfterContentInit之前，先更新被ContentChild和ContentChildren装饰的属性。</p>
-<p>即使组件中没有使用内容投影，Angular也会调用AfterContentInit，此挂钩在ngDoCheck挂钩之后启动。</p>
-<p>AfterContentInit仅调用一次(在组件创建后第一个变更检测后)。</p>
-<h1 id="AfterContentChecked"><a href="#AfterContentChecked" class="headerlink" title="AfterContentChecked"></a>AfterContentChecked</h1><p>AfterContentChecked 在 ngDoCheck 和 AfterContentInit调用之后触发。<br>Angular在调用AfterContentChecked之前，先更新被ContentChild和ContentChildren装饰的属性。</p>
-<h1 id="AfterViewInit"><a href="#AfterViewInit" class="headerlink" title="AfterViewInit"></a>AfterViewInit</h1><p>仅在组件创建后的第一个变更检测周期内触发一次。</p>
-<p>Angular 在完成组件视图及其子视图的初始化后，在变更检测期间调用的生命周期挂钩。</p>
-<p>在引发AfterViewInit之前，Angular 还会更新用 ViewChild 和 ViewChildren 属性装饰的属性。</p>
-<h1 id="AfterViewChecked"><a href="#AfterViewChecked" class="headerlink" title="AfterViewChecked"></a>AfterViewChecked</h1><p>在变更检测器完成对组件视图和子视图变更的检查后，Angular 调用的生命周期挂钩。</p>
-<p>在引发此挂钩之前，Angular 还会更新用 ViewChild 和 ViewChildren 属性装饰的属性。</p>
-<h1 id="Init-Vs-Checked"><a href="#Init-Vs-Checked" class="headerlink" title="Init Vs Checked"></a>Init Vs Checked</h1><p>当第一次初始化内容或视图时，Angular 会触发 AfterContentInit 和 AfterViewInit 钩子。 这发生在第一个变化检测周期中，Angular在组件实例化后立即调用。</p>
-<p>Angular 触发 AfterContentChecked 和 AfterViewChecked 钩子，Angular 在其中检查内容或视图是否已更改。 即先前呈现的内容或视图与当前内容或视图相同。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

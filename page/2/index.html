@@ -118,7 +118,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">40</span>
+          <span class="site-state-item-count">41</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -152,6 +152,109 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/04/08/angular/Angular%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/04/08/angular/Angular%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90/" class="post-title-link" itemprop="url">Angular生命周期钩子</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-04-08 18:56:06" itemprop="dateCreated datePublished" datetime="2023-04-08T18:56:06+08:00">2023-04-08</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-06-28 09:22:51" itemprop="dateModified" datetime="2023-06-28T09:22:51+08:00">2023-06-28</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>AfterViewInit、AfterContentInit、AfterViewChecked和AfterContentChecked是生命周期钩子。Angular在组件的生命周期中，调用它们。在本教程中，我们将了解它们是什么以及Angular何时调用它们。我们还了解了AfterViewInit和AfterContentInit与AfterViewChecked和AfterContentChecked之间的差异。</p>
+<h1 id="生命周期回顾"><a href="#生命周期回顾" class="headerlink" title="生命周期回顾"></a>生命周期回顾</h1><p>当Angular实例化组件时，组件（或指令）的生命就开始了。实例化从调用组件的构造函数开始，并通过依赖注入服务。</p>
+<p>一旦Angular实例化了组件，它就会启动组件的变更检测，它检查并更新组件的输入数据绑定属性，并初始化组件。然后，它会引发以下生命周期钩子。</p>
+<p>Onchanges,如果Angular检测到Input属性的任何更改或angular检测到输入变化时，Onchanges都会被运行。</p>
+<p>OnInit，它告诉我们组件已经准备好了。这个钩子让我们有机会运行初始化逻辑，更新属性等。这个钩子只运行一次。</p>
+<p>DoCheck，这允许我们运行自定义更改检测，因为更改检测可能会忽略一些更改。该挂钩在每个变化检测周期中运行。</p>
+<p>在此之后，Angular又调用了四个钩子。它们是AfterContentInit、AfterContentChecked、AfterViewInit和AfterViewChecked。我们将详细研究它们。</p>
+<p>最后，当我们移除组件时，Angular调用ngOnDestroy钩子，销毁组件。</p>
+<h1 id="Content-Vs-View"><a href="#Content-Vs-View" class="headerlink" title="Content Vs View"></a>Content Vs View</h1><p>在深入研究这些挂钩之前，我们需要了解内容(Content)和视图(View)之间的区别。钩子AfterConentInit和AfterContentChecked处理内容(Content)，而AfterViewInit、AfterViewChecked处理视图(View)。</p>
+<h2 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h2><p>内容是指使用内容投影注入到该组件中的外部内容。<br>内容投影是将HTML内容从父组件传递到子组件的一种方式。子组件将在指定位置显示传入的内容。我们使用ng-content在子组件的模板中创建一个点，如下所示。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>Child Component<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ng-content</span>&gt;</span><span class="tag">&lt;/<span class="name">ng-content</span>&gt;</span>   <span class="comment">&lt;!-- place hodler for content from parent --&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>父元素在开始元素和结束元素之间注入内容。Angular将此内容传递给子组件。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Parent Component<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">app-child</span>&gt;</span> This <span class="tag">&lt;<span class="name">b</span>&gt;</span>content<span class="tag">&lt;/<span class="name">b</span>&gt;</span> is injected from parent<span class="tag">&lt;/<span class="name">app-child</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><p>视图是指组件的模板。</p>
+<h1 id="AfterContentInit"><a href="#AfterContentInit" class="headerlink" title="AfterContentInit"></a>AfterContentInit</h1><p>AfterContentInit是在组件的内容完全初始化并注入组件视图后，angular调用的生命周期挂钩。</p>
+<p>Angular在调用AfterContentInit之前，先更新被ContentChild和ContentChildren装饰的属性。</p>
+<p>即使组件中没有使用内容投影，Angular也会调用AfterContentInit，此挂钩在ngDoCheck挂钩之后启动。</p>
+<p>AfterContentInit仅调用一次(在组件创建后第一个变更检测后)。</p>
+<h1 id="AfterContentChecked"><a href="#AfterContentChecked" class="headerlink" title="AfterContentChecked"></a>AfterContentChecked</h1><p>AfterContentChecked 在 ngDoCheck 和 AfterContentInit调用之后触发。<br>Angular在调用AfterContentChecked之前，先更新被ContentChild和ContentChildren装饰的属性。</p>
+<h1 id="AfterViewInit"><a href="#AfterViewInit" class="headerlink" title="AfterViewInit"></a>AfterViewInit</h1><p>仅在组件创建后的第一个变更检测周期内触发一次。</p>
+<p>Angular 在完成组件视图及其子视图的初始化后，在变更检测期间调用的生命周期挂钩。</p>
+<p>在引发AfterViewInit之前，Angular 还会更新用 ViewChild 和 ViewChildren 属性装饰的属性。</p>
+<h1 id="AfterViewChecked"><a href="#AfterViewChecked" class="headerlink" title="AfterViewChecked"></a>AfterViewChecked</h1><p>在变更检测器完成对组件视图和子视图变更的检查后，Angular 调用的生命周期挂钩。</p>
+<p>在引发此挂钩之前，Angular 还会更新用 ViewChild 和 ViewChildren 属性装饰的属性。</p>
+<h1 id="Init-Vs-Checked"><a href="#Init-Vs-Checked" class="headerlink" title="Init Vs Checked"></a>Init Vs Checked</h1><p>当第一次初始化内容或视图时，Angular 会触发 AfterContentInit 和 AfterViewInit 钩子。 这发生在第一个变化检测周期中，Angular在组件实例化后立即调用。</p>
+<p>Angular 触发 AfterContentChecked 和 AfterViewChecked 钩子，Angular 在其中检查内容或视图是否已更改。 即先前呈现的内容或视图与当前内容或视图相同。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1884,159 +1987,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/03/01/expression/%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A0%91/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="InfoPool">
-      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | InfoPool">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/03/01/expression/%E8%A1%A8%E8%BE%BE%E5%BC%8F%E6%A0%91/" class="post-title-link" itemprop="url">表达式树</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2023-03-01 12:31:32 / 修改时间：19:07:42" itemprop="dateCreated datePublished" datetime="2023-03-01T12:31:32+08:00">2023-03-01</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>在创建 LINQ 查询时，通常使用 Lambda 表达式编写函数参数。 在典型的 LINQ 查询中，这些函数参数会被转换为编译器创建的委托。</p>
-<p>当想要进行更丰富的交互时，需要使用表达式树。 表达式树将代码表示为可以检查、修改或执行的结构。 这些工具让你能够在运行时操作代码。 可以编写检查正在运行的算法的代码，或插入新的功能。 在更加高级的方案中，你可以修改正在运行的算法，甚至可以将 C# 表达式转换为另一种形式从而可在另一环境中执行。</p>
-<h1 id="表达式树说明"><a href="#表达式树说明" class="headerlink" title="表达式树说明"></a>表达式树说明</h1><p>让我们来举一个简单的示例。 以下是一个代码行：</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sum = <span class="number">1</span> + <span class="number">2</span>;</span><br></pre></td></tr></table></figure>
-<p>直观地看，整个语句是一棵树：应从根节点开始，浏览到树中的每个节点，以查看构成该语句的代码：</p>
-<ul>
-<li>具有赋值 (var sum &#x3D; 1 + 2;) 的变量声明语句<ul>
-<li>隐式变量类型声明 (var sum)<ul>
-<li>隐式 var 关键字 (var)</li>
-<li>变量名称声明 (sum)</li>
-</ul>
-</li>
-<li>赋值运算符 (&#x3D;)</li>
-<li>二进制加法表达式 (1 + 2)<ul>
-<li>左操作数 (1)</li>
-<li>加法运算符 (+)</li>
-<li>右操作数 (2)</li>
-</ul>
-</li>
-</ul>
-</li>
-</ul>
-<p>表达式树的结构非常一致。 了解基础知识后，你甚至可以理解以表达式树形式表示的最复杂的代码。 优美的数据结构说明了 C# 编译器如何分析最复杂的 C# 程序并从该复杂的源代码创建正确的输出。</p>
-<p>不能执行的操作是修改表达式树。 表达式树是不可变的数据结构。 如果想要改变（更改）表达式树，则必须创建基于原始树副本但包含所需更改的新树。</p>
-<h1 id="支持表达式树的框架类型"><a href="#支持表达式树的框架类型" class="headerlink" title="支持表达式树的框架类型"></a>支持表达式树的框架类型</h1><h2 id="这一切都始于-System-Linq-Expression"><a href="#这一切都始于-System-Linq-Expression" class="headerlink" title="这一切都始于 System.Linq.Expression"></a>这一切都始于 System.Linq.Expression</h2><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">Expression&lt;Func&lt;<span class="built_in">int</span>, <span class="built_in">int</span>&gt;&gt; addFive = (num) =&gt; num + <span class="number">5</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">if</span> (addFive.NodeType == ExpressionType.Lambda)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> lambdaExp = (LambdaExpression)addFive;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> parameter = lambdaExp.Parameters.First();</span><br><span class="line"></span><br><span class="line">    Console.WriteLine(parameter.Name);</span><br><span class="line">    Console.WriteLine(parameter.Type);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>例如，此代码将打印变量访问表达式的变量的名称。 我的做法是，先查看节点类型，再转换为变量访问表达式，然后查看特定表达式类型的属性：</p>
-<h2 id="创建表达式树"><a href="#创建表达式树" class="headerlink" title="创建表达式树"></a>创建表达式树</h2><p>System.Linq.Expression 类还包含许多创建表达式的静态方法。</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Addition is an add expression for &quot;1 + 2&quot;</span></span><br><span class="line"><span class="keyword">var</span> one = Expression.Constant(<span class="number">1</span>, <span class="keyword">typeof</span>(<span class="built_in">int</span>));</span><br><span class="line"><span class="keyword">var</span> two = Expression.Constant(<span class="number">2</span>, <span class="keyword">typeof</span>(<span class="built_in">int</span>));</span><br><span class="line"><span class="keyword">var</span> addition = Expression.Add(one, two);</span><br></pre></td></tr></table></figure>
-
-<h2 id="导航-API"><a href="#导航-API" class="headerlink" title="导航 API"></a>导航 API</h2><p>存在映射到 C# 语言的几乎所有语法元素的表达式节点类型。 每种类型都有针对该种语言元素的特定方法。 需要一次性记住的内容很多。 我不会记住所有内容，而是会采用有关使用表达式树的技巧，如下所示：</p>
-<ul>
-<li>查看 ExpressionType 枚举的成员以确定应检查的可能节点。 如果想要遍历和理解表达式树，这将非常有用。</li>
-<li>查看 Expression 类的静态成员以生成表达式。 这些方法可以从其子节点集生成任何表达式类型。</li>
-<li>查看 ExpressionVisitor 类，以生成一个经过修改的表达式树。</li>
-</ul>
-<h1 id="执行表达式树"><a href="#执行表达式树" class="headerlink" title="执行表达式树"></a>执行表达式树</h1><p>表达式树是表示一些代码的数据结构。 它不是已编译且可执行的代码。 如果想要执行由表达式树表示的 .NET 代码，则必须将其转换为可执行的 IL 指令。</p>
-<h2 id="Lambda-表达式到函数"><a href="#Lambda-表达式到函数" class="headerlink" title="Lambda 表达式到函数"></a>Lambda 表达式到函数</h2><blockquote>
-<p>可以将任何 LambdaExpression 或派生自 LambdaExpression 的任何类型转换为可执行的 IL。<br>其他表达式类型不能直接转换为代码。 此限制在实践中影响不大。<br>Lambda 表达式是你可通过转换为可执行的中间语言 (IL) 来执行的唯一表达式类型。 </p>
-</blockquote>
-<p>LambdaExpression 类型包含用于将表达式树转换为可执行代码的 Compile 和 CompileToMethod 成员。 Compile 方法创建委托。 CompileToMethod 方法通过表示表达式树的已编译输出的 IL 更新 MethodBuilder 对象。 </p>
-<p>请注意，CompileToMethod 仅在完整的桌面框架中可用，不能用于 .NET Core。</p>
-<p>使用下面的代码将表达式转换为委托：</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Expression&lt;Func&lt;<span class="built_in">int</span>&gt;&gt; <span class="keyword">add</span> = () =&gt; <span class="number">1</span> + <span class="number">2</span>;</span><br><span class="line"><span class="keyword">var</span> func = <span class="keyword">add</span>.Compile(); <span class="comment">// Create Delegate</span></span><br><span class="line"><span class="keyword">var</span> answer = func(); <span class="comment">// Invoke Delegate</span></span><br><span class="line">Console.WriteLine(answer);</span><br></pre></td></tr></table></figure>
-<p>请注意，该委托类型基于表达式类型。 如果想要以强类型的方式使用委托对象，则必须知道返回类型和参数列表。 LambdaExpression.Compile() 方法返回 Delegate 类型。 必须将其转换为正确的委托类型，以便使任何编译时工具检查参数列表或返回类型。</p>
-<p>在此提醒你不要通过避免不必要的编译调用尝试创建用于提高性能的任何更复杂的缓存机制。 比较两个任意的表达式树，以确定如果它们表示相同的算法，是否也会花费很长的时间来执行。 你可能会发现，通过避免对 LambdaExpression.Compile() 的任何额外调用所节省的计算时间将多于执行代码（该代码确定可导致相同可执行代码的两个不同表达式树）所花费的时间。</p>
-<h2 id="注意事项"><a href="#注意事项" class="headerlink" title="注意事项"></a>注意事项</h2><p>将 lambda 表达式编译为委托并调用该委托是可对表达式树执行的最简单的操作之一。 但是，即使是执行这个简单的操作，也存在一些必须注意的事项。</p>
-<p>Lambda 表达式将对表达式中引用的任何局部变量创建闭包。 必须保证作为委托的一部分的任何变量在调用 Compile 的位置处和执行结果委托时可用。</p>
-<p>一般情况下，编译器会确保这一点。 但是，如果表达式访问实现 IDisposable 的变量，则代码可能在表达式树仍保留有对象时释放该对象。</p>
-<p>例如，此代码工作正常，因为 int 不实现 IDisposable：</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Func&lt;<span class="built_in">int</span>, <span class="built_in">int</span>&gt; <span class="title">CreateBoundFunc</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> constant = <span class="number">5</span>; <span class="comment">// constant is captured by the expression tree</span></span><br><span class="line">    Expression&lt;Func&lt;<span class="built_in">int</span>, <span class="built_in">int</span>&gt;&gt; expression = (b) =&gt; constant + b;</span><br><span class="line">    <span class="keyword">var</span> rVal = expression.Compile();</span><br><span class="line">    <span class="keyword">return</span> rVal;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>委托已捕获对局部变量 constant 的引用。 在稍后执行 CreateBoundFunc 返回的函数之后，可随时访问该变量。</p>
-<p>但是，请考虑实现 IDisposable 的此（人为设计的）类：</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Resource</span> : <span class="title">IDisposable</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="built_in">bool</span> isDisposed = <span class="literal">false</span>;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> Argument</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">get</span></span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (!isDisposed)</span><br><span class="line">                <span class="keyword">return</span> <span class="number">5</span>;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">throw</span> <span class="keyword">new</span> ObjectDisposedException(<span class="string">&quot;Resource&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">Dispose</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        isDisposed = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>如果将其用于如下所示的表达式中，则在执行 Resource.Argument 属性引用的代码时将出现 ObjectDisposedException：</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">static</span> Func&lt;<span class="built_in">int</span>, <span class="built_in">int</span>&gt; <span class="title">CreateBoundResource</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">using</span> (<span class="keyword">var</span> constant = <span class="keyword">new</span> Resource()) <span class="comment">// constant is captured by the expression tree</span></span><br><span class="line">    &#123;</span><br><span class="line">        Expression&lt;Func&lt;<span class="built_in">int</span>, <span class="built_in">int</span>&gt;&gt; expression = (b) =&gt; constant.Argument + b;</span><br><span class="line">        <span class="keyword">var</span> rVal = expression.Compile();</span><br><span class="line">        <span class="keyword">return</span> rVal;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>从此方法返回的委托已对释放了的 constant 对象闭包。 （它已被释放，因为它已在 using 语句中进行声明。）</p>
-<p>现在，在执行从此方法返回的委托时，将在执行时引发 ObjectDisposedException。</p>
-<p>定义表达式时，请谨慎访问局部变量，且在创建可由公共 API 返回的表达式树时，谨慎访问当前对象（由 this 表示）中的状态。</p>
-<p>表达式中的代码可能引用其他程序集中的方法或属性。 对表达式进行定义、编译或在调用结果委托时，该程序集必须可访问。 在它不存在的情况下，将遇到 ReferencedAssemblyNotFoundException。</p>
-<h1 id="生成表达式树"><a href="#生成表达式树" class="headerlink" title="生成表达式树"></a>生成表达式树</h1><p>到目前为止，你所看到的所有表达式树都是由 C# 编译器创建的。 你所要做的是创建一个 lambda 表达式，将其分配给一个类型为 Expression&lt;Func<T>&gt; 或某种相似类型的变量。 这不是创建表达式树的唯一方法。 很多情况下，可能需要在运行时在内存中生成一个表达式。</T></p>
-<p>由于这些表达式树是不可变的，所以生成表达式树很复杂。 不可变意味着必须以从叶到根的方式生成表达式树。 用于生成表达式树的 API 体现了这一点：用于生成节点的方法将其所有子级用作参数。 让我们通过几个示例来了解相关技巧。</p>
-<h2 id="创建节点"><a href="#创建节点" class="headerlink" title="创建节点"></a>创建节点</h2><p>让我们再次从相对简单的内容开始。 我们将使用在这些部分中一直使用的加法表达式：</p>
-<h2 id="生成树"><a href="#生成树" class="headerlink" title="生成树"></a>生成树</h2><p>这是在内存中生成表达式树的基础知识。 更复杂的树通常意味着更多的节点类型，并且树中有更多的节点。 让我们再浏览一个示例，了解通常在创建表达式树时创建的其他两个节点类型：参数节点和方法调用节点。</p>
-<p>生成一个表达式树以创建此表达式：</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">Expression&lt;Func&lt;<span class="built_in">double</span>, <span class="built_in">double</span>, <span class="built_in">double</span>&gt;&gt; distanceCalc =</span><br><span class="line">    (x, y) =&gt; Math.Sqrt(x * x + y * y);</span><br></pre></td></tr></table></figure>
-<p>首先，创建 x 和 y 的参数表达式：</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xParameter = Expression.Parameter(<span class="keyword">typeof</span>(<span class="built_in">double</span>), <span class="string">&quot;x&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> yParameter = Expression.Parameter(<span class="keyword">typeof</span>(<span class="built_in">double</span>), <span class="string">&quot;y&quot;</span>);</span><br></pre></td></tr></table></figure>
-<p>按照你所看到的模式创建乘法和加法表达式：</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> xSquared = Expression.Multiply(xParameter, xParameter);</span><br><span class="line"><span class="keyword">var</span> ySquared = Expression.Multiply(yParameter, yParameter);</span><br><span class="line"><span class="keyword">var</span> sum = Expression.Add(xSquared, ySquared);</span><br></pre></td></tr></table></figure>
-<p>接下来，需要为调用 Math.Sqrt 创建方法调用表达式。</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> sqrtMethod = <span class="keyword">typeof</span>(Math).GetMethod(<span class="string">&quot;Sqrt&quot;</span>, <span class="keyword">new</span>[] &#123; <span class="keyword">typeof</span>(<span class="built_in">double</span>) &#125;);</span><br><span class="line"><span class="keyword">var</span> distance = Expression.Call(sqrtMethod, sum);</span><br></pre></td></tr></table></figure>
-<p>最后，将方法调用放入 Lambda 表达式，并确保定义 Lambda 表达式的参数：</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> distanceLambda = Expression.Lambda(</span><br><span class="line">    distance,</span><br><span class="line">    xParameter,</span><br><span class="line">    yParameter);</span><br></pre></td></tr></table></figure>
-<p>在这个更复杂的示例中，你看到了创建表达式树通常使用的其他几种技巧。</p>
-<p>首先，在使用它们之前，需要创建表示参数或局部变量的对象。 创建这些对象后，可以在表达式树中任何需要的位置使用它们。</p>
-<p>其次，需要使用反射 API 的一个子集来创建 MethodInfo 对象，以便创建表达式树以访问该方法。 必须仅限于 .NET Core 平台上提供的反射 API 的子集。 同样，这些技术将扩展到其他表达式树。</p>
-<h2 id="深度生成代码"><a href="#深度生成代码" class="headerlink" title="深度生成代码"></a>深度生成代码</h2><p>不仅限于使用这些 API 可以生成的代码。 但是，要生成的表达式树越复杂，代码就越难以管理和阅读。</p>
-<p>让我们生成一个与此代码等效的表达式树：</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">Func&lt;<span class="built_in">int</span>, <span class="built_in">int</span>&gt; factorialFunc = (n) =&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> res = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">while</span> (n &gt; <span class="number">1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        res = res * n;</span><br><span class="line">        n--;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> res;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
-<p>请注意上面我未生成表达式树，只是生成了委托。 使用 Expression 类不能生成语句 lambda。 下面是生成相同的功能所需的代码。 它很复杂，这是因为没有用于生成 while 循环的 API，而是需要生成一个包含条件测试的循环和一个用于中断循环的标签目标。</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> nArgument = Expression.Parameter(<span class="keyword">typeof</span>(<span class="built_in">int</span>), <span class="string">&quot;n&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> result = Expression.Variable(<span class="keyword">typeof</span>(<span class="built_in">int</span>), <span class="string">&quot;result&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Creating a label that represents the return value</span></span><br><span class="line">LabelTarget label = Expression.Label(<span class="keyword">typeof</span>(<span class="built_in">int</span>));</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> initializeResult = Expression.Assign(result, Expression.Constant(<span class="number">1</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// This is the inner block that performs the multiplication,</span></span><br><span class="line"><span class="comment">// and decrements the value of &#x27;n&#x27;</span></span><br><span class="line"><span class="keyword">var</span> block = Expression.Block(</span><br><span class="line">    Expression.Assign(result,</span><br><span class="line">        Expression.Multiply(result, nArgument)),</span><br><span class="line">    Expression.PostDecrementAssign(nArgument)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Creating a method body.</span></span><br><span class="line">BlockExpression body = Expression.Block(</span><br><span class="line">    <span class="keyword">new</span>[] &#123; result &#125;,</span><br><span class="line">    initializeResult,</span><br><span class="line">    Expression.Loop(</span><br><span class="line">        Expression.IfThenElse(</span><br><span class="line">            Expression.GreaterThan(nArgument, Expression.Constant(<span class="number">1</span>)),</span><br><span class="line">            block,</span><br><span class="line">            Expression.Break(label, result)</span><br><span class="line">        ),</span><br><span class="line">        label</span><br><span class="line">    )</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
-<p>用于生成阶乘函数的表达式树的代码相对更长、更复杂，它充满了标签和 break 语句以及我们在日常编码任务中想要避免的其他元素。</p>
-<h1 id="转换表达式树"><a href="#转换表达式树" class="headerlink" title="转换表达式树"></a>转换表达式树</h1>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>

@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leetao50.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="我们将探索应用于弹性（flex）元素的三个属性，它们能使我们在主轴方向上控制弹性元素的尺寸和伸缩性——flex-grow、flex-shrink 和 flex-basis。 这三个属性控制弹性元素的以下几个方面的灵活性：  flex-grow：该元素(拉伸)获得多少正可用空间 flex-shrink：该元素(收缩)要消除多少负可用空间 flex-basis：在该元素未拉伸和收缩之前，它所占空间">
+<meta property="og:type" content="article">
+<meta property="og:title" content="flex元素在主轴上的比例">
+<meta property="og:url" content="https://leetao50.github.io/2023/07/26/css/flex%E5%85%83%E7%B4%A0%E5%9C%A8%E4%B8%BB%E8%BD%B4%E4%B8%8A%E7%9A%84%E6%AF%94%E4%BE%8B/index.html">
+<meta property="og:site_name" content="InfoPool">
+<meta property="og:description" content="我们将探索应用于弹性（flex）元素的三个属性，它们能使我们在主轴方向上控制弹性元素的尺寸和伸缩性——flex-grow、flex-shrink 和 flex-basis。 这三个属性控制弹性元素的以下几个方面的灵活性：  flex-grow：该元素(拉伸)获得多少正可用空间 flex-shrink：该元素(收缩)要消除多少负可用空间 flex-basis：在该元素未拉伸和收缩之前，它所占空间">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://leetao50.github.io/images/013a3fcd15f1a891c7f058aea7734ce4fdaa5e25b84b142c6cf36af095021eee.png">
+<meta property="og:image" content="https://leetao50.github.io/images/77d3b003f9cdced2c3bc092a7beeb5fcbe5e02dc8af2c236f1423fb1e3c5f030.png">
+<meta property="article:published_time" content="2023-07-26T10:57:30.000Z">
+<meta property="article:modified_time" content="2023-07-27T09:40:50.118Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://leetao50.github.io/images/013a3fcd15f1a891c7f058aea7734ce4fdaa5e25b84b142c6cf36af095021eee.png">
+
+
+<link rel="canonical" href="https://leetao50.github.io/2023/07/26/css/flex%E5%85%83%E7%B4%A0%E5%9C%A8%E4%B8%BB%E8%BD%B4%E4%B8%8A%E7%9A%84%E6%AF%94%E4%BE%8B/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leetao50.github.io/2023/07/26/css/flex%E5%85%83%E7%B4%A0%E5%9C%A8%E4%B8%BB%E8%BD%B4%E4%B8%8A%E7%9A%84%E6%AF%94%E4%BE%8B/","path":"2023/07/26/css/flex元素在主轴上的比例/","title":"flex元素在主轴上的比例"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>flex元素在主轴上的比例 | InfoPool</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">InfoPool</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">私人信息记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%B9%E6%80%A7%E5%85%83%E7%B4%A0%E7%9A%84%E5%B0%BA%E5%AF%B8"><span class="nav-number">1.</span> <span class="nav-text">弹性元素的尺寸</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%AD%A3%E8%B4%9F%E5%8F%AF%E7%94%A8%E7%A9%BA%E9%97%B4"><span class="nav-number">2.</span> <span class="nav-text">正负可用空间</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#flex-basis-%E5%B1%9E%E6%80%A7"><span class="nav-number">3.</span> <span class="nav-text">flex-basis 属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#flex-grow-%E5%B1%9E%E6%80%A7"><span class="nav-number">4.</span> <span class="nav-text">flex-grow 属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#flex-shrink-%E5%B1%9E%E6%80%A7"><span class="nav-number">5.</span> <span class="nav-text">flex-shrink 属性</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%8E%8C%E6%8F%A1%E5%BC%B9%E6%80%A7%E5%85%83%E7%B4%A0%E7%9A%84%E5%A4%A7%E5%B0%8F"><span class="nav-number">6.</span> <span class="nav-text">掌握弹性元素的大小</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E8%AE%BE%E7%BD%AE%E4%BA%86%E5%85%83%E7%B4%A0%E7%9A%84%E5%9F%BA%E6%9C%AC%E5%A4%A7%E5%B0%8F%EF%BC%9F"><span class="nav-number">6.1.</span> <span class="nav-text">什么设置了元素的基本大小？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%88%91%E4%BB%AC%E6%9C%89%E5%8F%AF%E7%94%A8%E7%A9%BA%E9%97%B4%E5%90%97%EF%BC%9F"><span class="nav-number">6.2.</span> <span class="nav-text">我们有可用空间吗？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Eflex-grow%E5%B1%9E%E6%80%A7%E7%9A%84%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B%E4%B8%BA"><span class="nav-number">6.3.</span> <span class="nav-text">关于flex-grow属性的计算过程为</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%B3%E4%BA%8Eflex-shrink%E5%B1%9E%E6%80%A7%E7%9A%84%E8%AE%A1%E7%AE%97%E8%BF%87%E7%A8%8B%E4%B8%BA"><span class="nav-number">6.4.</span> <span class="nav-text">关于flex-shrink属性的计算过程为</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description">记录信息来源网络，内容只为方便查找，非公开信息，非请勿入</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/07/26/css/flex%E5%85%83%E7%B4%A0%E5%9C%A8%E4%B8%BB%E8%BD%B4%E4%B8%8A%E7%9A%84%E6%AF%94%E4%BE%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="flex元素在主轴上的比例 | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          flex元素在主轴上的比例
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-07-26 18:57:30" itemprop="dateCreated datePublished" datetime="2023-07-26T18:57:30+08:00">2023-07-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-07-27 17:40:50" itemprop="dateModified" datetime="2023-07-27T17:40:50+08:00">2023-07-27</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>我们将探索应用于弹性（flex）元素的三个属性，它们能使我们在主轴方向上控制弹性元素的尺寸和伸缩性——flex-grow、flex-shrink 和 flex-basis。</p>
+<p>这三个属性控制弹性元素的以下几个方面的灵活性：</p>
+<ul>
+<li>flex-grow：该元素(拉伸)获得多少正可用空间</li>
+<li>flex-shrink：该元素(收缩)要消除多少负可用空间</li>
+<li>flex-basis：在该元素未拉伸和收缩之前，它所占空间</li>
+</ul>
+<p>在考虑 flex 属性如何在主轴方向上控制比率之前，有一些概念值得我们去深究。这涉及到弹性元素在任何伸缩之前的自然尺寸，以及可用空间（free space）的概念。</p>
+<h1 id="弹性元素的尺寸"><a href="#弹性元素的尺寸" class="headerlink" title="弹性元素的尺寸"></a>弹性元素的尺寸</h1><p>在 CSS 中还有 min-content 和 max-content 这两个概念；这两个关键字可以用来代替长度单位。</p>
+<ul>
+<li>min-content：本质上讲，就是字符串中最长的单词长度决定的大小。</li>
+<li>max-content：代表了内容的最大宽度或最大高度。对于文本内容而言，这意味着内容即便溢出也不会被换行。</li>
+</ul>
+<h1 id="正负可用空间"><a href="#正负可用空间" class="headerlink" title="正负可用空间"></a>正负可用空间</h1><p>当一个弹性容器有正可用空间时，它就有更多的空间用于在容器内显示弹性元素。比如说，如果我们有 500px 宽的容器，flex-direction 属性值为 row，三个 100px 宽的弹性元素，那么我们还有 200px 的正可用空间，如果我们想要填充整个容器，则可将其分配到元素中。</p>
+<p><img src="/../../../images/013a3fcd15f1a891c7f058aea7734ce4fdaa5e25b84b142c6cf36af095021eee.png" alt="图 0">  </p>
+<p>当弹性元素的自然尺寸加起来比弹性容器内的可用空间大时，我们产生了负可用空间。比如我们有一个像上面那样的 500px 宽的容器，但是三个弹性元素每个都为 200px 宽，那我们就一共需要 600px 宽，因此就有了 100px 的负可用空间。这可以从弹性元素中删除以使其能适应容器。</p>
+<p><img src="/../../../images/77d3b003f9cdced2c3bc092a7beeb5fcbe5e02dc8af2c236f1423fb1e3c5f030.png" alt="图 1">  </p>
+<h1 id="flex-basis-属性"><a href="#flex-basis-属性" class="headerlink" title="flex-basis 属性"></a>flex-basis 属性</h1><p>flex-basis 属性在任何空间分配发生之前初始化弹性元素的尺寸。此属性的初始值为 auto。如果 flex-basis 设置为 auto，浏览器会先检查元素的主尺寸是否设置了绝对值再计算出它们的初始值。比如说你已经给你的元素设置了 200px 的宽，则 200px 就是这个元素的 flex-basis。</p>
+<p>如果你的元素为自动调整大小，则 auto 会解析为其内容的大小。此时你所熟知的 min-content 和 max-content 大小会变得有用，弹性盒子会将元素的 max-content 大小作为 flex-basis。</p>
+<p>空间分配时，如果你想要弹性盒子完全忽略元素的尺寸就需要设置 flex-basis 为 0。这显式地说明弹性盒子可用抢占所有空间，并按比例进行分配。</p>
+<p>flex-basis属性会覆盖项目的width属性（当主轴方向水平时）或height属性（当主轴方向垂直时），然而，flex-basis属性仍然受max-width&#x2F;max-height和min-width&#x2F;min-height属性的约束。</p>
+<h1 id="flex-grow-属性"><a href="#flex-grow-属性" class="headerlink" title="flex-grow 属性"></a>flex-grow 属性</h1><p>flex-grow 属性指定了弹性增长因子（flex grow factor），这决定了在分配正可用空间时，弹性元素相对于弹性容器中的其余弹性元素的增长程度。</p>
+<p>如果 flex-grow 的值全部相同，并且在弹性容器中还有正可用空间，那么它就会被平均地分配给所有元素。</p>
+<h1 id="flex-shrink-属性"><a href="#flex-shrink-属性" class="headerlink" title="flex-shrink 属性"></a>flex-shrink 属性</h1><p>flex-shrink 属性指定了弹性收缩因子（flex shrink factor），它确定在分配负可用空间时，弹性元素相对于弹性容器中其余弹性元素收缩的程度。</p>
+<h1 id="掌握弹性元素的大小"><a href="#掌握弹性元素的大小" class="headerlink" title="掌握弹性元素的大小"></a>掌握弹性元素的大小</h1><h2 id="什么设置了元素的基本大小？"><a href="#什么设置了元素的基本大小？" class="headerlink" title="什么设置了元素的基本大小？"></a>什么设置了元素的基本大小？</h2><ol>
+<li>flex-basis 设置为 auto，且元素设置了宽度，元素的大小将会基于设置的宽度。</li>
+<li>flex-basis 设置为 auto 或 content（在支持的浏览器中），元素的大小为原始大小。</li>
+<li>flex-basis 设置为 非0的长度，那这就是元素的大小。</li>
+<li>flex-basis 设为了 0，则元素的大小不在空间分配计算的考虑之内。</li>
+</ol>
+<h2 id="我们有可用空间吗？"><a href="#我们有可用空间吗？" class="headerlink" title="我们有可用空间吗？"></a>我们有可用空间吗？</h2><ol>
+<li>元素没有正可用空间就不会增长，没有负可用空间就不会缩小。</li>
+<li>如果我们把所有元素的宽度相加（如果在列方向工作则为高度），总和小于容器的总宽度（或高度），那么你有正可用空间，并且 flex-grow 会发挥作用。</li>
+<li>如果我们把所有的元素的宽度相加（如果在列方向工作则为高度），总和大于容器的总宽度（或高度），那么你有负可用空间，并且 flex-shrink 会发挥作用。</li>
+</ol>
+<h2 id="关于flex-grow属性的计算过程为"><a href="#关于flex-grow属性的计算过程为" class="headerlink" title="关于flex-grow属性的计算过程为"></a>关于flex-grow属性的计算过程为</h2><ol>
+<li>flex-grow属性小于等于0的项目不受影响，不会伸长。</li>
+<li>对剩余项目的flex-grow属性进行求和，将结果记为sum。</li>
+<li>分以下情况进行讨论。</li>
+</ol>
+<p><strong>sum ≥ 1 时 计算过程：</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">800px</span>;</span><br><span class="line">  <span class="selector-class">.item1</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">50px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.item2</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">flex-grow</span>: <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.item3</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">150px</span>;</span><br><span class="line">    <span class="attribute">flex-grow</span>: <span class="number">3</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.item4</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">flex-grow</span>: <span class="number">6</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>计算剩余宽度：剩余宽度 &#x3D; 容器宽度 - 项目总宽度，所以：剩余宽度 &#x3D; 800px - 500px &#x3D; 300px。</li>
+<li>计算各项目权重占比：权重 &#x3D; <flex-grow>，所以：<ol>
+<li>总权重 &#x3D; sum &#x3D; 1 + 3 + 6 &#x3D; 10。</li>
+<li>项目2权重 &#x3D; 1，项目2权重占比 &#x3D; 1 &#x2F; 10 &#x3D; 0.1。</li>
+<li>项目3权重 &#x3D; 3，项目3权重占比 &#x3D; 3 &#x2F; 10 &#x3D; 0.3。</li>
+<li>项目4权重 &#x3D; 6，项目4权重占比 &#x3D; 6 &#x2F; 10 &#x3D; 0.6。</li>
+</ol>
+</flex-grow></li>
+<li>计算各项目伸长宽度：伸长宽度 &#x3D; 权重占比 * 剩余宽度，所以：<ol>
+<li>项目2伸长宽度 &#x3D; 0.1 * 300px &#x3D; 30px。</li>
+<li>项目3伸长宽度 &#x3D; 0.3 * 300px &#x3D; 90px。</li>
+<li>项目4伸长宽度 &#x3D; 0.6 * 300px &#x3D; 180px。</li>
+</ol>
+</li>
+<li>计算各项目伸长后宽度：伸长后宽度 &#x3D; <flex-basis> + 伸长宽度，所以：<ol>
+<li>项目2伸长后宽度 &#x3D; 100px + 30px &#x3D; 130px。</li>
+<li>项目3伸长后宽度 &#x3D; 150px + 90px &#x3D; 240px。</li>
+<li>项目4伸长后宽度 &#x3D; 200px + 180px &#x3D; 380px。</li>
+</ol>
+</flex-basis></li>
+</ol>
+<p><strong>sum &lt; 1 时</strong></p>
+<blockquote>
+<p>计算过程基本与sum &gt; 1时的情况相同，但在第 3 步中，各项目的伸长宽度为sum * 权重占比 * 剩余宽度。</p>
+</blockquote>
+<h2 id="关于flex-shrink属性的计算过程为"><a href="#关于flex-shrink属性的计算过程为" class="headerlink" title="关于flex-shrink属性的计算过程为"></a>关于flex-shrink属性的计算过程为</h2><ol>
+<li>flex-shrink属性小于等于0的项目不受影响，不会缩短。</li>
+<li>对剩余项目的flex-shrink属性进行求和，将结果记为sum。</li>
+<li>分以下情况进行讨论。</li>
+</ol>
+<p><strong>sum ≥ 1 时</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">800px</span>;</span><br><span class="line">  <span class="selector-class">.item1</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">100px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.item2</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">flex-shrink</span>: <span class="number">6</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.item3</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">300px</span>;</span><br><span class="line">    <span class="attribute">flex-shrink</span>: <span class="number">3</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.item4</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">400px</span>;</span><br><span class="line">    <span class="attribute">flex-shrink</span>: <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>计算溢出宽度：溢出宽度 &#x3D; 项目总宽度 - 容器宽度，所以：溢出宽度 &#x3D; 800px - 1000px &#x3D; 200px。</li>
+<li>计算各项目权重占比：权重 &#x3D; <flex-shrink> * <flex-basis>，所以：<ol>
+<li>总权重 &#x3D; 1200 + 900 + 400 &#x3D; 2500。</li>
+<li>项目2权重 &#x3D; 1200，项目2权重占比 &#x3D; 1200 &#x2F; 2500 &#x3D; 0.48。</li>
+<li>项目3权重 &#x3D; 900，项目3权重占比 &#x3D; 900 &#x2F; 2500 &#x3D; 0.36。</li>
+<li>项目4权重 &#x3D; 400，项目4权重占比 &#x3D; 400 &#x2F; 2500 &#x3D; 0.16。</li>
+</ol>
+</flex-basis></flex-shrink></li>
+<li>计算各项目缩短宽度：缩短宽度 &#x3D; 权重占比 * 溢出宽度，所以：<ol>
+<li>项目2伸长宽度 &#x3D; 0.48 * 200px &#x3D; 96px。</li>
+<li>项目3伸长宽度 &#x3D; 0.36 * 200px &#x3D; 72px。</li>
+<li>项目4伸长宽度 &#x3D; 0.16 * 200px &#x3D; 32px。</li>
+</ol>
+</li>
+<li>计算各项目缩短后宽度：缩短后宽度 &#x3D; 原始宽度 - 缩短宽度，所以：<ol>
+<li>项目2缩短后宽度 &#x3D; 200px - 96px &#x3D; 104px。</li>
+<li>项目3缩短后宽度 &#x3D; 300px - 72px &#x3D; 228px。</li>
+<li>项目4缩短后宽度 &#x3D; 400px - 32px &#x3D; 368px。</li>
+</ol>
+</li>
+</ol>
+<p><strong>sum &lt; 1 时</strong></p>
+<blockquote>
+<p>计算过程基本与sum &gt; 1时的情况相同，但在第 3 步中，各项目的缩短宽度为sum * 权重占比 * 溢出宽度。</p>
+</blockquote>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/07/26/css/flex%E5%AE%B9%E5%99%A8%E4%B8%AD%E7%9A%84%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F/" rel="prev" title="flex容器中的对齐方式">
+                  <i class="fa fa-chevron-left"></i> flex容器中的对齐方式
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
