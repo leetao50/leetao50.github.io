@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leetao50.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="我们使用Angular Guards来控制用户是否可以导航到或离开当前路由。 我们使用路由守卫的常见场景之一是身份验证。我们希望我们的应用程序能够阻止未经授权的用户访问受保护的路由。当用户试图导航到受保护的路由时，angular调用CanActivate。然后，我们挂接到CanActivate防护程序，并使用身份验证服务来检查用户是否有权使用路由，如果没有，我们可以将用户重定向到登录页面。 守卫路">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Angular路由守卫">
+<meta property="og:url" content="https://leetao50.github.io/2023/08/24/angular/Angular%E8%B7%AF%E7%94%B1%E5%AE%88%E5%8D%AB/index.html">
+<meta property="og:site_name" content="InfoPool">
+<meta property="og:description" content="我们使用Angular Guards来控制用户是否可以导航到或离开当前路由。 我们使用路由守卫的常见场景之一是身份验证。我们希望我们的应用程序能够阻止未经授权的用户访问受保护的路由。当用户试图导航到受保护的路由时，angular调用CanActivate。然后，我们挂接到CanActivate防护程序，并使用身份验证服务来检查用户是否有权使用路由，如果没有，我们可以将用户重定向到登录页面。 守卫路">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2023-08-24T02:23:51.000Z">
+<meta property="article:modified_time" content="2023-08-24T06:06:25.094Z">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://leetao50.github.io/2023/08/24/angular/Angular%E8%B7%AF%E7%94%B1%E5%AE%88%E5%8D%AB/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leetao50.github.io/2023/08/24/angular/Angular%E8%B7%AF%E7%94%B1%E5%AE%88%E5%8D%AB/","path":"2023/08/24/angular/Angular路由守卫/","title":"Angular路由守卫"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Angular路由守卫 | InfoPool</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">InfoPool</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">私人信息记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%88%E5%8D%AB%E8%B7%AF%E7%94%B1%E7%9A%84%E4%BD%9C%E7%94%A8"><span class="nav-number">1.</span> <span class="nav-text">守卫路由的作用</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E5%AE%88%E5%8D%AB%E7%B1%BB%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">路由守卫类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BAAngular%E8%B7%AF%E7%94%B1%E5%AE%88%E5%8D%AB"><span class="nav-number">3.</span> <span class="nav-text">如何创建Angular路由守卫</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%88%E5%8D%AB%E8%B7%AF%E7%94%B1%E8%B0%83%E7%94%A8%E9%A1%BA%E5%BA%8F"><span class="nav-number">4.</span> <span class="nav-text">守卫路由调用顺序</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description">记录信息来源网络，内容只为方便查找，非公开信息，非请勿入</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">46</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/08/24/angular/Angular%E8%B7%AF%E7%94%B1%E5%AE%88%E5%8D%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Angular路由守卫 | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Angular路由守卫
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-08-24 10:23:51 / 修改时间：14:06:25" itemprop="dateCreated datePublished" datetime="2023-08-24T10:23:51+08:00">2023-08-24</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>我们使用Angular Guards来控制用户是否可以导航到或离开当前路由。</p>
+<p>我们使用路由守卫的常见场景之一是身份验证。我们希望我们的应用程序能够阻止未经授权的用户访问受保护的路由。当用户试图导航到受保护的路由时，angular调用CanActivate。然后，我们挂接到CanActivate防护程序，并使用身份验证服务来检查用户是否有权使用路由，如果没有，我们可以将用户重定向到登录页面。</p>
+<h1 id="守卫路由的作用"><a href="#守卫路由的作用" class="headerlink" title="守卫路由的作用"></a>守卫路由的作用</h1><ul>
+<li>确认导航操作</li>
+<li>询问是否在离开视图之前进行数据保存</li>
+<li>允许特定用户访问应用程序的某些部分</li>
+<li>在导航到新路由之前验证路由参数</li>
+<li>在显示组件之前获取一些数据</li>
+</ul>
+<h1 id="路由守卫类型"><a href="#路由守卫类型" class="headerlink" title="路由守卫类型"></a>路由守卫类型</h1><p>Angular Router支持五种不同的路由守卫，您可以使用它们来保护路由</p>
+<ul>
+<li>CanActivate：决定是否可以激活路由（或使用组件）。在用户未被授权导航到目标组件的情况下，此保护非常有用。或者用户可能没有登录到系统</li>
+<li>CanDeactivate：决定用户是否可以离开组件（导航离开当前组件）。在用户可能有一些未保存的挂起更改的情况下，此路由非常有用。</li>
+<li>Resolve：延迟路由的激活，直到某些任务完成。在激活路由之前，您可以使用Resolve守卫从后端API获取数据</li>
+<li>CanLoad：防止加载延迟加载模块。我们通常在不希望未经授权的用户看到模块的源代码时使用此保护。CanLoad与CanActivate类似，但有一点不同。CanActivate防止访问特定的路由。CanLoad防止整个延迟加载模块被下载，从而保护该模块中的所有路由。</li>
+<li>CanActivateChild：确定是否可以激活子路由。CanActivateChild与CanActivate非常相似。我们将CanActivateChild应用于父路由。每当用户试图导航到其任何子路由时，Angular都会调用CanActivateChild。这使我们能够检查某些情况，并决定是继续导航还是取消导航。</li>
+</ul>
+<h1 id="如何创建Angular路由守卫"><a href="#如何创建Angular路由守卫" class="headerlink" title="如何创建Angular路由守卫"></a>如何创建Angular路由守卫</h1><ul>
+<li><p>建立Guard服务。</p>
+<blockquote>
+<p>@Injectable()<br>export class ProductGuardService implements CanActivate {}</p>
+</blockquote>
+</li>
+<li><p>在服务中实现Guard方法</p>
+<blockquote>
+<p>canActivate(): boolean {<br>  &#x2F;&#x2F; Check weather the route can be activated;<br>  return true;<br>  &#x2F;&#x2F; or false if you want to cancel the navigation;<br>  }</p>
+</blockquote>
+</li>
+<li><p>在根模块中注册Guard服务</p>
+<blockquote>
+<p>providers: [ProductService,ProductGuardService]</p>
+</blockquote>
+</li>
+<li><p>更新路由以使用Guard服务</p>
+<blockquote>
+<p>{ path: ‘product’, component: ProductComponent, canActivate : [ProductGuardService] }</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="守卫路由调用顺序"><a href="#守卫路由调用顺序" class="headerlink" title="守卫路由调用顺序"></a>守卫路由调用顺序</h1><p>添加路由守卫语法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">path</span>: <span class="string">&#x27;product&#x27;</span>, component,        </span><br><span class="line">    canActivate : any[],        </span><br><span class="line">    <span class="attr">canActivateChild</span>: any[],       </span><br><span class="line">    <span class="attr">canDeactivate</span>: any[],       </span><br><span class="line">    <span class="attr">canLoad</span>: any[],       </span><br><span class="line">    <span class="attr">resolve</span>: any[] </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一条路由可以有多个守卫保护，并且可以在路由层次结构的每个级别都有守卫保护。</p>
+<ul>
+<li>始终首先检查CanDeactivate（）和CanActivateChild（）防护。检查从最深的子路径开始到顶部。</li>
+<li>接下来将检查CanActivate（）保护，并从顶部开始检查最深的子路由。</li>
+<li>接下来调用CanLoad（），如果要异步加载功能模块。</li>
+<li>Resolve（）Guard是最后调用的。</li>
+</ul>
+<p>如果任何防护返回false，则Angular路由器将取消导航。</p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/08/23/angular/Angular%E8%B7%AF%E7%94%B1/" rel="prev" title="Angular路由">
+                  <i class="fa fa-chevron-left"></i> Angular路由
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/09/01/css/pointer-events%E4%BB%8B%E7%BB%8D/" rel="next" title="pointer-events介绍">
+                  pointer-events介绍 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

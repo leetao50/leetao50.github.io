@@ -118,7 +118,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">41</span>
+          <span class="site-state-item-count">46</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -152,6 +152,630 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/09/04/css/MouseEvent%E4%BA%8B%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/09/04/css/MouseEvent%E4%BA%8B%E4%BB%B6/" class="post-title-link" itemprop="url">MouseEvent事件</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-09-04 16:31:43 / 修改时间：17:15:30" itemprop="dateCreated datePublished" datetime="2023-09-04T16:31:43+08:00">2023-09-04</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>MouseEvent 接口指用户与指针设备（如鼠标）交互时发生的事件。使用此接口的常见事件包括：click、dblclick、mouseup、mousedown。</p>
+<p>打印出来的 MouseEvent  如下：</p>
+<p><img src="7755c89eb753af75544ad119bd7378d3c70c50e3021cf5e47cca86fbb1d8ac09.png" alt="图 0">  </p>
+<p>经典的图:<br><img src="7a837e92eaefb8d797d585e08a05beffdbfea43f86717d43cf5f954ced967439.png" alt="图 1">  </p>
+<h1 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h1><ul>
+<li><p>MouseEvent.pageX：实验性，鼠标指针相对于整个文档的 X 坐标；</p>
+</li>
+<li><p>MouseEvent.pageY：实验性，鼠标指针相对于整个文档的 Y 坐标；</p>
+<blockquote>
+<p>MouseEvent.page* 鼠标事件发生时，鼠标指针相对于整个文档左上角的水平距离和垂直距离。它受页面滚动的影响，页面滚动，它的值也会随之改变。</p>
+</blockquote>
+</li>
+<li><p>MouseEvent.clientX:鼠标指针在点击元素（DOM）中的 X 坐标。</p>
+</li>
+<li><p>MouseEvent.clientY:鼠标指针在点击元素（DOM）中的 Y 坐标。</p>
+</li>
+</ul>
+<blockquote>
+<p>MouseEvent.client*: 鼠标指针相对于浏览器窗口左上角的水平距离和垂直距离。它不受页面滚动的影响，即使页面滚动，它的值也不会改变</p>
+</blockquote>
+<ul>
+<li><p>MouseEvent.x 实验性，MouseEvent.clientX的别名。</p>
+</li>
+<li><p>MouseEvent.y 实验性，MouseEvent.clientY的别名。</p>
+</li>
+<li><p>MouseEvent.screenX：鼠标指针相对于全局（屏幕）的 X 坐标；</p>
+</li>
+<li><p>MouseEvent.screenY：鼠标指针相对于全局（屏幕）的 Y 坐标；</p>
+</li>
+<li><p>MouseEvent.offsetX：实验性，鼠标指针相对于目标节点内边位置的 X 坐标</p>
+</li>
+<li><p>MouseEvent.offsetY：实验性，鼠标指针相对于目标节点内边位置的 Y 坐标</p>
+</li>
+<li><p>MouseEvent.movementX:鼠标指针相对于最后mousemove事件位置的 X 坐标。</p>
+</li>
+<li><p>MouseEvent.movementY：鼠标指针相对于最后mousemove事件位置的 Y 坐标。</p>
+</li>
+<li><p>MouseEvent.altKey:当鼠标事件触发的时，如果 alt 键被按下，返回 true;</p>
+</li>
+<li><p>MouseEvent.button:当鼠标事件触发的时，如果鼠标按钮被按下（如果有的话），将会返回一个数值。0 表示左键，1 表示中键，2 表示右键</p>
+</li>
+<li><p>MouseEvent.buttons:当鼠标事件触发的时，如果多个鼠标按钮被按下（如果有的话），将会返回一个或者多个代表鼠标按钮的数字。</p>
+</li>
+<li><p>MouseEvent.ctrlKey:当鼠标事件触发时，如果 control 键被按下，则返回 true；</p>
+</li>
+<li><p>MouseEvent.metaKey:当鼠标事件触发时，如果 meta 键被按下，则返回 true；</p>
+</li>
+<li><p>MouseEvent.region：返回被点击事件影响的点击区域的 id，如果没有区域被影响则返回 null。</p>
+</li>
+<li><p>MouseEvent.relatedTarget：鼠标事件的次要目标（如果有的话）</p>
+</li>
+<li><p>MouseEvent.shiftKey：当鼠标事件触发时，如果 shift 键被按下，则返回 true；</p>
+</li>
+<li><p>MouseEvent.which 非标准，当鼠标事件触发时，表示被按下的按钮。</p>
+</li>
+<li><p>MouseEvent.mozInputSource 非标准，生成事件的类型（若干 MOZ_SOURCE_*常量如下列出）。可通过该属性获知鼠标事件是否由真实鼠标设备触发，亦或通过触摸事件触发（这可能影响处理坐标事件时的精确程度）。</p>
+</li>
+<li><p>MouseEvent.webkitForce 非标准，点击时施加的压力量。</p>
+</li>
+</ul>
+<h1 id="说明"><a href="#说明" class="headerlink" title="说明"></a>说明</h1><ol>
+<li>当页面没有滚动时，MouseEvent.clientX 和 MouseEvent.pageX 的值相等。但当页面滚动时，MouseEvent.clientX 的值不变，而 MouseEvent.pageX 的值会随着页面滚动而增加或减少。</li>
+<li>如果需要获得相对于事件目标元素的坐标，应该使用 MouseEvent.offsetX。如果需要获得相对于当前窗口的坐标，应该使用 MouseEvent.clientX。</li>
+<li>preventDefault()：阻止事件的默认行为。例如，在链接上单击鼠标时，会跳转到链接指向的地址。如果在单击事件处理程序中调用了 preventDefault() 方法，则不会跳转到链接地址。</li>
+<li>stopPropagation()：阻止事件进一步传播到其他元素。例如，在一个元素上发生的单击事件可能会传播到该元素的父元素或其他子元素。如果在单击事件处理程序中调用了 stopPropagation() 方法，则事件将不会进一步传播。</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/09/01/css/pointer-events%E4%BB%8B%E7%BB%8D/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/09/01/css/pointer-events%E4%BB%8B%E7%BB%8D/" class="post-title-link" itemprop="url">pointer-events介绍</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-09-01 17:30:06 / 修改时间：18:09:58" itemprop="dateCreated datePublished" datetime="2023-09-01T17:30:06+08:00">2023-09-01</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>pointer-events 属性是一个指针属性，是用于控制在什么条件下特定的图形元素可以成为指针事件的目标,当这个属性设置为none时，可以禁用 HTML 元素的 hover&#x2F;focus&#x2F;active 等动态效果,元素则不接收hover、click事件，由他后面的元素进行接收。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">/* Keyword values */</span></span><br><span class="line"><span class="attribute">pointer-events</span>: auto;</span><br><span class="line"><span class="attribute">pointer-events</span>: none;</span><br><span class="line"><span class="attribute">pointer-events</span>: visiblePainted; <span class="comment">/* SVG only */</span></span><br><span class="line"><span class="attribute">pointer-events</span>: visibleFill;    <span class="comment">/* SVG only */</span></span><br><span class="line"><span class="attribute">pointer-events</span>: visibleStroke;  <span class="comment">/* SVG only */</span></span><br><span class="line"><span class="attribute">pointer-events</span>: visible;        <span class="comment">/* SVG only */</span></span><br><span class="line"><span class="attribute">pointer-events</span>: painted;        <span class="comment">/* SVG only */</span></span><br><span class="line"><span class="attribute">pointer-events</span>: fill;           <span class="comment">/* SVG only */</span></span><br><span class="line"><span class="attribute">pointer-events</span>: stroke;         <span class="comment">/* SVG only */</span></span><br><span class="line"><span class="attribute">pointer-events</span>: all;            <span class="comment">/* SVG only */</span></span><br><span class="line"></span><br><span class="line"><span class="comment">/* Global values */</span></span><br><span class="line"><span class="attribute">pointer-events</span>: inherit;  从其父元素继承此属性</span><br><span class="line"><span class="attribute">pointer-events</span>: initial;  将此属性设置为其默认值</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="针对HTML元素"><a href="#针对HTML元素" class="headerlink" title="针对HTML元素"></a>针对HTML元素</h1><ul>
+<li>none：该元素永远不会成为鼠标事件的 target。但是，当其后代元素的 pointer-events 属性指定其他值时，鼠标事件可以指向后代元素，在这种情况下，鼠标事件将在捕获或冒泡阶段触发父元素的事件侦听器 (鼠标的动作将不能被该元素及其子元素所捕获，但是能够被其父元素所捕获)。</li>
+<li>auto：默认值，表示指针事件已启用；此时元素会响应指针事件，阻止这些事件在其下面的元素上触发。</li>
+<li>inherit：将使用 pointer-events 元素的父级的值。</li>
+</ul>
+<p>除去SVG的独有属性，其他是对浏览器来说生效的属性值。</p>
+<h1 id="未设置属性pointer-events"><a href="#未设置属性pointer-events" class="headerlink" title="未设置属性pointer-events"></a>未设置属性pointer-events</h1><p>未设置属性的情况下，在光标移动到box1可以正常的触发hover，并且移动到box1和box2重叠的部分也是触发box1的hover</p>
+<p><img src="d98836850a8653b984b300e6e5293051c1359cb67ed1f38b5efd29a38cdca6a1.gif" alt="图 0">  </p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">&lt;style&gt;</span><br><span class="line">    .box1 &#123;</span><br><span class="line">      width: 100px;</span><br><span class="line">      height: 100px;</span><br><span class="line">      background: #04BBD4;</span><br><span class="line">      margin: 20px;</span><br><span class="line">      z-index: 3;</span><br><span class="line">    &#125;</span><br><span class="line">    .box2 &#123;</span><br><span class="line">      width: 100px;</span><br><span class="line">      height: 100px;</span><br><span class="line">      background: #090A0E;</span><br><span class="line">      margin: -80px 40px 20px;</span><br><span class="line">      z-index: 2;</span><br><span class="line">      /* pointer-events: none; */</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    .box1:hover &#123;</span><br><span class="line">      background:#078404;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    .box2:hover &#123;</span><br><span class="line">      background:#E98889;</span><br><span class="line">    &#125;</span><br><span class="line">  &lt;/style&gt;</span><br><span class="line">&lt;div class=&quot;box1&quot;&gt;&lt;/div&gt;</span><br><span class="line">&lt;div class=&quot;box2&quot;&gt;&lt;/div&gt;</span><br></pre></td></tr></table></figure>
+
+<h1 id="设置box1属性pointer-events为none"><a href="#设置box1属性pointer-events为none" class="headerlink" title="设置box1属性pointer-events为none"></a>设置box1属性pointer-events为none</h1><p>设置属性的情况下，在光标移动到box1无法正常的触发hover，此时hover已经失效，移动到box1和box2重叠的部分则是触发box2的hover</p>
+<p><img src="96c76495ee7c4a08932ebd3b3ba22f5f.gif" alt="图 1">  </p>
+<h1 id="事件传播"><a href="#事件传播" class="headerlink" title="事件传播"></a>事件传播</h1><p>父元素如果设置了pointer-event:none 并不意味着父元素上的事件侦听器永远不会被触发，当子元素上设置pointer-event值不是none,那么都可以通过事件传播机制来触发父元素上的事件。</p>
+<p>该属性也可用来提高滚动时的帧频。的确，当滚动时，鼠标悬停在某些元素上，则触发其上的 hover 效果，然而这些影响通常不被用户注意，并多半导致滚动出现问题。对body元素应用pointer-events：none，禁用了包括hover在内的鼠标事件，从而提高滚动性能。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/08/24/angular/Angular%E8%B7%AF%E7%94%B1%E5%AE%88%E5%8D%AB/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/08/24/angular/Angular%E8%B7%AF%E7%94%B1%E5%AE%88%E5%8D%AB/" class="post-title-link" itemprop="url">Angular路由守卫</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-08-24 10:23:51 / 修改时间：14:06:25" itemprop="dateCreated datePublished" datetime="2023-08-24T10:23:51+08:00">2023-08-24</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>我们使用Angular Guards来控制用户是否可以导航到或离开当前路由。</p>
+<p>我们使用路由守卫的常见场景之一是身份验证。我们希望我们的应用程序能够阻止未经授权的用户访问受保护的路由。当用户试图导航到受保护的路由时，angular调用CanActivate。然后，我们挂接到CanActivate防护程序，并使用身份验证服务来检查用户是否有权使用路由，如果没有，我们可以将用户重定向到登录页面。</p>
+<h1 id="守卫路由的作用"><a href="#守卫路由的作用" class="headerlink" title="守卫路由的作用"></a>守卫路由的作用</h1><ul>
+<li>确认导航操作</li>
+<li>询问是否在离开视图之前进行数据保存</li>
+<li>允许特定用户访问应用程序的某些部分</li>
+<li>在导航到新路由之前验证路由参数</li>
+<li>在显示组件之前获取一些数据</li>
+</ul>
+<h1 id="路由守卫类型"><a href="#路由守卫类型" class="headerlink" title="路由守卫类型"></a>路由守卫类型</h1><p>Angular Router支持五种不同的路由守卫，您可以使用它们来保护路由</p>
+<ul>
+<li>CanActivate：决定是否可以激活路由（或使用组件）。在用户未被授权导航到目标组件的情况下，此保护非常有用。或者用户可能没有登录到系统</li>
+<li>CanDeactivate：决定用户是否可以离开组件（导航离开当前组件）。在用户可能有一些未保存的挂起更改的情况下，此路由非常有用。</li>
+<li>Resolve：延迟路由的激活，直到某些任务完成。在激活路由之前，您可以使用Resolve守卫从后端API获取数据</li>
+<li>CanLoad：防止加载延迟加载模块。我们通常在不希望未经授权的用户看到模块的源代码时使用此保护。CanLoad与CanActivate类似，但有一点不同。CanActivate防止访问特定的路由。CanLoad防止整个延迟加载模块被下载，从而保护该模块中的所有路由。</li>
+<li>CanActivateChild：确定是否可以激活子路由。CanActivateChild与CanActivate非常相似。我们将CanActivateChild应用于父路由。每当用户试图导航到其任何子路由时，Angular都会调用CanActivateChild。这使我们能够检查某些情况，并决定是继续导航还是取消导航。</li>
+</ul>
+<h1 id="如何创建Angular路由守卫"><a href="#如何创建Angular路由守卫" class="headerlink" title="如何创建Angular路由守卫"></a>如何创建Angular路由守卫</h1><ul>
+<li><p>建立Guard服务。</p>
+<blockquote>
+<p>@Injectable()<br>export class ProductGuardService implements CanActivate {}</p>
+</blockquote>
+</li>
+<li><p>在服务中实现Guard方法</p>
+<blockquote>
+<p>canActivate(): boolean {<br>  &#x2F;&#x2F; Check weather the route can be activated;<br>  return true;<br>  &#x2F;&#x2F; or false if you want to cancel the navigation;<br>  }</p>
+</blockquote>
+</li>
+<li><p>在根模块中注册Guard服务</p>
+<blockquote>
+<p>providers: [ProductService,ProductGuardService]</p>
+</blockquote>
+</li>
+<li><p>更新路由以使用Guard服务</p>
+<blockquote>
+<p>{ path: ‘product’, component: ProductComponent, canActivate : [ProductGuardService] }</p>
+</blockquote>
+</li>
+</ul>
+<h1 id="守卫路由调用顺序"><a href="#守卫路由调用顺序" class="headerlink" title="守卫路由调用顺序"></a>守卫路由调用顺序</h1><p>添加路由守卫语法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">&#123; <span class="attr">path</span>: <span class="string">&#x27;product&#x27;</span>, component,        </span><br><span class="line">    canActivate : any[],        </span><br><span class="line">    <span class="attr">canActivateChild</span>: any[],       </span><br><span class="line">    <span class="attr">canDeactivate</span>: any[],       </span><br><span class="line">    <span class="attr">canLoad</span>: any[],       </span><br><span class="line">    <span class="attr">resolve</span>: any[] </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>一条路由可以有多个守卫保护，并且可以在路由层次结构的每个级别都有守卫保护。</p>
+<ul>
+<li>始终首先检查CanDeactivate（）和CanActivateChild（）防护。检查从最深的子路径开始到顶部。</li>
+<li>接下来将检查CanActivate（）保护，并从顶部开始检查最深的子路由。</li>
+<li>接下来调用CanLoad（），如果要异步加载功能模块。</li>
+<li>Resolve（）Guard是最后调用的。</li>
+</ul>
+<p>如果任何防护返回false，则Angular路由器将取消导航。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/08/23/angular/Angular%E8%B7%AF%E7%94%B1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/08/23/angular/Angular%E8%B7%AF%E7%94%B1/" class="post-title-link" itemprop="url">Angular路由</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-08-23 11:42:36" itemprop="dateCreated datePublished" datetime="2023-08-23T11:42:36+08:00">2023-08-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-08-24 10:24:13" itemprop="dateModified" datetime="2023-08-24T10:24:13+08:00">2023-08-24</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="什么是路由"><a href="#什么是路由" class="headerlink" title="什么是路由"></a>什么是路由</h1><p>路由允许您从应用程序的一部分移动到另一部分，或者从一个视图移动到另一个视图。</p>
+<p>在Angular中，路由由Angular路由器模块处理。</p>
+<p>路由器是Angular中的一个独立模块。它在@angular&#x2F;router包中。Angular Router提供了应用程序视图中导航所需的服务和指令。</p>
+<p>使用Angular Router，您可以</p>
+<ul>
+<li>通过在地址栏中键入URL导航到特定视图</li>
+<li>将可选参数（查询参数）传递到视图</li>
+<li>将可单击元素绑定到视图，并在用户执行应用程序任务时加载视图</li>
+<li>处理浏览器的后退和前进按钮</li>
+<li>允许您动态加载视图</li>
+<li>使用路由保护程序保护路由不受未经授权的用户的攻击</li>
+</ul>
+<h1 id="Angular路由组件"><a href="#Angular路由组件" class="headerlink" title="Angular路由组件"></a>Angular路由组件</h1><h2 id="Router"><a href="#Router" class="headerlink" title="Router"></a>Router</h2><p>Angular  Router 是服务(service)（Angular Router API），它允许用户在执行应用程序任务时从一个组件导航到下一个组件，如单击菜单链接和按钮，或单击浏览器上的后退&#x2F;前进按钮。我们可以访问router对象，并使用其方法（如navigate（）或navigateByUrl（））来导航到路由.</p>
+<h2 id="Route"><a href="#Route" class="headerlink" title="Route"></a>Route</h2><p>当用户单击链接或将URL粘贴到浏览器地址栏时，Route 告诉Angular Router要显示哪个视图。每个Route都由一个路径和映射到的组件组成。Router对象使用Route解析并构建最终的URL.</p>
+<p><img src="516766e8960da632098beec85bb388cea2abc787145632fefa2a6b4b16f2792e.png" alt="图 0">  </p>
+<h2 id="Routes"><a href="#Routes" class="headerlink" title="Routes"></a>Routes</h2><p>Routes是应用程序支持的Route对象的数组</p>
+<h2 id="RouterOutlet"><a href="#RouterOutlet" class="headerlink" title="RouterOutlet"></a>RouterOutlet</h2><p>RouterOutlet是一个用作占位符的指令（＜router-outlet＞），路由器应在其中显示视图</p>
+<h3 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h3><p>router-outlet</p>
+<h3 id="模板变量参考手册"><a href="#模板变量参考手册" class="headerlink" title="模板变量参考手册"></a>模板变量参考手册</h3><p>outlet #myTemplateVar&#x3D;”outlet”</p>
+<p>每当新组件实例化之后，路由出口就会发出一个激活事件；在销毁时则发出取消激活的事件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;router-outlet</span><br><span class="line">  (activate)=&#x27;onActivate($event)&#x27;</span><br><span class="line">  (deactivate)=&#x27;onDeactivate($event)&#x27;</span><br><span class="line">  (attach)=&#x27;onAttach($event)&#x27;</span><br><span class="line">  (detach)=&#x27;onDetach($event)&#x27;&gt;&lt;/router-outlet&gt;</span><br></pre></td></tr></table></figure>
+
+<p>每个出口可以具有唯一的名称，该 name 由可选的 name 属性确定。该名称不能动态设置或更改。如果未设置，则默认值为 “primary”。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">router-outlet</span>&gt;</span><span class="tag">&lt;/<span class="name">router-outlet</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">router-outlet</span> <span class="attr">name</span>=<span class="string">&#x27;left&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">router-outlet</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">router-outlet</span> <span class="attr">name</span>=<span class="string">&#x27;right&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">router-outlet</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">path</span>: &lt;base-path&gt;, <span class="attr">component</span>: &lt;component&gt;, <span class="attr">outlet</span>: &lt;target_outlet_name&gt;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用命名的出口和辅助路由，你可以在同一 RouterLink 指令中定位多个出口。</p>
+<p>路由器在导航树中跟踪每个命名出口的单独分支，并在 URL 中生成该树的表示形式。辅助路由的 URL 使用以下语法同时指定主要路由和辅助路由：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://base-path/<span class="built_in">primary-route-path</span>(outlet-name:route-path)</span><br></pre></td></tr></table></figure>
+
+<h2 id="RouterLink"><a href="#RouterLink" class="headerlink" title="RouterLink"></a>RouterLink</h2><p>RouterLink是一个将HTML元素绑定到Route的指令。单击绑定到RouterLink的HTML元素，将导航到Route。RouterLink可能包含要传递给路由组件的参数。</p>
+<p>给定路由配置 </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123; <span class="attr">path</span>: <span class="string">&#x27;user/:name&#x27;</span>, <span class="attr">component</span>: <span class="title class_">UserCmp</span> &#125;]</span><br></pre></td></tr></table></figure>
+<p>，以下内容将创建一个到该路由的静态链接：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">routerLink</span>=<span class="string">&quot;/user/bob&quot;</span>&gt;</span>link to user component<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>你也可以使用动态值来生成链接。对于动态链接，请传递路径段数组，然后传递每个段的参数。比如，<br><code>[&#39;/team&#39;, teamId, &#39;user&#39;, userName, &#123;details: true&#125;] </code>生成到 <code>/team/11/user/bob;details=true</code>。</p>
+<p>多个静态段可以合并为一个词，并与动态段组合。比如，<code>[&#39;/team/11/user&#39;, userName, &#123;details: true&#125;]</code></p>
+<p>你提供给链接的输入将被视为当前 URL 的增量。比如，假设当前 URL 是 <code>/user/(box//aux:team)</code>。则链接 <code>&lt;a [routerLink]=&quot;[&#39;/user/jim&#39;]&quot;&gt;Jim&lt;/a&gt; </code>会创建<code> URL /user/(jim//aux:team)</code> 。</p>
+<p>你可以在链接中使用绝对或相对路径、设置查询参数、控制如何处理参数以及保留导航状态的历史记录。</p>
+<h2 id="RouterLinkActive"><a href="#RouterLinkActive" class="headerlink" title="RouterLinkActive"></a>RouterLinkActive</h2><p>RouterLinkActive是用于从绑定到RouterLink的HTML元素中添加或删除CSS样式的指令。使用此指令，我们可以根据当前RouterState切换RouterLinks的CSS样式</p>
+<h2 id="ActivatedRoute"><a href="#ActivatedRoute" class="headerlink" title="ActivatedRoute"></a>ActivatedRoute</h2><p>ActivatedRoute是一个对象，表示与加载的组件关联的当前激活的路由。</p>
+<h2 id="RouterState"><a href="#RouterState" class="headerlink" title="RouterState"></a>RouterState</h2><h1 id="如何使用-Angular路由"><a href="#如何使用-Angular路由" class="headerlink" title="如何使用 Angular路由"></a>如何使用 Angular路由</h1><p>以下几步来配置使用路由</p>
+<ul>
+<li>设置<base href></li>
+<li>定义视图的管线</li>
+<li>向Routes注册路由器服务</li>
+<li>将HTML元素操作映射到路由</li>
+<li>选择要显示视图的位置</li>
+</ul>
+<h1 id="路由策略"><a href="#路由策略" class="headerlink" title="路由策略"></a>路由策略</h1><p>在Angular中支持两种不同的路由策略。一个是PathlocationStrategy，另一个是HashLocationStrategy。HashLocationStrategy使用Hash风格的路由，而PathlocationStrategy使用HTML5路由。</p>
+<ul>
+<li>HashLocationStrategy： URL格式 <a target="_blank" rel="noopener" href="http://localhost:4200/#/product">http://localhost:4200/#/product</a></li>
+<li>PathLocationStrategy：URL格式 <a target="_blank" rel="noopener" href="http://localhost:4200/product">http://localhost:4200/product</a></li>
+</ul>
+<p>我们建议使用HTML5样式（PathLocationStrategy）作为定位策略。因为</p>
+<ul>
+<li>它产生干净和SEO友好的URL，用户更容易理解和记住。</li>
+<li>可以利用服务器端渲染，这将使我们的应用程序加载更快，方法是在将页面交付给客户端之前先在服务器中渲染页面</li>
+</ul>
+<p>只有当软件必须支持较旧的浏览器时，才使用哈希位置策略。</p>
+<h1 id="路由参数"><a href="#路由参数" class="headerlink" title="路由参数"></a>路由参数</h1><h2 id="定义路由"><a href="#定义路由" class="headerlink" title="定义路由"></a>定义路由</h2><p>我们可以通过添加’&#x2F;:’和一个占位符（id）来定义参数，如下所示</p>
+<p><code>&#123; path: &#39;product/:id&#39;, component: ProductDetailComponent &#125;</code></p>
+<p>其中id是路由的动态部分。<br>现在，上面的路径与URL &#x2F;product&#x2F;1、&#x2F;product&#x2F;2等相匹配。</p>
+<p>如果您有多个参数，那么您可以通过继续添加占位符来扩展它</p>
+<p><code>&#123; path: &#39;product/:id/:id1/:id2&#39;, component: ProductDetailComponent &#125;</code></p>
+<p>名称id、id1和id2是参数的占位符。我们将在检索参数值时使用它们。</p>
+<h2 id="定义导航"><a href="#定义导航" class="headerlink" title="定义导航"></a>定义导航</h2><p>我们现在需要提供带有路径和路由参数的routerLink指令。通过将产品的id作为第二个元素添加到routerLink参数数组中来完成，如下所示</p>
+<p><code>&lt;a [routerLink]=&quot;[&#39;/Product&#39;, ‘2’]&quot;&gt;&#123;&#123;product.name&#125;&#125; &lt;/a&gt;</code></p>
+<p>编译为URL &#x2F;product&#x2F;2</p>
+<p><code>&lt;a [routerLink]=&quot;[&#39;/Product&#39;, product.productID]&quot;&gt;&#123;&#123;product.name&#125;&#125; &lt;/a&gt;</code></p>
+<p>动态地从产品对象中获取id的值。</p>
+<p>您也可以使用路由器对象的导航方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">goProduct</span>(<span class="params"></span>) &#123;     </span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">router</span>.<span class="title function_">navigate</span>(</span><br><span class="line">        [<span class="string">&#x27;/products&#x27;</span>. product.<span class="property">productID</span>] &#125;</span><br><span class="line">    ); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="获取路由参数"><a href="#获取路由参数" class="headerlink" title="获取路由参数"></a>获取路由参数</h2><h3 id="ActviatedRoute"><a href="#ActviatedRoute" class="headerlink" title="ActviatedRoute"></a>ActviatedRoute</h3><p>ActivatedRoute是一项服务，用于跟踪与加载的组件相关联的当前激活的路由。</p>
+<p><code>constructor(private _Activatedroute:ActivatedRoute)</code></p>
+<p>ActviatedRoute路由提供了两个属性含Route参数。</p>
+<ul>
+<li>ParamMap</li>
+<li>Params</li>
+</ul>
+<h4 id="ParamMap"><a href="#ParamMap" class="headerlink" title="ParamMap"></a>ParamMap</h4><p>Angular将所有路由参数的映射添加到ParamMap对象中，该对象可以从ActivatedRoute服务访问</p>
+<p>ParamMap有三种方法，可以更容易地使用参数。</p>
+<ul>
+<li>get方法检索给定参数的值。</li>
+<li>getAll方法检索所有参数</li>
+<li>has 如果ParamMap包含给定的参数，则has方法返回true，否则返回false</li>
+</ul>
+<h4 id="Params"><a href="#Params" class="headerlink" title="Params"></a>Params</h4><p>ActviatedRoute还维护“参数数组“Params。Params数组是一个参数值列表，按名称进行索引。</p>
+<h2 id="读取参数"><a href="#读取参数" class="headerlink" title="读取参数"></a>读取参数</h2><p>使用ActivatedRoute有两种方法从ParamMap对象获取参数值。</p>
+<ul>
+<li>使用ActivatedRoute的Snapshot属性</li>
+<li>订阅ActivatedRoute的paramMap或params observable属性</li>
+</ul>
+<h3 id="使用-Snapshot"><a href="#使用-Snapshot" class="headerlink" title="使用 Snapshot"></a>使用 Snapshot</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">id</span>=<span class="variable language_">this</span>.<span class="property">_Activatedroute</span>.<span class="property">snapshot</span>.<span class="property">paramMap</span>.<span class="title function_">get</span>(<span class="string">&quot;id&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">id</span>=<span class="variable language_">this</span>.<span class="property">_Activatedroute</span>.<span class="property">snapshot</span>.<span class="property">params</span>[<span class="string">&quot;id&quot;</span>];</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-Observable"><a href="#使用-Observable" class="headerlink" title="使用 Observable"></a>使用 Observable</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">_Activatedroute</span>.<span class="property">paramMap</span>.<span class="title function_">subscribe</span>(<span class="function"><span class="params">paramMap</span> =&gt;</span> &#123; </span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">id</span> = paramMap.<span class="title function_">get</span>(<span class="string">&#x27;id&#x27;</span>); </span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">_Activatedroute</span>.<span class="property">params</span>.<span class="title function_">subscribe</span>(<span class="function"><span class="params">params</span> =&gt;</span> &#123; </span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">id</span> = params[<span class="string">&#x27;id&#x27;</span>]; </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h1 id="ActivatedRoute-1"><a href="#ActivatedRoute-1" class="headerlink" title="ActivatedRoute"></a>ActivatedRoute</h1><p>ActivatedRoute服务提供了大量有用的信息，包括：</p>
+<p>url：此属性返回url Segment对象的数组，每个对象描述url中与当前路由匹配的单个段。<br>params：此属性返回一个params对象，该对象描述按名称索引的URL参数。<br>queryParams：此属性返回一个Params对象，该对象描述按名称索引的URL查询参数。<br>fragment：此属性返回一个包含URL片段的字符串。<br>snapshot：此路由的初始快照<br>data：包含为路线提供的数据对象的Observable<br>component：路由的组件。这是一个常数<br>outlet：用于渲染路由的RouterOutlet的名称。对于未命名的出口，为primary。<br>routeConfig：用于包含原始路径的路由的路由配置。<br>parent:ActivatedRoute，包含使用子路由时来自父路由的信息。<br>firstChild：包含子路由列表中的第一个ActivatedRoute。<br>children：包含在当前路线下激活的所有子路线<br>pathFromRoot：从路由器状态树的根到该路由的路径</p>
+<h1 id="路由Query参数"><a href="#路由Query参数" class="headerlink" title="路由Query参数"></a>路由Query参数</h1><p>Query参数是在 URL中的 ？右侧的键值对，多个Query参数之间由&amp;分隔。</p>
+<p><code>/product?page=2&amp;filter=all</code></p>
+<p>在上面的例子中，page&#x3D;2和filter&#x3D;all是Query参数。它包含两个Query参数。一个是Page，其值为2，另一个是Filter，其值是all。</p>
+<h2 id="添加Query参数"><a href="#添加Query参数" class="headerlink" title="添加Query参数"></a>添加Query参数</h2><p>Query参数不是路由的一部分。因此，您不会像路由参数那样在 routes 中定义它们。有两种方法可以将Query参数传递给路由</p>
+<ul>
+<li>使用routerlink指令</li>
+<li>使用router.navigation方法。</li>
+<li>使用router.navigateByUrl方法</li>
+</ul>
+<h2 id="在模板中使用-routerlink-指令"><a href="#在模板中使用-routerlink-指令" class="headerlink" title="在模板中使用 routerlink 指令"></a>在模板中使用 routerlink 指令</h2><p>我们使用routerlink指令的queryParams属性来添加Query参数。我们将此指令添加到模板文件中。</p>
+<p><code>&lt;a [routerLink]=&quot;[&#39;product&#39;]&quot; [queryParams]=&quot;&#123; page:2 &#125;&quot;&gt;Page 2&lt;/a&gt;</code></p>
+<p>路由器将URL构造为</p>
+<p><code>/product?page=2</code></p>
+<p>您可以传递多个Query参数，如下所示</p>
+<p><code>&lt;a [routerLink]=&quot;[&#39;products&#39;]&quot; [queryParams]=&quot;&#123; color:&#39;blue&#39; , sort:&#39;name&#39;&#125;&quot;&gt;Products&lt;/a&gt;</code></p>
+<p>路由器将URL构造为</p>
+<p><code>/products?color=blue&amp;sort=name</code></p>
+<h2 id="在组件中使用-router-navigate"><a href="#在组件中使用-router-navigate" class="headerlink" title="在组件中使用 router.navigate"></a>在组件中使用 router.navigate</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">goTo</span>(<span class="params"></span>) &#123;     </span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">router</span>.<span class="title function_">navigate</span>(</span><br><span class="line">        [<span class="string">&#x27;/products&#x27;</span>], </span><br><span class="line">        &#123; <span class="attr">queryParams</span>: &#123; <span class="attr">page</span>: <span class="number">2</span>, <span class="attr">sort</span>:<span class="string">&#x27;name&#x27;</span>&#125; &#125;</span><br><span class="line">    ); </span><br><span class="line">&#125;</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+<p>路由器将URL构造为</p>
+<p><code>/products?page=2&amp;sort=name</code></p>
+<h2 id="在组件中使用-router-navigateByUrl"><a href="#在组件中使用-router-navigateByUrl" class="headerlink" title="在组件中使用 router.navigateByUrl"></a>在组件中使用 router.navigateByUrl</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">router</span>.<span class="title function_">navigateByUrl</span>(<span class="string">&#x27;product?pageNum=2&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="读取-路由Query参数"><a href="#读取-路由Query参数" class="headerlink" title="读取 路由Query参数"></a>读取 路由Query参数</h2><p>读取Query参数类似于读取Router参数。有两种方法可以检索查询参数。</p>
+<ul>
+<li>订阅queryParamMap或queryParams observable</li>
+<li>使用snapshot属性的queryParamMap或queryParams属性</li>
+</ul>
+<p>以上两项都是ActivatedRoute服务的一部分。因此，我们需要将它注入到我们的组件类中。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">sub</span> = <span class="variable language_">this</span>.<span class="property">Activatedroute</span>.<span class="property">queryParamMap</span></span><br><span class="line">       .<span class="title function_">subscribe</span>(<span class="function"><span class="params">params</span> =&gt;</span> &#123;</span><br><span class="line">             <span class="variable language_">this</span>.<span class="property">pageNum</span> = +params.<span class="title function_">get</span>(<span class="string">&#x27;pageNum&#x27;</span>)||<span class="number">0</span>;     </span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">sub</span> = <span class="variable language_">this</span>.<span class="property">Activatedroute</span>.<span class="property">queryParams</span></span><br><span class="line">       .<span class="title function_">subscribe</span>(<span class="function"><span class="params">params</span> =&gt;</span> &#123;</span><br><span class="line">             <span class="variable language_">this</span>.<span class="property">pageNum</span> = +params.[<span class="string">&#x27;pageNum&#x27;</span>]||<span class="number">0</span>;     </span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">Activatedroute</span>.<span class="property">snapshot</span></span><br><span class="line">       .<span class="property">queryParamMap</span>.<span class="title function_">get</span>(<span class="string">&#x27;pageNum&#x27;</span>)||<span class="number">0</span>;;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">Activatedroute</span>.<span class="property">snapshot</span></span><br><span class="line">       .<span class="property">queryParams</span>[<span class="string">&#x27;pageNum&#x27;</span>]||<span class="number">0</span>;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/07/28/css/Grid%E5%B8%83%E5%B1%80%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/07/28/css/Grid%E5%B8%83%E5%B1%80%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/" class="post-title-link" itemprop="url">Grid布局基础概念</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-07-28 11:45:19 / 修改时间：17:48:05" itemprop="dateCreated datePublished" datetime="2023-07-28T11:45:19+08:00">2023-07-28</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="网格容器"><a href="#网格容器" class="headerlink" title="网格容器"></a>网格容器</h1><p>我们通过在元素上声明 display：grid 或 display：inline-grid 来创建一个网格容器。一旦我们这样做，这个元素的所有直系子元素将成为网格元素。</p>
+<h1 id="网格轨道"><a href="#网格轨道" class="headerlink" title="网格轨道"></a>网格轨道</h1><p>我们通过 grid-template-columns 和 grid-template-rows 属性来定义网格中的行和列。这些属性定义了网格的轨道。一个网格轨道就是网格中任意两条线之间的空间。</p>
+<h2 id="fr-单位"><a href="#fr-单位" class="headerlink" title="fr 单位"></a>fr 单位</h2><p>轨道可以使用任何长度单位进行定义。网格还引入了一个另外的长度单位来帮助我们创建灵活的网格轨道。新的fr单位代表网格容器中可用空间的一等份。下一个网格定义将创建三个相等宽度的轨道，这些轨道会随着可用空间增长和收缩。</p>
+<h1 id="网格线"><a href="#网格线" class="headerlink" title="网格线"></a>网格线</h1><p>应该注意的是，当我们定义网格时，我们定义的是网格轨道，而不是网格线。Grid 会为我们创建编号的网格线来让我们来定位每一个网格元素。</p>
+<p>网格线的编号顺序取决于文章的书写模式。在从左至右书写的语言中，编号为 1 的网格线位于最左边。在从右至左书写的语言中，编号为 1 的网格线位于最右边。网格线也可以被命名，我们将在稍后的教程中看到如何完成这一操作。</p>
+<h1 id="网格间距"><a href="#网格间距" class="headerlink" title="网格间距"></a>网格间距</h1><p>在两个网格单元之间的 网格横向间距 或 网格纵向间距 可使用 grid-column-gap 和 grid-row-gap  属性来创建，或者直接使用两个合并的缩写形式 grid-gap。间距使用的空间会在 使用弹性长度 fr 的轨道的空间计算前就被留出来，间距的尺寸定义行为和普通轨道一致，但不同的是你不能向其中插入任何内容。</p>
+<h1 id="使用-z-index-控制层级"><a href="#使用-z-index-控制层级" class="headerlink" title="使用 z-index 控制层级"></a>使用 z-index 控制层级</h1><p>多个网格项目可以占用同一个网格单位。如果我们回到之前根据网格线编号放置网格项目的话，我们可以更改此项来使两个网格项目重叠，其覆盖顺序遵循文档流的原始顺序（后来居上）。</p>
+<p>我们可以在网格项目发生重叠时使用 z-index 属性控制重叠的顺序——就像放置网格项目一样。如果我们给 box2 设定一个低于 box1 的 z-index 值的话，box2 将会显示在 box1 的下方。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1139,939 +1763,6 @@
 <li>FileSteam：内部缓冲区的大小（字节为单位，默认大小为4KB）</li>
 </ul>
 
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/06/27/cshap/%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="InfoPool">
-      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | InfoPool">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/06/27/cshap/%E6%96%87%E4%BB%B6%E5%92%8C%E7%9B%AE%E5%BD%95/" class="post-title-link" itemprop="url">文件和目录</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-06-27 15:44:15" itemprop="dateCreated datePublished" datetime="2023-06-27T15:44:15+08:00">2023-06-27</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-07-14 17:43:25" itemprop="dateModified" datetime="2023-07-14T17:43:25+08:00">2023-07-14</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>文件是一个由字节组成的有序的命名集合，它具有永久存储。在处理文件时，你将处理目录路径、磁盘存储、文件和目录名称。 </p>
-<h1 id="文件和目录"><a href="#文件和目录" class="headerlink" title="文件和目录"></a>文件和目录</h1><p>System.IO 命名空间提供了一组用于执行“实用”文件和目录操作的类型，例如复制和移动、创建目录以及设置文件属性和权限。对于大多数功能，您可以在两个类中选择一个，一个提供静态方法，另一个提供实例方法：</p>
-<ul>
-<li><p>静态类：File 和 Directory</p>
-</li>
-<li><p>实例方法类：FileInfo 和 DirectoryInfo</p>
-</li>
-</ul>
-<p>另外，还有一个名为Path的静态类。这个类对于文件或是目录并没有什么；相反，他为文件名与目录路径提供了字符串处理的方法。Path同时辅助临时文件处理。</p>
-<p>下面是一些常用的文件和目录类：</p>
-<ul>
-<li>File - 提供用于创建、复制、删除、移动和打开文件的静态方法，并可帮助创建 FileStream 对象。</li>
-<li>FileInfo - 提供用于创建、复制、删除、移动和打开文件的实例方法，并可帮助创建 FileStream 对象。</li>
-<li>Directory - 提供用于创建、移动和枚举目录和子目录的静态方法。</li>
-<li>DirectoryInfo - 提供用于创建、移动和枚举目录和子目录的实例方法。</li>
-<li>Path - 提供用于以跨平台的方式处理目录字符串的方法和属性。</li>
-</ul>
-<h1 id="File类"><a href="#File类" class="headerlink" title="File类"></a>File类</h1><p>File是一个静态类，其方法接受文件名。文件名可以相对于当前目录或是具有目录的绝对路径。该类所具有的方法如下：</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="built_in">bool</span> <span class="title">Exists</span> (<span class="params"><span class="built_in">string</span> path</span>)</span>;      <span class="comment">// Returns true if the file is present</span></span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Delete</span>  (<span class="params"><span class="built_in">string</span> path</span>)</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Copy</span>    (<span class="params"><span class="built_in">string</span> sourceFileName, <span class="built_in">string</span> destFileName</span>)</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Move</span>    (<span class="params"><span class="built_in">string</span> sourceFileName, <span class="built_in">string</span> destFileName</span>)</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Replace</span> (<span class="params"><span class="built_in">string</span> sourceFileName, <span class="built_in">string</span> destinationFileName,</span></span></span><br><span class="line"><span class="params"><span class="function"><span class="built_in">string</span> destinationBackupFileName</span>)</span>;</span><br><span class="line"><span class="function">FileAttributes <span class="title">GetAttributes</span> (<span class="params"><span class="built_in">string</span> path</span>)</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SetAttributes</span>           (<span class="params"><span class="built_in">string</span> path, FileAttributes fileAttributes</span>)</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Decrypt</span> (<span class="params"><span class="built_in">string</span> path</span>)</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">Encrypt</span> (<span class="params"><span class="built_in">string</span> path</span>)</span>;</span><br><span class="line"><span class="function">DateTime <span class="title">GetCreationTime</span>   (<span class="params"><span class="built_in">string</span> path</span>)</span>;      <span class="comment">// UTC versions are</span></span><br><span class="line"><span class="function">DateTime <span class="title">GetLastAccessTime</span> (<span class="params"><span class="built_in">string</span> path</span>)</span>;      <span class="comment">// also provided.</span></span><br><span class="line"><span class="function">DateTime <span class="title">GetLastWriteTime</span>  (<span class="params"><span class="built_in">string</span> path</span>)</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SetCreationTime</span>   (<span class="params"><span class="built_in">string</span> path, DateTime creationTime</span>)</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SetLastAccessTime</span> (<span class="params"><span class="built_in">string</span> path, DateTime lastAccessTime</span>)</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SetLastWriteTime</span>  (<span class="params"><span class="built_in">string</span> path, DateTime lastWriteTime</span>)</span>;</span><br><span class="line"><span class="function">FileSecurity <span class="title">GetAccessControl</span> (<span class="params"><span class="built_in">string</span> path</span>)</span>;</span><br><span class="line"><span class="function">FileSecurity <span class="title">GetAccessControl</span> (<span class="params"><span class="built_in">string</span> path,</span></span></span><br><span class="line"><span class="params"><span class="function">AccessControlSections includeSections</span>)</span>;</span><br><span class="line"><span class="function"><span class="keyword">void</span> <span class="title">SetAccessControl</span> (<span class="params"><span class="built_in">string</span> path, FileSecurity fileSecurity</span>)</span>;</span><br></pre></td></tr></table></figure>
-<p>如果目标文件已经存在，则Move会抛出异常；Replace则不会。两个方法都允许文件被重命名以及移动到另一个目录中。</p>
-<p>如果文件被标记为只读，则会抛出UnauthorizedAccessException；如果我们通过调用GetAttributes来识别属性。下面是GetAttributes返回的FileAttribute枚举成员：</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">Archive, Compressed, Device, Directory, Encrypted,</span><br><span class="line">Hidden, Normal, NotContentIndexed, Offline, ReadOnly,</span><br><span class="line">ReparsePoint, SparseFile, System, Temporary</span><br></pre></td></tr></table></figure>
-<p>这个枚举中的成员是可组合的。下面显示如何修改文件的一个属性而不影响其他的属性：</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">string</span> filePath = <span class="string">@&quot;c:\temp\test.txt&quot;</span>;</span><br><span class="line">FileAttributes fa = File.GetAttributes (filePath);</span><br><span class="line"><span class="keyword">if</span> ((fa &amp; FileAttributes.ReadOnly) &gt; <span class="number">0</span>)</span><br><span class="line">&#123;</span><br><span class="line">    fa ^= FileAttributes.ReadOnly;</span><br><span class="line">    File.SetAttributes (filePath, fa);</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">// Now we can delete the file, for instance:</span></span><br><span class="line">File.Delete (filePath);</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/06/27/cshap/stream/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="InfoPool">
-      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | InfoPool">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/06/27/cshap/stream/" class="post-title-link" itemprop="url">stream</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-06-27 10:51:04" itemprop="dateCreated datePublished" datetime="2023-06-27T10:51:04+08:00">2023-06-27</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-06-30 16:45:56" itemprop="dateModified" datetime="2023-06-30T16:45:56+08:00">2023-06-30</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Stream(抽象基类)支持读取和写入字节。 所有表示流的类都继承自Stream类。 Stream类及其派生类提供数据源和存储库的常见视图，使程序员不必了解操作系统和基础设备的具体细节。</p>
-<p><strong>流涉及三个基本操作：</strong></p>
-<ul>
-<li><p>读取 - 将数据从流读取到数据结构（如字节数组）中。</p>
-</li>
-<li><p>写入 - 将数据从数据源写入到流中。</p>
-</li>
-<li><p>查找 - 对流中的当前位置进行查询和修改。</p>
-</li>
-</ul>
-<p><strong>下面是一些常用的流类：</strong></p>
-<ul>
-<li><p>FileStream - 用于对文件进行读取和写入操作。</p>
-</li>
-<li><p>MemoryStream - 用于对内存进行读取和写入操作。</p>
-</li>
-<li><p>BufferedStream - 用于改进读取和写入操作的性能。</p>
-</li>
-<li><p>NetworkStream - 用于通过网络套接字进行读取和写入。</p>
-</li>
-<li><p>IsolatedStorageFileStream - 用于对独立存储中的文件进行读取或写入操作。</p>
-</li>
-<li><p>PipeStream - 用于通过匿名和命名管道进行读取和写入。</p>
-</li>
-<li><p>CryptoStream - 用于将数据流链接到加密转换。</p>
-</li>
-</ul>
-<p><strong>读取器和编写器：</strong><br>System.IO 命名空间还提供用于在流中读取和写入已编码字符的类型。 通常，流用于字节输入和输出。 读取器和编写器 处理编码字符与字节之间的来回转换，以便流可以完成操作。 每个读取器和编写器类都与流关联，可以通过类的 BaseStream 属性进行检索。</p>
-<p><em>下面是一些常用的读取器和编写器类：</em></p>
-<ul>
-<li><p>BinaryReader 和 BinaryWriter - 用于将基元数据类型作为二进制值进行读取和写入。</p>
-</li>
-<li><p>StreamReader 和 StreamWriter - 用于通过使用编码值在字符和字节之间来回转换来读取和写入字符。</p>
-</li>
-<li><p>StringReader 和 StringWriter - 用于从字符串读取字符以及将字符写入字符串中。</p>
-</li>
-<li><p>TextReader 和 TextWriter - 用作其他读取器和编写器（读取和写入字符和字符串，而不是二进制数据）的抽象基类。</p>
-</li>
-</ul>
-<h1 id="Stream-类"><a href="#Stream-类" class="headerlink" title="Stream 类"></a>Stream 类</h1><p>继承自Stream类的一些更常用的流包括 FileStream、 和 MemoryStream。根据不同数据源类型，继承自Stream类的流可能仅支持Stream类中的某些功能。 </p>
-<h2 id="属性"><a href="#属性" class="headerlink" title="属性"></a>属性</h2><ul>
-<li><p>CanRead	<br>当在派生类中重写时，获取指示当前流是否支持读取的值。</p>
-</li>
-<li><p>CanSeek	<br>当在派生类中重写时，获取指示当前流是否支持查找功能的值。</p>
-</li>
-<li><p>CanTimeout	<br>获取一个值，该值确定当前流是否可以超时。</p>
-</li>
-<li><p>CanWrite	<br>当在派生类中重写时，获取指示当前流是否支持写入功能的值。</p>
-</li>
-<li><p>Length	<br>当在派生类中重写时，获取流长度（以字节为单位）。</p>
-</li>
-<li><p>Position	<br>当在派生类中重写时，获取或设置当前流中的位置。</p>
-</li>
-</ul>
-<blockquote>
-<p>很多asp.net项目中文件或图片上传中很多朋友会经历过这样一个痛苦：Stream对象被缓存了，导致了Position属性在流中无法<br>找到正确的位置，这点会让人抓狂，其实解决这个问题很简单，我们每次使用流前必须将Stream.Position设置成0就行了，但是这还不能根本上解决问题，最好的方法就是用Using语句将流对象包裹起来，用完后关闭回收即可。</p>
-</blockquote>
-<ul>
-<li><p>ReadTimeout	<br>获取或设置一个值（以毫秒为单位），该值确定流在超时前将尝试读取的时间。</p>
-</li>
-<li><p>WriteTimeout	<br>获取或设置一个值（以毫秒为单位），该值确定流在超时前将尝试写入多长时间。</p>
-</li>
-</ul>
-<h2 id="方法"><a href="#方法" class="headerlink" title="方法"></a>方法</h2><ul>
-<li>Flush()	<br>当在派生类中重写时，将清除该流的所有缓冲区，并使得所有缓冲数据被写入到基础设备。</li>
-</ul>
-<blockquote>
-<p>某些流实现对基础数据执行本地缓冲以提高性能。 对于此类流，可以使用 Flush 或 FlushAsync 方法来清除缓冲区，并确保所有数据都已写入基础数据源或存储库。</p>
-</blockquote>
-<blockquote>
-<p>当使用 StreamWriter 或 BinaryWriter 类时，不要刷新 Stream 基对象。而应使用该类的 Flush 或 Close 方法，此方法确保首先将该数据刷新至基础流，然后再将其写入文件。</p>
-</blockquote>
-<ul>
-<li><p>int Read(Byte[] buffer, Int32 offset, Int32 count)	<br>当在派生类中重写时，从当前流读取字节序列，并将此流中的位置提升读取的字节数。</p>
-<blockquote>
-<p>这个方法包含了3个关键的参数：</p>
-<ul>
-<li><p>buffer 缓冲字节数组，此数组中 offset 和 (offset + count - 1) 之间的值被从当前源中读取的字节所替换；</p>
-</li>
-<li><p>offset 位移偏量，从buffer的offset处开始存储从流中读取的数据；</p>
-</li>
-<li><p>count 读取字节个数，要从当前流中最多读取的字节数；</p>
-</li>
-</ul>
-<p>返回值：读入缓冲区中的总字节数，总字节数可能小于请求的字节数，如果已到达流结尾，则为零 (0)；</p>
-</blockquote>
-</li>
-<li><p>Seek(long offset , SeekOrigin origin)<br>当在派生类中重写时，设置当前流中的位置。</p>
-<blockquote>
-<ul>
-<li>offset: 相对于 origin 参数的字节偏移量。</li>
-<li>origin: SeekOrigin 类型的值，指示用于获取新位置的参考点。</li>
-</ul>
-<p>如果 offset 为负，则要求新位置位于 origin 指定的位置之前，其间隔相差 offset 指定的字节数。如果 offset 为零 (0)，则要求新位置位于由 origin 指定的位置处。</p>
-<p>如果 offset 为正，则要求新位置位于 origin 指定的位置之后，其间隔相差 offset 指定的字节数.</p>
-<ul>
-<li><p>Stream. Seek(-3,Origin.End);  表示在流末端往前数第3个位置</p>
-</li>
-<li><p>Stream. Seek(0,Origin.Begin); 表示在流的开头位置</p>
-</li>
-<li><p>Stream. Seek(3,Orig&#96;in.Current); 表示在流的当前位置往后数第三个位置</p>
-</li>
-</ul>
-</blockquote>
-</li>
-<li><p>void Write (byte[] buffer, int offset, int count); 向当前流中写入字节序列，并将此流中的当前位置提升写入的字节数。</p>
-<blockquote>
-<ul>
-<li><p>buffer: 字节数组。 此方法将 count 个字节从 buffer 复制到当前流</p>
-</li>
-<li><p>offset: buffer 中的字节偏移量，从此处开始将字节复制到当前流;</p>
-</li>
-<li><p>count: 要写入当前流的字节数</p>
-</li>
-</ul>
-<p>如果写入操作成功，则流中的位置将按写入的字节数前进。 如果发生异常，则流中的位置保持不变。</p>
-</blockquote>
-</li>
-</ul>
-<h1 id="TextReader"><a href="#TextReader" class="headerlink" title="TextReader"></a>TextReader</h1><p>是一个抽象类。 因此，不要在代码中实例化它。 派生类（StreamReader 和 StringReader）必须至少实现 Peek() 和 Read() 方法，才能成为TextReader有用的实例。</p>
-<p>此类型实现 IDisposable 接口。 使用完派生自此类型的任何类型后，应直接或间接释放它。 若要直接释放类型，请在 try&#x2F;catch 块中调用其 Dispose 方法。 若要间接释放类型，请使用 using（在 C# 中）等语言构造</p>
-<h2 id="方法-1"><a href="#方法-1" class="headerlink" title="方法"></a>方法</h2><ul>
-<li><p>void Close ()：关闭 TextReader 并释放与该 TextReader 关联的所有系统资源；</p>
-</li>
-<li><p>void Dispose ()：释放由 TextReader 对象使用的所有资源；假如TextReader中持有stream或其他对象，当TextReader执行了Dispose方法时，stream对象也被回收了；</p>
-</li>
-<li><p>int Peek ()：读取下一个字符，而不更改读取器状态或字符源。 返回下一个可用字符，而实际上并不从读取器中读取此字符。</p>
-<blockquote>
-<p>返回值：一个表示下一个要读取的字符的整数；如果没有更多可读取的字符或该读取器不支持查找，则为 -1。<br>该方法 Peek 返回整数值，以确定文件末尾还是发生了另一个错误。 这样，用户就可以先检查返回的值是否为 -1，然后再将其强制转换为 Char 类型。</p>
-</blockquote>
-</li>
-<li><p>int Read ()：读取文本读取器中的下一个字符并使该字符的位置前移一个字符。</p>
-</li>
-</ul>
-<blockquote>
-<p>返回值：文本读取器中的下一个字符，或为 -1（如果没有更多可用字符）。 默认实现将返回 -1。</p>
-<p>read()方法使指针指向下个字符，但是peek()还是指向原来那个字符</p>
-</blockquote>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="built_in">string</span> text = <span class="string">&quot;abc\nabc&quot;</span>;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> (TextReader reader = <span class="keyword">new</span> StringReader(text))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span> (reader.Peek() != <span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">&quot;Peek = &#123;0&#125;&quot;</span>, (<span class="built_in">char</span>)reader.Peek());</span><br><span class="line">        Console.WriteLine(<span class="string">&quot;Read = &#123;0&#125;&quot;</span>, (<span class="built_in">char</span>)reader.Read());</span><br><span class="line">    &#125;</span><br><span class="line">    reader.Close();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> (TextReader reader = <span class="keyword">new</span> StringReader(text))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">char</span>[] charBuffer = <span class="keyword">new</span> <span class="built_in">char</span>[<span class="number">3</span>];</span><br><span class="line">    <span class="built_in">int</span> data = reader.ReadBlock(charBuffer, <span class="number">0</span>, <span class="number">3</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; charBuffer.Length; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">&quot;通过readBlock读出的数据：&#123;0&#125;&quot;</span>, charBuffer[i]);</span><br><span class="line">    &#125;</span><br><span class="line">    reader.Close();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> (TextReader reader = <span class="keyword">new</span> StringReader(text))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">string</span> lineData = reader.ReadLine();</span><br><span class="line">    Console.WriteLine(<span class="string">&quot;第一行的数据为:&#123;0&#125;&quot;</span>, lineData);</span><br><span class="line">    reader.Close();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> (TextReader reader = <span class="keyword">new</span> StringReader(text))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">string</span> allData = reader.ReadToEnd();</span><br><span class="line">    Console.WriteLine(<span class="string">&quot;全部的数据为:&#123;0&#125;&quot;</span>, allData);</span><br><span class="line">    reader.Close();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Console.ReadLine();</span><br></pre></td></tr></table></figure>
-
-<h1 id="StreamReader"><a href="#StreamReader" class="headerlink" title="StreamReader"></a>StreamReader</h1><p>实现一个 TextReader，使其以一种特定的编码从字节流中读取字符。</p>
-<p>StreamReader 设计用于特定编码中的<em><strong>字符-Char</strong>输入，而 Stream 类设计用于</em>*字节-byte**输入和输出。 用于 StreamReader 从标准文本文件读取信息行。</p>
-<p>StreamReader 除非另行指定，否则默认为 UTF-8 编码，而不是默认为当前系统的 ANSI 代码页。 UTF-8 正确处理 Unicode 字符，并在操作系统的本地化版本上提供一致的结果。</p>
-<p> 如果使用CurrentEncoding属性获取当前字符编码 ，则值在执行第一个 Read 方法之后才可靠，因为编码自动检测在首次调用方法之前不会完成。</p>
-<h2 id="构造函数"><a href="#构造函数" class="headerlink" title="构造函数"></a>构造函数</h2><ul>
-<li>StreamReader(Stream)	：为指定的流初始化 StreamReader 类的新实例。</li>
-<li>StreamReader(Stream, Encoding)：用指定的字符编码为指定的流初始化 StreamReader 类的一个新实例。</li>
-<li>StreamReader(String, Encoding)：用指定的字符编码，为指定的文件名初始化 StreamReader 类的一个新实例。<blockquote>
-<p> 这里的string对象不是简单的字符串而是具体文件的地址,然后根据用户选择编码去读取流中的数据</p>
-</blockquote>
-</li>
-</ul>
-<h2 id="属性-1"><a href="#属性-1" class="headerlink" title="属性"></a>属性</h2><ul>
-<li>BaseStream：返回基础流。<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">FileStream fs = <span class="keyword">new</span> FileStream ( <span class="string">&quot;D:\\TextReader.txt&quot;</span>, FileMode.Open , FileAccess.Read ) ; </span><br><span class="line">StreamReader sr= <span class="keyword">new</span> StreamReader ( fs ) ; </span><br><span class="line"><span class="comment">//本例中的BaseStream就是FileStream</span></span><br><span class="line">sr.BaseStream.Seek (<span class="number">0</span> , SeekOrigin.Begin ) ;</span><br></pre></td></tr></table></figure></li>
-<li>CurrentEncoding：获取当前 StreamReader 对象正在使用的当前字符编码</li>
-<li>EndOfStream：获取一个值，该值指示当前的流位置是否在流结尾，如果当前流位置位于流的末尾，则为 true；否则为 false。</li>
-</ul>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">//文件地址</span></span><br><span class="line"><span class="built_in">string</span> txtFilePath = <span class="string">&quot;D:\\TextReader.txt&quot;</span>;</span><br><span class="line"><span class="comment">//定义char数组</span></span><br><span class="line"><span class="built_in">char</span>[] charBuffer2 = <span class="keyword">new</span> <span class="built_in">char</span>[<span class="number">3</span>];</span><br><span class="line"></span><br><span class="line"><span class="comment">//利用FileStream类将文件文本数据变成流然后放入StreamReader构造函数中</span></span><br><span class="line"><span class="keyword">using</span> (FileStream stream = File.OpenRead(txtFilePath))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">using</span> (StreamReader reader = <span class="keyword">new</span> StreamReader(stream))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//StreamReader.Read()方法</span></span><br><span class="line">        DisplayResultStringByUsingRead(reader);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">using</span> (FileStream stream = File.OpenRead(txtFilePath))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//使用Encoding.ASCII来尝试下</span></span><br><span class="line">    <span class="keyword">using</span> (StreamReader reader = <span class="keyword">new</span> StreamReader(stream, Encoding.ASCII, <span class="literal">false</span>))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//StreamReader.ReadBlock()方法</span></span><br><span class="line">        DisplayResultStringByUsingReadBlock(reader);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//尝试用文件定位直接得到StreamReader，顺便使用 Encoding.Default</span></span><br><span class="line"><span class="keyword">using</span> (StreamReader reader = <span class="keyword">new</span> StreamReader(txtFilePath, Encoding.Default, <span class="literal">false</span>, <span class="number">123</span>))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//StreamReader.ReadLine()方法</span></span><br><span class="line">    DisplayResultStringByUsingReadLine(reader);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//也可以通过File.OpenText方法直接获取到StreamReader对象</span></span><br><span class="line"><span class="keyword">using</span> (StreamReader reader = File.OpenText(txtFilePath))</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//StreamReader.ReadLine()方法</span></span><br><span class="line">    DisplayResultStringByUsingReadLine(reader);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">Console.ReadLine();</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> 使用StreamReader.Read()方法</span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line">        <span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;reader&quot;&gt;</span><span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">DisplayResultStringByUsingRead</span>(<span class="params">StreamReader reader</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">int</span> readChar = <span class="number">0</span>;</span><br><span class="line">    <span class="built_in">string</span> result = <span class="built_in">string</span>.Empty;</span><br><span class="line">    <span class="keyword">while</span> ((readChar = reader.Read()) != <span class="number">-1</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        result += (<span class="built_in">char</span>)readChar;</span><br><span class="line">    &#125;</span><br><span class="line">    Console.WriteLine(<span class="string">&quot;使用StreamReader.Read()方法得到Text文件中的数据为 : &#123;0&#125;&quot;</span>, result);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 使用StreamReader.ReadBlock()方法</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;reader&quot;&gt;</span><span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">DisplayResultStringByUsingReadBlock</span>(<span class="params">StreamReader reader</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">char</span>[] charBuffer = <span class="keyword">new</span> <span class="built_in">char</span>[<span class="number">10</span>];</span><br><span class="line">    <span class="built_in">string</span> result = <span class="built_in">string</span>.Empty;</span><br><span class="line">    reader.ReadBlock(charBuffer, <span class="number">0</span>, <span class="number">10</span>);</span><br><span class="line">    <span class="keyword">for</span> (<span class="built_in">int</span> i = <span class="number">0</span>; i &lt; charBuffer.Length; i++)</span><br><span class="line">    &#123;</span><br><span class="line">        result += charBuffer[i];</span><br><span class="line">    &#125;</span><br><span class="line">    Console.WriteLine(<span class="string">&quot;使用StreamReader.ReadBlock()方法得到Text文件中前10个数据为 : &#123;0&#125;&quot;</span>, result);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 使用StreamReader.ReadLine()方法</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;reader&quot;&gt;</span><span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">DisplayResultStringByUsingReadLine</span>(<span class="params">StreamReader reader</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">int</span> i = <span class="number">1</span>;</span><br><span class="line">    <span class="built_in">string</span> resultString = <span class="built_in">string</span>.Empty;</span><br><span class="line">    <span class="keyword">while</span> ((resultString = reader.ReadLine()) != <span class="literal">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        Console.WriteLine(<span class="string">&quot;使用StreamReader.Read()方法得到Text文件中第&#123;1&#125;行的数据为 : &#123;0&#125;&quot;</span>, resultString, i);</span><br><span class="line">        i++;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="TextWriter"><a href="#TextWriter" class="headerlink" title="TextWriter"></a>TextWriter</h1><p>TextWriter是抽象基类，子类 StreamWriter 和 StringWriter，分别将字符写入流和字符串。 派生类必须实现 Write(Char) 方法，才能创建一个有用的实例 TextWriter。</p>
-<h2 id="构造函数-1"><a href="#构造函数-1" class="headerlink" title="构造函数"></a>构造函数</h2><ul>
-<li><p>TextWriter()：初始化 TextWriter 类的新实例。</p>
-</li>
-<li><p>TextWriter(IFormatProvider)：使用指定的格式提供程序初始化 TextWriter 类的新实例。</p>
-<blockquote>
-<p>使用此构造函数创建的实例，在调用 Write 和 WriteLine 方法时使用FormatProvider属性值，设置的区域性特定格式。</p>
-</blockquote>
-</li>
-</ul>
-<h2 id="属性-2"><a href="#属性-2" class="headerlink" title="属性"></a>属性</h2><ul>
-<li><p>Encoding：当在派生类中重写时，返回用来写输出的该字符编码。</p>
-</li>
-<li><p>FormatProvider：获取控制格式设置的对象。</p>
-</li>
-<li><p>NewLine：获取或设置由当前 TextWriter 使用的行结束符字符串。</p>
-</li>
-</ul>
-<h1 id="StreamWriter"><a href="#StreamWriter" class="headerlink" title="StreamWriter"></a>StreamWriter</h1><p>StreamWriter 以一种特定的编码向流中写入字符。 除非另外指定，否则默认为使用UTF8Encoding实例 。 UTF8Encoding实例在构造时没有字节顺序标记 (BOM) ，因此其 GetPreamble 方法返回一个空字节数组。 此构造函数的默认 UTF-8 编码对无效字节引发异常。 此行为不同于属性中的编码对象提供的行为 Encoding.UTF8 。 若要指定一个 BOM 并确定无效字节是否引发了异常，请使用接受编码对象作为参数的构造函数。</p>
-<h2 id="构造函数-2"><a href="#构造函数-2" class="headerlink" title="构造函数"></a>构造函数</h2><ul>
-<li><p>StreamWriter(Stream)：使用 UTF-8 编码及默认的缓冲区大小，为指定的流初始化 StreamWriter 类的新实例。</p>
-</li>
-<li><p>StreamWriter(Stream, Encoding)：使用指定的编码及默认的缓冲区大小，为指定的流初始化 StreamWriter 类的新实例。</p>
-</li>
-<li><p>StreamWriter (string path, bool append)：用默认编码和缓冲区大小，为指定的文件初始化 StreamWriter 类的一个新实例。</p>
-<blockquote>
-<p> 若要追加数据到该文件中，append为 true；若要覆盖该文件，append为 false。 如果指定的文件不存在，该参数无效，且构造函数将创建一个新文件。</p>
-</blockquote>
-</li>
-</ul>
-<h2 id="属性-3"><a href="#属性-3" class="headerlink" title="属性"></a>属性</h2><ul>
-<li><p>AutoFlush：获取或设置一个值，该值指示 StreamWriter 在每次调用 Write(Char) 之后是否都将其缓冲区刷新到基础流。</p>
-</li>
-<li><p>BaseStream：获取同后备存储连接的基础流。</p>
-</li>
-<li><p>Encoding：获取在其中写入输出的 Encoding。</p>
-</li>
-<li><p>FormatProvider：获取控制格式设置的对象。</p>
-</li>
-<li><p>NewLine：获取或设置由当前 TextWriter 使用的行结束符字符串。</p>
-</li>
-</ul>
-<h1 id="FileStream"><a href="#FileStream" class="headerlink" title="FileStream"></a>FileStream</h1><p>使用FileStream类读取、写入、打开和关闭文件系统上的文件，并操作其他与文件相关的操作系统句柄，包括管道、标准输入和标准输出。 可以使用 Read、 Write、 CopyTo和 Flush 方法执行同步操作，或使用 ReadAsync、 WriteAsync、 CopyToAsync和 FlushAsync 方法执行异步操作。 使用异步方法执行资源密集型文件操作，而不会阻止主线程。 </p>
-<p>属性 IsAsync 检测文件句柄是否已异步打开。 使用具有 isAsync、 或 options 参数的构造函数创建FileStream类的实例时，useAsync可以指定此值。 当IsAsync属性为 true时，流利用重叠的 I&#x2F;O 以异步方式执行文件操作。 </p>
-<p>当IsAsync属性为 false 并且你调用异步读取和写入操作时，UI 线程仍不会被阻止，但实际 I&#x2F;O 操作是同步执行的。</p>
-<p>方法 Seek 支持对文件的随机访问。 Seek 允许将读&#x2F;写位置移动到文件中的任何位置。</p>
-<p>当对象 FileStream 在其句柄上没有独占保留时，另一个线程可以同时访问文件句柄，并更改与文件句柄关联的操作系统文件指针的位置。 在这种情况下，对象中的 FileStream 缓存位置和缓冲区中的缓存数据可能会受到威胁。 对象 FileStream 定期对访问缓存缓冲区的方法执行检查，以确保操作系统的句柄位置与对象使用的 FileStream 缓存位置相同。</p>
-<p>如果在调用 Read 方法时检测到句柄位置的意外更改，.NET Framework放弃缓冲区的内容，并从文件中再次读取流。 这可能会影响性能，具体取决于文件的大小以及可能影响文件流位置的任何其他进程。</p>
-<p>如果在调用 Write 方法时检测到句柄位置的意外更改，则会丢弃缓冲区的内容并 IOException 引发异常。</p>
-<h2 id="构造函数-3"><a href="#构造函数-3" class="headerlink" title="构造函数"></a>构造函数</h2><ul>
-<li>FileStream(SafeFileHandle, FileAccess)：使用指定的读&#x2F;写权限为指定的文件句柄初始化 FileStream 类的新实例。<blockquote>
-<p>SafeFileHandle<br>当前 FileStream 对象将封装的文件的文件句柄。</p>
-</blockquote>
-</li>
-</ul>
-<blockquote>
-<p>FileAccess<br>枚举值的按位组合，它用于设置 FileStream 对象的 CanRead 和 CanWrite 属性。</p>
-</blockquote>
-<ul>
-<li>FileStream(String, FileMode, FileAccess, FileShare, Int32, FileOptions):使用指定的路径、创建模式、读&#x2F;写和共享权限、其他 FileStreams 可以具有的对此文件的访问权限、缓冲区大小和附加文件选项初始化 FileStream 类的新实例。</li>
-</ul>
-<blockquote>
-<p>String: 当前 FileStream 对象将封装的文件的相对路径或绝对路径。</p>
-<p>FileMode: 用于确定文件的打开或创建方式的枚举值之一。</p>
-<p>FileAccess: 枚举值的按位组合，这些枚举值确定 FileStream 对象访问文件的方式。 该常数还可以确定由 FileStream 对象的 CanRead 和 CanWrite 属性返回的值。 如果 path 指定磁盘文件，则 CanSeek 为 true。</p>
-<p>FileShare: 枚举值的按位组合，这些枚举值确定进程共享文件的方式。</p>
-<p>Int32: 一个大于零的正 Int32 值，表示缓冲区大小。 默认缓冲区大小为 4096<br>FileOptions: 枚举值的按位组合，它用于指定其他文件选项</p>
-</blockquote>
-<h3 id="参数说明"><a href="#参数说明" class="headerlink" title="参数说明"></a>参数说明</h3><ul>
-<li><p>FileMode：指定操作系统打开文件的方式。</p>
-<blockquote>
-<p>Append: 若存在文件，则打开该文件并查找到文件尾，或者创建一个新文件。 FileMode.Append 只能与 FileAccess.Write 一起使用。 试图查找文件尾之前的位置时会引发 IOException 异常，并且任何试图读取的操作都会失败并引发 NotSupportedException 异常。</p>
-<p>Create: 指定操作系统应创建新文件。 如果此文件已存在，则会将其覆盖。 这需要 Write 权限。<br>FileMode.Create 等效于这样的请求：如果文件不存在，则使用 CreateNew；否则使用 Truncate。 如果该文件已存在但为隐藏文件，则将引发 UnauthorizedAccessException异常。</p>
-<p>CreateNew: 指定操作系统应创建新文件。 这需要 Write 权限。 如果文件已存在，则将引发 IOException异常。</p>
-<p>Open: 指定操作系统应打开现有文件。 打开文件的能力取决于 FileAccess 枚举所指定的值。 如果文件不存在，引发一个 FileNotFoundException 异常。</p>
-<p>OpenOrCreate: 指定操作系统应打开文件（如果文件存在）；否则，应创建新文件。 如果用 FileAccess.Read 打开文件，则需要 Read权限。 如果文件访问为 FileAccess.Write，则需要 Write权限。 如果用 FileAccess.ReadWrite 打开文件，则同时需要 Read 和 Write权限</p>
-<p>Truncate: 指定操作系统应打开现有文件。 该文件被打开时，将被截断为零字节大小。 这需要 Write 权限。 尝试从使用 FileMode.Truncate 打开的文件中进行读取将导致 ArgumentException 异常。</p>
-</blockquote>
-</li>
-<li><p>FileAccess: 定义文件的读取、写入或读&#x2F;写访问权限的常量。</p>
-</li>
-</ul>
-<blockquote>
-<p>Read: 对文件的读访问。 可从文件中读取数据。 与 Write 组合以进行读写访问。</p>
-<p>ReadWrite: 对文件的读写访问权限。 可从文件读取数据和将数据写入文件。</p>
-<p>Write: 文件的写访问。 可将数据写入文件。 与 Read 组合以进行读写访问。</p>
-</blockquote>
-<ul>
-<li>FileShare: 包含用于控制其他 FileStream 对象对同一文件可以具有的访问类型的常数。</li>
-</ul>
-<blockquote>
-<p>Delete: 允许随后删除文件。</p>
-<p>Inheritable: 使文件句柄可由子进程继承。 Win32 不直接支持此功能。</p>
-<p>None: 谢绝共享当前文件。 文件关闭前，打开该文件的任何请求（由此进程或另一进程发出的请求）都将失败。</p>
-<p>Read: 允许随后打开文件读取。 如果未指定此标志，则文件关闭前，任何打开该文件以进行读取的请求（由此进程或另一进程发出的请求）都将失败。 但是，即使指定了此标志，仍可能需要附加权限才能够访问该文件。</p>
-<p>ReadWrite: 允许随后打开文件读取或写入。 如果未指定此标志，则文件关闭前，任何打开该文件以进行读取或写入的请求（由此进程或另一进程发出）都将失败。 但是，即使指定了此标志，仍可能需要附加权限才能够访问该文件。</p>
-<p>Write: 允许随后打开文件写入。 如果未指定此标志，则文件关闭前，任何打开该文件以进行写入的请求（由此进程或另一进过程发出的请求）都将失败。 但是，即使指定了此标志，仍可能需要附加权限才能够访问该文件。</p>
-</blockquote>
-<ul>
-<li>FileOptions</li>
-</ul>
-<blockquote>
-<p>Asynchronous: 指示文件可用于异步读取和写入</p>
-<p>DeleteOnClose: 指示当不再使用某个文件时，自动删除该文件。</p>
-<p>Encrypted: 指示文件是加密的，只能通过用于加密的同一用户帐户来解密。</p>
-<p>None: 指示在生成 FileStream 对象时，不应使用其他选项。</p>
-<p>RandomAccess: 指示随机访问文件。 系统可将此选项用作优化文件缓存的提示。</p>
-<p>SequentialScan: 指示按从头到尾的顺序访问文件。 系统可将此选项用作优化文件缓存的提示。 如果应用程序移动用于随机访问的文件指针，可能不发生优化缓存，但仍然保证操作的正确性。 如果指定此标志，可提升某些案例中的性能。</p>
-<p>WriteThrough: 指示系统应通过任何中间缓存、直接写入磁盘。</p>
-</blockquote>
-<blockquote>
-<p>指定 FileOptions.SequentialScan 标志可以提高使用顺序访问读取大型文件的应用程序的性能。 对于主要按顺序读取大型文件，但偶尔跳过小范围字节的应用程序，性能提升可能更为明显。</p>
-</blockquote>
-<h2 id="属性-4"><a href="#属性-4" class="headerlink" title="属性"></a>属性</h2><ul>
-<li><p>IsAsync：获取一个值，它指示 FileStream 是异步打开还是同步打开的。</p>
-</li>
-<li><p>Length：获取流的长度（以字节为单位）。</p>
-</li>
-<li><p>Name：获取 FileStream 中已打开的文件的绝对路径。</p>
-</li>
-<li><p>Position：获取或设置此流的当前位置。</p>
-</li>
-<li><p>SafeFileHandle：获取 SafeFileHandle 对象，它代表当前 FileStream 对象所封装的文件的操作系统文件句柄。</p>
-</li>
-</ul>
-<h2 id="方法-2"><a href="#方法-2" class="headerlink" title="方法"></a>方法</h2><p>属于FileStream独有的方法</p>
-<ul>
-<li><p>FileSecurity GetAccessControl(FileStream)： 返回文件的安全信息。</p>
-<blockquote>
-<p>FileStream: 一个要从中获取安全信息的现有文件</p>
-</blockquote>
-</li>
-<li><p>void SetAccessControl(FileSecurity fileSecurity): 和GetAccessControl很相似，ACL技术会在以后单独介绍</p>
-</li>
-<li><p>Lock (long position, long length);防止其他进程读取或写入 FileStream。</p>
-</li>
-</ul>
-<blockquote>
-<p> 这个Lock方法和线程中的Look关键字很不一样，它能够锁住文件中的某一部分，非常的强悍！用了这个方法我们能够精确锁定住我们需要锁住的文件的部分内容</p>
-</blockquote>
-<ul>
-<li>void Unlock (long position,long length):正好和lock方法相反，对于文件部分的解锁</li>
-</ul>
-<h1 id="MemoryStream"><a href="#MemoryStream" class="headerlink" title="MemoryStream"></a>MemoryStream</h1><p>创建一个流，其后备存储为内存。</p>
-<p>使用无符号字节数组创建的内存流提供不可调整大小的数据流。 使用字节数组时，既不能追加流，也不能收缩流，不过，根据传递到构造函数的参数，可以修改现有内容。 空内存流可调整大小，可以写入和读取。</p>
-<p>由于MemoryStream是通过无符号字节数组组成的，可以说MemoryStream的性能可以算比较出色，所以它担当起了一些其他流进行数据交换时的中间工作，同时可降低应用程序中对临时缓冲区和临时文件的需要.</p>
-<h2 id="构造函数-4"><a href="#构造函数-4" class="headerlink" title="构造函数"></a>构造函数</h2><ul>
-<li>MemoryStream()：使用初始化为零的可扩展容量初始化 MemoryStream 类的新实例。</li>
-</ul>
-<blockquote>
-<p>使用初始化为零的可扩展容量初始化 MemoryStream 类的新实例。</p>
-<p>CanSeek属性CanRead和CanWrite属性都设置为 true。</p>
-<p>使用 SetLength 该方法将长度设置为大于当前流的容量的值时，当前流的容量会自动增加。</p>
-<p>此构造函数公开返回的基础流 GetBuffer 。</p>
-</blockquote>
-<ul>
-<li>MemoryStream(Byte[])：基于指定的字节数组初始化 MemoryStream 类的无法调整大小的新实例。</li>
-</ul>
-<blockquote>
-<p>基于指定的字节数组初始化 MemoryStream 类的无法调整大小的新实例。</p>
-<p>CanSeek属性CanRead和CanWrite属性都设置为 true。 Capacity 设置为指定字节数组的长度。 可将新流写入，但不可调整大小。</p>
-<p>流的长度不能设置为大于指定字节数组的初始长度的值;但是， (可以看到 SetLength) 截断流。</p>
-<p>此构造函数不公开基础流。 GetBuffer throws UnauthorizedAccessException.</p>
-</blockquote>
-<ul>
-<li>MemoryStream(Int32)：使用按指定要求初始化的可扩展容量初始化 MemoryStream 类的新实例。</li>
-</ul>
-<blockquote>
-<p>使用按指定要求初始化的可扩展容量初始化 MemoryStream 类的新实例。</p>
-<p>CanSeek属性CanRead和CanWrite属性都设置为 true。</p>
-<p>使用 SetLength 此方法将长度设置为大于当前流的容量的值时，容量会自动增加。</p>
-<p>此构造函数公开返回的基础流 GetBuffer</p>
-</blockquote>
-<ul>
-<li>MemoryStream(Byte[], Int32, Int32, Boolean, Boolean)：在 MemoryStream 属性和调用 CanWrite 的能力按指定设置的状态下，基于字节数组的指定区域初始化 GetBuffer() 类的新实例。</li>
-</ul>
-<blockquote>
-<p>和CanRead、CanSeek属性都设置为true。 将 Capacity 设置为 count。</p>
-<p>可以将新流实例写入其中，但 Capacity 基础字节数组无法更改。 流的长度不能设置为大于指定字节数组的初始长度的值;</p>
-</blockquote>
-<h2 id="方法-3"><a href="#方法-3" class="headerlink" title="方法"></a>方法</h2><ul>
-<li>virtual byte[] GetBuffer()： 返回从中创建此流的无符号字节的数组</li>
-</ul>
-<blockquote>
-<p>请注意，缓冲区包含可能未使用的已分配字节。 例如，如果将字符串“test”写入 MemoryStream 对象，则返回 GetBuffer 的缓冲区长度为 256，而不是 4，未使用 252 个字节。 若要仅获取缓冲区中的数据，请使用 ToArray 该方法;但是， ToArray 会在内存中创建数据的副本。</p>
-<p>这个方法使用时需要小心，因为这个方法返回无符号字节数组，也就是说，即使我只输入几个字符例如”HellowWorld”我们只希望返回11个数据就行，可是这个方法会把整个缓冲区的数据，包括那些已经分配但是实际上没有用到的字节数据都返回出来;</p>
-</blockquote>
-<ul>
-<li>virtual void WriteTo(Stream stream): 将此内存流的整个内容写入到另一个流中。</li>
-</ul>
-<blockquote>
-<p>memoryStream常用起中间流的作用，所以在处理完后将内存流写入其他流中;</p>
-</blockquote>
-<h1 id="BufferedStream"><a href="#BufferedStream" class="headerlink" title="BufferedStream"></a>BufferedStream</h1><p>将缓冲层添加到另一个流上的读取和写入操作。<br>BufferedStream能够实现流的缓存，换句话说也就是在内存中能够缓存一定的数据而不是</p>
-<p>时时给系统带来负担，同时BufferedStream可以对缓存中的数据进行写入或是读取，所以对流的性能带来一定的提升，但是无法同时进行读取或写入工作，如果不使用缓冲区也行，BufferedStream能够保证不用缓冲区时不会降低因缓冲区带来的读取或写入性能的下降。</p>
-<p>为什么MemoryStream 同样也是在内存中对流进行操作，和BufferedStream有什么区别呢？BufferedStream并不是将所有内容都存放到内存中，而MemoryStream则是。BufferedStream必须跟其他流如FileStream结合使用，而MemoryStream则不用，聪明的你肯定能够想到，BufferedStream必然类似于一个流的包装类，对流进行”缓存功能的扩展包装”，所以BufferedStream的优势不仅体现在其原有的缓存功能上，更体现在如何帮助原有类实现其功能的扩展层面上。</p>
-<h1 id="NetworkStream"><a href="#NetworkStream" class="headerlink" title="NetworkStream"></a>NetworkStream</h1><p>如果服务器和客户端之间基于TCP连接的，他们之间能够依靠一个稳定的字节流进行相互传输信息，这也是</p>
-<p>NetworkStream的最关键的作用，有了这个神奇的协议，NetWorkStream便能向其他流一样在网络中（进行点对点的传输）</p>
-<blockquote>
-<ul>
-<li><p>NetworkStream只能用在具有Tcp&#x2F;IP协议之中，如果用在UDP中编译不报错，会报异常</p>
-</li>
-<li><p>NetworkStream 是面向连接的</p>
-</li>
-<li><p>在网络中利用流的形式传递信息</p>
-</li>
-<li><p>必须借助Socket (也称之为流式socket)，或使用一些返回的返回值，例如TcpClient类的GetStream方法</p>
-</li>
-<li><p>用法和普通流方法几乎一模一样，但具有特殊性</p>
-</li>
-</ul>
-</blockquote>
-<p>可以在类实例 NetworkStream 上同时执行读取和写入操作，而无需同步。 只要写入操作有一个唯一线程，读取操作有一个唯一线程，读取和写入线程之间就不会有交叉干扰，也不需要同步。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/06/15/asp-net-core/Asp-Net-Core-%E8%AF%BB%E5%8F%96Request-Body%E7%9A%84%E6%AD%A3%E5%8F%96%E6%96%B9%E5%BC%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="InfoPool">
-      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | InfoPool">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/06/15/asp-net-core/Asp-Net-Core-%E8%AF%BB%E5%8F%96Request-Body%E7%9A%84%E6%AD%A3%E5%8F%96%E6%96%B9%E5%BC%8F/" class="post-title-link" itemprop="url">Asp.Net Core 读取Request.Body的正取方式</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-06-15 11:10:31" itemprop="dateCreated datePublished" datetime="2023-06-15T11:10:31+08:00">2023-06-15</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-06-27 10:08:42" itemprop="dateModified" datetime="2023-06-27T10:08:42+08:00">2023-06-27</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="常用读取方式"><a href="#常用读取方式" class="headerlink" title="常用读取方式"></a>常用读取方式</h1><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">OnActionExecuting</span>(<span class="params">ActionExecutingContext context</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//在ASP.NET Core中Request Body是Stream的形式</span></span><br><span class="line">    StreamReader stream = <span class="keyword">new</span> StreamReader(context.HttpContext.Request.Body);</span><br><span class="line">    <span class="built_in">string</span> body = stream.ReadToEnd();</span><br><span class="line">    _logger.LogDebug(<span class="string">&quot;body content:&quot;</span> + body);</span><br><span class="line">    <span class="keyword">base</span>.OnActionExecuting(context);</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-<p>直接报一个这个错System.InvalidOperationException: Synchronous operations are disallowed. Call ReadAsync or set AllowSynchronousIO to true instead.大致的意思就是同步操作不被允许，请使用ReadAsync的方式或设置AllowSynchronousIO为true。</p>
-<h2 id="同步读取"><a href="#同步读取" class="headerlink" title="同步读取"></a>同步读取</h2><p>如何设置AllowSynchronousIO的值。第一种方式是在ConfigureServices中配置，操作如下</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">services.Configure&lt;KestrelServerOptions&gt;(options =&gt;</span><br><span class="line">&#123;</span><br><span class="line">    options.AllowSynchronousIO = <span class="literal">true</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-<p>还有一种方式，可以不用在ConfigureServices中设置，通过IHttpBodyControlFeature的方式设置，具体如下</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">OnActionExecuting</span>(<span class="params">ActionExecutingContext context</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">var</span> syncIOFeature = context.HttpContext.Features.Get&lt;IHttpBodyControlFeature&gt;();</span><br><span class="line">    <span class="keyword">if</span> (syncIOFeature != <span class="literal">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        syncIOFeature.AllowSynchronousIO = <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    StreamReader stream = <span class="keyword">new</span> StreamReader(context.HttpContext.Request.Body);</span><br><span class="line">    <span class="built_in">string</span> body = stream.ReadToEnd();</span><br><span class="line">    _logger.LogDebug(<span class="string">&quot;body content:&quot;</span> + body);</span><br><span class="line">    <span class="keyword">base</span>.OnActionExecuting(context);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这种方式同样有效，通过这种方式操作，不需要每次读取Body的时候都去设置，只要在准备读取Body之前设置一次即可。这两种方式都是去设置AllowSynchronousIO为true，但是我们需要思考一点，微软为何设置AllowSynchronousIO默认为false，说明微软并不希望我们去同步读取Body。通过查找资料得出了这么一个结论</p>
-<blockquote>
-<p>Kestrel：默认情况下禁用 AllowSynchronousIO（同步IO），线程不足会导致应用崩溃，而同步I&#x2F;O API（例如HttpRequest.Body.Read）是导致线程不足的常见原因。</p>
-</blockquote>
-<h2 id="异步读取"><a href="#异步读取" class="headerlink" title="异步读取"></a>异步读取</h2><p>通过上面我们了解到微软并不希望我们通过设置AllowSynchronousIO的方式去操作，因为会影响性能。那我们可以使用异步的方式去读取，这里所说的异步方式其实就是使用Stream自带的异步方法去读取，如下所示</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">void</span> <span class="title">OnActionExecuting</span>(<span class="params">ActionExecutingContext context</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    StreamReader stream = <span class="keyword">new</span> StreamReader(context.HttpContext.Request.Body);</span><br><span class="line">    <span class="built_in">string</span> body = stream.ReadToEndAsync().GetAwaiter().GetResult();</span><br><span class="line">    _logger.LogDebug(<span class="string">&quot;body content:&quot;</span> + body);</span><br><span class="line">    <span class="keyword">base</span>.OnActionExecuting(context);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>ASP.NET Core中许多操作都是异步操作，甚至是过滤器或中间件都可以直接返回Task类型的方法，因此我们可以直接使用异步操作</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">async</span> Task <span class="title">OnActionExecutionAsync</span>(<span class="params">ActionExecutingContext context, ActionExecutionDelegate next</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    StreamReader stream = <span class="keyword">new</span> StreamReader(context.HttpContext.Request.Body);</span><br><span class="line">    <span class="built_in">string</span> body = <span class="keyword">await</span> stream.ReadToEndAsync();</span><br><span class="line">    _logger.LogDebug(<span class="string">&quot;body content:&quot;</span> + body);</span><br><span class="line">    <span class="keyword">await</span> next();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>这两种方式的操作优点是不需要额外设置别的，只是通过异步方法读取即可，也是我们比较推荐的做法。</p>
-<h1 id="重复读取"><a href="#重复读取" class="headerlink" title="重复读取"></a>重复读取</h1><p>上面我们演示了使用同步方式和异步方式读取RequestBody，但是这样真的就可以了吗？其实并不行，这种方式每次请求只能读取一次正确的Body结果，如果继续对RequestBody这个Stream进行读取，将读取不到任何内容，首先来举个例子</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">async</span> Task <span class="title">OnActionExecutionAsync</span>(<span class="params">ActionExecutingContext context, ActionExecutionDelegate next</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    StreamReader stream = <span class="keyword">new</span> StreamReader(context.HttpContext.Request.Body);</span><br><span class="line">    <span class="built_in">string</span> body = <span class="keyword">await</span> stream.ReadToEndAsync();</span><br><span class="line">    _logger.LogDebug(<span class="string">&quot;body content:&quot;</span> + body);</span><br><span class="line"></span><br><span class="line">    StreamReader stream2 = <span class="keyword">new</span> StreamReader(context.HttpContext.Request.Body);</span><br><span class="line">    <span class="built_in">string</span> body2 = <span class="keyword">await</span> stream2.ReadToEndAsync();</span><br><span class="line">    _logger.LogDebug(<span class="string">&quot;body2 content:&quot;</span> + body2);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">await</span> next();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面的例子中body里有正确的RequestBody的结果，但是body2中是空字符串。</p>
-<p>那到底该如何解决呢？也很简单，微软知道自己刨下了坑，自然给我们提供了解决办法，用起来也很简单就是加EnableBuffering</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="keyword">async</span> Task <span class="title">OnActionExecutionAsync</span>(<span class="params">ActionExecutingContext context, ActionExecutionDelegate next</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//操作Request.Body之前加上EnableBuffering即可</span></span><br><span class="line">    context.HttpContext.Request.EnableBuffering();</span><br><span class="line"></span><br><span class="line">    StreamReader stream = <span class="keyword">new</span> StreamReader(context.HttpContext.Request.Body);</span><br><span class="line">    <span class="built_in">string</span> body = <span class="keyword">await</span> stream.ReadToEndAsync();</span><br><span class="line">    _logger.LogDebug(<span class="string">&quot;body content:&quot;</span> + body);</span><br><span class="line"></span><br><span class="line">    context.HttpContext.Request.Body.Seek(<span class="number">0</span>, SeekOrigin.Begin);</span><br><span class="line">    StreamReader stream2 = <span class="keyword">new</span> StreamReader(context.HttpContext.Request.Body);</span><br><span class="line">    <span class="comment">//注意这里！！！我已经使用了同步读取的方式</span></span><br><span class="line">    <span class="built_in">string</span> body2 = stream2.ReadToEnd();</span><br><span class="line">    context.HttpContext.Request.Body.Seek(<span class="number">0</span>, SeekOrigin.Begin);</span><br><span class="line">    _logger.LogDebug(<span class="string">&quot;body2 content:&quot;</span> + body2);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">await</span> next();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>通过添加Request.EnableBuffering()我们就可以重复的读取RequestBody了，看名字我们可以大概的猜出来，他是和缓存RequestBody有关，需要注意的是Request.EnableBuffering()要加在准备读取RequestBody之前才有效果，否则将无效，而且每次请求只需要添加一次即可。而且大家看到了我第二次读取Body的时候使用了同步的方式去读取的RequestBody，是不是很神奇，待会的时候我们会从源码的角度分析这个问题。</p>
-<h1 id="源码探究"><a href="#源码探究" class="headerlink" title="源码探究"></a>源码探究</h1><p>上面我们看到了通过StreamReader的ReadToEnd同步读取Request.Body需要设置AllowSynchronousIO为true才能操作，但是使用StreamReader的ReadToEndAsync方法却可以直接操作。</p>
-<h2 id="StreamReader和Stream的关系"><a href="#StreamReader和Stream的关系" class="headerlink" title="StreamReader和Stream的关系"></a>StreamReader和Stream的关系</h2><p>我们看到了都是通过操作StreamReader的方法即可，那关我Request.Body啥事，别急咱们先看一看这里的操作，首先来大致看下ReadToEnd的实现了解一下StreamReader到底和Stream有啥关联，找到ReadToEnd方法</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="built_in">string</span> <span class="title">ReadToEnd</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    ThrowIfDisposed();</span><br><span class="line">    CheckAsyncTaskInProgress();</span><br><span class="line">    <span class="comment">// 调用ReadBuffer，然后从charBuffer中提取数据。 </span></span><br><span class="line">    StringBuilder sb = <span class="keyword">new</span> StringBuilder(_charLen - _charPos);</span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//循环拼接读取内容</span></span><br><span class="line">        sb.Append(_charBuffer, _charPos, _charLen - _charPos);</span><br><span class="line">        _charPos = _charLen; </span><br><span class="line">        <span class="comment">//读取buffer，这是核心操作</span></span><br><span class="line">        ReadBuffer();</span><br><span class="line">    &#125; <span class="keyword">while</span> (_charLen &gt; <span class="number">0</span>);</span><br><span class="line">    <span class="comment">//返回读取内容</span></span><br><span class="line">    <span class="keyword">return</span> sb.ToString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>通过这段源码我们了解到了这么个信息，一个是StreamReader的ReadToEnd其实本质是通过循环读取ReadBuffer然后通过StringBuilder去拼接读取的内容，核心是读取ReadBuffer方法，由于代码比较多，我们找到大致呈现一下核心操作</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">if</span> (_checkPreamble)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//通过这里我们可以知道本质就是使用要读取的Stream里的Read方法</span></span><br><span class="line">    <span class="built_in">int</span> len = _stream.Read(_byteBuffer, _bytePos, _byteBuffer.Length - _bytePos);</span><br><span class="line">    <span class="keyword">if</span> (len == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (_byteLen &gt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            _charLen += _decoder.GetChars(_byteBuffer, <span class="number">0</span>, _byteLen, _charBuffer, _charLen);</span><br><span class="line">            _bytePos = _byteLen = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> _charLen;</span><br><span class="line">    &#125;</span><br><span class="line">    _byteLen += len;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//通过这里我们可以知道本质就是使用要读取的Stream里的Read方法</span></span><br><span class="line">    _byteLen = _stream.Read(_byteBuffer, <span class="number">0</span>, _byteBuffer.Length);</span><br><span class="line">    <span class="keyword">if</span> (_byteLen == <span class="number">0</span>) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> _charLen;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>通过上面的代码我们可以了解到StreamReader其实是工具类，只是封装了对Stream的原始操作，简化我们的代码ReadToEnd方法本质是读取Stream的Read方法。接下来我们看一下ReadToEndAsync方法的具体实现</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> Task&lt;<span class="built_in">string</span>&gt; <span class="title">ReadToEndAsync</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (GetType() != <span class="keyword">typeof</span>(StreamReader))</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">base</span>.ReadToEndAsync();</span><br><span class="line">    &#125;</span><br><span class="line">    ThrowIfDisposed();</span><br><span class="line">    CheckAsyncTaskInProgress();</span><br><span class="line">    <span class="comment">//本质是ReadToEndAsyncInternal方法</span></span><br><span class="line">    Task&lt;<span class="built_in">string</span>&gt; task = ReadToEndAsyncInternal();</span><br><span class="line">    _asyncReadTask = task;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> task;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">private</span> <span class="keyword">async</span> Task&lt;<span class="built_in">string</span>&gt; <span class="title">ReadToEndAsyncInternal</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//也是循环拼接读取的内容</span></span><br><span class="line">    StringBuilder sb = <span class="keyword">new</span> StringBuilder(_charLen - _charPos);</span><br><span class="line">    <span class="keyword">do</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="built_in">int</span> tmpCharPos = _charPos;</span><br><span class="line">        sb.Append(_charBuffer, tmpCharPos, _charLen - tmpCharPos);</span><br><span class="line">        _charPos = _charLen; </span><br><span class="line">        <span class="comment">//核心操作是ReadBufferAsync方法</span></span><br><span class="line">        <span class="keyword">await</span> ReadBufferAsync(CancellationToken.None).ConfigureAwait(<span class="literal">false</span>);</span><br><span class="line">    &#125; <span class="keyword">while</span> (_charLen &gt; <span class="number">0</span>);</span><br><span class="line">    <span class="keyword">return</span> sb.ToString();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>通过这个我们可以看到核心操作是ReadBufferAsync方法，代码比较多我们同样看一下核心实现</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">byte</span>[] tmpByteBuffer = _byteBuffer;</span><br><span class="line"><span class="comment">//Stream赋值给tmpStream </span></span><br><span class="line">Stream tmpStream = _stream;</span><br><span class="line"><span class="keyword">if</span> (_checkPreamble)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">int</span> tmpBytePos = _bytePos;</span><br><span class="line">    <span class="comment">//本质是调用Stream的ReadAsync方法</span></span><br><span class="line">    <span class="built_in">int</span> len = <span class="keyword">await</span> tmpStream.ReadAsync(<span class="keyword">new</span> Memory&lt;<span class="built_in">byte</span>&gt;(tmpByteBuffer, tmpBytePos, tmpByteBuffer.Length - tmpBytePos), cancellationToken).ConfigureAwait(<span class="literal">false</span>);</span><br><span class="line">    <span class="keyword">if</span> (len == <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (_byteLen &gt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            _charLen += _decoder.GetChars(tmpByteBuffer, <span class="number">0</span>, _byteLen, _charBuffer, _charLen);</span><br><span class="line">            _bytePos = <span class="number">0</span>; _byteLen = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> _charLen;</span><br><span class="line">    &#125;</span><br><span class="line">    _byteLen += len;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">else</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//本质是调用Stream的ReadAsync方法</span></span><br><span class="line">    _byteLen = <span class="keyword">await</span> tmpStream.ReadAsync(<span class="keyword">new</span> Memory&lt;<span class="built_in">byte</span>&gt;(tmpByteBuffer), cancellationToken).ConfigureAwait(<span class="literal">false</span>);</span><br><span class="line">    <span class="keyword">if</span> (_byteLen == <span class="number">0</span>) </span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> _charLen;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>通过上面代码我可以了解到StreamReader的本质就是读取Stream的包装，核心方法还是来自Stream本身。我们之所以大致介绍了StreamReader类，就是为了给大家呈现出StreamReader和Stream的关系，否则怕大家误解这波操作是StreamReader的里的实现，而不是Request.Body的问题，其实并不是这样的所有的一切都是指向Stream的Request的Body就是Stream这个大家可以自己查看一下，了解到这一步我们就可以继续了。</p>
-<h1 id="HttpRequest的Body"><a href="#HttpRequest的Body" class="headerlink" title="HttpRequest的Body"></a>HttpRequest的Body</h1><p>上面我们说到了Request的Body本质就是Stream，Stream本身是抽象类，所以Request.Body是Stream的实现类。默认情况下Request.Body的是HttpRequestStream的实例，我们这里说了是默认，因为它是可以改变的，我们一会再说。我们从上面StreamReader的结论中得到ReadToEnd本质还是调用的Stream的Read方法，即这里的HttpRequestStream的Read方法，我们来看一下具体实现</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="built_in">int</span> <span class="title">Read</span>(<span class="params"><span class="built_in">byte</span>[] buffer, <span class="built_in">int</span> offset, <span class="built_in">int</span> count</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">//知道同步读取Body为啥报错了吧</span></span><br><span class="line">    <span class="keyword">if</span> (!_bodyControl.AllowSynchronousIO)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> InvalidOperationException(CoreStrings.SynchronousReadsDisallowed);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//本质是调用ReadAsync</span></span><br><span class="line">    <span class="keyword">return</span> ReadAsync(buffer, offset, count).GetAwaiter().GetResult();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>通过这段代码我们就可以知道了为啥在不设置AllowSynchronousIO为true的情下读取Body会抛出异常了吧，这个是程序级别的控制，而且我们还了解到Read的本质还是在调用ReadAsync异步方法</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> ValueTask&lt;<span class="built_in">int</span>&gt; <span class="title">ReadAsync</span>(<span class="params">Memory&lt;<span class="built_in">byte</span>&gt; destination, CancellationToken cancellationToken = <span class="literal">default</span></span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">return</span> ReadAsyncWrapper(destination, cancellationToken);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>ReadAsync本身并无特殊限制，所以直接操作ReadAsync不会存在类似Read的异常。</p>
-<blockquote>
-<p>通过这个我们得出了结论Request.Body即HttpRequestStream的同步读取Read会抛出异常，而异步读取ReadAsync并不会抛出异常只和HttpRequestStream的Read方法本身存在判断AllowSynchronousIO的值有关系。</p>
-</blockquote>
-<h1 id="EnableBuffering神奇的背后"><a href="#EnableBuffering神奇的背后" class="headerlink" title="EnableBuffering神奇的背后"></a>EnableBuffering神奇的背后</h1><p>我们在上面的示例中看到了，如果不添加EnableBuffering的话直接设置RequestBody的Position会报NotSupportedException这么一个错误，而且加了它之后我居然可以直接使用同步的方式去读取RequestBody，首先我们来看一下为啥会报错，我们从上面的错误了解到错误来自于HttpRequestStream这个类，上面我们也说了这个类继承了Stream抽象类,通过源码我们可以看到如下相关代码</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//不能使用Seek操作</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">override</span> <span class="built_in">bool</span> CanSeek =&gt; <span class="literal">false</span>;</span><br><span class="line"><span class="comment">//允许读</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">override</span> <span class="built_in">bool</span> CanRead =&gt; <span class="literal">true</span>;</span><br><span class="line"><span class="comment">//不允许写</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">override</span> <span class="built_in">bool</span> CanWrite =&gt; <span class="literal">false</span>;</span><br><span class="line"><span class="comment">//不能获取长度</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">override</span> <span class="built_in">long</span> Length =&gt; <span class="keyword">throw</span> <span class="keyword">new</span> NotSupportedException();</span><br><span class="line"><span class="comment">//不能读写Position</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">override</span> <span class="built_in">long</span> Position</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">get</span> =&gt; <span class="keyword">throw</span> <span class="keyword">new</span> NotSupportedException();</span><br><span class="line">    <span class="keyword">set</span> =&gt; <span class="keyword">throw</span> <span class="keyword">new</span> NotSupportedException();</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//不能使用Seek方法</span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="built_in">long</span> <span class="title">Seek</span>(<span class="params"><span class="built_in">long</span> offset, SeekOrigin origin</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">throw</span> <span class="keyword">new</span> NotSupportedException();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>相信通过这些我们可以清楚的看到针对HttpRequestStream的设置或者写相关的操作是不被允许的，这也是为啥我们上面直接通过Seek设置Position的时候为啥会报错，还有一些其他操作的限制，总之默认是不希望我们对HttpRequestStream做过多的操作，特别是设置或者写相关的操作。但是我们使用EnableBuffering的时候却没有这些问题，究竟是为什么?接下来我们要揭开它的什么面纱了。首先我们从Request.EnableBuffering()这个方法入手</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 确保Request.Body可以被多次读取</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;param name=&quot;request&quot;&gt;</span><span class="doctag">&lt;/param&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">EnableBuffering</span>(<span class="params"><span class="keyword">this</span> HttpRequest request</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    BufferingHelper.EnableRewind(request);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="comment">//默认内存中可缓存的大小为30K,超过这个大小将会被存储到磁盘</span></span><br><span class="line"><span class="keyword">internal</span> <span class="keyword">const</span> <span class="built_in">int</span> DefaultBufferThreshold = <span class="number">1024</span> * <span class="number">30</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> 这个方法也是HttpRequest扩展方法</span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;/summary&gt;</span></span></span><br><span class="line"><span class="comment"><span class="doctag">///</span> <span class="doctag">&lt;returns&gt;</span><span class="doctag">&lt;/returns&gt;</span></span></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">static</span> HttpRequest <span class="title">EnableRewind</span>(<span class="params"><span class="keyword">this</span> HttpRequest request, <span class="built_in">int</span> bufferThreshold = DefaultBufferThreshold, <span class="built_in">long</span>? bufferLimit = <span class="literal">null</span></span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (request == <span class="literal">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentNullException(<span class="keyword">nameof</span>(request));</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//先获取Request Body</span></span><br><span class="line">    <span class="keyword">var</span> body = request.Body;</span><br><span class="line">    <span class="comment">//默认情况Body是HttpRequestStream这个类CanSeek是false所以肯定会执行到if逻辑里面</span></span><br><span class="line">    <span class="keyword">if</span> (!body.CanSeek)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="comment">//实例化了FileBufferingReadStream这个类，看来这是关键所在</span></span><br><span class="line">        <span class="keyword">var</span> fileStream = <span class="keyword">new</span> FileBufferingReadStream(body, bufferThreshold,bufferLimit,AspNetCoreTempDirectory.TempDirectoryFactory);</span><br><span class="line">        <span class="comment">//赋值给Body，也就是说开启了EnableBuffering之后Request.Body类型将会是FileBufferingReadStream</span></span><br><span class="line">        request.Body = fileStream;</span><br><span class="line">        <span class="comment">//这里要把fileStream注册给Response便于释放</span></span><br><span class="line">        request.HttpContext.Response.RegisterForDispose(fileStream);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> request;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>从上面这段源码实现中我们可以大致得到两个结论</p>
-<ul>
-<li>BufferingHelper的EnableRewind方法也是HttpRequest的扩展方法，可以直接通过Request.EnableRewind的形式调用，效果等同于调用Request.EnableBuffering因为EnableBuffering也是调用的EnableRewind</li>
-<li>启用了EnableBuffering这个操作之后实际上会使用FileBufferingReadStream替换掉默认的HttpRequestStream，所以后续处理RequestBody的操作将会是FileBufferingReadStream实例</li>
-</ul>
-<p>通过上面的分析我们也清楚的看到了，核心操作在于FileBufferingReadStream这个类，而且从名字也能看出来它肯定是也继承了Stream抽象类</p>
-<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>本篇文章篇幅比较多，如果你想深入的研究相关逻辑，希望本文能给你带来一些阅读源码的指导。为了防止大家深入文章当中而忘记了具体的流程逻辑，在这里我们就大致的总结一下关于正确读取RequestBody的全部结论</p>
-<ul>
-<li>首先关于同步读取Request.Body由于默认的RequestBody的实现是HttpRequestStream，但是HttpRequestStream在重写Read方法的时候会判断是否开启AllowSynchronousIO，如果未开启则直接抛出异常。但是HttpRequestStream的ReadAsync方法并无这种限制，所以使用异步方式的读取RequestBody并无异常。</li>
-<li>虽然通过设置AllowSynchronousIO或使用ReadAsync的方式我们可以读取RequestBody，但是RequestBody无法重复读取，这是因为HttpRequestStream的Position和Seek都是不允许进行修改操作的，设置了会直接抛出异常。为了可以重复读取，我们引入了Request的扩展方法EnableBuffering通过这个方法我们可以重置读取位置来实现RequestBody的重复读取。</li>
-<li>关于开启EnableBuffering方法每次请求设置一次即可，即在准备读取RequestBody之前设置。其本质其实是使用FileBufferingReadStream代替默认RequestBody的默认类型HttpRequestStream，这样我们在一次Http请求中操作Body的时候其实是操作FileBufferingReadStream，这个类重写Stream的时候Position和Seek都是可以设置的，这样我们就实现了重复读取。</li>
-<li>FileBufferingReadStream带给我们的不仅仅是可重复读取，还增加了对RequestBody的缓存功能，使得我们在一次请求中重复读取RequestBody的时候可以在Buffer里直接获取缓存内容而Buffer本身是一个MemoryStream。当然我们也可以自己实现一套逻辑来替换Body，只要我们重写的时候让这个Stream支持重置读取位置即可。</li>
-</ul>
-<p>摘抄 yi念之间 <a target="_blank" rel="noopener" href="https://www.cnblogs.com/wucy/p/14699717.html">原文地址</a></p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/06/13/asp-net-core/%E5%9C%A8Asp-Net-Core%E4%B8%AD%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="InfoPool">
-      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | InfoPool">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/06/13/asp-net-core/%E5%9C%A8Asp-Net-Core%E4%B8%AD%E4%B8%8A%E4%BC%A0%E6%96%87%E4%BB%B6/" class="post-title-link" itemprop="url">在Asp.Net Core中上传文件</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-06-13 11:25:44" itemprop="dateCreated datePublished" datetime="2023-06-13T11:25:44+08:00">2023-06-13</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-06-27 11:17:10" itemprop="dateModified" datetime="2023-06-27T11:17:10+08:00">2023-06-27</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>ASP.NET Core 支持使用缓冲模型绑定（针对较小文件）和无缓冲流式传输（针对较大文件）上传一个或多个文件。</p>
-<h1 id="小型和大型文件"><a href="#小型和大型文件" class="headerlink" title="小型和大型文件"></a>小型和大型文件</h1><p>小型和大型文件的定义取决于可用的计算资源。 应用应对存储方法进行基准测试，以确保它可以处理预期的大小。 基准内存、CPU、磁盘和数据库性能。</p>
-<p>虽然无法针对部署的“小”与“大”提供特定边界，但以下是 AspNetCore 针对 FormOptions 的一些相关默认值：</p>
-<ul>
-<li>默认情况下， HttpRequest.Form 不会缓冲整个请求正文 (BufferBody) ，但会缓冲包含的任何多部分表单文件。</li>
-<li>MultipartBodyLengthLimit 是缓冲表单文件的最大大小，默认值为 128MB。</li>
-<li>MemoryBufferThreshold 指示在转换为磁盘上的缓冲区文件之前，内存中的文件缓冲量，默认为 64KB。 MemoryBufferThreshold 充当小型和大型文件之间的边界，这些文件根据应用资源和方案而引发或</li>
-</ul>
-<h1 id="文件上传方案"><a href="#文件上传方案" class="headerlink" title="文件上传方案"></a>文件上传方案</h1><p>缓冲和流式传输是上传文件的两种常见方法。</p>
-<p><em><strong>缓冲</strong></em></p>
-<p>将整个文件读入 IFormFile。 IFormFile 是用于处理或保存文件的文件的 C# 表示形式。</p>
-<p>文件上传使用的磁盘和内存取决于并发文件上传的数量和大小。 如果应用尝试缓冲过多上传，站点就会在内存或磁盘空间不足时崩溃。 如果文件上传的大小或频率会消耗应用资源，请使用流式传输。</p>
-<p>会将大于 64 KB 的所有单个缓冲文件从内存移到磁盘的临时文件。</p>
-<p>较大请求的临时文件将写入环境变量中 ASPNETCORE_TEMP 名为 的位置。 如果未 ASPNETCORE_TEMP 定义 ，则文件将写入当前用户的临时文件夹。</p>
-<p><strong>流式处理</strong></p>
-<p>从多部分请求收到文件，然后应用直接处理或保存它。 流式传输无法显著提高性能。 流式传输可降低上传文件时对内存或磁盘空间的需求。</p>
-<h1 id="通过缓冲的模型绑定将小型文件上传到物理存储"><a href="#通过缓冲的模型绑定将小型文件上传到物理存储" class="headerlink" title="通过缓冲的模型绑定将小型文件上传到物理存储"></a>通过缓冲的模型绑定将小型文件上传到物理存储</h1><p>要上传小文件，请使用多部分窗体或使用 JavaScript 构造 POST 请求。</p>
-<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&lt;script&gt;</span><br><span class="line">  <span class="string">&quot;use strict&quot;</span>;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">function</span> <span class="title function_">AJAXSubmit</span> (oFormElement) &#123;</span><br><span class="line">    <span class="keyword">var</span> oReq = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();</span><br><span class="line">    oReq.<span class="property">onload</span> = <span class="keyword">function</span>(<span class="params">e</span>) &#123; </span><br><span class="line">    oFormElement.<span class="property">elements</span>.<span class="title function_">namedItem</span>(<span class="string">&quot;result&quot;</span>).<span class="property">value</span> = </span><br><span class="line">      <span class="string">&#x27;Result: &#x27;</span> + <span class="variable language_">this</span>.<span class="property">status</span> + <span class="string">&#x27; &#x27;</span> + <span class="variable language_">this</span>.<span class="property">statusText</span>;</span><br><span class="line">    &#125;;</span><br><span class="line">    oReq.<span class="title function_">open</span>(<span class="string">&quot;post&quot;</span>, oFormElement.<span class="property">action</span>);</span><br><span class="line">    oReq.<span class="title function_">send</span>(<span class="keyword">new</span> <span class="title class_">FormData</span>(oFormElement));</span><br><span class="line">  &#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
-<p>如下示例中：</p>
-<ul>
-<li>循环访问一个或多个上传的文件。</li>
-<li>使用 Path.GetTempFileName 返回文件的完整路径，包括文件名称。</li>
-<li>使用应用生成的文件名将文件保存到本地文件系统。</li>
-<li>返回上传的文件的总数量和总大小。<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task&lt;IActionResult&gt; <span class="title">OnPostUploadAsync</span>(<span class="params">List&lt;IFormFile&gt; files</span>)</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="built_in">long</span> size = files.Sum(f =&gt; f.Length);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">foreach</span> (<span class="keyword">var</span> formFile <span class="keyword">in</span> files)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (formFile.Length &gt; <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> filePath = Path.GetTempFileName();</span><br><span class="line"></span><br><span class="line">            <span class="keyword">using</span> (<span class="keyword">var</span> stream = System.IO.File.Create(filePath))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="keyword">await</span> formFile.CopyToAsync(stream);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Process uploaded files</span></span><br><span class="line">    <span class="comment">// Don&#x27;t rely on or trust the FileName property without validation.</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> Ok(<span class="keyword">new</span> &#123; count = files.Count, size &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
-</ul>
-<p>使用 Path.GetRandomFileName 生成文件名（不含路径）。 在下面的示例中，从配置获取路径：</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">foreach</span> (<span class="keyword">var</span> formFile <span class="keyword">in</span> files)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (formFile.Length &gt; <span class="number">0</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> filePath = Path.Combine(_config[<span class="string">&quot;StoredFilesPath&quot;</span>], </span><br><span class="line">            Path.GetRandomFileName());</span><br><span class="line"></span><br><span class="line">        <span class="keyword">using</span> (<span class="keyword">var</span> stream = System.IO.File.Create(filePath))</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">await</span> formFile.CopyToAsync(stream);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>传递给 FileStream 的路径必须包含文件名。 如果未提供文件名，则会在运行时引发 UnauthorizedAccessException。</p>
-<p>使用 IFormFile 技术上传的文件在处理之前会缓冲在内存中或服务器的磁盘中。 在操作方法中，IFormFile 内容可作为 Stream 访问。 除本地文件系统之外，还可以将文件保存到网络共享或文件存储服务，如 Azure Blob 存储。</p>
-<blockquote>
-<p>如果在未删除先前临时文件的情况下创建了 65,535 个以上的文件，则 Path.GetTempFileName 将抛出一个 IOException。 65,535 个文件限制是每个服务器的限制。 有关 Windows 操作系统上的此限制的详细信息，请参阅以下主题中的说明：</p>
-<ul>
-<li>GetTempFileNameA 函数</li>
-<li>GetTempFileName</li>
-</ul>
-</blockquote>
-<h1 id="使用缓冲的模型绑定将小型文件上传到数据库"><a href="#使用缓冲的模型绑定将小型文件上传到数据库" class="headerlink" title="使用缓冲的模型绑定将小型文件上传到数据库"></a>使用缓冲的模型绑定将小型文件上传到数据库</h1><p>要使用实体框架将二进制文件数据存储在数据库中，请在实体上定义 Byte 数组属性：</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">AppFile</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> Id &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">byte</span>[] Content &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//为包括 IFormFile 的类指定页模型属性：</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">BufferedSingleFileUploadDbModel</span> : <span class="title">PageModel</span></span><br><span class="line">&#123;</span><br><span class="line">    ...</span><br><span class="line"></span><br><span class="line">    [<span class="meta">BindProperty</span>]</span><br><span class="line">    <span class="keyword">public</span> BufferedSingleFileUploadDb FileUpload &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">BufferedSingleFileUploadDb</span></span><br><span class="line">&#123;</span><br><span class="line">    [<span class="meta">Required</span>]</span><br><span class="line">    [<span class="meta">Display(Name=<span class="string">&quot;File&quot;</span>)</span>]</span><br><span class="line">    <span class="keyword">public</span> IFormFile FormFile &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>将窗体发布到服务器后，将 IFormFile 复制到流，并将它作为字节数组保存在数据库中。 在下面的示例中，_dbContext 存储应用的数据库上下文：</p>
-<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task&lt;IActionResult&gt; <span class="title">OnPostUploadAsync</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">using</span> (<span class="keyword">var</span> memoryStream = <span class="keyword">new</span> MemoryStream())</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">await</span> FileUpload.FormFile.CopyToAsync(memoryStream);</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Upload the file if less than 2 MB</span></span><br><span class="line">        <span class="keyword">if</span> (memoryStream.Length &lt; <span class="number">2097152</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">var</span> file = <span class="keyword">new</span> AppFile()</span><br><span class="line">            &#123;</span><br><span class="line">                Content = memoryStream.ToArray()</span><br><span class="line">            &#125;;</span><br><span class="line"></span><br><span class="line">            _dbContext.File.Add(file);</span><br><span class="line"></span><br><span class="line">            <span class="keyword">await</span> _dbContext.SaveChangesAsync();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            ModelState.AddModelError(<span class="string">&quot;File&quot;</span>, <span class="string">&quot;The file is too large.&quot;</span>);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> Page();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="通过流式传输上传大型文件"><a href="#通过流式传输上传大型文件" class="headerlink" title="通过流式传输上传大型文件"></a>通过流式传输上传大型文件</h1><figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task&lt;IActionResult&gt; <span class="title">UploadDatabase</span>()</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">if</span> (!MultipartRequestHelper.IsMultipartContentType(Request.ContentType))</span><br><span class="line">    &#123;</span><br><span class="line">        ModelState.AddModelError(<span class="string">&quot;File&quot;</span>, </span><br><span class="line">            <span class="string">$&quot;The request couldn&#x27;t be processed (Error 1).&quot;</span>);</span><br><span class="line">        <span class="comment">// Log error</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> BadRequest(ModelState);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Accumulate the form data key-value pairs in the request (formAccumulator).</span></span><br><span class="line">    <span class="keyword">var</span> formAccumulator = <span class="keyword">new</span> KeyValueAccumulator();</span><br><span class="line">    <span class="keyword">var</span> trustedFileNameForDisplay = <span class="built_in">string</span>.Empty;</span><br><span class="line">    <span class="keyword">var</span> untrustedFileNameForStorage = <span class="built_in">string</span>.Empty;</span><br><span class="line">    <span class="keyword">var</span> streamedFileContent = Array.Empty&lt;<span class="built_in">byte</span>&gt;();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> boundary = MultipartRequestHelper.GetBoundary(</span><br><span class="line">        MediaTypeHeaderValue.Parse(Request.ContentType),</span><br><span class="line">        _defaultFormOptions.MultipartBoundaryLengthLimit);</span><br><span class="line">    <span class="keyword">var</span> reader = <span class="keyword">new</span> MultipartReader(boundary, HttpContext.Request.Body);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> section = <span class="keyword">await</span> reader.ReadNextSectionAsync();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">while</span> (section != <span class="literal">null</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> hasContentDispositionHeader = </span><br><span class="line">            ContentDispositionHeaderValue.TryParse(</span><br><span class="line">                section.ContentDisposition, <span class="keyword">out</span> <span class="keyword">var</span> contentDisposition);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (hasContentDispositionHeader)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">if</span> (MultipartRequestHelper</span><br><span class="line">                .HasFileContentDisposition(contentDisposition))</span><br><span class="line">            &#123;</span><br><span class="line">                untrustedFileNameForStorage = contentDisposition.FileName.Value;</span><br><span class="line">                <span class="comment">// Don&#x27;t trust the file name sent by the client. To display</span></span><br><span class="line">                <span class="comment">// the file name, HTML-encode the value.</span></span><br><span class="line">                trustedFileNameForDisplay = WebUtility.HtmlEncode(</span><br><span class="line">                        contentDisposition.FileName.Value);</span><br><span class="line"></span><br><span class="line">                streamedFileContent = </span><br><span class="line">                    <span class="keyword">await</span> FileHelpers.ProcessStreamedFile(section, contentDisposition, </span><br><span class="line">                        ModelState, _permittedExtensions, _fileSizeLimit);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (!ModelState.IsValid)</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="keyword">return</span> BadRequest(ModelState);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span> <span class="keyword">if</span> (MultipartRequestHelper</span><br><span class="line">                .HasFormDataContentDisposition(contentDisposition))</span><br><span class="line">            &#123;</span><br><span class="line">                <span class="comment">// Don&#x27;t limit the key name length because the </span></span><br><span class="line">                <span class="comment">// multipart headers length limit is already in effect.</span></span><br><span class="line">                <span class="keyword">var</span> key = HeaderUtilities</span><br><span class="line">                    .RemoveQuotes(contentDisposition.Name).Value;</span><br><span class="line">                <span class="keyword">var</span> encoding = GetEncoding(section);</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> (encoding == <span class="literal">null</span>)</span><br><span class="line">                &#123;</span><br><span class="line">                    ModelState.AddModelError(<span class="string">&quot;File&quot;</span>, </span><br><span class="line">                        <span class="string">$&quot;The request couldn&#x27;t be processed (Error 2).&quot;</span>);</span><br><span class="line">                    <span class="comment">// Log error</span></span><br><span class="line"></span><br><span class="line">                    <span class="keyword">return</span> BadRequest(ModelState);</span><br><span class="line">                &#125;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">using</span> (<span class="keyword">var</span> streamReader = <span class="keyword">new</span> StreamReader(</span><br><span class="line">                    section.Body,</span><br><span class="line">                    encoding,</span><br><span class="line">                    detectEncodingFromByteOrderMarks: <span class="literal">true</span>,</span><br><span class="line">                    bufferSize: <span class="number">1024</span>,</span><br><span class="line">                    leaveOpen: <span class="literal">true</span>))</span><br><span class="line">                &#123;</span><br><span class="line">                    <span class="comment">// The value length limit is enforced by </span></span><br><span class="line">                    <span class="comment">// MultipartBodyLengthLimit</span></span><br><span class="line">                    <span class="keyword">var</span> <span class="keyword">value</span> = <span class="keyword">await</span> streamReader.ReadToEndAsync();</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> (<span class="built_in">string</span>.Equals(<span class="keyword">value</span>, <span class="string">&quot;undefined&quot;</span>, </span><br><span class="line">                        StringComparison.OrdinalIgnoreCase))</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="keyword">value</span> = <span class="built_in">string</span>.Empty;</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                    formAccumulator.Append(key, <span class="keyword">value</span>);</span><br><span class="line"></span><br><span class="line">                    <span class="keyword">if</span> (formAccumulator.ValueCount &gt; </span><br><span class="line">                        _defaultFormOptions.ValueCountLimit)</span><br><span class="line">                    &#123;</span><br><span class="line">                        <span class="comment">// Form key count limit of </span></span><br><span class="line">                        <span class="comment">// _defaultFormOptions.ValueCountLimit </span></span><br><span class="line">                        <span class="comment">// is exceeded.</span></span><br><span class="line">                        ModelState.AddModelError(<span class="string">&quot;File&quot;</span>, </span><br><span class="line">                            <span class="string">$&quot;The request couldn&#x27;t be processed (Error 3).&quot;</span>);</span><br><span class="line">                        <span class="comment">// Log error</span></span><br><span class="line"></span><br><span class="line">                        <span class="keyword">return</span> BadRequest(ModelState);</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Drain any remaining section body that hasn&#x27;t been consumed and</span></span><br><span class="line">        <span class="comment">// read the headers for the next section.</span></span><br><span class="line">        section = <span class="keyword">await</span> reader.ReadNextSectionAsync();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Bind form data to the model</span></span><br><span class="line">    <span class="keyword">var</span> formData = <span class="keyword">new</span> FormData();</span><br><span class="line">    <span class="keyword">var</span> formValueProvider = <span class="keyword">new</span> FormValueProvider(</span><br><span class="line">        BindingSource.Form,</span><br><span class="line">        <span class="keyword">new</span> FormCollection(formAccumulator.GetResults()),</span><br><span class="line">        CultureInfo.CurrentCulture);</span><br><span class="line">    <span class="keyword">var</span> bindingSuccessful = <span class="keyword">await</span> TryUpdateModelAsync(formData, prefix: <span class="string">&quot;&quot;</span>,</span><br><span class="line">        valueProvider: formValueProvider);</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> (!bindingSuccessful)</span><br><span class="line">    &#123;</span><br><span class="line">        ModelState.AddModelError(<span class="string">&quot;File&quot;</span>, </span><br><span class="line">            <span class="string">&quot;The request couldn&#x27;t be processed (Error 5).&quot;</span>);</span><br><span class="line">        <span class="comment">// Log error</span></span><br><span class="line"></span><br><span class="line">        <span class="keyword">return</span> BadRequest(ModelState);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// **WARNING!**</span></span><br><span class="line">    <span class="comment">// In the following example, the file is saved without</span></span><br><span class="line">    <span class="comment">// scanning the file&#x27;s contents. In most production</span></span><br><span class="line">    <span class="comment">// scenarios, an anti-virus/anti-malware scanner API</span></span><br><span class="line">    <span class="comment">// is used on the file before making the file available</span></span><br><span class="line">    <span class="comment">// for download or for use by other systems. </span></span><br><span class="line">    <span class="comment">// For more information, see the topic that accompanies </span></span><br><span class="line">    <span class="comment">// this sample app.</span></span><br><span class="line"></span><br><span class="line">    <span class="keyword">var</span> file = <span class="keyword">new</span> AppFile()</span><br><span class="line">    &#123;</span><br><span class="line">        Content = streamedFileContent,</span><br><span class="line">        UntrustedName = untrustedFileNameForStorage,</span><br><span class="line">        Note = formData.Note,</span><br><span class="line">        Size = streamedFileContent.Length, </span><br><span class="line">        UploadDT = DateTime.UtcNow</span><br><span class="line">    &#125;;</span><br><span class="line"></span><br><span class="line">    _context.File.Add(file);</span><br><span class="line">    <span class="keyword">await</span> _context.SaveChangesAsync();</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> Created(<span class="keyword">nameof</span>(StreamingController), <span class="literal">null</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/04/13/angular/Angular%E8%A3%85%E9%A5%B0%E5%99%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="InfoPool">
-      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | InfoPool">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/04/13/angular/Angular%E8%A3%85%E9%A5%B0%E5%99%A8/" class="post-title-link" itemprop="url">Angular装饰器</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2023-04-13 15:29:52 / 修改时间：17:28:50" itemprop="dateCreated datePublished" datetime="2023-04-13T15:29:52+08:00">2023-04-13</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>我们使用装饰器为Angular中的类声明、方法、访问器、属性和参数提供元数据。我们使用它来装饰组件、指令、模块等。在本文中，让我们了解什么是装饰器，为什么需要它，以及如何创建自定义装饰器。我们还要了解Angular支持的内置装饰器。</p>
-<h1 id="Angular-装饰器"><a href="#Angular-装饰器" class="headerlink" title="Angular 装饰器"></a>Angular 装饰器</h1><p>Angular 装饰器是一个函数，我们使用它将元数据附加到类、方法、访问器、属性或参数。</p>
-<p>我们以@expression形式使用装饰器，其中expression是装饰器的名称。</p>
-<p>例如，@Component是一个装饰器，我们将其附加到一个Angular组件。当Angular看到@Component装饰器应用于一个类时，它将该类视为一个组件类。在下面的示例中，正是@Component装饰器使AppComponent成为一个Angular组件。如果没有装饰器，AppComponent就像其他类一样。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br><span class="line">  title = <span class="string">&#x27;app&#x27;</span>;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
-
-<p>decorator装饰器是一个Typescript特性，它仍然不是Javascript的一部分。它仍处于提案阶段。</p>
-<p>要启用Angular 装饰器，我们需要将experialDecorators添加到tsconfig.json文件中。ng-new命令会自动为我们添加此内容。</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;compilerOptions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;target&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ES5&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;experimentalDecorators&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="创建新的装饰器"><a href="#创建新的装饰器" class="headerlink" title="创建新的装饰器"></a>创建新的装饰器</h1><p>在下面的例子中，我们创建了一个函数simpleDecorator。我们将使用它来装饰AppComponent类。该函数不接受任何参数。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>, <span class="variable constant_">VERSION</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@simpleDecorator</span>      </span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;my-app&#x27;</span>,</span><br><span class="line">  <span class="attr">templateUrl</span>: <span class="string">&#x27;./app.component.html&#x27;</span>,</span><br><span class="line">  <span class="attr">styleUrls</span>: [<span class="string">&#x27;./app.component.css&#x27;</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br><span class="line">  name = <span class="string">&#x27;Angular &#x27;</span> + <span class="variable constant_">VERSION</span>.<span class="property">major</span>;</span><br><span class="line"> </span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Hello from Class constructor&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  <span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>((<span class="variable language_">this</span> <span class="keyword">as</span> <span class="built_in">any</span>).<span class="property">value1</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>((<span class="variable language_">this</span> <span class="keyword">as</span> <span class="built_in">any</span>).<span class="property">value2</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">function</span> <span class="title function_">simpleDecorator</span>(<span class="params">target: <span class="built_in">any</span></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Hello from Decorator&#x27;</span>);</span><br><span class="line"> </span><br><span class="line">  <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(target.<span class="property"><span class="keyword">prototype</span></span>, <span class="string">&#x27;value1&#x27;</span>, &#123;</span><br><span class="line">    <span class="attr">value</span>: <span class="number">100</span>,</span><br><span class="line">    <span class="attr">writable</span>: <span class="literal">false</span></span><br><span class="line">  &#125;);</span><br><span class="line"> </span><br><span class="line">  <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(target.<span class="property"><span class="keyword">prototype</span></span>, <span class="string">&#x27;value2&#x27;</span>, &#123;</span><br><span class="line">    <span class="attr">value</span>: <span class="number">200</span>,</span><br><span class="line">    <span class="attr">writable</span>: <span class="literal">false</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">**** <span class="title class_">Console</span> ***</span><br><span class="line"> </span><br><span class="line"><span class="title class_">Hello</span> <span class="keyword">from</span> <span class="title class_">Decorator</span></span><br><span class="line"><span class="title class_">Hello</span> <span class="keyword">from</span> <span class="title class_">Class</span> constructor</span><br><span class="line"><span class="number">100</span></span><br><span class="line"><span class="number">200</span></span><br></pre></td></tr></table></figure>
-
-<p>正如我们前面所说，d装饰器 是一个常规的JavaScript函数。由于我们在类上使用它，因此它获取AppComponent的实例作为参数（目标）</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">simpleDecorator</span>(<span class="params">target: <span class="built_in">any</span></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Hello from Decorator&#x27;</span>);</span><br><span class="line"> </span><br><span class="line"><span class="comment">//target is instance of AppComponent</span></span><br></pre></td></tr></table></figure>
-
-<p>在函数内部，我们将两个自定义属性value1和value2添加到AppComponent。请注意，我们使用defineProperty属性向组件类添加一个新属性。此外，我们将其添加到类的原型属性中。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(target.<span class="property"><span class="keyword">prototype</span></span>, <span class="string">&#x27;value1&#x27;</span>, &#123;</span><br><span class="line">    <span class="attr">value</span>: <span class="number">100</span>,</span><br><span class="line">    <span class="attr">writable</span>: <span class="literal">false</span></span><br><span class="line">  &#125;);</span><br><span class="line"> </span><br><span class="line">  <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(target.<span class="property"><span class="keyword">prototype</span></span>, <span class="string">&#x27;value2&#x27;</span>, &#123;</span><br><span class="line">    <span class="attr">value</span>: <span class="number">200</span>,</span><br><span class="line">    <span class="attr">writable</span>: <span class="literal">false</span></span><br><span class="line">  &#125;);</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
-<p>现在，我们可以使用它来装饰我们的AppComponent</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@simpleDecorator</span></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;my-app&#x27;</span>,</span><br><span class="line">  <span class="attr">templateUrl</span>: <span class="string">&#x27;./app.component.html&#x27;</span>,</span><br><span class="line">  <span class="attr">styleUrls</span>: [<span class="string">&#x27;./app.component.css&#x27;</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br></pre></td></tr></table></figure>
-<p>在组件内部，我们可以使用关键字“this”访问新的属性。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>((<span class="variable language_">this</span> <span class="keyword">as</span> <span class="built_in">any</span>).<span class="property">value1</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>((<span class="variable language_">this</span> <span class="keyword">as</span> <span class="built_in">any</span>).<span class="property">value2</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="带参数的装饰器"><a href="#带参数的装饰器" class="headerlink" title="带参数的装饰器"></a>带参数的装饰器</h1><p>要创建一个带参数的装饰器，我们需要创建一个工厂函数，该函数返回装饰器函数。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>, <span class="variable constant_">VERSION</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@simpleDecorator</span>(&#123;</span><br><span class="line">  <span class="attr">value1</span>: <span class="string">&#x27;100&#x27;</span>,</span><br><span class="line">  <span class="attr">value2</span>: <span class="string">&#x27;200&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;my-app&#x27;</span>,</span><br><span class="line">  <span class="attr">templateUrl</span>: <span class="string">&#x27;./app.component.html&#x27;</span>,</span><br><span class="line">  <span class="attr">styleUrls</span>: [<span class="string">&#x27;./app.component.css&#x27;</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br><span class="line">  name = <span class="string">&#x27;Angular &#x27;</span> + <span class="variable constant_">VERSION</span>.<span class="property">major</span>;</span><br><span class="line"> </span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Hello from Class constructor&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  <span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>((<span class="variable language_">this</span> <span class="keyword">as</span> <span class="built_in">any</span>).<span class="property">value1</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>((<span class="variable language_">this</span> <span class="keyword">as</span> <span class="built_in">any</span>).<span class="property">value2</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">function</span> <span class="title function_">simpleDecorator</span>(<span class="params">args</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(args);</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span>(<span class="params">target: <span class="built_in">any</span></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Hello from Decorator&#x27;</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="keyword">typeof</span> target);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(target);</span><br><span class="line"> </span><br><span class="line">    <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(target.<span class="property"><span class="keyword">prototype</span></span>, <span class="string">&#x27;value1&#x27;</span>, &#123;</span><br><span class="line">      <span class="attr">value</span>: args.<span class="property">value1</span>,</span><br><span class="line">      <span class="attr">writable</span>: <span class="literal">false</span></span><br><span class="line">    &#125;);</span><br><span class="line"> </span><br><span class="line">    <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(target.<span class="property"><span class="keyword">prototype</span></span>, <span class="string">&#x27;value2&#x27;</span>, &#123;</span><br><span class="line">      <span class="attr">value</span>: args.<span class="property">value2</span>,</span><br><span class="line">      <span class="attr">writable</span>: <span class="literal">false</span></span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> simpleDecorator将args作为参数，并返回 装饰器函数。除了使用参数填充财产之外，其余代码与上面的代码相同。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">simpleDecorator</span>(<span class="params">args</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(args);</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span>(<span class="params">target: <span class="built_in">any</span></span>) &#123;</span><br></pre></td></tr></table></figure>
-
-<p> 我们在组件上应用simpleDecorator，如下所示</p>
-<h1 id="Angular-装饰器-列表"><a href="#Angular-装饰器-列表" class="headerlink" title="Angular 装饰器 列表"></a>Angular 装饰器 列表</h1><p>Angular提供了几个内置的装饰器。我们可以把它们分为四类</p>
-<p>以下是Angular中装饰器的完整列表。</p>
-<ul>
-<li>类装饰器<ul>
-<li>@NgModule</li>
-<li>@Component</li>
-<li>@Injectable</li>
-<li>@Directive</li>
-<li>@Pipe</li>
-</ul>
-</li>
-<li>属性装饰器<ul>
-<li>@Input</li>
-<li>@Output</li>
-<li>@HostBinding</li>
-<li>@ContentChild</li>
-<li>@ContentChildren</li>
-<li>@ViewChild</li>
-<li>@ViewChildren</li>
-</ul>
-</li>
-<li>方法装饰器<ul>
-<li>@HostListener</li>
-</ul>
-</li>
-<li>参数装饰器<ul>
-<li>@Inject</li>
-<li>@Self</li>
-<li>@SkipSelf</li>
-<li>@Optional</li>
-<li>@Host</li>
-</ul>
-</li>
-</ul>
-<h1 id="类装饰器"><a href="#类装饰器" class="headerlink" title="类装饰器"></a>类装饰器</h1>
       
     </div>
 
