@@ -1,0 +1,323 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leetao50.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="在解释BFC之前，先说一下文档流。我们常说的文档流其实分为定位流、浮动流、普通流三种。而普通流其实就是指BFC中的FC。FC(Formatting Context)，直译过来是格式化上下文，它是页面中的一块渲染区域，有一套渲染规则，决定了其子元素如何布局，以及和其他元素之间的关系和作用。常见的FC有BFC、IFC，还有GFC和FFC。 BFC(Block Formatting Context)块级">
+<meta property="og:type" content="article">
+<meta property="og:title" content="BFC">
+<meta property="og:url" content="https://leetao50.github.io/2023/09/13/css/BFC/index.html">
+<meta property="og:site_name" content="InfoPool">
+<meta property="og:description" content="在解释BFC之前，先说一下文档流。我们常说的文档流其实分为定位流、浮动流、普通流三种。而普通流其实就是指BFC中的FC。FC(Formatting Context)，直译过来是格式化上下文，它是页面中的一块渲染区域，有一套渲染规则，决定了其子元素如何布局，以及和其他元素之间的关系和作用。常见的FC有BFC、IFC，还有GFC和FFC。 BFC(Block Formatting Context)块级">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://leetao50.github.io/2023/09/13/css/BFC/e08cd932da3c1bb73985d5f7f95be8b915100e106d88d69f40e3b79640ca9ac7.gif">
+<meta property="og:image" content="https://leetao50.github.io/2023/09/13/css/BFC/b4cb7790eae5a654ae061fa5309eb6d3571626b0b0862a2cac40b6583fcf9eb1.gif">
+<meta property="og:image" content="https://leetao50.github.io/2023/09/13/css/BFC/dcff3c37a4044b8b63f87a76c3f0de8308a29b7f7cb4d24cce4843b51403482b.gif">
+<meta property="og:image" content="https://leetao50.github.io/2023/09/13/css/BFC/4a5dcc763f200d0b9acc45663006f3dfc298726bc131aec36b23b4a5cf5650fd.gif">
+<meta property="og:image" content="https://leetao50.github.io/2023/09/13/css/BFC/d5eeb20176f5ae3f0fcf8c458f1a782b8871050c7f0353d12b94c93a92d22be7.png">
+<meta property="og:image" content="https://leetao50.github.io/2023/09/13/css/BFC/e3c77e1986f3bc232531801cefe9c202fbdb91391a8f6b5afa4a1765dce0a075.png">
+<meta property="article:published_time" content="2023-09-13T06:03:48.000Z">
+<meta property="article:modified_time" content="2023-09-13T10:15:23.957Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://leetao50.github.io/2023/09/13/css/BFC/e08cd932da3c1bb73985d5f7f95be8b915100e106d88d69f40e3b79640ca9ac7.gif">
+
+
+<link rel="canonical" href="https://leetao50.github.io/2023/09/13/css/BFC/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leetao50.github.io/2023/09/13/css/BFC/","path":"2023/09/13/css/BFC/","title":"BFC"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>BFC | InfoPool</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">InfoPool</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">私人信息记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BD%A2%E6%88%90BFC%E7%9A%84%E6%9D%A1%E4%BB%B6"><span class="nav-number">1.</span> <span class="nav-text">形成BFC的条件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BFC%E5%B8%83%E5%B1%80%E8%A7%84%E5%88%99"><span class="nav-number">2.</span> <span class="nav-text">BFC布局规则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#BFC%E5%8F%AF%E4%BB%A5%E8%A7%A3%E5%86%B3%E5%93%AA%E4%BA%9B%E9%97%AE%E9%A2%98%EF%BC%9F"><span class="nav-number">3.</span> <span class="nav-text">BFC可以解决哪些问题？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%A7%A3%E5%86%B3%E6%B5%AE%E5%8A%A8%E5%85%83%E7%B4%A0%E4%BB%A4%E7%88%B6%E5%85%83%E7%B4%A0%E9%AB%98%E5%BA%A6%E5%9D%8D%E5%A1%8C%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">3.1.</span> <span class="nav-text">解决浮动元素令父元素高度坍塌的问题</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%9D%9E%E6%B5%AE%E5%8A%A8%E5%85%83%E7%B4%A0%E8%A2%AB%E6%B5%AE%E5%8A%A8%E5%85%83%E7%B4%A0%E8%A6%86%E7%9B%96"><span class="nav-number">3.2.</span> <span class="nav-text">非浮动元素被浮动元素覆盖</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%A4%E6%A0%8F%E8%87%AA%E9%80%82%E5%BA%94%E5%B8%83%E5%B1%80"><span class="nav-number">3.3.</span> <span class="nav-text">两栏自适应布局</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%A4%96%E8%BE%B9%E8%B7%9D%E5%9E%82%E7%9B%B4%E6%96%B9%E5%90%91%E9%87%8D%E5%90%88%E7%9A%84%E9%97%AE%E9%A2%98"><span class="nav-number">3.4.</span> <span class="nav-text">外边距垂直方向重合的问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IFC"><span class="nav-number">4.</span> <span class="nav-text">IFC</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IFC%E7%9A%84%E5%BD%A2%E6%88%90%E6%9D%A1%E4%BB%B6"><span class="nav-number">5.</span> <span class="nav-text">IFC的形成条件</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#IFC%E7%9A%84%E5%B8%83%E5%B1%80%E8%A7%84%E5%88%99"><span class="nav-number">6.</span> <span class="nav-text">IFC的布局规则</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AE%9E%E4%BE%8B"><span class="nav-number">7.</span> <span class="nav-text">实例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%85%83%E7%B4%A0%E5%9E%82%E7%9B%B4%E5%B1%85%E4%B8%AD"><span class="nav-number">7.1.</span> <span class="nav-text">元素垂直居中</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description">记录信息来源网络，内容只为方便查找，非公开信息，非请勿入</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/09/13/css/BFC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="BFC | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          BFC
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-09-13 14:03:48 / 修改时间：18:15:23" itemprop="dateCreated datePublished" datetime="2023-09-13T14:03:48+08:00">2023-09-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>在解释BFC之前，先说一下文档流。我们常说的文档流其实分为定位流、浮动流、普通流三种。而普通流其实就是指BFC中的FC。FC(Formatting Context)，直译过来是格式化上下文，它是页面中的一块渲染区域，有一套渲染规则，决定了其子元素如何布局，以及和其他元素之间的关系和作用。常见的FC有BFC、IFC，还有GFC和FFC。</p>
+<p>BFC(Block Formatting Context)块级格式化上下文，是用于布局块级盒子的一块渲染区域。MDN上的解释：BFC是Web页面 CSS 视觉渲染的一部分，用于决定块盒子的布局及浮动相互影响范围的一个区域。</p>
+<p>注意：一个BFC的范围包含创建该上下文元素的所有子元素，但不包括创建了新BFC的子元素的内部元素。这从另一方角度说明，一个元素不能同时存在于两个BFC中。因为如果一个元素能够同时处于两个BFC中，那么就意味着这个元素能与两个BFC中的元素发生作用，就违反了BFC的隔离作用。</p>
+<h1 id="形成BFC的条件"><a href="#形成BFC的条件" class="headerlink" title="形成BFC的条件"></a>形成BFC的条件</h1><p>1、根元素，即HTML元素<br>1、浮动元素，float 除 none 以外的值；<br>2、定位元素，position（absolute，fixed）；<br>3、display 为以下其中之一的值 inline-block，table-cell，table-caption；<br>4、overflow 除了 visible 以外的值（hidden，auto，scroll）；</p>
+<h1 id="BFC布局规则"><a href="#BFC布局规则" class="headerlink" title="BFC布局规则"></a>BFC布局规则</h1><p>1.内部的Box会在垂直方向，一个接一个地放置。<br>2.Box垂直方向的距离由margin决定。属于同一个BFC的两个相邻Box的margin会发生重叠<br>3.每个元素的margin box的左边， 与包含块border box的左边相接触(对于从左往右的格式化，否则相反)。即使存在浮动也是如此。<br>4.BFC的区域不会与float box重叠。<br>5.BFC就是页面上的一个隔离的独立容器，容器里面的子元素不会影响到外面的元素。反之也如此。<br>6.计算BFC的高度时，浮动元素也参与计算</p>
+<h1 id="BFC可以解决哪些问题？"><a href="#BFC可以解决哪些问题？" class="headerlink" title="BFC可以解决哪些问题？"></a>BFC可以解决哪些问题？</h1><h2 id="解决浮动元素令父元素高度坍塌的问题"><a href="#解决浮动元素令父元素高度坍塌的问题" class="headerlink" title="解决浮动元素令父元素高度坍塌的问题"></a>解决浮动元素令父元素高度坍塌的问题</h2><p>方法：给父元素开启BFC</p>
+<p>原理：计算BFC的高度时，浮动子元素也参与计算</p>
+<p><img src="e08cd932da3c1bb73985d5f7f95be8b915100e106d88d69f40e3b79640ca9ac7.gif" alt="图 0">  </p>
+<h2 id="非浮动元素被浮动元素覆盖"><a href="#非浮动元素被浮动元素覆盖" class="headerlink" title="非浮动元素被浮动元素覆盖"></a>非浮动元素被浮动元素覆盖</h2><p>方法：给非浮动元素开启BFC<br>原理：BFC的区域不会与float box重叠</p>
+<p><img src="b4cb7790eae5a654ae061fa5309eb6d3571626b0b0862a2cac40b6583fcf9eb1.gif" alt="图 1">  </p>
+<h2 id="两栏自适应布局"><a href="#两栏自适应布局" class="headerlink" title="两栏自适应布局"></a>两栏自适应布局</h2><p>方法：给固定栏设置固定宽度，给不固定栏开启BFC。<br>原理：BFC的区域不会与float box重叠</p>
+<p><img src="dcff3c37a4044b8b63f87a76c3f0de8308a29b7f7cb4d24cce4843b51403482b.gif" alt="图 2">  </p>
+<h2 id="外边距垂直方向重合的问题"><a href="#外边距垂直方向重合的问题" class="headerlink" title="外边距垂直方向重合的问题"></a>外边距垂直方向重合的问题</h2><p>方法：给上box或者下box任意一个包裹新的box并开启BFC</p>
+<p>原理：属于同一个BFC的两个相邻的Box的margin会发生重叠。</p>
+<p><img src="4a5dcc763f200d0b9acc45663006f3dfc298726bc131aec36b23b4a5cf5650fd.gif" alt="图 3">  </p>
+<h1 id="IFC"><a href="#IFC" class="headerlink" title="IFC"></a>IFC</h1><p>内联格式化上下文，是用于 布局内联元素 盒子的一块 渲染区域。</p>
+<h1 id="IFC的形成条件"><a href="#IFC的形成条件" class="headerlink" title="IFC的形成条件"></a>IFC的形成条件</h1><p>块级元素中仅包含内联级别元素</p>
+<h1 id="IFC的布局规则"><a href="#IFC的布局规则" class="headerlink" title="IFC的布局规则"></a>IFC的布局规则</h1><ol>
+<li><p>盒是从包含块的顶部开始一个挨一个水平放置的</p>
+</li>
+<li><p>水平padding、border、margin都有效，垂直方向上不被计算。</p>
+</li>
+<li><p>在垂直方向上，子元素会以不同形式来对齐vertical-align</p>
+</li>
+<li><p>能把在一行上的框都完全包含进去的一个矩形区域，被称为该行的行框（line box）。行框的宽度是由包含块（containing box）和与其中的浮动来决定。</p>
+</li>
+<li><p>IFC中的“line box”一般左右边贴紧其包含块，但float元素会优先排列。</p>
+</li>
+<li><p>IFC中的“line box”高度由 CSS 行高计算规则来确定，同个IFC下的多个line box高度可能会不同。</p>
+</li>
+<li><p>当 inline-level boxes的总宽度少于包含它们的line box时，其水平渲染规则由text-align 属性值来决定。</p>
+</li>
+<li><p>当一个“inline box”超过父元素的宽度时，它会被分割成多个boxes，这些 boxes 分布在多个“line box”中。如果子元素未设置强制换行的情况下，“inline box”将不可被分割，将会溢出父元素。</p>
+</li>
+</ol>
+<h1 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h1><h2 id="元素垂直居中"><a href="#元素垂直居中" class="headerlink" title="元素垂直居中"></a>元素垂直居中</h2><p>布局规则第3条：在垂直方向上，子元素会以不同形式来对齐vertical-align</p>
+<p><img src="d5eeb20176f5ae3f0fcf8c458f1a782b8871050c7f0353d12b94c93a92d22be7.png" alt="图 4"><br>想要实现文字与图片垂直居中，只要给图片加上一个vertical-align: middle 属性就可以实现：</p>
+<p><img src="e3c77e1986f3bc232531801cefe9c202fbdb91391a8f6b5afa4a1765dce0a075.png" alt="图 5">  </p>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/09/12/css/position%E5%B1%9E%E6%80%A7/" rel="prev" title="position属性">
+                  <i class="fa fa-chevron-left"></i> position属性
+                </a>
+            </div>
+            <div class="post-nav-item">
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

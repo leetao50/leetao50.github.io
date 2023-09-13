@@ -118,7 +118,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">47</span>
+          <span class="site-state-item-count">50</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -152,6 +152,412 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2022/12/14/ABP/%E9%A2%86%E5%9F%9F%E6%9C%8D%E5%8A%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/12/14/ABP/%E9%A2%86%E5%9F%9F%E6%9C%8D%E5%8A%A1/" class="post-title-link" itemprop="url">领域服务</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-12-14 09:33:25" itemprop="dateCreated datePublished" datetime="2022-12-14T09:33:25+08:00">2022-12-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-03-11 17:56:10" itemprop="dateModified" datetime="2023-03-11T17:56:10+08:00">2023-03-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>在<code>领域驱动设计(DDD)</code> 解决方案中,核心业务逻辑通常在聚合 (实体) 和领域服务中实现. 在以下情况下特别需要创建领域服务</p>
+<ul>
+<li>你实现了依赖于某些服务（如存储库或其他外部服务）的核心域逻辑.</li>
+<li>你需要实现的逻辑与多个聚合&#x2F;实体相关,因此它不适合任何聚合.<h2 id="ABP-领域服务基础设施"><a href="#ABP-领域服务基础设施" class="headerlink" title="ABP 领域服务基础设施"></a>ABP 领域服务基础设施</h2>领域服务是简单的无状态类. 虽然你不必从任何服务或接口派生,但 ABP 框架提供了一些有用的基类和约定.</li>
+</ul>
+<h3 id="DomainService-和-IDomainService"><a href="#DomainService-和-IDomainService" class="headerlink" title="DomainService 和 IDomainService"></a>DomainService 和 IDomainService</h3><p>从 DomainService 基类派生领域服务或直接实现 IDomainService 接口.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">using</span> Volo.Abp.Domain.Services;</span><br><span class="line"><span class="keyword">namespace</span> <span class="title">MyProject.Issues</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">IssueManager</span> : <span class="title">DomainService</span></span><br><span class="line">    &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当你这样做时:</p>
+<ul>
+<li>ABP 框架自动将类注册为瞬态生命周期到依赖注入系统.</li>
+<li>你可以直接使用一些常用服务作为基础属性,而无需手动注入 (例如 ILogger and IGuidGenerator).</li>
+</ul>
+<p>建议使用 Manager 或 Service 后缀命名领域服务. 我们通常使用如上面示例中的 Manager 后缀. 示例: 实现将问题分配给用户的领域逻辑</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">IssueManager</span> : <span class="title">DomainService</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> IRepository&lt;Issue, Guid&gt; _issueRepository;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">IssueManager</span>(<span class="params">IRepository&lt;Issue, Guid&gt; issueRepository</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        _issueRepository = issueRepository;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">AssignAsync</span>(<span class="params">Issue issue, AppUser user</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> currentIssueCount = <span class="keyword">await</span> _issueRepository</span><br><span class="line">            .CountAsync(i =&gt; i.AssignedUserId == user.Id);</span><br><span class="line">        </span><br><span class="line">        <span class="comment">//Implementing a core business validation</span></span><br><span class="line">        <span class="keyword">if</span> (currentIssueCount &gt;= <span class="number">3</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> IssueAssignmentException(user.UserName);</span><br><span class="line">        &#125;</span><br><span class="line">        issue.AssignedUserId = user.Id;</span><br><span class="line">    &#125;    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>问题是定义如下所示的 聚合根:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Issue</span> : <span class="title">AggregateRoot</span>&lt;<span class="title">Guid</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> Guid? AssignedUserId &#123; <span class="keyword">get</span>; <span class="keyword">internal</span> <span class="keyword">set</span>; &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用 internal 的 set 确保外层调用者不能直接在调用 set ,并强制始终使用 IssueManager 为 User 分配 Issue.</p>
+<h3 id="应用程序服务与领域服务"><a href="#应用程序服务与领域服务" class="headerlink" title="应用程序服务与领域服务"></a>应用程序服务与领域服务</h3><p>虽然 应用服务 和领域服务都实现了业务规则,但他们存在根本的逻辑和形式差异:</p>
+<ul>
+<li>应用程序服务实现应用程序的 用例 (典型 Web 应用程序中的用户交互), 而领域服务实现 核心的、用例独立的领域逻辑.</li>
+<li>应用程序服务获取&#x2F;返回 数据传输对象（Dto）, 领域服务方法通常获取和返回 领域对象 (实体, 值对象).</li>
+<li>领域服务通常由应用程序服务或其他领域服务使用,而应用程序服务由表示层或客户端应用程序使用.</li>
+</ul>
+<h3 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h3><p>领域服务的生命周期是 瞬态 的,它们会自动注册到依赖注入服务.</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>不要在领域层，持久化实体数据到数据库中。应该在应用服务层持久化数据。</li>
+<li>将实体对象作为方法参数，而不是其id值。如果接受其id值，则需要从领域服务内的数据库中检索实体。这种方法使应用程序代码在同一请求（用例）的不同位置多次加载同一实体，这是低效的，并导致错误。</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2022/12/13/ABP/%E4%BB%93%E5%82%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/12/13/ABP/%E4%BB%93%E5%82%A8/" class="post-title-link" itemprop="url">仓储</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-12-13 22:50:27" itemprop="dateCreated datePublished" datetime="2022-12-13T22:50:27+08:00">2022-12-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-03-11 17:56:10" itemprop="dateModified" datetime="2023-03-11T17:56:10+08:00">2023-03-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="仓储"><a href="#仓储" class="headerlink" title="仓储"></a>仓储</h1><p>在领域层和数据映射层之间进行中介,使用类似集合的接口来操作领域对象。<br>实际上,仓储用于领域对象对数据库的操作, 通常每个 聚合根 或实体会创建各自对应的仓储.</p>
+<h2 id="通用仓储"><a href="#通用仓储" class="headerlink" title="通用仓储"></a>通用仓储</h2><p>ABP为每个聚合根和实体提供了默认的仓储。 你可以在服务中注入<code>IRepository&lt;TEntity, TKey&gt;</code>执行标准的<code>CRUD</code>操作。<br>默认通用仓储用法示例:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">PersonAppService</span> : <span class="title">ApplicationService</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> IRepository&lt;Person, Guid&gt; _personRepository;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PersonAppService</span>(<span class="params">IRepository&lt;Person, Guid&gt; personRepository</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        _personRepository = personRepository;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">CreateAsync</span>(<span class="params">CreatePersonDto input</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> person = <span class="keyword">new</span> Person(input.Name);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">await</span> _personRepository.InsertAsync(person);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task&lt;<span class="built_in">int</span>&gt; <span class="title">GetCountAsync</span>(<span class="params"><span class="built_in">string</span> filter</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">await</span> _personRepository.CountAsync(p =&gt; p.Name.Contains(filter));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中;</p>
+<ul>
+<li><code>PersonAppService</code> 在它的构造函数中注入了<code>IRepository&lt;Person, Guid&gt;</code> 。</li>
+<li><code>CreateAsync</code> 方法使用了 InsertAsync 创建并保存新的实体。</li>
+<li><code>GetCountAsync</code> 方法用来从数据库中获取符合指定条件的的人员的数量。</li>
+</ul>
+<h3 id="标准仓储方法"><a href="#标准仓储方法" class="headerlink" title="标准仓储方法"></a>标准仓储方法</h3><p>通用仓储提供了一些开箱即用的标准CRUD功能:</p>
+<ul>
+<li>GetAsync: 根据指定的Id或断言(lambda表达式)返回实体。<ul>
+<li>将在指定的实体不存在时，抛出异常 EntityNotFoundException</li>
+<li>如果指定的条件存在多个实体时，抛出异常 InvalidOperationException</li>
+</ul>
+</li>
+<li>FindAsync: 根据指定的Id或断言(lambda表达式)返回实体。<ul>
+<li>如果指定的实体不存在时，返回 null 。</li>
+<li>如果指定的条件存在多个实体时，抛出异常 InvalidOperationException</li>
+</ul>
+</li>
+<li>InsertAsync: 在数据库里插入一个新的实体。</li>
+<li>UpdateAsync: 在数据库里更新一个已经存在的实体。</li>
+<li>DeleteAsync: 从数据库里删除指定的实体。<ul>
+<li>这个方法还有一个重载根据指定的断言(lambda表达式)来删除满足条件的多个实体。</li>
+</ul>
+</li>
+<li>GetListAsync: 返回数据库里的所有实体。</li>
+<li>GetPagedListAsync: 返回一个指定长度的实体列表。 他拥有 skipCount, maxResultCount and sorting 参数.</li>
+<li>GetCountAsync: 获取数据库里所有实体的数量</li>
+</ul>
+<p>这些方法还有还一些重载。</p>
+<ul>
+<li>提供 UpdateAsync 和 DeleteAsync 方法根据实体对象或者id来更新或者删除实体。</li>
+<li>提供 DeleteAsync 方法用来删除符合指定条件的多个实体。</li>
+</ul>
+<h3 id="在存储上使用LINQ"><a href="#在存储上使用LINQ" class="headerlink" title="在存储上使用LINQ"></a>在存储上使用<code>LINQ</code></h3><p>仓储提供了一个<code>GetQueryableAsync</code>方法来获取一个<code>IQueryable&lt;TEntity&gt;</code>对象。你可以通过这个对象来对实体执行<code>LINQ</code>查询以操作数据库。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">async</span> Task&lt;List&lt;PersonDto&gt;&gt; GetListAsync(<span class="built_in">string</span> filter)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">// 获取 IQueryable&lt;Person&gt;</span></span><br><span class="line">            IQueryable&lt;Person&gt; queryable = <span class="keyword">await</span> _personRepository.GetQueryableAsync();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 创建一个查询</span></span><br><span class="line">            <span class="keyword">var</span> query = <span class="keyword">from</span> person <span class="keyword">in</span> queryable</span><br><span class="line">                <span class="keyword">where</span> person.Name == filter</span><br><span class="line">                <span class="keyword">orderby</span> person.Name</span><br><span class="line">                <span class="keyword">select</span> person;</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 执行查询</span></span><br><span class="line">            <span class="keyword">var</span> people = query.ToList();</span><br><span class="line"></span><br><span class="line">            <span class="comment">// 转DTO并返回给客户端</span></span><br><span class="line">            <span class="keyword">return</span> people.Select(p =&gt; <span class="keyword">new</span> PersonDto &#123;Name = p.Name&#125;).ToList();</span><br><span class="line">        &#125;</span><br></pre></td></tr></table></figure>
+<p>你也可以使用LINQ扩展方法:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">async</span> Task&lt;List&lt;PersonDto&gt;&gt; GetListAsync(<span class="built_in">string</span> filter)</span><br><span class="line">&#123;</span><br><span class="line">    <span class="comment">// 获取 IQueryable&lt;Person&gt;</span></span><br><span class="line">    IQueryable&lt;Person&gt; queryable = <span class="keyword">await</span> _personRepository.GetQueryableAsync();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建一个查询</span></span><br><span class="line">    <span class="keyword">var</span> people = queryable</span><br><span class="line">        .Where(p =&gt; p.Name.Contains(filter))</span><br><span class="line">        .OrderBy(p =&gt; p.Name)</span><br><span class="line">        .ToList();</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 转DTO并返回给客户端</span></span><br><span class="line">    <span class="keyword">return</span> people.Select(p =&gt; <span class="keyword">new</span> PersonDto &#123;Name = p.Name&#125;).ToList();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>你可以使用仓储返回的IQueryable 配合标准LINQ方法自由查询。</p>
+<h3 id="批量操作"><a href="#批量操作" class="headerlink" title="批量操作"></a>批量操作</h3><p>下面这些方法可以用来对数据库执行批量操作;</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">InsertManyAsync</span><br><span class="line">UpdateManyAsync</span><br><span class="line">DeleteManyAsync</span><br></pre></td></tr></table></figure>
+<p>这些方法可以操作多个实体，如果底层数据库提供程序支持，则可以进行批量操作。</p>
+<h3 id="软-x2F-硬删除"><a href="#软-x2F-硬删除" class="headerlink" title="软&#x2F;硬删除"></a>软&#x2F;硬删除</h3><p>如果一个实体是软删除实体（即实现了ISoftDelete接口），则仓储的DeleteSync方法不会删除该实体，而是在数据库中标记为“已删除”。数据过滤器系统确保不会从数据库中正常检索软删除的实体。</p>
+<p>如果您的实体是软删除实体，如果您需要物理删除这个实体，您可以使用HardDeleteAsync方法强制删除。</p>
+<h3 id="确保实体存在"><a href="#确保实体存在" class="headerlink" title="确保实体存在"></a>确保实体存在</h3><p><code>EnsureExistsAsync</code>扩展方法通过实体id或实体查询表达式来确保实体存在，如果其不存在，它将抛出<code>EntityNotFoundException</code>异常。</p>
+<h2 id="其他通用仓储类型"><a href="#其他通用仓储类型" class="headerlink" title="其他通用仓储类型"></a>其他通用仓储类型</h2><p><code>IRepository&lt;TEntity, TKey&gt;</code> 接口 导出 了标准 <code>IQueryable&lt;TEntity&gt;</code> 你可以使用标准<code>LINQ</code>方法自由查询。这对于大多数应用程序都很好。但是，某些ORM提供程序或数据库系统可能不支持<code>IQueryable</code>接口。如果您想使用这样的提供者，就不能依赖<code>IQueryable</code>。</p>
+<h3 id="基础仓储"><a href="#基础仓储" class="headerlink" title="基础仓储"></a>基础仓储</h3><p>ABP提供了<code>IBasicRepository&lt;TEntity, TPrimaryKey&gt;</code> 和 <code>IBasicRepository&lt;TEntity&gt;</code> 接口来支持这样的场景. 你可以扩展这些接口（并可选择性地从<code>BasicRepositoryBase</code>派生）为你的实体创建自定义存储库.</p>
+<p>依赖于 <code>IBasicRepository</code> 而不是依赖 <code>IRepository</code>有一个优点, 即使它们不支持 <code>IQueryable</code> 也可以使用所有的数据源。</p>
+<p>但主要的供应商, 像 <code>Entity Framework, NHibernate 或 MongoDb</code> 已经支持了 <code>IQueryable</code>.</p>
+<p>因此, 使用 <code>IRepository</code> 是典型应用程序的 建议方法. 但是可重用的模块开发人员可能会考虑使用 <code>IBasicRepository</code> 来支持广泛的数据源.</p>
+<h3 id="只读仓储"><a href="#只读仓储" class="headerlink" title="只读仓储"></a>只读仓储</h3><p>对于想要使用只读仓储的开发者,我们提供了<code>IReadOnlyRepository&lt;TEntity, TKey&gt;</code> 与 <code>IReadOnlyBasicRepository&lt;Tentity, TKey&gt;</code>接口。</p>
+<h3 id="无主键的通用-泛型-仓储"><a href="#无主键的通用-泛型-仓储" class="headerlink" title="无主键的通用(泛型)仓储"></a>无主键的通用(泛型)仓储</h3><p>如果你的实体没有id主键 (例如, 它可能具有复合主键) 那么你不能使用上面定义的 <code>IRepository&lt;TEntity, TKey&gt;</code>, 在这种情况下你可以仅使用实体(类型)注入 <code>IRepository&lt;TEntity&gt;</code>。</p>
+<p><code>IRepository&lt;TEntity&gt;</code> 有一些缺失的方法, 通常与实体的 Id 属性一起使用. 由于实体在这种情况下没有 Id 属性, 因此这些方法不可用. 比如 Get 方法通过id获取具有指定id的实体. 不过, 你仍然可以使用<code>IQueryable&lt;TEntity&gt;</code>的功能通过标准LINQ方法查询实体。</p>
+<h3 id="自定义仓储"><a href="#自定义仓储" class="headerlink" title="自定义仓储"></a>自定义仓储</h3><p>ABP不会强制你实现任何接口或从存储库的任何基类继承。它可以只是一个简单的POCO类。 但是建议继承现有的仓储接口和类，获得开箱即用的标准方法使你的工作更轻松。<br>首先在领域层定义一个仓储接口:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title">IPersonRepository</span> : <span class="title">IRepository</span>&lt;<span class="title">Person</span>, <span class="title">Guid</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="function">Task&lt;Person&gt; <span class="title">FindByNameAsync</span>(<span class="params"><span class="built_in">string</span> name</span>)</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>此接口扩展了 IRepository&lt;Person, Guid&gt; 以使用已有的通用仓储功能。<br>自定义存储库依赖于你使用的数据访问工具。 在此示例中, 我们将使用Entity Framework Core:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">PersonRepository</span> : <span class="title">EfCoreRepository</span>&lt;<span class="title">MyDbContext</span>, <span class="title">Person</span>, <span class="title">Guid</span>&gt;, <span class="title">IPersonRepository</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">PersonRepository</span>(<span class="params">IDbContextProvider&lt;TestAppDbContext&gt; dbContextProvider</span>) </span></span><br><span class="line"><span class="function">        : <span class="title">base</span>(<span class="params">dbContextProvider</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task&lt;Person&gt; <span class="title">FindByNameAsync</span>(<span class="params"><span class="built_in">string</span> name</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> dbContext = <span class="keyword">await</span> GetDbContextAsync();</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">await</span> dbContext.Set&lt;Person&gt;()</span><br><span class="line">            .Where(p =&gt; p.Name == name)</span><br><span class="line">            .FirstOrDefaultAsync();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="IQueryable-amp-异步操作"><a href="#IQueryable-amp-异步操作" class="headerlink" title="IQueryable &amp; 异步操作"></a>IQueryable &amp; 异步操作</h2><p><code>IRepository</code>提供<code>GetQueryableAsync()</code>来获取<code>IQueryable</code>，这意味着您可以直接在其上使用<code>LINQ</code>扩展方法</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> queryable = <span class="keyword">await</span> _personRepository.GetQueryableAsync();</span><br><span class="line"><span class="keyword">var</span> people = queryable</span><br><span class="line">    .Where(p =&gt; p.Name.Contains(nameFilter))</span><br><span class="line">    .ToList();</span><br></pre></td></tr></table></figure>
+<p>.ToList, Count()… 是在 System.Linq 命名空间下定义的扩展方法.<br>你通常想要使用 .ToListAsync(), .CountAsync()…. 来编写真正的异步代码.</p>
+<p>但在你使用标准的应用程序启动模板时会发现无法在应用层或领域层使用这些异步扩展方法,因为:</p>
+<ul>
+<li><p>这里异步方法不是标准LINQ方法,它们定义在Microsoft.EntityFrameworkCoreNuget包中.</p>
+</li>
+<li><p>标准模板应用层与领域层不引用EF Core 包以实现数据库提供程序独立.<br>强烈建议使用异步方法! 在执行数据库查询时不要使用同步LINQ方法,以便能够开发可伸缩的应用程序.</p>
+<h3 id="选项-1-引用EF-Core"><a href="#选项-1-引用EF-Core" class="headerlink" title="选项-1: 引用EF Core"></a>选项-1: 引用EF Core</h3><p>最简单的方法是在你想要使用异步方法的项目直接引用EF Core包.<br>添加Volo.Abp.EntityFrameworkCoreNuGet包到你的项目间接引用EF Core包. 这可以确保你的应用程序其余部分兼容正确版本的EF Core.</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> queryable = <span class="keyword">await</span> _personRepository.GetQueryableAsync();</span><br><span class="line"><span class="keyword">var</span> people = queryable</span><br><span class="line">    .Where(p =&gt; p.Name.Contains(nameFilter))</span><br><span class="line">    .ToListAsync();</span><br></pre></td></tr></table></figure>
+<p>当以下情况时，这个方法是推荐的：</p>
+</li>
+<li><p>如果你正在开发一个应用程序并且不打算在将来 更新FE Core，或者如果以后真的需要更改，你也能容忍它。我们认为，如果您正在开发最终应用程序，这是合理的。</p>
+<h3 id="选项-2-使用IRepository异步扩展方法"><a href="#选项-2-使用IRepository异步扩展方法" class="headerlink" title="选项-2: 使用IRepository异步扩展方法"></a>选项-2: 使用IRepository异步扩展方法</h3><p>ABP框架为仓储提供异步扩展方法，与异步LINQ扩展方法类似。</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> countAll = <span class="keyword">await</span> _personRepository</span><br><span class="line">    .CountAsync();</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> count = <span class="keyword">await</span> _personRepository</span><br><span class="line">    .CountAsync(x =&gt; x.Name.StartsWith(<span class="string">&quot;A&quot;</span>));</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> book1984 = <span class="keyword">await</span> _bookRepository</span><br><span class="line">    .FirstOrDefaultAsync(x =&gt; x.Name == <span class="string">&quot;John&quot;</span>);    </span><br></pre></td></tr></table></figure>
+<p>这种方法仍有局限性。您需要直接在存储库对象上调用扩展方法。例如，以下用法不受支持：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> queryable = <span class="keyword">await</span> _bookRepository.GetQueryableAsync();</span><br><span class="line"><span class="keyword">var</span> count = <span class="keyword">await</span> queryable.Where(x =&gt; x.Name.Contains(<span class="string">&quot;A&quot;</span>)).CountAsync();</span><br></pre></td></tr></table></figure>
+<p>这是因为本例中的CountAsync()方法是在IQueryable接口上调用的，而不是在存储库对象上调用的。请参见此类情况的其他选项。</p>
+<h3 id="选项-3-IAsyncQueryableExecuter"><a href="#选项-3-IAsyncQueryableExecuter" class="headerlink" title="选项-3: IAsyncQueryableExecuter"></a>选项-3: IAsyncQueryableExecuter</h3><p>IAsyncQueryableExecuter 是一个用于异步执行 IQueryable<T> 对象的服务,不依赖于实际的数据库提供程序.</T></p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">namespace</span> <span class="title">AbpDemo</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ProductAppService</span> : <span class="title">ApplicationService</span>, <span class="title">IProductAppService</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> IRepository&lt;Product, Guid&gt; _productRepository;</span><br><span class="line">        <span class="keyword">private</span> <span class="keyword">readonly</span> IAsyncQueryableExecuter _asyncExecuter;</span><br><span class="line"></span><br><span class="line">        <span class="function"><span class="keyword">public</span> <span class="title">ProductAppService</span>(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function">            IRepository&lt;Product, Guid&gt; productRepository,</span></span></span><br><span class="line"><span class="params"><span class="function">            IAsyncQueryableExecuter asyncExecuter</span>)</span></span><br><span class="line">        &#123;</span><br><span class="line">            _productRepository = productRepository;</span><br><span class="line">            _asyncExecuter = asyncExecuter;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">public</span> <span class="keyword">async</span> Task&lt;ListResultDto&lt;ProductDto&gt;&gt; GetListAsync(<span class="built_in">string</span> name)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="comment">//Obtain the IQueryable&lt;T&gt;</span></span><br><span class="line">            <span class="keyword">var</span> queryable = <span class="keyword">await</span> _productRepository.GetQueryableAsync();</span><br><span class="line">            </span><br><span class="line">            <span class="comment">//Create the query</span></span><br><span class="line">            <span class="keyword">var</span> query = queryable</span><br><span class="line">                .Where(p =&gt; p.Name.Contains(name))</span><br><span class="line">                .OrderBy(p =&gt; p.Name);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//Run the query asynchronously</span></span><br><span class="line">            List&lt;Product&gt; products = <span class="keyword">await</span> _asyncExecuter.ToListAsync(query);</span><br><span class="line"></span><br><span class="line">            <span class="comment">//...</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>ApplicationService 和 DomainService 基类已经预属性注入了 AsyncExecuter 属性,所以你可直接使用.</p>
+</li>
+</ul>
+<p>ABP框架使用实际数据库提供程序的API异步执行查询。虽然这不是执行查询的常见方式，但它是使用异步API而不依赖于数据库提供者的最佳方式。</p>
+<p>当以下情况时，这个方法是推荐的：</p>
+<ul>
+<li>如果您想开发应用程序代码而不依赖数据库提供程序。</li>
+<li>如果你正在构建一个没有数据库提供程序集成包的可重用库,但是在某些情况下需要执行 IQueryable<T>对象.<br>例如,ABP框架在 CrudAppService 基类中(参阅应用程序文档)使用 IAsyncQueryableExecuter.</T></li>
+</ul>
+<h3 id="选项-4-自定义仓储方法"><a href="#选项-4-自定义仓储方法" class="headerlink" title="选项-4: 自定义仓储方法"></a>选项-4: 自定义仓储方法</h3><p>当以下情况时，这个方法是推荐的：</p>
+<ul>
+<li>如果你想完全隔离你的领域和应用层和数据库提供程序.</li>
+<li>如果你开发可重用的应用模块,并且不想强制使用特定的数据库提供程序,这应该作为一种最佳实践.</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2022/12/13/ABP/%E5%AE%9E%E4%BD%93%E4%B8%8E%E8%81%9A%E5%90%88%E6%A0%B9/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2022/12/13/ABP/%E5%AE%9E%E4%BD%93%E4%B8%8E%E8%81%9A%E5%90%88%E6%A0%B9/" class="post-title-link" itemprop="url">实体与聚合根</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2022-12-13 15:56:39" itemprop="dateCreated datePublished" datetime="2022-12-13T15:56:39+08:00">2022-12-13</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-03-11 17:56:10" itemprop="dateModified" datetime="2023-03-11T17:56:10+08:00">2023-03-11</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="实体"><a href="#实体" class="headerlink" title="实体"></a>实体</h1><p>实体通常映射成关系数据库中的表。</p>
+<h2 id="实体类"><a href="#实体类" class="headerlink" title="实体类"></a>实体类</h2><p>实体派生于<code>Entity&lt;TKey&gt;</code>类，如下所示：</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Book</span> : <span class="title">Entity</span>&lt;<span class="title">Guid</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> Name &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">float</span> Price &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果你不想从基类<code>Entity&lt;TKey&gt;</code>派生你自己的实体，你也可以直接实现<code>IEntity&lt;TKey&gt;</code>接口。</p>
+<p><code>Entity&lt;TKey&gt;</code>类只定义了一个Id属性，用作主键。在上面的例子中是<code>Guid</code>。主键也可以是其他类型，比如<code>string, int, long</code>，或者任何你需要的类型。</p>
+<h3 id="Guid主键的实体"><a href="#Guid主键的实体" class="headerlink" title="Guid主键的实体"></a>Guid主键的实体</h3><p>如果你的实体主键是Guid，这里有一些好的实践方法</p>
+<ul>
+<li>创建一个构造函数，将Id作为参数获取并传递给基类。<ul>
+<li>如果你没有设置Guid主键值，ABP框架在保存时设置。但是在将实体保存到数据库之前，最好在实体上有一个有效的Id值。</li>
+</ul>
+</li>
+<li>如果你的实体创建了带有参数的构造函数，也要创建私有或受保护的空构造函数。空构造函数在您的数据库提供者从数据库(反序列化)读取您的实体时使用。</li>
+<li>不要使用Guid.NewGuid()来设置Id值!使用IGuidGenerator服务来为实体创建Id值。通过优化IGuidGenerator，他可以生成连续的Guid值，这对于关系数据库中的聚集索引至关重要。</li>
+</ul>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Book</span> : <span class="title">Entity</span>&lt;<span class="title">Guid</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> Name &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">float</span> Price &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">Book</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Book</span>(<span class="params">Guid id</span>)</span></span><br><span class="line"><span class="function">     : <span class="title">base</span>(<span class="params">id</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="具有复合键的实体"><a href="#具有复合键的实体" class="headerlink" title="具有复合键的实体"></a>具有复合键的实体</h3><p>有些实体可能需要 复合键 .在这种情况下,可以从非泛型Entity类派生实体.如:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">UserRole</span> : <span class="title">Entity</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> Guid UserId &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Guid RoleId &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">public</span> DateTime CreationTime &#123; <span class="keyword">get</span>; <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">UserRole</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">            </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="built_in">object</span>[] <span class="title">GetKeys</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">object</span>[] &#123; UserId, RoleId &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>上面的例子中,复合键由UserId和RoleId组成.在关系数据库中,它是相关表的复合主键. 具有复合键的实体应当实现上面代码中所示的GetKeys()方法.</p>
+<h2 id="聚合根"><a href="#聚合根" class="headerlink" title="聚合根"></a>聚合根</h2><p>“聚合是域驱动设计中的一种模式.DDD的聚合是一组可以作为一个单元处理的域对象.例如,订单及订单系列的商品,这些是独立的对象,但将订单(连同订单系列的商品)视为一个聚合通常是很有用的”</p>
+<p><code>AggregateRoot&lt;TKey&gt;</code>类继承自<code>Entity&lt;TKey&gt;</code>类,所以默认有<code>Id</code>这个属性.</p>
+<p><strong>注意ABP框架只为聚合根创建默认的存储，当然也可以手动为所有实体创建存储</strong></p>
+<p>ABP不强制你使用聚合根,实际上你可以使用上面定义的Entity类,当然,如果你想实现领域驱动设计并且创建聚合根,这里有一些最佳实践仅供参考:</p>
+<ul>
+<li>聚合根需要维护自身的完整性,所有的实体也是这样.但是聚合根也要维护子实体的完整性.所以,聚合根必须一直有效。</li>
+<li>使用Id引用聚合根,而不使用导航属性</li>
+<li>聚合根被视为一个单元.它是作为一个单元检索和更新的.它通常被认为是一个交易边界.</li>
+<li>不单独修改聚合根中的子实体<h3 id="聚合根例子"><a href="#聚合根例子" class="headerlink" title="聚合根例子"></a>聚合根例子</h3>这是一个具有子实体集合的聚合根例子:<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Order</span> : <span class="title">AggregateRoot</span>&lt;<span class="title">Guid</span>&gt;</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">virtual</span> <span class="built_in">string</span> ReferenceNo &#123; <span class="keyword">get</span>; <span class="keyword">protected</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">virtual</span> <span class="built_in">int</span> TotalItemCount &#123; <span class="keyword">get</span>; <span class="keyword">protected</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">virtual</span> DateTime CreationTime &#123; <span class="keyword">get</span>; <span class="keyword">protected</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">virtual</span> List&lt;OrderLine&gt; OrderLines &#123; <span class="keyword">get</span>; <span class="keyword">protected</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">Order</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Order</span>(<span class="params">Guid id, <span class="built_in">string</span> referenceNo</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        Check.NotNull(referenceNo, <span class="keyword">nameof</span>(referenceNo));</span><br><span class="line">        </span><br><span class="line">        Id = id;</span><br><span class="line">        ReferenceNo = referenceNo;</span><br><span class="line">        </span><br><span class="line">        OrderLines = <span class="keyword">new</span> List&lt;OrderLine&gt;();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">AddProduct</span>(<span class="params">Guid productId, <span class="built_in">int</span> count</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">if</span> (count &lt;= <span class="number">0</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> ArgumentException(</span><br><span class="line">                <span class="string">&quot;You can not add zero or negative count of products!&quot;</span>,</span><br><span class="line">                <span class="keyword">nameof</span>(count)</span><br><span class="line">            );</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        <span class="keyword">var</span> existingLine = OrderLines.FirstOrDefault(ol =&gt; ol.ProductId == productId);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">if</span> (existingLine == <span class="literal">null</span>)</span><br><span class="line">        &#123;</span><br><span class="line">            OrderLines.Add(<span class="keyword">new</span> OrderLine(<span class="keyword">this</span>.Id, productId, count));</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span></span><br><span class="line">        &#123;</span><br><span class="line">            existingLine.ChangeCount(existingLine.Count + count);</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">        TotalItemCount += count;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">OrderLine</span> : <span class="title">Entity</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">virtual</span> Guid OrderId &#123; <span class="keyword">get</span>; <span class="keyword">protected</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">virtual</span> Guid ProductId &#123; <span class="keyword">get</span>; <span class="keyword">protected</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">virtual</span> <span class="built_in">int</span> Count &#123; <span class="keyword">get</span>; <span class="keyword">protected</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="title">OrderLine</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">internal</span> <span class="title">OrderLine</span>(<span class="params">Guid orderId, Guid productId, <span class="built_in">int</span> count</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        OrderId = orderId;</span><br><span class="line">        ProductId = productId;</span><br><span class="line">        Count = count;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">internal</span> <span class="keyword">void</span> <span class="title">ChangeCount</span>(<span class="params"><span class="built_in">int</span> newCount</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        Count = newCount;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">override</span> <span class="built_in">object</span>[] <span class="title">GetKeys</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> Object[] &#123;OrderId, ProductId&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+如果你不想你的聚合根继承AggregateRoot<TKey>类,你可以直接实现IAggregateRoot<TKey>接口</TKey></TKey></li>
+</ul>
+<p>Order是一个具有Guid类型Id属性的 聚合根.它有一个OrderLine实体集合.OrderLine是一个具有组合键(OrderId和 ProductId)的实体.</p>
+<p>虽然这个示例可能无法实现聚合根的所有最佳实践,但它仍然遵循良好的实践:</p>
+<ul>
+<li>Order有一个公共的构造函数,它需要 minimal requirements 来构造一个”订单”实例.因此,在没有Id和referenceNo的时候是无法创建订单的.protected&#x2F;private的构造函数只有从数据库读取对象时 反序列化 才需要.</li>
+<li>OrderLine的构造函数是internal的,所以它只能由领域层来创建.在Order.AddProduct这个方法的内部被使用.</li>
+<li>Order.AddProduct实现了业务规则将商品添加到订单中</li>
+<li>所有属性都有protected的set.这是为了防止实体在实体外部任意改变.因此,在没有向订单中添加新产品的情况下设置 TotalItemCount将是危险的.它的值由AddProduct方法维护.</li>
+</ul>
+<h3 id="带有组合键的聚合根"><a href="#带有组合键的聚合根" class="headerlink" title="带有组合键的聚合根"></a>带有组合键的聚合根</h3><p>虽然这种聚合根并不常见(也不建议使用),但实际上可以按照与上面提到的跟实体相同的方式定义复合键.在这种情况下,要使用非泛型的AggregateRoot基类.</p>
+<h3 id="BasicAggregateRoot类"><a href="#BasicAggregateRoot类" class="headerlink" title="BasicAggregateRoot类"></a>BasicAggregateRoot类</h3><p>AggregateRoot 类实现了 IHasExtraProperties 和 IHasConcurrencyStamp 接口,这为派生类带来了两个属性. IHasExtraProperties 使实体可扩展(请参见下面的 额外的属性部分) 和 IHasConcurrencyStamp 添加了由ABP框架管理的 ConcurrencyStamp 属性实现乐观并发. 在大多数情况下,这些是聚合根需要的功能.</p>
+<p>但是,如果你不需要这些功能,你的聚合根可以继承 BasicAggregateRoot<TKey>(或BasicAggregateRoot).</TKey></p>
+<h2 id="额外的属性"><a href="#额外的属性" class="headerlink" title="额外的属性"></a>额外的属性</h2><p>ABP定义了 IHasExtraProperties 接口,可以由实体实现,以便能够动态地设置和获取的实体属性. AggregateRoot 基类已经实现了 IHasExtraProperties 接口. 如果你从这个类(或者上面定义的一个相关审计类)派生,那么你可以直接使用API​.</p>
+<h3 id="GetProperty-和-SetProperty-扩展方法"><a href="#GetProperty-和-SetProperty-扩展方法" class="headerlink" title="GetProperty 和 SetProperty 扩展方法"></a>GetProperty 和 SetProperty 扩展方法</h3><p>这些扩展方法是获取和设置实体数据的推荐方法. 例:</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">ExtraPropertiesDemoService</span> : <span class="title">ITransientDependency</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">readonly</span> IIdentityUserRepository _identityUserRepository;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">ExtraPropertiesDemoService</span>(<span class="params">IIdentityUserRepository identityUserRepository</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        _identityUserRepository = identityUserRepository;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task <span class="title">SetTitle</span>(<span class="params">Guid userId, <span class="built_in">string</span> title</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> user = <span class="keyword">await</span> _identityUserRepository.GetAsync(userId);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//SET A PROPERTY</span></span><br><span class="line">        user.SetProperty(<span class="string">&quot;Title&quot;</span>, title);</span><br><span class="line"></span><br><span class="line">        <span class="keyword">await</span> _identityUserRepository.UpdateAsync(user);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">async</span> Task&lt;<span class="built_in">string</span>&gt; <span class="title">GetTitle</span>(<span class="params">Guid userId</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">var</span> user = <span class="keyword">await</span> _identityUserRepository.GetAsync(userId);</span><br><span class="line"></span><br><span class="line">        <span class="comment">//GET A PROPERTY</span></span><br><span class="line">        <span class="keyword">return</span> user.GetProperty&lt;<span class="built_in">string</span>&gt;(<span class="string">&quot;Title&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="值对象"><a href="#值对象" class="headerlink" title="值对象"></a>值对象</h1><p>一个对象,表示领域的描述方面,没有概念上的身份被称为 值对象.</p>
+<p>两个具有相同属性但id不同的实体被认为是不同的实体。但是，值对象没有id，如果它们具有相同的属性值，则它们被视为相等的。</p>
+<h2 id="值对象的类"><a href="#值对象的类" class="headerlink" title="值对象的类"></a>值对象的类</h2><p>值对象是一个抽象类,可以继承它来创建值对象类</p>
+<p>示例: An Address class</p>
+<figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title">Address</span> : <span class="title">ValueObject</span></span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">public</span> Guid CityId &#123; <span class="keyword">get</span>; <span class="keyword">private</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">string</span> Street &#123; <span class="keyword">get</span>; <span class="keyword">private</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="built_in">int</span> Number &#123; <span class="keyword">get</span>; <span class="keyword">private</span> <span class="keyword">set</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">private</span> <span class="title">Address</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        </span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="title">Address</span>(<span class="params"></span></span></span><br><span class="line"><span class="params"><span class="function">        Guid cityId,</span></span></span><br><span class="line"><span class="params"><span class="function">        <span class="built_in">string</span> street,</span></span></span><br><span class="line"><span class="params"><span class="function">        <span class="built_in">int</span> number</span>)</span></span><br><span class="line">    &#123;</span><br><span class="line">        CityId = cityId;</span><br><span class="line">        Street = street;</span><br><span class="line">        Number = number;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">protected</span> <span class="keyword">override</span> IEnumerable&lt;<span class="built_in">object</span>&gt; <span class="title">GetAtomicValues</span>()</span></span><br><span class="line">    &#123;</span><br><span class="line">        <span class="keyword">yield</span> <span class="keyword">return</span> Street;</span><br><span class="line">        <span class="keyword">yield</span> <span class="keyword">return</span> CityId;</span><br><span class="line">        <span class="keyword">yield</span> <span class="keyword">return</span> Number;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ul>
+<li>值对象类必须实现 GetAtomicValues()方法来返回原始值</li>
+</ul>
+<h2 id="最佳实践"><a href="#最佳实践" class="headerlink" title="最佳实践"></a>最佳实践</h2><ul>
+<li>如果没有充分的理由将值对象设计为可变的,则将其设计为不可变（如上面的地址）.</li>
+<li>构成一个值对象的属性应该形成一个概念整体.例如：CityId,Street和Number不应是个人实体的单独属性.这也使Person实体更简</li>
+</ul>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><ul>
+<li>当实体属性，没有业务规则或其他限制条件时，属性应该设置为 public；</li>
+<li>当实体属性，只有简单的限制条件时(不需要根据数据库或其他实体判断)，属性应该设置为 private；在实体上创建修改方法，不要在领域层中创建；</li>
+<li>当实体属性，有复杂业务规则限制时，属性应该设置为 interal；在领域层，创建修改方法；</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 

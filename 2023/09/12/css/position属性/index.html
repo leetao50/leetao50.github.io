@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leetao50.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="标准流（Normal Flow）默认情况下，元素都是按照normal flow（标准流、常规流、正常流、文档流）进行排布的。  排布顺序：在浏览器中从左到右，从上到下顺序摆放； 默认情况下，元素互相之间不存在层叠现象；  什么情况下元素会脱标？脱离标准流（简称“脱标”），那么什么情况下元素会脱离标准流呢？常见有以下两种：  元素设置position，并且position的值为fixed或absol">
+<meta property="og:type" content="article">
+<meta property="og:title" content="position属性">
+<meta property="og:url" content="https://leetao50.github.io/2023/09/12/css/position%E5%B1%9E%E6%80%A7/index.html">
+<meta property="og:site_name" content="InfoPool">
+<meta property="og:description" content="标准流（Normal Flow）默认情况下，元素都是按照normal flow（标准流、常规流、正常流、文档流）进行排布的。  排布顺序：在浏览器中从左到右，从上到下顺序摆放； 默认情况下，元素互相之间不存在层叠现象；  什么情况下元素会脱标？脱离标准流（简称“脱标”），那么什么情况下元素会脱离标准流呢？常见有以下两种：  元素设置position，并且position的值为fixed或absol">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://leetao50.github.io/2023/09/12/css/position%E5%B1%9E%E6%80%A7/0e42e9d5a768760de16315b26c650b65daaf67a0492dc03c1a68f4d6071a3ddc.png">
+<meta property="og:image" content="https://leetao50.github.io/2023/09/12/css/position%E5%B1%9E%E6%80%A7/42ba9fef374c275a4c42285c2fdd924a85b027555a8cc5a1b94df4bc8ea61d90.png">
+<meta property="og:image" content="https://leetao50.github.io/2023/09/12/css/position%E5%B1%9E%E6%80%A7/40613bd478d4a35cb25711c689b397f7690b155aaee9b8f4aa526eff842543f9.png">
+<meta property="og:image" content="https://leetao50.github.io/2023/09/12/css/position%E5%B1%9E%E6%80%A7/bacdef0f20b06043f339b3660aa907a682a2fcc96292c397627d962a15f10503.png">
+<meta property="og:image" content="https://leetao50.github.io/2023/09/12/css/position%E5%B1%9E%E6%80%A7/ff586163cd4e4a438e072c747d4e8d53dcf68629786ca6e81d02bb976393b675.png">
+<meta property="og:image" content="https://leetao50.github.io/2023/09/12/css/position%E5%B1%9E%E6%80%A7/bd8c6f0e017a8a9dc56c17aa070ac2faa0b3ffddf98d9255dfe1eb2ba32679ca.png">
+<meta property="og:image" content="https://leetao50.github.io/2023/09/12/css/position%E5%B1%9E%E6%80%A7/fec2d4e19a5cb64dde3b2ae27e406cd9364ed17ef683fe415ecb6de36d38a61c.png">
+<meta property="og:image" content="https://leetao50.github.io/2023/09/12/css/position%E5%B1%9E%E6%80%A7/203e5233cb299bf8c8a89435f2755d0275a23ba913915937980a39f842f12a10.png">
+<meta property="og:image" content="https://leetao50.github.io/2023/09/12/css/position%E5%B1%9E%E6%80%A7/0aa95c8d7f9a779c1afc6abb284bcd7e84ebff8ebcfb4f2afae9c33d98670581.png">
+<meta property="og:image" content="https://leetao50.github.io/2023/09/12/css/position%E5%B1%9E%E6%80%A7/866dbc9eecca0154b3099ce040695d08b9cb28e12455d55d84617541f5054601.png">
+<meta property="article:published_time" content="2023-09-12T08:33:24.000Z">
+<meta property="article:modified_time" content="2023-09-13T09:43:36.685Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://leetao50.github.io/2023/09/12/css/position%E5%B1%9E%E6%80%A7/0e42e9d5a768760de16315b26c650b65daaf67a0492dc03c1a68f4d6071a3ddc.png">
+
+
+<link rel="canonical" href="https://leetao50.github.io/2023/09/12/css/position%E5%B1%9E%E6%80%A7/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leetao50.github.io/2023/09/12/css/position%E5%B1%9E%E6%80%A7/","path":"2023/09/12/css/position属性/","title":"position属性"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>position属性 | InfoPool</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">InfoPool</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">私人信息记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%A0%87%E5%87%86%E6%B5%81%EF%BC%88Normal-Flow%EF%BC%89"><span class="nav-number">1.</span> <span class="nav-text">标准流（Normal Flow）</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BB%80%E4%B9%88%E6%83%85%E5%86%B5%E4%B8%8B%E5%85%83%E7%B4%A0%E4%BC%9A%E8%84%B1%E6%A0%87%EF%BC%9F"><span class="nav-number">2.</span> <span class="nav-text">什么情况下元素会脱标？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%84%B1%E6%A0%87%E5%85%83%E7%B4%A0%E7%9A%84%E7%89%B9%E7%82%B9"><span class="nav-number">3.</span> <span class="nav-text">脱标元素的特点</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%84%B1%E6%A0%87%E5%92%8Cdisplay%E6%9C%89%E4%BB%80%E4%B9%88%E5%85%B3%E7%B3%BB%EF%BC%9F"><span class="nav-number">4.</span> <span class="nav-text">脱标和display有什么关系？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%A4%A7%E9%83%A8%E5%88%86%E5%85%83%E7%B4%A0%E5%9C%A8%E8%84%B1%E6%A0%87%E5%90%8E%E9%83%BD%E4%BC%9A%E8%BD%AC%E6%8D%A2%E6%88%90block%E7%B1%BB%E5%9E%8B%E3%80%82"><span class="nav-number">5.</span> <span class="nav-text">大部分元素在脱标后都会转换成block类型。</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#static"><span class="nav-number">6.</span> <span class="nav-text">static</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#relative"><span class="nav-number">7.</span> <span class="nav-text">relative</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#absolute"><span class="nav-number">8.</span> <span class="nav-text">absolute</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#fixed"><span class="nav-number">9.</span> <span class="nav-text">fixed</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#inherit"><span class="nav-number">10.</span> <span class="nav-text">inherit</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%AD%90%E7%BB%9D%E7%88%B6%E7%9B%B8"><span class="nav-number">11.</span> <span class="nav-text">子绝父相</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%A4%BA%E4%BE%8B"><span class="nav-number">12.</span> <span class="nav-text">示例</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%99%E7%AC%AC%E4%BA%8C%E4%B8%AAdiv%E8%AE%BE%E7%BD%AEabsolute"><span class="nav-number">12.1.</span> <span class="nav-text">给第二个div设置absolute</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%86%E7%AC%AC%E4%BA%8C%E4%B8%AAdiv%E8%AE%BE%E7%BD%AE%E4%B8%BArelative"><span class="nav-number">12.2.</span> <span class="nav-text">将第二个div设置为relative</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%BB%99%E7%AC%AC%E4%BA%8C%E4%B8%AAdiv%E6%B7%BB%E5%8A%A0%E4%B8%80%E4%B8%AA%E7%88%B6div"><span class="nav-number">12.3.</span> <span class="nav-text">给第二个div添加一个父div</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%8B%A5%E5%B0%86div2%E5%8D%B3%E7%AC%AC%E4%BA%8C%E4%B8%AAdiv%E7%9A%84absolute%E6%94%B9%E4%B8%BArelative%EF%BC%9A"><span class="nav-number">12.4.</span> <span class="nav-text">若将div2即第二个div的absolute改为relative：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%8B%A5%E4%BF%9D%E6%8C%81%E4%B8%8A%E9%9D%A2%E7%9A%84%E4%B8%A4%E7%A7%8D%E6%83%85%E5%86%B5%EF%BC%8C%E9%83%BD%E5%B0%86%E7%AC%AC%E4%BA%8C%E4%B8%AAdiv%E7%9A%84%E5%AE%BD%E5%BA%A6%E8%AE%BE%E4%B8%BA500px%EF%BC%8C%E5%BE%97%E5%88%B0%E6%95%88%E6%9E%9C%E5%A6%82%E4%B8%8B%EF%BC%9A"><span class="nav-number">13.</span> <span class="nav-text">若保持上面的两种情况，都将第二个div的宽度设为500px，得到效果如下：</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B0%8F%E7%BB%93"><span class="nav-number">13.1.</span> <span class="nav-text">小结</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description">记录信息来源网络，内容只为方便查找，非公开信息，非请勿入</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/09/12/css/position%E5%B1%9E%E6%80%A7/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="position属性 | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          position属性
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-09-12 16:33:24" itemprop="dateCreated datePublished" datetime="2023-09-12T16:33:24+08:00">2023-09-12</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-09-13 17:43:36" itemprop="dateModified" datetime="2023-09-13T17:43:36+08:00">2023-09-13</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="标准流（Normal-Flow）"><a href="#标准流（Normal-Flow）" class="headerlink" title="标准流（Normal Flow）"></a>标准流（Normal Flow）</h1><p>默认情况下，元素都是按照normal flow（标准流、常规流、正常流、文档流）进行排布的。</p>
+<ul>
+<li>排布顺序：在浏览器中从左到右，从上到下顺序摆放；</li>
+<li>默认情况下，元素互相之间不存在层叠现象；<br><img src="0e42e9d5a768760de16315b26c650b65daaf67a0492dc03c1a68f4d6071a3ddc.png" alt="图 0"></li>
+</ul>
+<h1 id="什么情况下元素会脱标？"><a href="#什么情况下元素会脱标？" class="headerlink" title="什么情况下元素会脱标？"></a>什么情况下元素会脱标？</h1><p>脱离标准流（简称“脱标”），那么什么情况下元素会脱离标准流呢？常见有以下两种：</p>
+<ul>
+<li>元素设置position，并且position的值为fixed或absolute；</li>
+<li>元素添加浮动float，并且float的值不为none；</li>
+</ul>
+<h1 id="脱标元素的特点"><a href="#脱标元素的特点" class="headerlink" title="脱标元素的特点"></a>脱标元素的特点</h1><ol>
+<li>可以随意设置宽高，宽高默认由内容决定。<ul>
+<li>块级元素：在标准流下，默认占满父元素的宽度；脱标后，宽高由内容撑开。</li>
+<li>行内元素：在标准流下，默认由内容撑开，且不能设置宽高；脱标后，宽高还是由内容撑开，但是可以设置宽高。</li>
+</ul>
+</li>
+<li>不再受标准流的约束。</li>
+<li>不再给父元素汇报宽高数据，也就是不能将父元素撑开。</li>
+</ol>
+<h1 id="脱标和display有什么关系？"><a href="#脱标和display有什么关系？" class="headerlink" title="脱标和display有什么关系？"></a>脱标和display有什么关系？</h1><p>根据以上脱标元素的特点，可能会有人认为脱标其实就是将元素转换成了inline-block，因为其展示效果和设置display: inline-block;效果一致，但是其中的原因却不是这样。</p>
+<p>当不同元素进行了脱标，对应会展示成display的何种属性值？在MDN和W3C官方网站上都有进行解释，并且提供了参考表格：</p>
+<ul>
+<li><p>MDN中，以搜索float属性为例；<br><img src="42ba9fef374c275a4c42285c2fdd924a85b027555a8cc5a1b94df4bc8ea61d90.png" alt="图 1">  </p>
+</li>
+<li><p>在W3C官方文档中，有关于display、position和float之间的关系进行了说明；</p>
+</li>
+</ul>
+<p><img src="40613bd478d4a35cb25711c689b397f7690b155aaee9b8f4aa526eff842543f9.png" alt="图 2">  </p>
+<h1 id="大部分元素在脱标后都会转换成block类型。"><a href="#大部分元素在脱标后都会转换成block类型。" class="headerlink" title="大部分元素在脱标后都会转换成block类型。"></a>大部分元素在脱标后都会转换成block类型。</h1><blockquote>
+<p>这里可以抛出一个疑问，block类型不是占据父元素的宽度么，为什么脱标元素最终是由内容撑开的？<br>解答：元素脱标后，已经不受标准流约束，其位置也是不局限在父元素之内，很难说父元素是谁，且块级（block）元素默认宽高都为auto，难以参考父元素宽度，所以最好的展示形式就是默认由内容撑开。</p>
+</blockquote>
+<p>利用position可以对元素进行定位，常用取值有4个：</p>
+<h1 id="static"><a href="#static" class="headerlink" title="static"></a>static</h1><ol>
+<li>static为position属性的默认值，在不设置position属性时就是static。</li>
+<li>元素按照标准流进行排布（忽略 top, bottom, left, right 或者 z-index 声明）。</li>
+<li>元素和元素之间不会重叠，这个位置就是元素的默认位置。</li>
+<li>相邻元素都设置外边距，最终外边距&#x3D;两者外边距中最大的。</li>
+<li>左右外边距设置auto,这个块水平居中。</li>
+</ol>
+<h1 id="relative"><a href="#relative" class="headerlink" title="relative"></a>relative</h1><ol>
+<li>元素按照标准流进行排布。而且占据的文档空间不会随 top &#x2F; right &#x2F; left &#x2F; bottom 等属性的偏移而发生变动。</li>
+<li>相对定位相对的是它原本在文档流中的位置而进行的偏移。</li>
+<li>可以通过left、right、top、bottom来进行位置调整。</li>
+<li>相对定位应用场景：在不影响其它元素位置的前提下，可以对当前元素位置进行微调。</li>
+</ol>
+<h1 id="absolute"><a href="#absolute" class="headerlink" title="absolute"></a>absolute</h1><ol>
+<li>元素脱离标准流（脱标）</li>
+<li>定位参照对象是最近一级拥有定位的祖先元素（相对于static定位以外的第一个父元素进行定位），可以通过left、right、top、bottom来进行位置调整。</li>
+<li>如果一直往上层元素找不到有定位的元素，那么最终的参照对象为浏览器窗口。</li>
+<li>宽高由内容撑开。</li>
+<li>包含块就是由它的最近的 position 的值不是 static 的祖先元素的<strong>内边距区</strong>的边缘组成。</li>
+</ol>
+<h1 id="fixed"><a href="#fixed" class="headerlink" title="fixed"></a>fixed</h1><ol>
+<li>元素脱离标准流（脱标）</li>
+<li>生成绝对定位的元素，相对于浏览器窗口进行定位。元素的位置通过 “left”, “top”, “right” 以及 “bottom” 属性进行规定。</li>
+<li>当浏览器窗口滚动时，元素的位置是固定不动的。</li>
+</ol>
+<h1 id="inherit"><a href="#inherit" class="headerlink" title="inherit"></a>inherit</h1><p>规定应该从父元素继承 position 属性的值。</p>
+<h1 id="子绝父相"><a href="#子绝父相" class="headerlink" title="子绝父相"></a>子绝父相</h1><blockquote>
+<p>在绝大多数情况下，子元素的绝对定位都是相对于父元素进行定位的，虽然给父元素的position设置relative、absolute、fixed都可以，但是如果不希望父元素脱标，常用解决方案是：</p>
+</blockquote>
+<ul>
+<li>父元素设置position: relative;（让父元素成为定位元素，又不脱离标准流）；</li>
+<li>子元素设置position: absolute;；</li>
+</ul>
+<h1 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h1><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div class=&quot;div1&quot;&gt;第一个div&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;div2&quot;&gt;第二个div&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;div3&quot;&gt;第三个div&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;div4&quot;&gt;第四个div&lt;/div&gt;</span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+<p>添加背景色，效果如下：</p>
+<p><img src="bacdef0f20b06043f339b3660aa907a682a2fcc96292c397627d962a15f10503.png" alt="图 3">  </p>
+<h2 id="给第二个div设置absolute"><a href="#给第二个div设置absolute" class="headerlink" title="给第二个div设置absolute"></a>给第二个div设置absolute</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.div2</span>&#123;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: blueviolet;</span><br><span class="line">    <span class="attribute">position</span>:absolute;</span><br><span class="line">    <span class="attribute">top</span>:<span class="number">50px</span>;</span><br><span class="line">    <span class="attribute">left</span>:<span class="number">50px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果如图：</p>
+<p><img src="ff586163cd4e4a438e072c747d4e8d53dcf68629786ca6e81d02bb976393b675.png" alt="图 4">  </p>
+<p>第二个div设置了absolute,则该div的宽度就由文本决定，且下面的div会上移占据之前第二个div的位置，top和left是相对于离它最近且不是static定位的父元素来定位的，在此div2因为没有父元素，所以第二个div相对于根元素即html元素来定位。</p>
+<h2 id="将第二个div设置为relative"><a href="#将第二个div设置为relative" class="headerlink" title="将第二个div设置为relative"></a>将第二个div设置为relative</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.div2</span>&#123;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: blueviolet;   </span><br><span class="line">    <span class="attribute">position</span>:relative;</span><br><span class="line">    <span class="attribute">left</span>:<span class="number">50px</span>;</span><br><span class="line">    <span class="attribute">top</span>:<span class="number">50px</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>效果如图：</p>
+<p><img src="bd8c6f0e017a8a9dc56c17aa070ac2faa0b3ffddf98d9255dfe1eb2ba32679ca.png" alt="图 5">  </p>
+<p>设置relative的div不会影响其他div的位置，且top和left是相对于它原本自身的位置来定位。</p>
+<h2 id="给第二个div添加一个父div"><a href="#给第二个div添加一个父div" class="headerlink" title="给第二个div添加一个父div"></a>给第二个div添加一个父div</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    &lt;div class=&quot;div1&quot;&gt;第一个div&lt;/div&gt;    </span><br><span class="line">    &lt;div class=&quot;container1&quot;&gt;</span><br><span class="line">        第二个div的父div</span><br><span class="line">        &lt;div class=&quot;div2&quot;&gt;第二个div&lt;/div&gt;     </span><br><span class="line">    &lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;div3&quot;&gt;第三个div&lt;/div&gt;</span><br><span class="line">    &lt;div class=&quot;div4&quot;&gt;第四个div&lt;/div&gt;     </span><br><span class="line">&lt;/body&gt;</span><br></pre></td></tr></table></figure>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container1</span>&#123;</span><br><span class="line">    <span class="attribute">position</span>:absolute;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: greenyellow;</span><br><span class="line">&#125;           </span><br><span class="line"></span><br><span class="line"><span class="selector-class">.div2</span>&#123;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: blueviolet;</span><br><span class="line">    <span class="attribute">position</span>:absolute;</span><br><span class="line">    <span class="attribute">top</span>:<span class="number">50px</span>;</span><br><span class="line">    <span class="attribute">left</span>:<span class="number">50px</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>效果如图：<br><img src="fec2d4e19a5cb64dde3b2ae27e406cd9364ed17ef683fe415ecb6de36d38a61c.png" alt="图 6">  </p>
+<p>div2的父div设置为absolute，下面的div3,div4会上移，div2也设置为absolute，div2就会相对于父div来定位。</p>
+<h2 id="若将div2即第二个div的absolute改为relative："><a href="#若将div2即第二个div的absolute改为relative：" class="headerlink" title="若将div2即第二个div的absolute改为relative："></a>若将div2即第二个div的absolute改为relative：</h2><figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.div2</span>&#123;</span><br><span class="line">    <span class="attribute">height</span>:<span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">background-color</span>: blueviolet;</span><br><span class="line">    <span class="attribute">position</span>:relative;</span><br><span class="line">    <span class="attribute">top</span>:<span class="number">50px</span>;</span><br><span class="line">    <span class="attribute">left</span>:<span class="number">50px</span>;  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>则效果图如下：</p>
+<p><img src="203e5233cb299bf8c8a89435f2755d0275a23ba913915937980a39f842f12a10.png" alt="图 7">  </p>
+<p>上面两个图的第二个div与父div的上边距是不同的，第一个是相对父div来定位，第二个是相对原来本身的位置来定位。可能此时你会注意到两个图的第二个div的宽度不同，在没有给div设置宽度的情况下，第一个是设为absolute，所以宽度为文本宽度，第二个是relative，所以宽度与父元素宽度相同。</p>
+<h1 id="若保持上面的两种情况，都将第二个div的宽度设为500px，得到效果如下："><a href="#若保持上面的两种情况，都将第二个div的宽度设为500px，得到效果如下：" class="headerlink" title="若保持上面的两种情况，都将第二个div的宽度设为500px，得到效果如下："></a>若保持上面的两种情况，都将第二个div的宽度设为500px，得到效果如下：</h1><p><img src="0aa95c8d7f9a779c1afc6abb284bcd7e84ebff8ebcfb4f2afae9c33d98670581.png" alt="图 8">  </p>
+<p><img src="866dbc9eecca0154b3099ce040695d08b9cb28e12455d55d84617541f5054601.png" alt="图 9">  </p>
+<p>由上图可以知道，absolute定位的子元素宽度不会影响父元素的宽，而relative定位的子元素会撑大父元素。</p>
+<h2 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h2><ul>
+<li><p>Absolution：元素会脱离文档流，定位是相对于离它最近的且不是static定位的父元素而言，若该元素没有设置宽度，则宽度由元素里面的内容决定，且宽度不会影响父元素，定位为absolution后，原来的位置相当于是空的，下面的的元素会来占据。</p>
+</li>
+<li><p>Relative：元素仍处于文档流中，定位是相对于原本自身的位置，若没有设置宽度，则宽度为父元素的宽度，该元素的大小会影响父元素的大小。</p>
+</li>
+<li><p>绝对(absolute)定位对象在可视区域之外会导致滚动条出现。而放置相对(relative)定位对象在可视区域之外，滚动条不会出现。</p>
+</li>
+<li><p>使用absoulte或fixed定位的话，必须指定 left、right、 top、 bottom 属性中的至少一个，否则left&#x2F;right&#x2F;top&#x2F;bottom属性会使用它们的默认值 auto ，这将导致对象遵从正常的HTML布局规则，在前一个对象之后立即被呈递，简单讲就是都变成relative，会占用文档空间，这点非常重要，很多人使用absolute定位后发现没有脱离文档流就是这个原因，这里要特别注意~~~</p>
+</li>
+<li><p>少了left&#x2F;right&#x2F;top&#x2F;bottom属性不行，那如果我们多设了呢？例如，我们同时设置了top和bottom的属性值，那元素又该往哪偏移好呢？记住下面的规则：</p>
+<ul>
+<li>如果top和bottom一同存在的话，那么只有top生效。</li>
+<li>如果left和right一同存在的话，那么只有left生效。</li>
+</ul>
+</li>
+<li><p>祖先类的margin会让子类的absoulte跟着偏移，而padding却不会让子类的absoulte发生偏移。总结一下，就是absoulte是根据祖先类的border进行的定位。</p>
+</li>
+<li><p>无论父级盒子是正常显示还是以border-box显示，在没有规定left和top的属性值时，都呈现在父级盒子的内容区（不包含padding）左上角若规定了left：0；top：0；则统一相对父级盒子的左上角显示（包含padding）</p>
+</li>
+<li><p>当只给元素定义了position：absolute时，如果top, bottom, left, right都没有指定时，则left，top值与原文档流位置一致（当然了它是不占位的）。所以只设置了top属性而未设置left属性就造成了它在水平方向上仍然保持原有位置，而这个位置绝对不是left：0。实际上不论是何种定位，规则都如上所述。</p>
+</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2023/09/11/css/box-shadow%E5%B1%9E%E6%80%A7/" rel="prev" title="box-shadow属性">
+                  <i class="fa fa-chevron-left"></i> box-shadow属性
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2023/09/13/css/BFC/" rel="next" title="BFC">
+                  BFC <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2023</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
