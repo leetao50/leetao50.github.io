@@ -118,7 +118,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-count">49</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -161,7 +161,7 @@
   
 
   <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/07/26/css/flex%E5%AE%B9%E5%99%A8%E4%B8%AD%E7%9A%84%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F/">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/07/25/css/flex%E5%B8%83%E5%B1%80/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.gif">
@@ -179,7 +179,7 @@
     </span>
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/07/26/css/flex%E5%AE%B9%E5%99%A8%E4%B8%AD%E7%9A%84%E5%AF%B9%E9%BD%90%E6%96%B9%E5%BC%8F/" class="post-title-link" itemprop="url">flex容器中的对齐方式</a>
+          <a href="/2023/07/25/css/flex%E5%B8%83%E5%B1%80/" class="post-title-link" itemprop="url">flex布局</a>
         </h2>
 
         <div class="post-meta-container">
@@ -190,14 +190,14 @@
       </span>
       <span class="post-meta-item-text">发表于</span>
 
-      <time title="创建时间：2023-07-26 11:48:46" itemprop="dateCreated datePublished" datetime="2023-07-26T11:48:46+08:00">2023-07-26</time>
+      <time title="创建时间：2023-07-25 18:28:29" itemprop="dateCreated datePublished" datetime="2023-07-25T18:28:29+08:00">2023-07-25</time>
     </span>
     <span class="post-meta-item">
       <span class="post-meta-item-icon">
         <i class="far fa-calendar-check"></i>
       </span>
       <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-07-28 11:17:50" itemprop="dateModified" datetime="2023-07-28T11:17:50+08:00">2023-07-28</time>
+      <time title="修改时间：2023-09-14 10:47:49" itemprop="dateModified" datetime="2023-09-14T10:47:49+08:00">2023-09-14</time>
     </span>
 
   
@@ -210,8 +210,52 @@
     
     
     <div class="post-body" itemprop="articleBody">
-          <p>flexbox 之所以能迅速吸引开发者的注意，其中一个原因就是它首次为网页样式居中提供了合适的方案。得益于它提供的合适的垂直居中能力，我们可以很轻松地把一个盒子居中。</p>
-<p>通过align-items属性，可以将交叉轴上的 item 对齐。而使用justify-content则可以对齐主轴上的项目。</p>
+          <p>传统的布局方案，基于盒模型，依赖display属性、position属性和float属性。其对于某些特殊的布局（如垂直居中），实现起来比较麻烦。<br>在 2009 年，W3C 提出了一种新的布局方案——Flex 布局（Flexible Box 布局，弹性盒子布局），其相比于传统的布局方案，更为灵活和简便。目前，Flex 布局已经得到了所有浏览器的支持。<br>将元素的display属性设置为flex或inline-flex后，即可开启 Flex 布局：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 块级元素</span><br><span class="line"><span class="selector-class">.block-box</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 行内元素</span><br><span class="line"><span class="selector-class">.inline-box</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: inline-flex;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>同时，该元素会自动成为 Flex 容器，简称容器。且容器的所有子元素会自动成为 Flex 容器成员，简称项目。项目的float、clear、vertical-align属性将失效。<br>容器中默认存在两根轴：主轴和交叉轴。主轴和交叉轴互相垂直，类似于平面坐标系中的 x 轴和 y 轴。项目将自动沿着主轴方向排列，排满时将沿交叉轴方向堆砌，即在交叉轴方向上换行（前提是容器flex-wrap属性不为nowrap）。</p>
+<h1 id="flexbox-的两根轴线"><a href="#flexbox-的两根轴线" class="headerlink" title="flexbox 的两根轴线"></a>flexbox 的两根轴线</h1><p>当使用 flex 布局时，首先想到的是两根轴线 — 主轴和交叉轴。<strong>主轴由 flex-direction 定义</strong>，另一根轴垂直于它。我们使用 flexbox 的所有属性都跟这两根轴线有关，所以有必要在一开始首先理解它。</p>
+<h2 id="主轴"><a href="#主轴" class="headerlink" title="主轴"></a>主轴</h2><p>主轴由 flex-direction 定义，可以取 4 个值：</p>
+<ul>
+<li>row</li>
+<li>row-reverse</li>
+<li>column</li>
+<li>column-reverse</li>
+</ul>
+<p>如果你选择了 row 或者 row-reverse，你的主轴将沿着 inline 方向延伸。<br><img src="3e36d0e94c21fe3663a00ab2ff0d7c7cbccb246f897a7e36febc8a50d3bba7a8.png" alt="图 0">  </p>
+<p>选择 column 或者 column-reverse 时，你的主轴会沿着上下方向延伸 — 也就是 block 排列的方向。</p>
+<p><img src="0234ac4fbb2520dd27a685ad671962718aaf3dcfb37d8af61ebf49a820b057be.png" alt="图 1">  </p>
+<h2 id="交叉轴"><a href="#交叉轴" class="headerlink" title="交叉轴"></a>交叉轴</h2><p>交叉轴垂直于主轴，所以如果你的flex-direction (主轴) 设成了 row 或者 row-reverse 的话，交叉轴的方向就是沿着列向下的。</p>
+<p><img src="f9c6ce02dca6af6bbd3544a265f4793edbc2e0d28d520880255d6fc3ea44120a.png" alt="图 2">  </p>
+<p>如果主轴方向设成了 column 或者 column-reverse，交叉轴就是水平方向。<br><img src="57fc207072143e04b94a6224c9e8ffba413efdacb3d0cc520f6a4baab922d4a9.png" alt="图 3">  </p>
+<p>理解主轴和交叉轴的概念对于对齐 flexbox 里面的元素是很重要的；flexbox 的特性是沿着主轴或者交叉轴对齐之中的元素。</p>
+<h1 id="起始线和终止线"><a href="#起始线和终止线" class="headerlink" title="起始线和终止线"></a>起始线和终止线</h1><p>过去，CSS 的书写模式主要被认为是水平的，从左到右的。现代的布局方式涵盖了书写模式的范围，所以我们不再假设一行文字是从文档的左上角开始向右书写，新的行也不是必须出现在另一行的下面。</p>
+<p>如果 flex-direction 是 row ，并且我是在书写英文，那么主轴的起始线是左边，终止线是右边。<br><img src="013a3fcd15f1a891c7f058aea7734ce4fdaa5e25b84b142c6cf36af095021eee.png" alt="图 4"><br>如果我在书写阿拉伯文，那么主轴的起始线是右边，终止线是左边。</p>
+<p>在这两种情况下，交叉轴的起始线是 flex 容器的顶部，终止线是底部，因为两种语言都是水平书写模式。</p>
+<h1 id="Flex-容器"><a href="#Flex-容器" class="headerlink" title="Flex 容器"></a>Flex 容器</h1><p>文档中采用了<code>flexbox</code>的区域就叫做<code>flex</code>容器。为了创建 <code>flex</code>容器，我们把一个容器的<code>display</code>属性值改为<code>flex</code> 或者<code>inline-flex</code>。完成这一步之后，容器中的直系子元素就会变为<code>flex</code>元素。所有 CSS 属性都会有一个初始值，所以 flex 容器中的所有 flex 元素都会有下列行为：</p>
+<ul>
+<li>元素排列为一行 (flex-direction 属性的初始值是 row)。</li>
+<li>元素从主轴的起始线开始。</li>
+<li>元素不会在主维度方向拉伸，但是可以缩小。</li>
+<li>元素被拉伸来填充交叉轴大小。</li>
+<li>flex-basis 属性为 auto。</li>
+<li>flex-wrap 属性为 nowrap。</li>
+</ul>
+<p>这会让你的元素呈线形排列，并且把自己的大小作为主轴上的大小。如果有太多元素超出容器，它们会溢出而不会换行。如果一些元素比其他元素高，那么元素会沿交叉轴被拉伸来填满它的大小。</p>
+<h2 id="更改-flex-方向-flex-direction"><a href="#更改-flex-方向-flex-direction" class="headerlink" title="更改 flex 方向 flex-direction"></a>更改 flex 方向 flex-direction</h2><p>设置 flex-direction: row-reverse 可以让元素沿着行的方向显示，但是起始线和终止线位置会交换。</p>
+<p>把 flex 容器的属性 flex-direction 改为 column ，主轴和交叉轴交换，元素沿着列的方向排列显示。改为 column-reverse ，起始线和终止线交换。</p>
+<p>flex-direction 是 row,意味着主轴是水平方向，交叉轴对齐则是垂直方向由上至下。</p>
+<p><img src="7d9061a996562cb702c28b0c2344f9a9c6941fa15cf822a69976160dffd1fd28.png" alt="图 3">  </p>
+<p>flex-direction 为 column ，意味着主轴是垂直方向，交叉轴对齐则是水平方向由左至右。</p>
+<p><img src="379a697f65a783c13e5f66cd03f04f3adaf71ce4a9f77d784b214e7658b0338a.png" alt="图 4">  </p>
+<h2 id="用-flex-wrap-实现多行-Flex-容器"><a href="#用-flex-wrap-实现多行-Flex-容器" class="headerlink" title="用 flex-wrap 实现多行 Flex 容器"></a>用 flex-wrap 实现多行 Flex 容器</h2><p>虽然flexbox是一维模型，但可以使我们的flex项目应用到多行中。在这样做的时候，您应该把每一行看作一个新的flex容器。任何空间分布都将在该行上发生，而不影响该空间分布的其他行。</p>
+<p>为了实现多行效果，请为属性flex-wrap添加一个属性值wrap。现在，如果您的项目太大而无法全部显示在一行中，则会换行显示。下面的实时例子包含已给出宽度的项目，对于flex容器，项目的子元素总宽度大于容器最大宽度。由于flex-wrap的值设置为wrap，所以项目的子元素换行显示。若将其设置为nowrap，这也是初始值，它们将会缩小以适应容器，因为它们使用的是允许缩小的初始Flexbox值。如果项目的子元素无法缩小，使用nowrap会导致溢出，或者缩小程度还不够小。</p>
+<p><img src="c1e0b2ad4c4da9d3f941bed60cd51d9c1a02169b0d193847cb51e35b8bf63bd7.png" alt="图 5">  </p>
+<h1 id="简写属性-flex-flow"><a href="#简写属性-flex-flow" class="headerlink" title="简写属性 flex-flow"></a>简写属性 flex-flow</h1><p>你可以将两个属性 flex-direction 和 flex-wrap 组合为简写属性 flex-flow。第一个指定的值为 flex-direction ，第二个指定的值为 flex-wrap</p>
+<p>在下面的例子中，尝试将第一个值修改为 flex-direction 的允许取值之一，即 row, row-reverse, column 或 column-reverse, 并尝试将第二个指定值修改为 wrap 或 nowrap。</p>
+<p><img src="77182811930e5556e1e8e1a90dfdbc910a1d2b5024abbf19fcb2b4c5cbb587ff.png" alt="图 6">  </p>
+<h1 id="元素间的对齐和空间分配"><a href="#元素间的对齐和空间分配" class="headerlink" title="元素间的对齐和空间分配"></a>元素间的对齐和空间分配</h1><p>Flexbox 的一个关键特性是能够设置 flex 元素沿主轴方向和交叉轴方向的对齐方式，以及它们之间的空间分配。flexbox 之所以能迅速吸引开发者的注意，其中一个原因就是它首次为网页样式居中提供了合适的方案。得益于它提供的合适的垂直居中能力，我们可以很轻松地把一个盒子居中。</p>
+<p>通过justify-content属性可以对齐主轴上的元素,使用align-items属性，可以将交叉轴上的元素对齐。</p>
 <p><img src="1519b53666a0b4c9fa64ef3ea43ed9ee8f50b01cc641c36d6ad07894a581a747.png" alt="图 0">  </p>
 <h1 id="控制对齐的属性"><a href="#控制对齐的属性" class="headerlink" title="控制对齐的属性"></a>控制对齐的属性</h1><ul>
 <li>justify-content - 控制主轴（横轴）上所有 flex 项目的对齐。</li>
@@ -219,41 +263,7 @@
 <li>align-content - 控制“多条主轴”的 flex 项目在交叉轴的对齐。</li>
 <li>align-self - 控制交叉轴（纵轴）上的单个 flex 项目的对齐。</li>
 </ul>
-<h1 id="交叉轴"><a href="#交叉轴" class="headerlink" title="交叉轴"></a>交叉轴</h1><p>如果我们在父级的容器元素上添加display: flex 属性，那么容器里的所有子元素将会变成横向排列的flex项目。所有的flex项目会撑满交叉轴方向的高度，因为display: flex 属性会将 flex 项目的高定义成容器的高度。</p>
-<p><img src="b881a8ce38800651a3014c72308e13dc40b351b955624f088e96d56074875d78.png" alt="图 1">  </p>
-<p>flex items 的高度全都变成一样的原因是 align-items 属性的初始值默认为 stretch 控制交叉轴对齐。</p>
-<p>我们可以使用其他的值来控制 flex items 的对齐方式：</p>
-<ul>
-<li>align-items: flex-start 单行内flex项目的开始端对齐</li>
-<li>align-items: flex-end 单行内flex项目的结束端对齐</li>
-<li>align-items: center 单行内flex项目居中对齐</li>
-<li>align-items: stretch 单行内flex项目撑满flex容器</li>
-<li>align-items: baseline 单行内flex项目的基线对齐</li>
-</ul>
-<h2 id="align-self-用于对齐单个-flex子项"><a href="#align-self-用于对齐单个-flex子项" class="headerlink" title="align-self 用于对齐单个 flex子项"></a>align-self 用于对齐单个 flex子项</h2><p>align-items 属性是给所有 flex 项目统一设置 align-self 的对齐属性。这意味着你能给单个 flex 项目明确地声明 align-self 属性。align-self 拥有 align-items 的所有属性值，另外还有一个 auto 能重置自身的值为 align-items 定义的值。</p>
-<p><img src="0b3129ed666dbe58c1945d8e709a4d631606ec62d8e2b7d31a20f5d7b1314b77.png" alt="图 2">  </p>
-<p>在上面的一个例子中，flex 容器为 align-items: flex-start，这意思是所有的 flex 项目都在交叉轴方向的开始端对齐。我用 first-child 选择器给第一个 flex 项目设置了 align-self: stretch ；另外一个selected 项目用设置成 align-self: center 。</p>
-<h2 id="改变主轴方向"><a href="#改变主轴方向" class="headerlink" title="改变主轴方向"></a>改变主轴方向</h2><p>flex-direction 是 row,意味着主轴是水平方向，交叉轴对齐则是垂直方向由上至下。</p>
-<p><img src="7d9061a996562cb702c28b0c2344f9a9c6941fa15cf822a69976160dffd1fd28.png" alt="图 3">  </p>
-<p>flex-direction 为 column ，意味着主轴是垂直方向，交叉轴对齐则是水平方向由左至右。</p>
-<p><img src="379a697f65a783c13e5f66cd03f04f3adaf71ce4a9f77d784b214e7658b0338a.png" alt="图 4">  </p>
-<h2 id="轴对齐内容——-align-content-属性"><a href="#轴对齐内容——-align-content-属性" class="headerlink" title="轴对齐内容—— align-content 属性"></a>轴对齐内容—— align-content 属性</h2><p>如果你有一个折行的多条 flex 项目的 flex 容器，你可以使用 align-content 来控制每行之间空间的分配，在这种特定的场景叫做packing flex lines。</p>
-<p>要使得 align-content 生效，你需要你的 flex 容器的 height 要大于 flex 项目的可视内容。然后它会将所有的 flex 项目打包成一块之后再对齐剩下的空间。</p>
-<p><strong>align-content 属性的值如下：</strong></p>
-<ul>
-<li>align-content: flex-start</li>
-<li>align-content: flex-end</li>
-<li>align-content: center</li>
-<li>align-content: space-between</li>
-<li>align-content: space-around</li>
-<li>align-content: stretch</li>
-<li>align-content: space-evenly （没有在 Flexbox 特性中定义）</li>
-</ul>
-<p>在下面的例子，有一个 400px 高的 flex 容器，能足够地显示 flex 项目。align-content 的值为 space-between 等同于分配 flex 行之间的空间。</p>
-<p><img src="349d24de44ed04ad892b3351953ceabcd79754d37dc95f7e74fd985d5334c7e0.png" alt="图 5">  </p>
-<p>在强调一次我们可以切换我们的 flex-direction 为 column 去观察这个属性的行为是怎样的。和之前一样，我们需要足够的交叉轴空间去显示所有的 flex 项目之外还有有一定的自由空间。</p>
-<p><img src="8f1b5d22bfbe757ba7cc1a82da5104aa550df363bb713c3338d0571f9e18e231.png" alt="图 6">  </p>
-<h1 id="对齐主轴内容"><a href="#对齐主轴内容" class="headerlink" title="对齐主轴内容"></a>对齐主轴内容</h1><p>到目前我们已经看到 flex 项目是如何在交叉轴上对齐的，现在我们可以看一下主轴上的对齐。这里只有一个属性是用于主轴上对齐—— justify-content </p>
+<h2 id="justify-content属性用来使元素在主轴方向上对齐"><a href="#justify-content属性用来使元素在主轴方向上对齐" class="headerlink" title="justify-content属性用来使元素在主轴方向上对齐"></a>justify-content属性用来使元素在主轴方向上对齐</h2><p>现在我们可以看一下主轴上的对齐。这里只有一个属性是用于主轴上对齐—— justify-content </p>
 <p><img src="718d519a0ef428b424897511611a47456a3b0ddd5ebbffc658b94ed987ff65a6.png" alt="图 7">  </p>
 <p><strong>justify-content 属性有和 align-content 一样的属性值：</strong></p>
 <ul>
@@ -269,6 +279,36 @@
 <p><img src="013a3fcd15f1a891c7f058aea7734ce4fdaa5e25b84b142c6cf36af095021eee.png" alt="图 8">  </p>
 <p>反之，则会 flex 项目就会从 flex 容器的右边开始排列。</p>
 <p><img src="3171d71c0cdef26a57eda1440d917e17b613714972a9febf065bb7e90b684fca.png" alt="图 9">  </p>
+<h2 id="align-items-属性可以使单行内元素在交叉轴方向对齐。"><a href="#align-items-属性可以使单行内元素在交叉轴方向对齐。" class="headerlink" title="align-items 属性可以使单行内元素在交叉轴方向对齐。"></a>align-items 属性可以使单行内元素在交叉轴方向对齐。</h2><p>这个属性的初始值为stretch，这就是为什么 flex 元素会默认被拉伸到最高元素的高度。实际上，它们被拉伸来填满 flex 容器 —— 最高的元素定义了容器的高度。</p>
+<p><img src="b881a8ce38800651a3014c72308e13dc40b351b955624f088e96d56074875d78.png" alt="图 1">  </p>
+<p>flex items 的高度全都变成一样的原因是 align-items 属性的初始值默认为 stretch 控制交叉轴对齐。</p>
+<p>我们可以使用其他的值来控制 flex items 的对齐方式：</p>
+<ul>
+<li>align-items: flex-start 单行内flex项目的开始端对齐</li>
+<li>align-items: flex-end 单行内flex项目的结束端对齐</li>
+<li>align-items: center 单行内flex项目居中对齐</li>
+<li>align-items: stretch 单行内flex项目撑满flex容器</li>
+<li>align-items: baseline 单行内flex项目的基线对齐</li>
+</ul>
+<h2 id="align-self-用于对齐单个-flex子项"><a href="#align-self-用于对齐单个-flex子项" class="headerlink" title="align-self 用于对齐单个 flex子项"></a>align-self 用于对齐单个 flex子项</h2><p>align-items 属性是给所有 flex 项目统一设置 align-self 的对齐属性。这意味着你能给单个 flex 项目明确地声明 align-self 属性。align-self 拥有 align-items 的所有属性值，另外还有一个 auto 能重置自身的值为 align-items 定义的值。</p>
+<p><img src="0b3129ed666dbe58c1945d8e709a4d631606ec62d8e2b7d31a20f5d7b1314b77.png" alt="图 2">  </p>
+<p>在上面的一个例子中，flex 容器为 align-items: flex-start，这意思是所有的 flex 项目都在交叉轴方向的开始端对齐。我用 first-child 选择器给第一个 flex 项目设置了 align-self: stretch ；另外一个selected 项目用设置成 align-self: center 。</p>
+<h2 id="align-content-用于条主轴行对齐"><a href="#align-content-用于条主轴行对齐" class="headerlink" title="align-content 用于条主轴行对齐"></a>align-content 用于条主轴行对齐</h2><p>如果你有一个折行的多条 flex 项目的 flex 容器，你可以使用 align-content 来控制每行之间空间的分配，在这种特定的场景叫做packing flex lines。</p>
+<p>要使得 align-content 生效，你需要你的 flex 容器的 height 要大于 flex 项目的可视内容。然后它会将所有的 flex 项目打包成一块之后再对齐剩下的空间。</p>
+<p><strong>align-content 属性的值如下：</strong></p>
+<ul>
+<li>align-content: flex-start</li>
+<li>align-content: flex-end</li>
+<li>align-content: center</li>
+<li>align-content: space-between</li>
+<li>align-content: space-around</li>
+<li>align-content: stretch</li>
+<li>align-content: space-evenly （没有在 Flexbox 特性中定义）</li>
+</ul>
+<p>在下面的例子，有一个 400px 高的 flex 容器，能足够地显示 flex 项目。align-content 的值为 space-between 等同于分配 flex 行之间的空间。</p>
+<p><img src="349d24de44ed04ad892b3351953ceabcd79754d37dc95f7e74fd985d5334c7e0.png" alt="图 5">  </p>
+<p>在强调一次我们可以切换我们的 flex-direction 为 column 去观察这个属性的行为是怎样的。和之前一样，我们需要足够的交叉轴空间去显示所有的 flex 项目之外还有有一定的自由空间。</p>
+<p><img src="8f1b5d22bfbe757ba7cc1a82da5104aa550df363bb713c3338d0571f9e18e231.png" alt="图 6">  </p>
 <h2 id="对齐和-flex-direction"><a href="#对齐和-flex-direction" class="headerlink" title="对齐和 flex-direction"></a>对齐和 flex-direction</h2><p>如果你改变 flex-direction 属性，主轴起始线也会改变——例如，使用 row-reverse 代替 row。</p>
 <p><img src="a04f8a413e400b2ed43a0b47bedb3002094bb1d974dd0e63ce77819f1a2e559e.png" alt="图 10">  </p>
 <p>这似乎有一点令人困惑，需要记住的规则就是，当没有设置 flex-direction 时，flex 项目的排列方向与文档语言的文本沿行内轴的排列方向一致。flex-start 就是一个句子中文本的起始处。</p>
@@ -347,121 +387,6 @@
 <p>align-content 显示效果<br><img src="4f42bb7e8fc4aa649c46e695b097a06ef549998ce129b492eebe225b3cce8b37.png" alt="图 17">  </p>
 <p>默认设置 display:flex后；<br>flex-direction:row<br>flex-warp:nowarp<br>justify-content:flex-start<br>align-item:stretch</p>
 <p>flex-basis:auto<br>flex-grow:1<br>flex-shrink:1<br>align-self:stretch</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/07/25/css/flex%E5%B8%83%E5%B1%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="InfoPool">
-      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | InfoPool">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/07/25/css/flex%E5%B8%83%E5%B1%80/" class="post-title-link" itemprop="url">flex布局</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-07-25 18:28:29" itemprop="dateCreated datePublished" datetime="2023-07-25T18:28:29+08:00">2023-07-25</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-07-28 09:51:33" itemprop="dateModified" datetime="2023-07-28T09:51:33+08:00">2023-07-28</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>传统的布局方案，基于盒模型，依赖display属性、position属性和float属性。其对于某些特殊的布局（如垂直居中），实现起来比较麻烦。<br>在 2009 年，W3C 提出了一种新的布局方案——Flex 布局（Flexible Box 布局，弹性盒子布局），其相比于传统的布局方案，更为灵活和简便。目前，Flex 布局已经得到了所有浏览器的支持。<br>将元素的display属性设置为flex或inline-flex后，即可开启 Flex 布局：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// 块级元素</span><br><span class="line"><span class="selector-class">.block-box</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// 行内元素</span><br><span class="line"><span class="selector-class">.inline-box</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: inline-flex;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>同时，该元素会自动成为 Flex 容器，简称容器。且容器的所有子元素会自动成为 Flex 容器成员，简称项目。项目的float、clear、vertical-align属性将失效。<br>容器中默认存在两根轴：主轴和交叉轴。主轴和交叉轴互相垂直，类似于平面坐标系中的 x 轴和 y 轴。项目将自动沿着主轴方向排列，排满时将沿交叉轴方向堆砌，即在交叉轴方向上换行（前提是容器flex-wrap属性不为nowrap）。</p>
-<h1 id="flexbox-的两根轴线"><a href="#flexbox-的两根轴线" class="headerlink" title="flexbox 的两根轴线"></a>flexbox 的两根轴线</h1><p>当使用 flex 布局时，首先想到的是两根轴线 — 主轴和交叉轴。<strong>主轴由 flex-direction 定义</strong>，另一根轴垂直于它。我们使用 flexbox 的所有属性都跟这两根轴线有关，所以有必要在一开始首先理解它。</p>
-<h2 id="主轴"><a href="#主轴" class="headerlink" title="主轴"></a>主轴</h2><p>主轴由 flex-direction 定义，可以取 4 个值：</p>
-<ul>
-<li>row</li>
-<li>row-reverse</li>
-<li>column</li>
-<li>column-reverse</li>
-</ul>
-<p>如果你选择了 row 或者 row-reverse，你的主轴将沿着 inline 方向延伸。<br><img src="3e36d0e94c21fe3663a00ab2ff0d7c7cbccb246f897a7e36febc8a50d3bba7a8.png" alt="图 0">  </p>
-<p>选择 column 或者 column-reverse 时，你的主轴会沿着上下方向延伸 — 也就是 block 排列的方向。</p>
-<p><img src="0234ac4fbb2520dd27a685ad671962718aaf3dcfb37d8af61ebf49a820b057be.png" alt="图 1">  </p>
-<h2 id="交叉轴"><a href="#交叉轴" class="headerlink" title="交叉轴"></a>交叉轴</h2><p>交叉轴垂直于主轴，所以如果你的flex-direction (主轴) 设成了 row 或者 row-reverse 的话，交叉轴的方向就是沿着列向下的。</p>
-<p><img src="f9c6ce02dca6af6bbd3544a265f4793edbc2e0d28d520880255d6fc3ea44120a.png" alt="图 2">  </p>
-<p>如果主轴方向设成了 column 或者 column-reverse，交叉轴就是水平方向。<br><img src="57fc207072143e04b94a6224c9e8ffba413efdacb3d0cc520f6a4baab922d4a9.png" alt="图 3">  </p>
-<p>理解主轴和交叉轴的概念对于对齐 flexbox 里面的元素是很重要的；flexbox 的特性是沿着主轴或者交叉轴对齐之中的元素。</p>
-<h1 id="起始线和终止线"><a href="#起始线和终止线" class="headerlink" title="起始线和终止线"></a>起始线和终止线</h1><p>过去，CSS 的书写模式主要被认为是水平的，从左到右的。现代的布局方式涵盖了书写模式的范围，所以我们不再假设一行文字是从文档的左上角开始向右书写，新的行也不是必须出现在另一行的下面。</p>
-<p>如果 flex-direction 是 row ，并且我是在书写英文，那么主轴的起始线是左边，终止线是右边。<br><img src="013a3fcd15f1a891c7f058aea7734ce4fdaa5e25b84b142c6cf36af095021eee.png" alt="图 4"><br>如果我在书写阿拉伯文，那么主轴的起始线是右边，终止线是左边。</p>
-<p>在这两种情况下，交叉轴的起始线是 flex 容器的顶部，终止线是底部，因为两种语言都是水平书写模式。</p>
-<h1 id="Flex-容器"><a href="#Flex-容器" class="headerlink" title="Flex 容器"></a>Flex 容器</h1><p>文档中采用了<code>flexbox</code>的区域就叫做<code>flex</code>容器。为了创建 <code>flex</code>容器，我们把一个容器的<code>display</code>属性值改为<code>flex</code> 或者<code>inline-flex</code>。完成这一步之后，容器中的直系子元素就会变为<code>flex</code>元素。所有 CSS 属性都会有一个初始值，所以 flex 容器中的所有 flex 元素都会有下列行为：</p>
-<ul>
-<li>元素排列为一行 (flex-direction 属性的初始值是 row)。</li>
-<li>元素从主轴的起始线开始。</li>
-<li>元素不会在主维度方向拉伸，但是可以缩小。</li>
-<li>元素被拉伸来填充交叉轴大小。</li>
-<li>flex-basis 属性为 auto。</li>
-<li>flex-wrap 属性为 nowrap。</li>
-</ul>
-<p>这会让你的元素呈线形排列，并且把自己的大小作为主轴上的大小。如果有太多元素超出容器，它们会溢出而不会换行。如果一些元素比其他元素高，那么元素会沿交叉轴被拉伸来填满它的大小。</p>
-<h2 id="更改-flex-方向-flex-direction"><a href="#更改-flex-方向-flex-direction" class="headerlink" title="更改 flex 方向 flex-direction"></a>更改 flex 方向 flex-direction</h2><p>设置 flex-direction: row-reverse 可以让元素沿着行的方向显示，但是起始线和终止线位置会交换。</p>
-<p>把 flex 容器的属性 flex-direction 改为 column ，主轴和交叉轴交换，元素沿着列的方向排列显示。改为 column-reverse ，起始线和终止线交换。</p>
-<h2 id="用-flex-wrap-实现多行-Flex-容器"><a href="#用-flex-wrap-实现多行-Flex-容器" class="headerlink" title="用 flex-wrap 实现多行 Flex 容器"></a>用 flex-wrap 实现多行 Flex 容器</h2><p>虽然flexbox是一维模型，但可以使我们的flex项目应用到多行中。在这样做的时候，您应该把每一行看作一个新的flex容器。任何空间分布都将在该行上发生，而不影响该空间分布的其他行。</p>
-<p>为了实现多行效果，请为属性flex-wrap添加一个属性值wrap。现在，如果您的项目太大而无法全部显示在一行中，则会换行显示。下面的实时例子包含已给出宽度的项目，对于flex容器，项目的子元素总宽度大于容器最大宽度。由于flex-wrap的值设置为wrap，所以项目的子元素换行显示。若将其设置为nowrap，这也是初始值，它们将会缩小以适应容器，因为它们使用的是允许缩小的初始Flexbox值。如果项目的子元素无法缩小，使用nowrap会导致溢出，或者缩小程度还不够小。</p>
-<p><img src="c1e0b2ad4c4da9d3f941bed60cd51d9c1a02169b0d193847cb51e35b8bf63bd7.png" alt="图 5">  </p>
-<h1 id="简写属性-flex-flow"><a href="#简写属性-flex-flow" class="headerlink" title="简写属性 flex-flow"></a>简写属性 flex-flow</h1><p>你可以将两个属性 flex-direction 和 flex-wrap 组合为简写属性 flex-flow。第一个指定的值为 flex-direction ，第二个指定的值为 flex-wrap</p>
-<p>在下面的例子中，尝试将第一个值修改为 flex-direction 的允许取值之一，即 row, row-reverse, column 或 column-reverse, 并尝试将第二个指定值修改为 wrap 或 nowrap。</p>
-<p><img src="77182811930e5556e1e8e1a90dfdbc910a1d2b5024abbf19fcb2b4c5cbb587ff.png" alt="图 6">  </p>
 <h1 id="flex-元素上的属性"><a href="#flex-元素上的属性" class="headerlink" title="flex 元素上的属性"></a>flex 元素上的属性</h1><p>为了更好地控制 flex 元素，有三个属性可以作用于它们：</p>
 <ul>
 <li>flex-grow</li>
@@ -486,24 +411,6 @@
 <li>flex: auto（flex: 1 1 auto）flex 元素在需要的时候既可以拉伸也可以收缩</li>
 <li>flex: none（flex: 0 0 auto）元素既不能拉伸或者收缩，但是元素会按具有 flex-basis: auto 属性的 flexbox 进行布局</li>
 <li>flex: <positive-number> 你在教程中常看到的 flex: 1 或者 flex: 2 等等。它相当于flex: 1 1 0 或者 flex: 2 1 0。元素可以在 flex-basis 为 0 的基础上伸缩</positive-number></li>
-</ul>
-<h1 id="元素间的对齐和空间分配"><a href="#元素间的对齐和空间分配" class="headerlink" title="元素间的对齐和空间分配"></a>元素间的对齐和空间分配</h1><p>Flexbox 的一个关键特性是能够设置 flex 元素沿主轴方向和交叉轴方向的对齐方式，以及它们之间的空间分配。</p>
-<h2 id="align-items-属性可以使元素在交叉轴方向对齐。"><a href="#align-items-属性可以使元素在交叉轴方向对齐。" class="headerlink" title="align-items 属性可以使元素在交叉轴方向对齐。"></a>align-items 属性可以使元素在交叉轴方向对齐。</h2><p>这个属性的初始值为stretch，这就是为什么 flex 元素会默认被拉伸到最高元素的高度。实际上，它们被拉伸来填满 flex 容器 —— 最高的元素定义了容器的高度。</p>
-<p>align-items属性的值：</p>
-<ul>
-<li>stretch</li>
-<li>flex-start</li>
-<li>flex-end</li>
-<li>center</li>
-</ul>
-<h2 id="justify-content属性用来使元素在主轴方向上对齐"><a href="#justify-content属性用来使元素在主轴方向上对齐" class="headerlink" title="justify-content属性用来使元素在主轴方向上对齐"></a>justify-content属性用来使元素在主轴方向上对齐</h2><p>justify-content属性的值：</p>
-<ul>
-<li>stretch</li>
-<li>flex-start</li>
-<li>flex-end</li>
-<li>center</li>
-<li>space-around</li>
-<li>space-between</li>
 </ul>
 <p><a target="_blank" rel="noopener" href="https://zhuanlan.zhihu.com/p/24372279">https://zhuanlan.zhihu.com/p/24372279</a></p>
 
@@ -1997,6 +1904,141 @@
 <p>在引发此挂钩之前，Angular 还会更新用 ViewChild 和 ViewChildren 属性装饰的属性。</p>
 <h1 id="Init-Vs-Checked"><a href="#Init-Vs-Checked" class="headerlink" title="Init Vs Checked"></a>Init Vs Checked</h1><p>当第一次初始化内容或视图时，Angular 会触发 AfterContentInit 和 AfterViewInit 钩子。 这发生在第一个变化检测周期中，Angular在组件实例化后立即调用。</p>
 <p>Angular 触发 AfterContentChecked 和 AfterViewChecked 钩子，Angular 在其中检查内容或视图是否已更改。 即先前呈现的内容或视图与当前内容或视图相同。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/04/06/angular/%E4%BD%BF%E7%94%A8Renderer2%E6%93%8D%E4%BD%9CDOM%E5%85%83%E7%B4%A0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/04/06/angular/%E4%BD%BF%E7%94%A8Renderer2%E6%93%8D%E4%BD%9CDOM%E5%85%83%E7%B4%A0/" class="post-title-link" itemprop="url">使用Renderer2操作DOM元素</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-04-06 15:13:47 / 修改时间：18:50:29" itemprop="dateCreated datePublished" datetime="2023-04-06T15:13:47+08:00">2023-04-06</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>Renderer2允许我们在不直接访问DOM的情况下操作DOM元素。它在DOM元素和组件代码之间提供了一层抽象。使用Renderer2，我们可以创建一个元素，向其中添加一个文本节点，使用appendchild方法附加子元素。我们还可以添加或删除样式、HTML属性、CSS类和属性等。我们还可以附加和侦听DOM事件。</p>
+<h1 id="为什么不直接使用-ElementRef"><a href="#为什么不直接使用-ElementRef" class="headerlink" title="为什么不直接使用 ElementRef"></a>为什么不直接使用 ElementRef</h1><p>ElelemtRef的nativeElement属性包含对底层DOM对象的引用，这使我们可以绕过Angular直接访问DOM，我们可以使用nativeElement属性来直接操作DOM元素。但由于以下原因，直接操作DOM是不建议的。</p>
+<ol>
+<li>Angular使用模板、数据绑定和更改检测等保持组件和视图同步。当我们直接更新DOM时，所有这些都会被绕过。</li>
+<li>DOM操作仅适用于浏览器。您将无法在其他平台中使用该应用程序，例如在服务器（服务器端渲染）、桌面或移动应用程序等中。</li>
+<li>DOM API不会对数据进行净化。因此，可以通过注入脚本，打开我们的应用程序，成为XSS注入攻击的目标。</li>
+</ol>
+<h1 id="使用-Renderer2"><a href="#使用-Renderer2" class="headerlink" title="使用 Renderer2"></a>使用 Renderer2</h1><p>首先从  @angular&#x2F;core 导入 Renderer2.</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">Component</span>, <span class="title class_">Renderer2</span>, <span class="title class_">ElementRef</span>, <span class="title class_">ViewChild</span>, <span class="title class_">AfterViewInit</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br></pre></td></tr></table></figure>
+
+<p>在组件中注入 Renderer2</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> renderer:Renderer2</span>) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用 ElementRef &amp; ViewChild 获取我们想操作的DOM元素实例</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ViewChild</span>(<span class="string">&#x27;hello&#x27;</span>, &#123; <span class="attr">static</span>: <span class="literal">false</span> &#125;) <span class="attr">divHello</span>: <span class="title class_">ElementRef</span>;</span><br></pre></td></tr></table></figure>
+
+<p>使用setProperty、setStyle等方法更改元素的属性和样式，如下所示</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">setProperty</span>(<span class="variable language_">this</span>.<span class="property">divHello</span>.<span class="property">nativeElement</span>,<span class="string">&#x27;innerHTML&#x27;</span>,<span class="string">&quot;Hello Angular&quot;</span>)</span><br><span class="line"> </span><br><span class="line"><span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">setStyle</span>(<span class="variable language_">this</span>.<span class="property">divHello</span>.<span class="property">nativeElement</span>, <span class="string">&#x27;color&#x27;</span>, <span class="string">&#x27;red&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h1 id="设置-amp-移除-Styles"><a href="#设置-amp-移除-Styles" class="headerlink" title="设置&amp;移除 Styles"></a>设置&amp;移除 Styles</h1><p>使用setStyle和RemoveStyle添加或删除样式，它接受四个参数。第一个参数是我们要应用样式的元素，第二个参数是样式的名称，第三个参数是样式的值，最后一个参数是可选的，他是样式变量的标志</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="title function_">setStyle</span>(<span class="attr">el</span>: <span class="built_in">any</span>, <span class="attr">style</span>: <span class="built_in">string</span>, <span class="attr">value</span>: <span class="built_in">any</span>, flags?: <span class="title class_">RendererStyleFlags2</span>): <span class="built_in">void</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">abstract</span> <span class="title function_">removeStyle</span>(<span class="attr">el</span>: <span class="built_in">any</span>, <span class="attr">style</span>: <span class="built_in">string</span>, flags?: <span class="title class_">RendererStyleFlags2</span>): <span class="built_in">void</span></span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Template</span></span><br><span class="line">&lt;div #hello&gt;<span class="title class_">Hello</span> !&lt;/div&gt;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//Component</span></span><br><span class="line"><span class="meta">@ViewChild</span>(<span class="string">&#x27;hello&#x27;</span>, &#123; <span class="attr">static</span>: <span class="literal">false</span> &#125;) <span class="attr">divHello</span>: <span class="title class_">ElementRef</span>;</span><br><span class="line"> </span><br><span class="line"><span class="title function_">setStyle</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">setStyle</span>(<span class="variable language_">this</span>.<span class="property">divHello</span>.<span class="property">nativeElement</span>, <span class="string">&#x27;color&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="title function_">removeStyle</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">removeStyle</span>(<span class="variable language_">this</span>.<span class="property">divHello</span>.<span class="property">nativeElement</span>, <span class="string">&#x27;color&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用最后一个选项RendererStyleFlags2指定渲染器特有样式修饰符</p>
+<h1 id="添加-amp-删除CSS-样式"><a href="#添加-amp-删除CSS-样式" class="headerlink" title="添加&amp;删除CSS 样式"></a>添加&amp;删除CSS 样式</h1><p>使用 addClass &#x2F; removeClass 添加&amp;删除CSS样式。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="title function_">addClass</span>(<span class="attr">el</span>: <span class="built_in">any</span>, <span class="attr">name</span>: <span class="built_in">string</span>): <span class="built_in">void</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">abstract</span> <span class="title function_">removeClass</span>(<span class="attr">el</span>: <span class="built_in">any</span>, <span class="attr">name</span>: <span class="built_in">string</span>): <span class="built_in">void</span></span><br></pre></td></tr></table></figure>
+
+<p>例如：</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Template</span></span><br><span class="line">&lt;div #hello&gt;<span class="title class_">Hello</span> !&lt;/div&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Component</span></span><br><span class="line"><span class="meta">@ViewChild</span>(<span class="string">&#x27;hello&#x27;</span>, &#123; <span class="attr">static</span>: <span class="literal">false</span> &#125;) <span class="attr">divHello</span>: <span class="title class_">ElementRef</span>;</span><br><span class="line"> </span><br><span class="line"><span class="title function_">addClass</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">addClass</span>(<span class="variable language_">this</span>.<span class="property">divHello</span>.<span class="property">nativeElement</span>, <span class="string">&#x27;blackborder&#x27;</span> );</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="title function_">removeClass</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">removeClass</span>(<span class="variable language_">this</span>.<span class="property">divHello</span>.<span class="property">nativeElement</span>, <span class="string">&#x27;blackborder&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="添加删除-Attributes"><a href="#添加删除-Attributes" class="headerlink" title="添加删除 Attributes"></a>添加删除 Attributes</h1><p>使用 setAttribute &amp; removeAttribute 添加&amp;移除 attribute样式。</p>
+<blockquote>
+<p>元素没有此 attribute，也可以添加上去<br>attribute，还可以做动词，表示赋予，属于人为赋予的可改变的属性</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">setAttribute</span>(<span class="attr">el</span>: <span class="built_in">any</span>, <span class="attr">name</span>: <span class="built_in">string</span>, <span class="attr">value</span>: <span class="built_in">string</span>, <span class="keyword">namespace</span>?: string): void</span><br><span class="line"> </span><br><span class="line">removeAttribute(el: any, name: string, <span class="keyword">namespace</span>?: string): void</span><br></pre></td></tr></table></figure>
+
+<h1 id="设置Property"><a href="#设置Property" class="headerlink" title="设置Property"></a>设置Property</h1><p>使用setProperty方法设置DOM元素的任何属性。</p>
+<blockquote>
+<p>元素没有此 property 不会添加上去<br>property是 物体本身自带属性，不能改变的（一旦改了就是另外一个东西了）</p>
+</blockquote>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">setProperty</span>(<span class="attr">el</span>: <span class="built_in">any</span>, <span class="attr">name</span>: <span class="built_in">string</span>, <span class="attr">value</span>: <span class="built_in">any</span>): <span class="built_in">void</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="AppendChild-createElement-createText"><a href="#AppendChild-createElement-createText" class="headerlink" title="AppendChild createElement createText"></a>AppendChild createElement createText</h1><p>使用appendChild将一个新元素（子元素）附加到任何现有元素（父元素）。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">appendChild</span>(<span class="attr">parent</span>: <span class="built_in">any</span>, <span class="attr">newChild</span>: <span class="built_in">any</span>): <span class="built_in">void</span></span><br></pre></td></tr></table></figure>
+<p>它接受两个参数。第一个参数是父节点(我们希望在其中附加一个新的子节点)。第二个参数是要添加的子节点。</p>
+<h2 id="创建一个新元素"><a href="#创建一个新元素" class="headerlink" title="创建一个新元素"></a>创建一个新元素</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> div = <span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;div&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> text = <span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">createText</span>(<span class="string">&#x27;Inserted at bottom&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">appendChild</span>(div, text);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">appendChild</span>(<span class="variable language_">this</span>.<span class="property">div</span>.<span class="property">nativeElement</span>, div);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="InsertBefore"><a href="#InsertBefore" class="headerlink" title="InsertBefore"></a>InsertBefore</h1><p>我们还可以使用insertBefore方法在DOM元素中的元素之前插入新元素。insertBefore的语法如下所示</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">insertBefore</span>(<span class="attr">parent</span>: <span class="built_in">any</span>, <span class="attr">newChild</span>: <span class="built_in">any</span>, <span class="attr">refChild</span>: <span class="built_in">any</span>): <span class="built_in">void</span></span><br></pre></td></tr></table></figure>
+<p>parent是父节点,newChild是要插入的新节点,refChild是插入newChild之前的现有子节点。</p>
+<h1 id="添加注释"><a href="#添加注释" class="headerlink" title="添加注释"></a>添加注释</h1><p>createComment创建注释节点。它接受注释作为自变量。然后可以使用appendChild或insertBefore将其插入DOM中的任何位置。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">createComment</span>(<span class="attr">value</span>: <span class="built_in">string</span>): <span class="built_in">any</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="ParentNode-amp-NextSibling"><a href="#ParentNode-amp-NextSibling" class="headerlink" title="ParentNode &amp; NextSibling"></a>ParentNode &amp; NextSibling</h1><p>ParentNode方法返回宿主元素DOM中给定节点的父节点。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/<span class="title class_">Returns</span> the parent <span class="title class_">Node</span> <span class="keyword">of</span> div3</span><br><span class="line"><span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">parentNode</span>(<span class="variable language_">this</span>.<span class="property">div3</span>.<span class="property">nativeElement</span>);</span><br></pre></td></tr></table></figure>
+<p>nextSibling方法返回宿主元素DOM中给定节点的下一个同级节点。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Returns the next Sibling node of div2</span></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">nextSibling</span>(<span class="variable language_">this</span>.<span class="property">div2</span>.<span class="property">nativeElement</span>);</span><br></pre></td></tr></table></figure>
+
+<h1 id="SelectRootElement"><a href="#SelectRootElement" class="headerlink" title="SelectRootElement"></a>SelectRootElement</h1><p>我们也可以使用selectRoomElement来选择基于选择器的节点元素。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">selectRootElement</span>(<span class="attr">selectorOrNode</span>: <span class="built_in">any</span>, preserveContent?: <span class="built_in">boolean</span>)</span><br></pre></td></tr></table></figure>
+<p>第一个参数是选择器或节点。Renderer2使用选择器来搜索DOM元素并返回它。</p>
+<p>第二个参数是preserveContent，如果是no或undefined，renderer2将删除所有子节点。如果是yes，则不会删除子节点。</p>
+<h1 id="监听-DOM-事件"><a href="#监听-DOM-事件" class="headerlink" title="监听 DOM 事件"></a>监听 DOM 事件</h1><p>您也可以使用listen方法来侦听DOM事件。</p>
+<p>listen方法接受三个参数，第一个参数是DOM元素（目标），第二个参数是事件的名称（eventName），第三个参数是回调函数</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="title function_">listen</span>(<span class="attr">target</span>: <span class="built_in">any</span>, <span class="attr">eventName</span>: <span class="built_in">string</span>, <span class="attr">callback</span>: <span class="function">(<span class="params">event: <span class="built_in">any</span></span>) =&gt;</span> <span class="built_in">boolean</span> | <span class="built_in">void</span>): <span class="function">() =&gt;</span> <span class="built_in">void</span></span><br></pre></td></tr></table></figure>
 
       
     </div>

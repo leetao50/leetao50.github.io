@@ -118,7 +118,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">50</span>
+          <span class="site-state-item-count">49</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -152,141 +152,6 @@
 
 
     <div class="main-inner index posts-expand">
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/04/06/angular/%E4%BD%BF%E7%94%A8Renderer2%E6%93%8D%E4%BD%9CDOM%E5%85%83%E7%B4%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="InfoPool">
-      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | InfoPool">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/04/06/angular/%E4%BD%BF%E7%94%A8Renderer2%E6%93%8D%E4%BD%9CDOM%E5%85%83%E7%B4%A0/" class="post-title-link" itemprop="url">使用Renderer2操作DOM元素</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2023-04-06 15:13:47 / 修改时间：18:50:29" itemprop="dateCreated datePublished" datetime="2023-04-06T15:13:47+08:00">2023-04-06</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Renderer2允许我们在不直接访问DOM的情况下操作DOM元素。它在DOM元素和组件代码之间提供了一层抽象。使用Renderer2，我们可以创建一个元素，向其中添加一个文本节点，使用appendchild方法附加子元素。我们还可以添加或删除样式、HTML属性、CSS类和属性等。我们还可以附加和侦听DOM事件。</p>
-<h1 id="为什么不直接使用-ElementRef"><a href="#为什么不直接使用-ElementRef" class="headerlink" title="为什么不直接使用 ElementRef"></a>为什么不直接使用 ElementRef</h1><p>ElelemtRef的nativeElement属性包含对底层DOM对象的引用，这使我们可以绕过Angular直接访问DOM，我们可以使用nativeElement属性来直接操作DOM元素。但由于以下原因，直接操作DOM是不建议的。</p>
-<ol>
-<li>Angular使用模板、数据绑定和更改检测等保持组件和视图同步。当我们直接更新DOM时，所有这些都会被绕过。</li>
-<li>DOM操作仅适用于浏览器。您将无法在其他平台中使用该应用程序，例如在服务器（服务器端渲染）、桌面或移动应用程序等中。</li>
-<li>DOM API不会对数据进行净化。因此，可以通过注入脚本，打开我们的应用程序，成为XSS注入攻击的目标。</li>
-</ol>
-<h1 id="使用-Renderer2"><a href="#使用-Renderer2" class="headerlink" title="使用 Renderer2"></a>使用 Renderer2</h1><p>首先从  @angular&#x2F;core 导入 Renderer2.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">Component</span>, <span class="title class_">Renderer2</span>, <span class="title class_">ElementRef</span>, <span class="title class_">ViewChild</span>, <span class="title class_">AfterViewInit</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br></pre></td></tr></table></figure>
-
-<p>在组件中注入 Renderer2</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> renderer:Renderer2</span>) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>使用 ElementRef &amp; ViewChild 获取我们想操作的DOM元素实例</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ViewChild</span>(<span class="string">&#x27;hello&#x27;</span>, &#123; <span class="attr">static</span>: <span class="literal">false</span> &#125;) <span class="attr">divHello</span>: <span class="title class_">ElementRef</span>;</span><br></pre></td></tr></table></figure>
-
-<p>使用setProperty、setStyle等方法更改元素的属性和样式，如下所示</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">setProperty</span>(<span class="variable language_">this</span>.<span class="property">divHello</span>.<span class="property">nativeElement</span>,<span class="string">&#x27;innerHTML&#x27;</span>,<span class="string">&quot;Hello Angular&quot;</span>)</span><br><span class="line"> </span><br><span class="line"><span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">setStyle</span>(<span class="variable language_">this</span>.<span class="property">divHello</span>.<span class="property">nativeElement</span>, <span class="string">&#x27;color&#x27;</span>, <span class="string">&#x27;red&#x27;</span>);</span><br></pre></td></tr></table></figure>
-
-<h1 id="设置-amp-移除-Styles"><a href="#设置-amp-移除-Styles" class="headerlink" title="设置&amp;移除 Styles"></a>设置&amp;移除 Styles</h1><p>使用setStyle和RemoveStyle添加或删除样式，它接受四个参数。第一个参数是我们要应用样式的元素，第二个参数是样式的名称，第三个参数是样式的值，最后一个参数是可选的，他是样式变量的标志</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="title function_">setStyle</span>(<span class="attr">el</span>: <span class="built_in">any</span>, <span class="attr">style</span>: <span class="built_in">string</span>, <span class="attr">value</span>: <span class="built_in">any</span>, flags?: <span class="title class_">RendererStyleFlags2</span>): <span class="built_in">void</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">abstract</span> <span class="title function_">removeStyle</span>(<span class="attr">el</span>: <span class="built_in">any</span>, <span class="attr">style</span>: <span class="built_in">string</span>, flags?: <span class="title class_">RendererStyleFlags2</span>): <span class="built_in">void</span></span><br></pre></td></tr></table></figure>
-
-<p>例如：</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Template</span></span><br><span class="line">&lt;div #hello&gt;<span class="title class_">Hello</span> !&lt;/div&gt;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//Component</span></span><br><span class="line"><span class="meta">@ViewChild</span>(<span class="string">&#x27;hello&#x27;</span>, &#123; <span class="attr">static</span>: <span class="literal">false</span> &#125;) <span class="attr">divHello</span>: <span class="title class_">ElementRef</span>;</span><br><span class="line"> </span><br><span class="line"><span class="title function_">setStyle</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">setStyle</span>(<span class="variable language_">this</span>.<span class="property">divHello</span>.<span class="property">nativeElement</span>, <span class="string">&#x27;color&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="title function_">removeStyle</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">removeStyle</span>(<span class="variable language_">this</span>.<span class="property">divHello</span>.<span class="property">nativeElement</span>, <span class="string">&#x27;color&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用最后一个选项RendererStyleFlags2指定渲染器特有样式修饰符</p>
-<h1 id="添加-amp-删除CSS-样式"><a href="#添加-amp-删除CSS-样式" class="headerlink" title="添加&amp;删除CSS 样式"></a>添加&amp;删除CSS 样式</h1><p>使用 addClass &#x2F; removeClass 添加&amp;删除CSS样式。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="title function_">addClass</span>(<span class="attr">el</span>: <span class="built_in">any</span>, <span class="attr">name</span>: <span class="built_in">string</span>): <span class="built_in">void</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">abstract</span> <span class="title function_">removeClass</span>(<span class="attr">el</span>: <span class="built_in">any</span>, <span class="attr">name</span>: <span class="built_in">string</span>): <span class="built_in">void</span></span><br></pre></td></tr></table></figure>
-
-<p>例如：</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Template</span></span><br><span class="line">&lt;div #hello&gt;<span class="title class_">Hello</span> !&lt;/div&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Component</span></span><br><span class="line"><span class="meta">@ViewChild</span>(<span class="string">&#x27;hello&#x27;</span>, &#123; <span class="attr">static</span>: <span class="literal">false</span> &#125;) <span class="attr">divHello</span>: <span class="title class_">ElementRef</span>;</span><br><span class="line"> </span><br><span class="line"><span class="title function_">addClass</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">addClass</span>(<span class="variable language_">this</span>.<span class="property">divHello</span>.<span class="property">nativeElement</span>, <span class="string">&#x27;blackborder&#x27;</span> );</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="title function_">removeClass</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">removeClass</span>(<span class="variable language_">this</span>.<span class="property">divHello</span>.<span class="property">nativeElement</span>, <span class="string">&#x27;blackborder&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="添加删除-Attributes"><a href="#添加删除-Attributes" class="headerlink" title="添加删除 Attributes"></a>添加删除 Attributes</h1><p>使用 setAttribute &amp; removeAttribute 添加&amp;移除 attribute样式。</p>
-<blockquote>
-<p>元素没有此 attribute，也可以添加上去<br>attribute，还可以做动词，表示赋予，属于人为赋予的可改变的属性</p>
-</blockquote>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">setAttribute</span>(<span class="attr">el</span>: <span class="built_in">any</span>, <span class="attr">name</span>: <span class="built_in">string</span>, <span class="attr">value</span>: <span class="built_in">string</span>, <span class="keyword">namespace</span>?: string): void</span><br><span class="line"> </span><br><span class="line">removeAttribute(el: any, name: string, <span class="keyword">namespace</span>?: string): void</span><br></pre></td></tr></table></figure>
-
-<h1 id="设置Property"><a href="#设置Property" class="headerlink" title="设置Property"></a>设置Property</h1><p>使用setProperty方法设置DOM元素的任何属性。</p>
-<blockquote>
-<p>元素没有此 property 不会添加上去<br>property是 物体本身自带属性，不能改变的（一旦改了就是另外一个东西了）</p>
-</blockquote>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">setProperty</span>(<span class="attr">el</span>: <span class="built_in">any</span>, <span class="attr">name</span>: <span class="built_in">string</span>, <span class="attr">value</span>: <span class="built_in">any</span>): <span class="built_in">void</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="AppendChild-createElement-createText"><a href="#AppendChild-createElement-createText" class="headerlink" title="AppendChild createElement createText"></a>AppendChild createElement createText</h1><p>使用appendChild将一个新元素（子元素）附加到任何现有元素（父元素）。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">appendChild</span>(<span class="attr">parent</span>: <span class="built_in">any</span>, <span class="attr">newChild</span>: <span class="built_in">any</span>): <span class="built_in">void</span></span><br></pre></td></tr></table></figure>
-<p>它接受两个参数。第一个参数是父节点(我们希望在其中附加一个新的子节点)。第二个参数是要添加的子节点。</p>
-<h2 id="创建一个新元素"><a href="#创建一个新元素" class="headerlink" title="创建一个新元素"></a>创建一个新元素</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> div = <span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;div&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> text = <span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">createText</span>(<span class="string">&#x27;Inserted at bottom&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">appendChild</span>(div, text);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">appendChild</span>(<span class="variable language_">this</span>.<span class="property">div</span>.<span class="property">nativeElement</span>, div);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h1 id="InsertBefore"><a href="#InsertBefore" class="headerlink" title="InsertBefore"></a>InsertBefore</h1><p>我们还可以使用insertBefore方法在DOM元素中的元素之前插入新元素。insertBefore的语法如下所示</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">insertBefore</span>(<span class="attr">parent</span>: <span class="built_in">any</span>, <span class="attr">newChild</span>: <span class="built_in">any</span>, <span class="attr">refChild</span>: <span class="built_in">any</span>): <span class="built_in">void</span></span><br></pre></td></tr></table></figure>
-<p>parent是父节点,newChild是要插入的新节点,refChild是插入newChild之前的现有子节点。</p>
-<h1 id="添加注释"><a href="#添加注释" class="headerlink" title="添加注释"></a>添加注释</h1><p>createComment创建注释节点。它接受注释作为自变量。然后可以使用appendChild或insertBefore将其插入DOM中的任何位置。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">createComment</span>(<span class="attr">value</span>: <span class="built_in">string</span>): <span class="built_in">any</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="ParentNode-amp-NextSibling"><a href="#ParentNode-amp-NextSibling" class="headerlink" title="ParentNode &amp; NextSibling"></a>ParentNode &amp; NextSibling</h1><p>ParentNode方法返回宿主元素DOM中给定节点的父节点。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/<span class="title class_">Returns</span> the parent <span class="title class_">Node</span> <span class="keyword">of</span> div3</span><br><span class="line"><span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">parentNode</span>(<span class="variable language_">this</span>.<span class="property">div3</span>.<span class="property">nativeElement</span>);</span><br></pre></td></tr></table></figure>
-<p>nextSibling方法返回宿主元素DOM中给定节点的下一个同级节点。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Returns the next Sibling node of div2</span></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">nextSibling</span>(<span class="variable language_">this</span>.<span class="property">div2</span>.<span class="property">nativeElement</span>);</span><br></pre></td></tr></table></figure>
-
-<h1 id="SelectRootElement"><a href="#SelectRootElement" class="headerlink" title="SelectRootElement"></a>SelectRootElement</h1><p>我们也可以使用selectRoomElement来选择基于选择器的节点元素。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">selectRootElement</span>(<span class="attr">selectorOrNode</span>: <span class="built_in">any</span>, preserveContent?: <span class="built_in">boolean</span>)</span><br></pre></td></tr></table></figure>
-<p>第一个参数是选择器或节点。Renderer2使用选择器来搜索DOM元素并返回它。</p>
-<p>第二个参数是preserveContent，如果是no或undefined，renderer2将删除所有子节点。如果是yes，则不会删除子节点。</p>
-<h1 id="监听-DOM-事件"><a href="#监听-DOM-事件" class="headerlink" title="监听 DOM 事件"></a>监听 DOM 事件</h1><p>您也可以使用listen方法来侦听DOM事件。</p>
-<p>listen方法接受三个参数，第一个参数是DOM元素（目标），第二个参数是事件的名称（eventName），第三个参数是回调函数</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="title function_">listen</span>(<span class="attr">target</span>: <span class="built_in">any</span>, <span class="attr">eventName</span>: <span class="built_in">string</span>, <span class="attr">callback</span>: <span class="function">(<span class="params">event: <span class="built_in">any</span></span>) =&gt;</span> <span class="built_in">boolean</span> | <span class="built_in">void</span>): <span class="function">() =&gt;</span> <span class="built_in">void</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
 
     
 
@@ -2018,6 +1883,82 @@
 <figure class="highlight c#"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> nArgument = Expression.Parameter(<span class="keyword">typeof</span>(<span class="built_in">int</span>), <span class="string">&quot;n&quot;</span>);</span><br><span class="line"><span class="keyword">var</span> result = Expression.Variable(<span class="keyword">typeof</span>(<span class="built_in">int</span>), <span class="string">&quot;result&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Creating a label that represents the return value</span></span><br><span class="line">LabelTarget label = Expression.Label(<span class="keyword">typeof</span>(<span class="built_in">int</span>));</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> initializeResult = Expression.Assign(result, Expression.Constant(<span class="number">1</span>));</span><br><span class="line"></span><br><span class="line"><span class="comment">// This is the inner block that performs the multiplication,</span></span><br><span class="line"><span class="comment">// and decrements the value of &#x27;n&#x27;</span></span><br><span class="line"><span class="keyword">var</span> block = Expression.Block(</span><br><span class="line">    Expression.Assign(result,</span><br><span class="line">        Expression.Multiply(result, nArgument)),</span><br><span class="line">    Expression.PostDecrementAssign(nArgument)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Creating a method body.</span></span><br><span class="line">BlockExpression body = Expression.Block(</span><br><span class="line">    <span class="keyword">new</span>[] &#123; result &#125;,</span><br><span class="line">    initializeResult,</span><br><span class="line">    Expression.Loop(</span><br><span class="line">        Expression.IfThenElse(</span><br><span class="line">            Expression.GreaterThan(nArgument, Expression.Constant(<span class="number">1</span>)),</span><br><span class="line">            block,</span><br><span class="line">            Expression.Break(label, result)</span><br><span class="line">        ),</span><br><span class="line">        label</span><br><span class="line">    )</span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 <p>用于生成阶乘函数的表达式树的代码相对更长、更复杂，它充满了标签和 break 语句以及我们在日常编码任务中想要避免的其他元素。</p>
 <h1 id="转换表达式树"><a href="#转换表达式树" class="headerlink" title="转换表达式树"></a>转换表达式树</h1>
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/02/28/linq/LINQ-TO-SQL/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/02/28/linq/LINQ-TO-SQL/" class="post-title-link" itemprop="url">LINQ TO SQL</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-02-28 17:26:36" itemprop="dateCreated datePublished" datetime="2023-02-28T17:26:36+08:00">2023-02-28</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-03-01 12:30:53" itemprop="dateModified" datetime="2023-03-01T12:30:53+08:00">2023-03-01</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>通过使用 LINQ to SQL，可以使用 LINQ 技术访问 SQL 数据库，就像访问内存中的集合一样。</p>
+
       
     </div>
 
