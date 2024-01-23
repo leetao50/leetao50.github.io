@@ -118,7 +118,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">52</span>
+          <span class="site-state-item-count">54</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -152,6 +152,365 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/04/25/angular/observable/%E4%BB%8EAngular%E4%B8%AD%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E3%80%81%E6%95%B0%E7%BB%84%E5%92%8C%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA%E5%8F%AF%E8%A7%82%E5%AF%9F%E5%AF%B9%E8%B1%A1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/04/25/angular/observable/%E4%BB%8EAngular%E4%B8%AD%E7%9A%84%E5%AD%97%E7%AC%A6%E4%B8%B2%E3%80%81%E6%95%B0%E7%BB%84%E5%92%8C%E5%AF%B9%E8%B1%A1%E5%88%9B%E5%BB%BA%E5%8F%AF%E8%A7%82%E5%AF%9F%E5%AF%B9%E8%B1%A1/" class="post-title-link" itemprop="url">从Angular中的字符串、数组和对象创建可观察对象</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-04-25 17:03:43" itemprop="dateCreated datePublished" datetime="2023-04-25T17:03:43+08:00">2023-04-25</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-01-23 18:17:36" itemprop="dateModified" datetime="2024-01-23T18:17:36+08:00">2024-01-23</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="Observable-的创建功能"><a href="#Observable-的创建功能" class="headerlink" title="Observable 的创建功能"></a>Observable 的创建功能</h1><p>有很多方法可以在Angular中创建Observable对象。您可以使用Observable构造函数，如Observable教程中所示。还有许多函数可以用来创建新的Observable。这些函数帮助我们从数组、字符串、promise等创建Observable。</p>
+<ul>
+<li>create</li>
+<li>defer</li>
+<li>empty</li>
+<li>from</li>
+<li>fromEvent</li>
+<li>interval</li>
+<li>of</li>
+<li>range</li>
+<li>throw</li>
+<li>timer<br>所有与创建相关的操作符都是RxJs核心库的一部分。您可以从“rxjs”库导入它</li>
+</ul>
+<h1 id="Create"><a href="#Create" class="headerlink" title="Create"></a>Create</h1><p>调用Create方法是创建Observable最简单的方式。Create是Observable对象的内容方法，所以您不必导入它。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line"> </span><br><span class="line">   <span class="comment">//Observable from Create Method</span></span><br><span class="line">   <span class="keyword">const</span> obsUsingCreate = <span class="title class_">Observable</span>.<span class="title function_">create</span>( <span class="function"><span class="params">observer</span> =&gt;</span> &#123;</span><br><span class="line">     observer.<span class="title function_">next</span>( <span class="string">&#x27;1&#x27;</span> )</span><br><span class="line">     observer.<span class="title function_">next</span>( <span class="string">&#x27;2&#x27;</span> )</span><br><span class="line">     observer.<span class="title function_">next</span>( <span class="string">&#x27;3&#x27;</span> )</span><br><span class="line">     observer.<span class="title function_">complete</span>()</span><br><span class="line">   &#125;)</span><br><span class="line">    obsUsingCreate</span><br><span class="line">      .<span class="title function_">subscribe</span>(<span class="function"><span class="params">val</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(val),</span><br><span class="line">              <span class="function"><span class="params">error</span>=&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;error&quot;</span>),</span><br><span class="line">              <span class="function">() =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;complete&quot;</span>))</span><br><span class="line">&#125;</span><br><span class="line">****<span class="title class_">Output</span> *****</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="title class_">Complete</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="Observable-构造函数"><a href="#Observable-构造函数" class="headerlink" title="Observable 构造函数"></a>Observable 构造函数</h2><p>我们在上一个示例中可以看到这一点，Observable.create方法和Observable构造函数之间没有区别。Observable的Create方法实际在幕后调用Observable的构造函数。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">   <span class="comment">//Observable Using Constructor</span></span><br><span class="line">   <span class="keyword">const</span> obsUsingConstructor = <span class="keyword">new</span> <span class="title class_">Observable</span>( <span class="function"><span class="params">observer</span> =&gt;</span> &#123;</span><br><span class="line">      observer.<span class="title function_">next</span>( <span class="string">&#x27;1&#x27;</span> )</span><br><span class="line">      observer.<span class="title function_">next</span>( <span class="string">&#x27;2&#x27;</span> )</span><br><span class="line">      observer.<span class="title function_">next</span>( <span class="string">&#x27;3&#x27;</span> )</span><br><span class="line"> </span><br><span class="line">      observer.<span class="title function_">complete</span>()</span><br><span class="line">   &#125;)</span><br><span class="line"> </span><br><span class="line">   obsUsingConstructor</span><br><span class="line">        .<span class="title function_">subscribe</span>(<span class="function"><span class="params">val</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(val),</span><br><span class="line">                <span class="function"><span class="params">error</span>=&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;error&quot;</span>),</span><br><span class="line">                <span class="function">() =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;complete&quot;</span>))</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">****<span class="title class_">Output</span> *****</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line">complete</span><br></pre></td></tr></table></figure>
+
+<h1 id="Of-操作符-Of-a-b-c"><a href="#Of-操作符-Of-a-b-c" class="headerlink" title="Of 操作符 Of(a,b,c)"></a>Of 操作符 Of(a,b,c)</h1><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> array=[<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>,<span class="number">4</span>,<span class="number">5</span>,<span class="number">6</span>,<span class="number">7</span>]</span><br><span class="line">  <span class="keyword">const</span> obsof1=<span class="title function_">of</span>(array);</span><br><span class="line">  obsof1.<span class="title function_">subscribe</span>(<span class="function"><span class="params">val</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(val),</span><br><span class="line">           <span class="function"><span class="params">error</span>=&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;error&quot;</span>),</span><br><span class="line">          <span class="function">() =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;complete&quot;</span>))</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line">**** <span class="title class_">Output</span> ***</span><br><span class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>]</span><br><span class="line">complete</span><br></pre></td></tr></table></figure>
+
+<h1 id="From-操作符-from-1-2-3"><a href="#From-操作符-from-1-2-3" class="headerlink" title="From 操作符 from([1,2,3])"></a>From 操作符 from([1,2,3])</h1><p>From 操作符受一个可以迭代的参数，并将其转换为Observable的参数。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">const</span> array3 = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>, <span class="number">7</span>]</span><br><span class="line">    <span class="keyword">const</span> obsfrom1 = <span class="title function_">from</span>(array3);</span><br><span class="line">    obsfrom1.<span class="title function_">subscribe</span>(<span class="function"><span class="params">val</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(val),</span><br><span class="line">      <span class="function"><span class="params">error</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;error&quot;</span>),</span><br><span class="line">      <span class="function">() =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;complete&quot;</span>))</span><br><span class="line">&#125;</span><br><span class="line">*** <span class="title class_">Output</span> ****</span><br><span class="line"><span class="number">1</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line"><span class="number">5</span></span><br><span class="line"><span class="number">6</span></span><br><span class="line"><span class="number">7</span></span><br><span class="line">complete</span><br><span class="line"></span><br><span class="line"><span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123; </span><br><span class="line">  <span class="keyword">const</span> obsfrom2 = <span class="title function_">from</span>(<span class="string">&#x27;Hello World&#x27;</span>);</span><br><span class="line">    obsfrom2.<span class="title function_">subscribe</span>(<span class="function"><span class="params">val</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(val),</span><br><span class="line">      <span class="function"><span class="params">error</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;error&quot;</span>),</span><br><span class="line">      <span class="function">() =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;complete&quot;</span>))</span><br><span class="line">&#125;</span><br><span class="line">*** <span class="title class_">Output</span> ****</span><br><span class="line">H</span><br><span class="line">e</span><br><span class="line">l</span><br><span class="line">l</span><br><span class="line">o</span><br><span class="line"> </span><br><span class="line">W</span><br><span class="line">o</span><br><span class="line">r</span><br><span class="line">l</span><br><span class="line">d</span><br><span class="line">complete</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h1 id="Of-Vs-From"><a href="#Of-Vs-From" class="headerlink" title="Of Vs From"></a>Of Vs From</h1><table>
+<thead>
+<tr>
+<th>Of</th>
+<th>From</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>接受变量(并不是参数)</td>
+<td>只接受一个参数</td>
+</tr>
+<tr>
+<td>在不更改任何内容的情况下按原样发出每个变量</td>
+<td>迭代参数并发出每个值</td>
+</tr>
+</tbody></table>
+<h1 id="fromEvent-操作符"><a href="#fromEvent-操作符" class="headerlink" title="fromEvent 操作符"></a>fromEvent 操作符</h1><h2 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">fromEvent&lt;T&gt;(<span class="attr">target</span>: <span class="title class_">FromEventTarget</span>&lt;T&gt;, </span><br><span class="line">             <span class="attr">eventName</span>: <span class="built_in">string</span>, </span><br><span class="line">             <span class="attr">options</span>: <span class="title class_">EventListenerOptions</span>, </span><br><span class="line">             <span class="attr">resultSelector</span>: <span class="function">(<span class="params">...args: <span class="built_in">any</span>[]</span>) =&gt;</span> T): <span class="title class_">Observable</span>&lt;T&gt;</span><br></pre></td></tr></table></figure>
+
+<p>FromEventsTarget：是fromvevent的第一个参数。它可以是DOM EventTarget、Node.js EventEmitter、类似JQuery的事件目标、NodeList或HTMLCollection。目标必须有一个方法来注册&#x2F;注销事件处理程序。（如果是DOM事件目标，则为addEventListener&#x2F;removeEventListener）</p>
+<p>eventName：是第二个参数，这是我们想要侦听的事件类型。</p>
+<p>eventListenerOptions：是我们在注册事件处理程序（即addEventListener）时要传递给的附加参数</p>
+<p>resultSelector：是可选的，在未来的版本中将不推荐使用</p>
+<h2 id="示例"><a href="#示例" class="headerlink" title="示例"></a>示例</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="string">`&lt;button #btn&gt;Button&lt;/button&gt;</span></span><br><span class="line"><span class="string">`</span></span><br><span class="line"><span class="meta">@ViewChild</span>(<span class="string">&#x27;btn&#x27;</span>, &#123; <span class="attr">static</span>: <span class="literal">true</span> &#125;) <span class="attr">button</span>: <span class="title class_">ElementRef</span>;</span><br><span class="line"></span><br><span class="line"> <span class="title function_">buttonClick</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">buttonSubscription</span> =  <span class="title function_">fromEvent</span>(<span class="variable language_">this</span>.<span class="property">button</span>.<span class="property">nativeElement</span>, <span class="string">&#x27;click&#x27;</span>)</span><br><span class="line">        .<span class="title function_">subscribe</span>(<span class="function"><span class="params">res</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(res));</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"><span class="title function_">ngAfterViewInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">buttonClick</span>();</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>我们可以从ngAfterViewInit方法调用上述方法。请注意，@ViewChild在ngOnInit之前不会初始化btn元素。因此，我们在这里使用ngAfterViewInit。</p>
+<h1 id="pipe-操作符"><a href="#pipe-操作符" class="headerlink" title="pipe 操作符"></a>pipe 操作符</h1><p>Angular Observable的管道方法用于将多个操作符链接在一起。我们可以将管道作为一个独立的方法使用，这有助于我们在多个地方重用它或将其作为一个实例方法。在本教程中，我们将了解管道，并了解如何在Angular应用程序中使用它。我们将向您展示使用map、filter和tap操作符的管道示例。</p>
+<h2 id="使用Pipe-链接操作符"><a href="#使用Pipe-链接操作符" class="headerlink" title="使用Pipe 链接操作符"></a>使用Pipe 链接操作符</h2><p>管道方法接受filter、map等运算符作为参数。每个参数必须用逗号分隔。运算符的顺序很重要，因为当用户订阅可观察对象时，管道会按添加运算符的顺序执行运算符。</p>
+<p>我们有两种方法可以使用这个管道。一种是作为observable的实例，另一种是作为独立方法使用</p>
+<h2 id="pipe作为实例方法"><a href="#pipe作为实例方法" class="headerlink" title="pipe作为实例方法"></a>pipe作为实例方法</h2><p>管道作为实例方法如下所示。我们将运算符op1、op2等作为参数传递给管道方法。op1方法的输出变成op2运算符的输入，依此类推。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">obs.<span class="title function_">pipe</span>(</span><br><span class="line">  <span class="title function_">op1</span>(),</span><br><span class="line">  <span class="title function_">op2</span>(),</span><br><span class="line">  <span class="title function_">op3</span>(),</span><br><span class="line">  <span class="title function_">op3</span>(),</span><br><span class="line">)</span><br></pre></td></tr></table></figure>
+<p>以下是将管道与map &amp; filter操作符一起使用的示例。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>, <span class="title class_">OnInit</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Observable</span>, <span class="keyword">of</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; map, filter, tap &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs/operators&#x27;</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-root&#x27;</span>,</span><br><span class="line">  <span class="attr">templateUrl</span>: <span class="string">&#x27;./app.component.html&#x27;</span>,</span><br><span class="line">  <span class="attr">styleUrls</span>: [<span class="string">&#x27;./app.component.css&#x27;</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> <span class="keyword">implements</span> <span class="title class_">OnInit</span> &#123;</span><br><span class="line"> </span><br><span class="line">  obs = <span class="keyword">new</span> <span class="title class_">Observable</span>(<span class="function">(<span class="params">observer</span>) =&gt;</span> &#123;</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">1</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">2</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">3</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">4</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">5</span>)</span><br><span class="line">    observer.<span class="title function_">complete</span>()</span><br><span class="line">  &#125;).<span class="title function_">pipe</span>(</span><br><span class="line">    <span class="title function_">filter</span>(<span class="function"><span class="params">data</span> =&gt;</span> data &gt; <span class="number">2</span>),                    <span class="comment">//filter Operator</span></span><br><span class="line">    <span class="title function_">map</span>(<span class="function">(<span class="params">val</span>) =&gt;</span> &#123;<span class="keyword">return</span> val <span class="keyword">as</span> <span class="built_in">number</span> * <span class="number">2</span>&#125;),    <span class="comment">//map operator</span></span><br><span class="line">  )</span><br><span class="line"> </span><br><span class="line"> data = [];</span><br><span class="line"> </span><br><span class="line">  <span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">obs1</span>.<span class="title function_">subscribe</span>(</span><br><span class="line">      <span class="function"><span class="params">val</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">data</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="comment">//result</span></span><br><span class="line">[<span class="number">6</span>, <span class="number">8</span>, <span class="number">10</span>]</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>, <span class="title class_">OnInit</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Observable</span>, <span class="keyword">of</span>, pipe &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; map, filter, tap &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs/operators&#x27;</span></span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-root&#x27;</span>,</span><br><span class="line">  <span class="attr">templateUrl</span>: <span class="string">&#x27;./app.component.html&#x27;</span>,</span><br><span class="line">  <span class="attr">styleUrls</span>: [<span class="string">&#x27;./app.component.css&#x27;</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> <span class="keyword">implements</span> <span class="title class_">OnInit</span> &#123;</span><br><span class="line"> </span><br><span class="line">  obs = <span class="keyword">new</span> <span class="title class_">Observable</span>(<span class="function">(<span class="params">observer</span>) =&gt;</span> &#123;</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">1</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">2</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">3</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">4</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">5</span>)</span><br><span class="line">    observer.<span class="title function_">complete</span>()</span><br><span class="line">  &#125;).<span class="title function_">pipe</span>(</span><br><span class="line">    <span class="title function_">tap</span>(<span class="function"><span class="params">data</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;tap &#x27;</span>+data)),           <span class="comment">//tap</span></span><br><span class="line">    <span class="title function_">filter</span>(<span class="function"><span class="params">data</span> =&gt;</span> data &gt; <span class="number">2</span>),                        <span class="comment">//filter</span></span><br><span class="line">    <span class="title function_">tap</span>(<span class="function"><span class="params">data</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;filter &#x27;</span>+data)),        <span class="comment">//tap</span></span><br><span class="line">    <span class="title function_">map</span>(<span class="function">(<span class="params">val</span>) =&gt;</span> &#123; <span class="keyword">return</span> val <span class="keyword">as</span> <span class="built_in">number</span> * <span class="number">2</span> &#125;),      <span class="comment">//map</span></span><br><span class="line">    <span class="title function_">tap</span>(<span class="function"><span class="params">data</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;final &#x27;</span>+data)),         <span class="comment">//tap</span></span><br><span class="line">  )</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">  data = [];</span><br><span class="line"> </span><br><span class="line">  <span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line"> </span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">obs</span>.<span class="title function_">subscribe</span>(</span><br><span class="line">      <span class="function"><span class="params">val</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">data</span>.<span class="title function_">push</span>(val)</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">data</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    )</span><br><span class="line"> </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="Pipe-作为单独方法"><a href="#Pipe-作为单独方法" class="headerlink" title="Pipe 作为单独方法"></a>Pipe 作为单独方法</h2><p>我们也可以将管道作为一个独立的函数来组成操作符，并在其他地方重用管道。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">customOperator = <span class="title function_">pipe</span>(</span><br><span class="line">    <span class="title function_">tap</span>(<span class="function"><span class="params">data</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;tap &#x27;</span>+data)),</span><br><span class="line">    <span class="title function_">filter</span>(<span class="function"><span class="params">data</span> =&gt;</span> data &gt; <span class="number">2</span>),</span><br><span class="line">    <span class="title function_">tap</span>(<span class="function"><span class="params">data</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;filter &#x27;</span>+data)),</span><br><span class="line">    <span class="title function_">map</span>(<span class="function">(<span class="params">val</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> val <span class="keyword">as</span> <span class="built_in">number</span> * <span class="number">2</span></span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="title function_">tap</span>(<span class="function"><span class="params">data</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;final &#x27;</span>+data)),</span><br><span class="line">  );</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">  obs = <span class="keyword">new</span> <span class="title class_">Observable</span>(<span class="function">(<span class="params">observer</span>) =&gt;</span> &#123;</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">1</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">2</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">3</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">4</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">5</span>)</span><br><span class="line">    observer.<span class="title function_">complete</span>()</span><br><span class="line">  &#125;)</span><br><span class="line">  </span><br><span class="line">  <span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">customOperator</span>(<span class="variable language_">this</span>.<span class="property">obs</span>).<span class="title function_">subscribe</span>();</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">  customOperator = <span class="title function_">pipe</span>(</span><br><span class="line">    <span class="title function_">tap</span>(<span class="function"><span class="params">data</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;tap &#x27;</span>+data)),</span><br><span class="line">    <span class="title function_">filter</span>(<span class="function"><span class="params">data</span> =&gt;</span> data &gt; <span class="number">2</span>),</span><br><span class="line">    <span class="title function_">tap</span>(<span class="function"><span class="params">data</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;filter &#x27;</span>+data)),</span><br><span class="line">    <span class="title function_">map</span>(<span class="function">(<span class="params">val</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">return</span> val <span class="keyword">as</span> <span class="built_in">number</span> * <span class="number">2</span></span><br><span class="line">    &#125;),</span><br><span class="line">    <span class="title function_">tap</span>(<span class="function"><span class="params">data</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;final &#x27;</span>+data)),</span><br><span class="line">  );</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">  obs = <span class="keyword">new</span> <span class="title class_">Observable</span>(<span class="function">(<span class="params">observer</span>) =&gt;</span> &#123;</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">1</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">2</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">3</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">4</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">5</span>)</span><br><span class="line">    observer.<span class="title function_">complete</span>()</span><br><span class="line">  &#125;).<span class="title function_">pipe</span>(    </span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">customOperator</span>,</span><br><span class="line">    <span class="title function_">tap</span>(<span class="function"><span class="params">data</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;final &#x27;</span>+data)),</span><br><span class="line">  )</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">  data = [];</span><br><span class="line"> </span><br><span class="line">  <span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line"> </span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">obs</span>.<span class="title function_">subscribe</span>(</span><br><span class="line">      <span class="function"><span class="params">val</span> =&gt;</span> &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">data</span>.<span class="title function_">push</span>(val)</span><br><span class="line">        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="variable language_">this</span>.<span class="property">data</span>)</span><br><span class="line">      &#125;</span><br><span class="line">    )</span><br><span class="line"> </span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>我们可以使用Create方法或Observable构造函数来创建一个新的Observable。<br>当您有类似数组的值时，Of运算符很有用，您可以将其作为单独的参数传递给Of方法以创建可观察的值。<br>From操作符试图迭代传递给它的任何东西，并从中创建一个可观察的对象。<br>RxJS库中有许多其他运算符或方法可用于创建和操作Angular observable。我们将在接下来的几个教程中学习其中的一些内容</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/04/14/angular/observable/Angular-Observable-%E7%AE%80%E4%BB%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/04/14/angular/observable/Angular-Observable-%E7%AE%80%E4%BB%8B/" class="post-title-link" itemprop="url">Angular Observable 简介</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-04-14 11:51:36" itemprop="dateCreated datePublished" datetime="2023-04-14T11:51:36+08:00">2023-04-14</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-01-23 18:16:57" itemprop="dateModified" datetime="2024-01-23T18:16:57+08:00">2024-01-23</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="什么是RxJS"><a href="#什么是RxJS" class="headerlink" title="什么是RxJS"></a>什么是RxJS</h1><p>RxJS（Reactive Extensions Library for JavaScript）是一个使用可观察序列编写异步和基于事件的JavaScript库，RxJS 属于响应式编程，其思想是将时间看作数组，随着时间发生的事件被看作是数组的项，然后以操作数组的方式变换事件。</p>
+<p><strong>RxJS 中解决异步事件管理的基本概念有：</strong></p>
+<ul>
+<li><p><strong>Observable（可观察者）</strong>：它的本质其实就是一个随时间不断产生数据的一个集合，称之为流更容易理解。</p>
+</li>
+<li><p><strong>Observer（观察者）</strong>：从行为上来看，无非就是定义了如何处理上述流产生的数据，称之为流的处理方法，更容易理解。</p>
+</li>
+<li><p><strong>Subscription（订阅）</strong>：表示 Observable 的一次执行，它的本质就是暂存了一个启动后的流，每一个启动后的流都是相互独立的，而这个启动后的流，就存储在subscription中，提供了unsubscribe，来停止这个流。</p>
+</li>
+<li><p><strong>Operator（操作符）</strong>：是纯函数，可以使用 map、filter、concat、reduce 等操作来以函数式编程风格处理集合。</p>
+</li>
+<li><p><strong>Subject（主体）</strong>：相当于一个 EventEmitter，也是将一个值或事件多播到多个 Observers 的唯一方式。</p>
+</li>
+<li><p><strong>Scheduler（调度器）</strong>：是控制并发的集中化调度器，允许我们在计算发生时进行协调，例如 setTimeout 或 requestAnimationFrame 或其它。</p>
+</li>
+</ul>
+<p>Angular在其框架中大量使用RxJS库来实现响应式编程。使用响应式编程的一些示例如下：</p>
+<ul>
+<li>Angular中响应HTTP请求</li>
+<li>Angular中表单中值&#x2F;状态变更</li>
+<li>Router和Forms模块使用可观察性来监听和响应用户输入事件</li>
+<li>通过自定义事件从子组件发送observable输出数据到父组件</li>
+<li>HTTP模块使用Observable来处理AJAX请求和响应</li>
+</ul>
+<p>那么流是指什么呢？举个例子，代码中每1s输出一个数字，用户每一次对元素的点击，就像是在时间这个维度上，产生了一个数据集。这个数据集不像数组那样，它不是一开始都存在的，而是随着时间的流逝，一个一个数据被输出出来。这种异步行为产生的数据，就可以被称之为一个流，在Rxjs中，称之为observable（抛开英文，本质其实就是一个数据的集合，只是这些数据不一定是一开始就设定好的，而是随着时间而不断产生的）。而Rxjs，就是为了处理这种流而产生的工具，比如流与流的合并，流的截断，延迟，消抖等等操作。</p>
+<h1 id="理解基本定义-observable-observer-subscription"><a href="#理解基本定义-observable-observer-subscription" class="headerlink" title="理解基本定义: observable, observer, subscription"></a>理解基本定义: observable, observer, subscription</h1><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Observable</span> &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 流的创建</span></span><br><span class="line"><span class="keyword">const</span> stream$ = <span class="keyword">new</span> <span class="title class_">Observable</span>(<span class="function"><span class="params">subscriber</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    subscriber.<span class="title function_">next</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);</span><br><span class="line">  &#125;, <span class="number">500</span>);</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="comment">// 如何消费流产生的数据，observer</span></span><br><span class="line"><span class="keyword">const</span> observer = &#123;</span><br><span class="line">  <span class="attr">complete</span>: <span class="function">() =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;done&quot;</span>),</span><br><span class="line">  <span class="attr">next</span>: <span class="function"><span class="params">v</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(v),</span><br><span class="line">  <span class="attr">error</span>: <span class="function">() =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;error&quot;</span>)</span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 启动流</span></span><br><span class="line"><span class="keyword">const</span> subscription = stream$.<span class="title function_">subscribe</span>(observer);</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="comment">// 停止流</span></span><br><span class="line">  subscription.<span class="title function_">unsubscribe</span>();</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br></pre></td></tr></table></figure>
+<p>上述过程中，涉及到了3个变量 :</p>
+<ol>
+<li><p>stream$, 对应到Rxjs中，就是一个observable，它的本质其实就是一个随时间不断产生数据的一个集合，称之为流更容易理解。而其对象存在一个subscribe方法，调用该方法后，才会启动这个流（也就是数据才会开始产生），这里需要注意的是多次启动的每一个流都是独立的，互不干扰。</p>
+</li>
+<li><p>observer，代码中是stream$.subscribe(observer)，对应到Rxjs中，也是称之为observer。从行为上来看，无非就是定义了如何处理上述流产生的数据，称之为流的处理方法，更容易理解。</p>
+</li>
+<li><p>subscription，也就是const subscription &#x3D; stream$.subscribe(observer); 它的本质就是暂存了一个启动后的流，之前提到，每一个启动后的流都是相互独立的，而这个启动后的流，就存储在subscription中，提供了unsubscribe，来停止这个流。</p>
+</li>
+</ol>
+<p>简单理解了这三个名词observable, observer, subscription后，从数据的角度来思考：observable定义了要生成一个什么样的数据，其subscribe方法，接收一个observer（定义了接收到数据如何处理），并开始产生数据，该方法的返回值，subscription, 存储了这个已经开启的流，同时具有unscbscribe方法，可以将这个流停止。</p>
+<p>整理成下面这个公式：</p>
+<blockquote>
+<p>Subscription &#x3D; Observable.subscribe(observer)</p>
+<ul>
+<li>observable: 随着时间产生的数据集合，可以理解为流，其subscribe方法可以启动该流</li>
+<li>observer: 决定如何处理数据</li>
+<li>subscription: 存储已经启动过的流，其unsubscribe方法可以停止该流</li>
+</ul>
+</blockquote>
+<p>这里有几个点：</p>
+<ol>
+<li>subscribe不是订阅，而是启动这个流，可以看到，subscribe后，才会执行next方法 </li>
+<li>构建observable的时候，会有一个subscriber.next，这里就是控制这个流中数据的输出。</li>
+<li>Observable流可以多次启动，多次启动的流之间是相互独立的。</li>
+<li>Observable.subscribe()的返回值subscription上存在一个方法unsubscribe，可以将流停止。</li>
+</ol>
+<h1 id="创建-Observable-对象"><a href="#创建-Observable-对象" class="headerlink" title="创建 Observable 对象"></a>创建 Observable 对象</h1><p>Observable 是个多值的惰性 Push 集合。他们填补了下表中的缺失点：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>单值</th>
+<th>多值</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>拉</td>
+<td>Function</td>
+<td>Iterator</td>
+</tr>
+<tr>
+<td>推</td>
+<td>Promise</td>
+<td>Observable</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody></table>
+<h2 id="创建-Observables"><a href="#创建-Observables" class="headerlink" title="创建 Observables"></a>创建 Observables</h2><p>Observable 的构造函数接受一个参数：subscribe 函数。</p>
+<p>下面的示例创建一个 Observable 以每秒向订阅者发送字符串 ‘hi’。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Observable</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> observable = <span class="keyword">new</span> <span class="title class_">Observable</span>(<span class="keyword">function</span> <span class="title function_">subscribe</span>(<span class="params">subscriber</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> id = <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">    subscriber.<span class="title function_">next</span>(<span class="string">&#x27;hi&#x27;</span>);</span><br><span class="line">  &#125;, <span class="number">1000</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="订阅-Observables"><a href="#订阅-Observables" class="headerlink" title="订阅 Observables"></a>订阅 Observables</h2><p>示例中的 Observable observable 可以被订阅，如下所示：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">observable.<span class="title function_">subscribe</span>(<span class="function">(<span class="params">x</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(x));</span><br></pre></td></tr></table></figure>
+<p>subscribe 调用只是一个启动“ Observable 的执行”并将一些值或事件传递给该执行过程的 Observer 的方法。<br>同一个 Observable 的多个 Observer 之间是不共享的。对 observable.subscribe 的每次调用都会为给定的订阅者触发其自己的独立处理方法。</p>
+<h2 id="执行-Observables"><a href="#执行-Observables" class="headerlink" title="执行 Observables"></a>执行 Observables</h2><p>在 Observable 执行中，可能会传递零个到无限个 Next 通知。如果发送了出错或完成通知，则之后将无法发送任何其它通知。</p>
+<p><strong>Observable 执行可以传递三种类型的值：</strong></p>
+<ul>
+<li><p>“Next（下一个）” 通知：发送数值、字符串、对象等。</p>
+</li>
+<li><p>“Error（出错）” 通知：发送 JavaScript 错误或异常。</p>
+</li>
+<li><p>“Complete（完成）”通知：不发送值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Observable</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">const</span> observable = <span class="keyword">new</span> <span class="title class_">Observable</span>(<span class="keyword">function</span> <span class="title function_">subscribe</span>(<span class="params">subscriber</span>) &#123;</span><br><span class="line">  <span class="keyword">try</span> &#123;</span><br><span class="line">    subscriber.<span class="title function_">next</span>(<span class="number">1</span>);</span><br><span class="line">    subscriber.<span class="title function_">next</span>(<span class="number">2</span>);</span><br><span class="line">    subscriber.<span class="title function_">next</span>(<span class="number">3</span>);</span><br><span class="line">    subscriber.<span class="title function_">complete</span>();</span><br><span class="line">  &#125; <span class="keyword">catch</span> (err) &#123;</span><br><span class="line">    subscriber.<span class="title function_">error</span>(err); <span class="comment">// delivers an error if it caught one</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<h2 id="取消-Observable-执行"><a href="#取消-Observable-执行" class="headerlink" title="取消 Observable 执行"></a>取消 Observable 执行</h2><p>当 observable.subscribe 被调用时，此 Observer 被附加到新创建的 Observable 执行中。此调用还会返回一个对象 Subscription ：</p>
+</li>
+</ul>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> subscription = observable.<span class="title function_">subscribe</span>(<span class="function">(<span class="params">x</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(x));</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>当你订阅时，你会得到一个 Subscription，它代表正在进行的执行。只需调用 unsubscribe() 即可取消执行。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="keyword">from</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> observable = <span class="title function_">from</span>([<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>]);</span><br><span class="line"><span class="keyword">const</span> subscription = observable.<span class="title function_">subscribe</span>(<span class="function">(<span class="params">x</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(x));</span><br><span class="line"><span class="comment">// Later:</span></span><br><span class="line">subscription.<span class="title function_">unsubscribe</span>();</span><br></pre></td></tr></table></figure>
+
+<p>当我们不再需要observable时，我们需要取消订阅以关闭它。如果不取消订阅，可能会导致内存泄漏和性能下降。<br>要从可观察到的订阅中取消订阅，我们需要对订阅调用Unsubscribe（）方法。它将清理所有侦听器并释放内存。</p>
+<p>当我们销毁组件时，可观察到的内容将被取消订阅并清除。但是，您不必每次订阅都取消订阅。例如，发出完整信号的可观测对象，自动关闭。</p>
+<h1 id="观察者（Observer）"><a href="#观察者（Observer）" class="headerlink" title="观察者（Observer）"></a>观察者（Observer）</h1><p>什么是 Observer？ Observer 是 Observable 传递的各个值的消费者。 Observer 只是一组回调，对应于 Observable 传递的每种类型的通知：next、error 和 complete。下面是一个典型的 Observer 对象的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> observer = &#123;</span><br><span class="line">  <span class="attr">next</span>: <span class="function">(<span class="params">x</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Observer got a next value: &#x27;</span> + x),</span><br><span class="line">  <span class="attr">error</span>: <span class="function">(<span class="params">err</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">error</span>(<span class="string">&#x27;Observer got an error: &#x27;</span> + err),</span><br><span class="line">  <span class="attr">complete</span>: <span class="function">() =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Observer got a complete notification&#x27;</span>),</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>要使用 Observer，请将其提供给 Observable 的 subscribe ：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">observable.<span class="title function_">subscribe</span>(observer);</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>Observer 只是具有三个回调的对象，分别用于 Observable 可能传递的每种类型的通知。</p>
+</blockquote>
+<p>RxJS 中的 Observer 也可能是部分的。如果你不提供其中一个回调，Observable 的执行仍然会正常进行，除了某些类型的通知会被忽略，因为它们在 Observer 中没有对应的回调。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line"> </span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">obs</span>.<span class="title function_">subscribe</span>(</span><br><span class="line">      <span class="function"><span class="params">val</span> =&gt;</span> &#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(val) &#125;, <span class="comment">//next callback</span></span><br><span class="line">      <span class="function"><span class="params">error</span> =&gt;</span> &#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;error&quot;</span>) &#125;, <span class="comment">//error callback</span></span><br><span class="line">      <span class="function">() =&gt;</span> &#123; <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Completed&quot;</span>) &#125; <span class="comment">//complete callback</span></span><br><span class="line">    )</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Observable-操作符"><a href="#Observable-操作符" class="headerlink" title="Observable 操作符"></a>Observable 操作符</h1><p>操作符是对Observable进行操作并返回新Observable的函数。</p>
+<p><strong>有两种操作符：</strong></p>
+<ul>
+<li>可联入管道的操作符：本质上是一个纯函数，它将一个 Observable 作为输入并生成另一个 Observable 作为输出。订阅此输出 Observable 也会同时订阅其输入 Observable。</li>
+<li>创建操作符：是另一种操作符，可以作为独立函数调用以创建新的 Observable。例如： of(1, 2, 3) 创建一个 observable，它将一个接一个地发出 1、2 和 3。</li>
+</ul>
+<p>以下示例显示了filer和map运算符使用管道链接到一起，filter运算符删除所有小于等于2的数据，map运算符将该值乘以2。<br>输入流为[1，2，3，4，5]，而输出流为[6，8，10]。</p>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">obs.<span class="title function_">pipe</span>(</span><br><span class="line"> obs = <span class="keyword">new</span> <span class="title class_">Observable</span>(<span class="function">(<span class="params">observer</span>) =&gt;</span> &#123;</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">1</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">2</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">3</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">4</span>)</span><br><span class="line">    observer.<span class="title function_">next</span>(<span class="number">5</span>)</span><br><span class="line">    observer.<span class="title function_">complete</span>()</span><br><span class="line">  &#125;).<span class="title function_">pipe</span>(</span><br><span class="line">    <span class="title function_">filter</span>(<span class="function"><span class="params">data</span> =&gt;</span> data &gt; <span class="number">2</span>),   <span class="comment">//filter Operator</span></span><br><span class="line">    <span class="title function_">map</span>(<span class="function">(<span class="params">val</span>) =&gt;</span> &#123;<span class="keyword">return</span> val <span class="keyword">as</span> <span class="built_in">number</span> * <span class="number">2</span>&#125;), <span class="comment">//map operator</span></span><br><span class="line">  )</span><br></pre></td></tr></table></figure>
+
+<h1 id="弹珠图"><a href="#弹珠图" class="headerlink" title="弹珠图"></a>弹珠图</h1><p>要解释操作符的工作原理，文字描述通常是不够的。许多操作符都与时间有关，他们可能以不同的方式延迟、采样、节流或防抖后发出。图表通常是更好的工具。弹珠图是操作符如何工作的可视化表示，包括输入 Observable、操作符及其参数以及输出 Observable。</p>
+<h1 id="Subject"><a href="#Subject" class="headerlink" title="Subject"></a>Subject</h1><p>Subject 是一种特殊类型的 Observable，它允许将值多播到多个 Observer。</p>
+<ul>
+<li>每个 Subject 都是 Observable。给定一个 Subject，你可以 subscribe 它，提供一个 Observer，它将开始正常接收值。</li>
+<li>每个 Subject 也都是 Observer。它是一个具有方法 next(v)、error(e) 和 complete() 的对象。要为 Subject 提供一个新值，只需调用 next(theValue)，它将被多播到注册进来监听 Subject 的 Observer。</li>
+</ul>
+<p>Subject也是Rxjs中比较重要的概念，从英文上不太好理解，直接上代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Subject</span> &#125; <span class="keyword">from</span> <span class="string">&quot;rxjs&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建subject</span></span><br><span class="line"><span class="keyword">const</span> subject = <span class="keyword">new</span> <span class="title class_">Subject</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// 订阅一个observer</span></span><br><span class="line">subject.<span class="title function_">subscribe</span>(<span class="function"><span class="params">v</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;stream 1&quot;</span>, v));</span><br><span class="line"><span class="comment">// 再订阅一个observer</span></span><br><span class="line">subject.<span class="title function_">subscribe</span>(<span class="function"><span class="params">v</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;stream 2&quot;</span>, v));</span><br><span class="line"><span class="comment">// 延时1s再订阅一个observer</span></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  subject.<span class="title function_">subscribe</span>(<span class="function"><span class="params">v</span> =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;stream 3&quot;</span>, v));</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br><span class="line"><span class="comment">// 产生数据1</span></span><br><span class="line">subject.<span class="title function_">next</span>(<span class="number">1</span>);</span><br><span class="line"><span class="comment">// 产生数据2</span></span><br><span class="line">subject.<span class="title function_">next</span>(<span class="number">2</span>);</span><br><span class="line"><span class="comment">// 延时3s产生数据3</span></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  subject.<span class="title function_">next</span>(<span class="number">3</span>);</span><br><span class="line">&#125;, <span class="number">3000</span>);</span><br><span class="line"><span class="comment">// output</span></span><br><span class="line"><span class="comment">// stream 1 1 //立即输出</span></span><br><span class="line"><span class="comment">// stream 2 1 //立即输出</span></span><br><span class="line"><span class="comment">// stream 1 2 //立即输出</span></span><br><span class="line"><span class="comment">// stream 2 2 //立即输出</span></span><br><span class="line"><span class="comment">// stream 1 3 //3s后输出</span></span><br><span class="line"><span class="comment">// stream 2 3 //3s后输出</span></span><br><span class="line"><span class="comment">// stream 3 3 //3s后输出</span></span><br></pre></td></tr></table></figure>
+<p>可以看到，Subject的行为和发布订阅模式非常接近，subscribe去订阅，next触发。事件的订阅通过subscribe，事件的触发使用next，从而实现一个发布订阅的模式。</p>
+<p>由于 Subject 是 Observer，这也意味着你可以提供 Subject 作为任意 Observable subscribe 的参数，如下面的示例所示：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Subject</span>, <span class="keyword">from</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">const</span> subject = <span class="keyword">new</span> <span class="title class_">Subject</span>&lt;number&gt;();</span><br><span class="line"> </span><br><span class="line">subject.<span class="title function_">subscribe</span>(&#123;</span><br><span class="line">  <span class="attr">next</span>: <span class="function">(<span class="params">v</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`observerA: <span class="subst">$&#123;v&#125;</span>`</span>),</span><br><span class="line">&#125;);</span><br><span class="line">subject.<span class="title function_">subscribe</span>(&#123;</span><br><span class="line">  <span class="attr">next</span>: <span class="function">(<span class="params">v</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`observerB: <span class="subst">$&#123;v&#125;</span>`</span>),</span><br><span class="line">&#125;);</span><br><span class="line"> </span><br><span class="line"><span class="keyword">const</span> observable = <span class="title function_">from</span>([<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>]);</span><br><span class="line"> </span><br><span class="line">observable.<span class="title function_">subscribe</span>(subject); <span class="comment">// You can subscribe providing a Subject</span></span><br><span class="line"> </span><br><span class="line"><span class="comment">// Logs:</span></span><br><span class="line"><span class="comment">// observerA: 1</span></span><br><span class="line"><span class="comment">// observerB: 1</span></span><br><span class="line"><span class="comment">// observerA: 2</span></span><br><span class="line"><span class="comment">// observerB: 2</span></span><br><span class="line"><span class="comment">// observerA: 3</span></span><br><span class="line"><span class="comment">// observerB: 3</span></span><br></pre></td></tr></table></figure>
+<p>使用上述方法，我们基本上只是通过 Subject 将单播 Observable 执行转换为多播。这展示了 Subjects 是让任何 Observable 执行共享给多个 Observers 的唯一方法。</p>
+<h2 id="BehaviorSubject"><a href="#BehaviorSubject" class="headerlink" title="BehaviorSubject"></a>BehaviorSubject</h2><p>它存储发送给其消费者的最新值，并且每当有新的 Observer 订阅时，它将立即从 BehaviorSubject 接收到“当前值”。</p>
+<p>在下面的示例中，BehaviorSubject 使用第一个 Observer 在订阅时收到的值 0 进行初始化。第二个 Observer 接收到值 2，即使它是在发送值 2 之后订阅的。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">BehaviorSubject</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> subject = <span class="keyword">new</span> <span class="title class_">BehaviorSubject</span>(<span class="number">0</span>); <span class="comment">// 0 is the initial value</span></span><br><span class="line"></span><br><span class="line">subject.<span class="title function_">subscribe</span>(&#123;</span><br><span class="line">  <span class="attr">next</span>: <span class="function">(<span class="params">v</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`observerA: <span class="subst">$&#123;v&#125;</span>`</span>),</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">subject.<span class="title function_">next</span>(<span class="number">1</span>);</span><br><span class="line">subject.<span class="title function_">next</span>(<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">subject.<span class="title function_">subscribe</span>(&#123;</span><br><span class="line">  <span class="attr">next</span>: <span class="function">(<span class="params">v</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`observerB: <span class="subst">$&#123;v&#125;</span>`</span>),</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">subject.<span class="title function_">next</span>(<span class="number">3</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Logs</span></span><br><span class="line"><span class="comment">// observerA: 0</span></span><br><span class="line"><span class="comment">// observerA: 1</span></span><br><span class="line"><span class="comment">// observerA: 2</span></span><br><span class="line"><span class="comment">// observerB: 2</span></span><br><span class="line"><span class="comment">// observerA: 3</span></span><br><span class="line"><span class="comment">// observerB: 3</span></span><br></pre></td></tr></table></figure>
+<h2 id="ReplaySubject"><a href="#ReplaySubject" class="headerlink" title="ReplaySubject"></a>ReplaySubject</h2><p>ReplaySubject 与 BehaviorSubject 类似，它可以将旧值发送给新订阅者，但它也可以记录 Observable 执行结果的一部分。</p>
+<p>创建 ReplaySubject 时，你可以指定要重播的值的数量：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ReplaySubject</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> subject = <span class="keyword">new</span> <span class="title class_">ReplaySubject</span>(<span class="number">3</span>); <span class="comment">// buffer 3 values for new subscribers</span></span><br><span class="line"></span><br><span class="line">subject.<span class="title function_">subscribe</span>(&#123;</span><br><span class="line">  <span class="attr">next</span>: <span class="function">(<span class="params">v</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`observerA: <span class="subst">$&#123;v&#125;</span>`</span>),</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">subject.<span class="title function_">next</span>(<span class="number">1</span>);</span><br><span class="line">subject.<span class="title function_">next</span>(<span class="number">2</span>);</span><br><span class="line">subject.<span class="title function_">next</span>(<span class="number">3</span>);</span><br><span class="line">subject.<span class="title function_">next</span>(<span class="number">4</span>);</span><br><span class="line"></span><br><span class="line">subject.<span class="title function_">subscribe</span>(&#123;</span><br><span class="line">  <span class="attr">next</span>: <span class="function">(<span class="params">v</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`observerB: <span class="subst">$&#123;v&#125;</span>`</span>),</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">subject.<span class="title function_">next</span>(<span class="number">5</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Logs:</span></span><br><span class="line"><span class="comment">// observerA: 1</span></span><br><span class="line"><span class="comment">// observerA: 2</span></span><br><span class="line"><span class="comment">// observerA: 3</span></span><br><span class="line"><span class="comment">// observerA: 4</span></span><br><span class="line"><span class="comment">// observerB: 2</span></span><br><span class="line"><span class="comment">// observerB: 3</span></span><br><span class="line"><span class="comment">// observerB: 4</span></span><br><span class="line"><span class="comment">// observerA: 5</span></span><br><span class="line"><span class="comment">// observerB: 5</span></span><br></pre></td></tr></table></figure>
+
+<p>除了缓冲区大小之外，你还可以指定一个以毫秒为单位的窗口时间，以确定记录的值可以存在多长时间。在以下示例中，我们使用 100 个元素的大型缓冲区，但窗口时间参数仅为 500 毫秒。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">ReplaySubject</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> subject = <span class="keyword">new</span> <span class="title class_">ReplaySubject</span>(<span class="number">100</span>, <span class="number">500</span> <span class="comment">/* windowTime */</span>);</span><br><span class="line"></span><br><span class="line">subject.<span class="title function_">subscribe</span>(&#123;</span><br><span class="line">  <span class="attr">next</span>: <span class="function">(<span class="params">v</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`observerA: <span class="subst">$&#123;v&#125;</span>`</span>),</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> i = <span class="number">1</span>;</span><br><span class="line"><span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> subject.<span class="title function_">next</span>(i++), <span class="number">200</span>);</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  subject.<span class="title function_">subscribe</span>(&#123;</span><br><span class="line">    <span class="attr">next</span>: <span class="function">(<span class="params">v</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`observerB: <span class="subst">$&#123;v&#125;</span>`</span>),</span><br><span class="line">  &#125;);</span><br><span class="line">&#125;, <span class="number">1000</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">// Logs</span></span><br><span class="line"><span class="comment">// observerA: 1</span></span><br><span class="line"><span class="comment">// observerA: 2</span></span><br><span class="line"><span class="comment">// observerA: 3</span></span><br><span class="line"><span class="comment">// observerA: 4</span></span><br><span class="line"><span class="comment">// observerA: 5</span></span><br><span class="line"><span class="comment">// observerB: 3</span></span><br><span class="line"><span class="comment">// observerB: 4</span></span><br><span class="line"><span class="comment">// observerB: 5</span></span><br><span class="line"><span class="comment">// observerA: 6</span></span><br><span class="line"><span class="comment">// observerB: 6</span></span><br><span class="line"><span class="comment">// ...</span></span><br></pre></td></tr></table></figure>
+<h2 id="AsyncSubject"><a href="#AsyncSubject" class="headerlink" title="AsyncSubject"></a>AsyncSubject</h2><p>AsyncSubject 是一种变体，其中仅将 Observable 执行的最后一个值发送给其 Observer，并且仅在执行完成时发送。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">AsyncSubject</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;rxjs&#x27;</span>;</span><br><span class="line"><span class="keyword">const</span> subject = <span class="keyword">new</span> <span class="title class_">AsyncSubject</span>();</span><br><span class="line"></span><br><span class="line">subject.<span class="title function_">subscribe</span>(&#123;</span><br><span class="line">  <span class="attr">next</span>: <span class="function">(<span class="params">v</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`observerA: <span class="subst">$&#123;v&#125;</span>`</span>),</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">subject.<span class="title function_">next</span>(<span class="number">1</span>);</span><br><span class="line">subject.<span class="title function_">next</span>(<span class="number">2</span>);</span><br><span class="line">subject.<span class="title function_">next</span>(<span class="number">3</span>);</span><br><span class="line">subject.<span class="title function_">next</span>(<span class="number">4</span>);</span><br><span class="line"></span><br><span class="line">subject.<span class="title function_">subscribe</span>(&#123;</span><br><span class="line">  <span class="attr">next</span>: <span class="function">(<span class="params">v</span>) =&gt;</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">`observerB: <span class="subst">$&#123;v&#125;</span>`</span>),</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">subject.<span class="title function_">next</span>(<span class="number">5</span>);</span><br><span class="line">subject.<span class="title function_">complete</span>();</span><br><span class="line"></span><br><span class="line"><span class="comment">// Logs:</span></span><br><span class="line"><span class="comment">// observerA: 5</span></span><br><span class="line"><span class="comment">// observerB: 5</span></span><br></pre></td></tr></table></figure>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>响应式编程就是对流进行编程。RxJS库将响应式编程引入了Angular。使用RxJs，我们可以创建一个可观测对象，它可以向观测对象的订阅者发出值、错误和完成信号。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1297,604 +1656,6 @@
 <p>以下是对这个例子的分析：</p>
 <p>与前面的模板不同，这个模板有一个输入变量（它也可以有几个）<br>通过 ng-template 上前缀为 let- 的属性来定义了一个输入变量 lessonsCounter<br>lessonsCounter 变量只能在 ng-template 内部可见<br>该变量的内容由赋给 let-lessonsCounter 属性的表达式 estimate 决定<br>estimate 表达式根据上下文对象 context 求值，并将其与要实例化的模板一起传递给 ngTemplateOutlet<br>上下文对象 context 有一个名为 estimate 的属性，以便在模板中显示该值<br>还可以给 ctx 对象添加其他属性，然后通过 ngTemplateOutlet 的 context 输入到 ng-template，从而可以拿到更多的输入变量<br>最终在屏幕上展示的结果是：</p>
 <p>Approximately 10 lessons …<br>这让我们对如何定义和实例化自己的模板有了一个很好的概览。使用这样的方式还可以在 component 中通过模板进行编码，接下来就会介绍。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/03/20/angular/%E6%8C%87%E4%BB%A4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="InfoPool">
-      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | InfoPool">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/03/20/angular/%E6%8C%87%E4%BB%A4/" class="post-title-link" itemprop="url">指令</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-03-20 17:42:13" itemprop="dateCreated datePublished" datetime="2023-03-20T17:42:13+08:00">2023-03-20</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-03-22 17:15:44" itemprop="dateModified" datetime="2023-03-22T17:15:44+08:00">2023-03-22</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>指令是为 Angular 应用程序中的元素添加额外行为的类。使用 Angular 的内置指令，你可以管理表单、列表、样式以及要让用户看到的任何内容。</p>
-<p>Angular 指令的不同类型如下：</p>
-<table>
-<thead>
-<tr>
-<th>指令类型</th>
-<th>详情</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>组件</td>
-<td>带有模板的指令。这种指令类型是最常见的指令类型。</td>
-</tr>
-<tr>
-<td>属性型指令</td>
-<td>更改元素、组件或其他指令的外观或行为的指令。</td>
-</tr>
-<tr>
-<td>结构型指令</td>
-<td>通过添加和删除 DOM 元素来更改 DOM 布局。</td>
-</tr>
-</tbody></table>
-<h2 id="内置属性型指令"><a href="#内置属性型指令" class="headerlink" title="内置属性型指令"></a>内置属性型指令</h2><p>属性型指令会监听并修改其它 HTML 元素和组件的行为、Attribute 和 Property。</p>
-<table>
-<thead>
-<tr>
-<th>通用指令</th>
-<th>详情</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>NgClass</td>
-<td>添加和删除一组 CSS 类。</td>
-</tr>
-<tr>
-<td>NgStyle</td>
-<td>添加和删除一组 HTML 样式。</td>
-</tr>
-<tr>
-<td>NgModel</td>
-<td>将双向数据绑定添加到 HTML 表单元素。</td>
-</tr>
-</tbody></table>
-<h2 id="内置结构型指令"><a href="#内置结构型指令" class="headerlink" title="内置结构型指令"></a>内置结构型指令</h2><p>结构型指令的职责是 HTML 布局。它们塑造或重塑 DOM 的结构，这通常是通过添加、移除和操纵它们所附加到的宿主元素来实现的。</p>
-<table>
-<thead>
-<tr>
-<th>常见的内置结构型指令</th>
-<th>详情</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>NgIf</td>
-<td>有条件地从模板创建或销毁子视图。</td>
-</tr>
-<tr>
-<td>NgFor</td>
-<td>为列表中的每个条目重复渲染一个节点。</td>
-</tr>
-<tr>
-<td>NgSwitch</td>
-<td>一组在备用视图之间切换的指令。</td>
-</tr>
-</tbody></table>
-<h1 id="属性型指令"><a href="#属性型指令" class="headerlink" title="属性型指令"></a>属性型指令</h1><p>使用属性型指令，可以更改 DOM 元素和 Angular 组件的外观或行为。</p>
-<h2 id="建立属性型指令"><a href="#建立属性型指令" class="headerlink" title="建立属性型指令"></a>建立属性型指令</h2><ol>
-<li><p>要创建指令，请使用 CLI 命令 ng generate directive</p>
-<p>CLI 创建 src&#x2F;app&#x2F;highlight.directive.ts 以及相应的测试文件 src&#x2F;app&#x2F;highlight.directive.spec.ts，并在 AppModule 中声明此指令类。<br>CLI 生成默认的 src&#x2F;app&#x2F;highlight.directive.ts，如下所示：</p>
-</li>
-</ol>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> <span class="keyword">import</span> &#123; <span class="title class_">Directive</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"> <span class="meta">@Directive</span>(&#123;</span><br><span class="line">    <span class="attr">selector</span>: <span class="string">&#x27;[appHighlight]&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">HighlightDirective</span> &#123;</span><br><span class="line"><span class="title function_">constructor</span>(<span class="params"></span>) &#123; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>@Directive() 装饰器的配置属性会指定指令的 CSS 属性选择器 [appHighlight]。</p>
-<ol start="2">
-<li><p>从 @angular&#x2F;core 导入 ElementRef。ElementRef 的 nativeElement 属性会提供对宿主 DOM 元素的直接访问权限。</p>
-</li>
-<li><p>在指令的 constructor() 中添加 ElementRef 以注入对宿主 DOM 元素的引用，该元素就是 appHighlight 的作用目标。</p>
-</li>
-<li><p>向 HighlightDirective 类中添加逻辑，将背景设置为黄色。</p>
-</li>
-</ol>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Directive</span>, <span class="title class_">ElementRef</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Directive</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;[appHighlight]&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">HighlightDirective</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> el: ElementRef</span>) &#123;</span><br><span class="line">       <span class="variable language_">this</span>.<span class="property">el</span>.<span class="property">nativeElement</span>.<span class="property">style</span>.<span class="property">backgroundColor</span> = <span class="string">&#x27;yellow&#x27;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="应用属性型指令"><a href="#应用属性型指令" class="headerlink" title="应用属性型指令"></a>应用属性型指令</h2><ol>
-<li>要使用 HighlightDirective，请将 <p> 元素添加到 HTML 模板中，并以伪指令作为属性。</p></li>
-</ol>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">appHighlight</span>&gt;</span>Highlight me!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>Angular 会创建 HighlightDirective 类的实例，并将 <code>&lt;p&gt;</code> 元素的引用注入到该指令的构造函数中，它会将 <code>&lt;p&gt;</code> 元素的背景样式设置为黄色。</p>
-<h2 id="处理用户事件"><a href="#处理用户事件" class="headerlink" title="处理用户事件"></a>处理用户事件</h2><p>添加两个事件处理程序，它们会在鼠标进入或离开时做出响应，每个事件处理程序都带有 @HostListener() 装饰器。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@HostListener</span>(<span class="string">&#x27;mouseenter&#x27;</span>) <span class="title function_">onMouseEnter</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">highlight</span>(<span class="string">&#x27;yellow&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@HostListener</span>(<span class="string">&#x27;mouseleave&#x27;</span>) <span class="title function_">onMouseLeave</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">highlight</span>(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="title function_">highlight</span>(<span class="params">color: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">el</span>.<span class="property">nativeElement</span>.<span class="property">style</span>.<span class="property">backgroundColor</span> = color;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>要订阅本属性型指令宿主 DOM 元素上的事件（在本例中是 <code>&lt;p&gt;</code>），可以使用 @HostListener() 装饰器。</p>
-<p>完整的指令如下：</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Directive</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;[appHighlight]&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">HighlightDirective</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> el: ElementRef</span>) &#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@HostListener</span>(<span class="string">&#x27;mouseenter&#x27;</span>) <span class="title function_">onMouseEnter</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">highlight</span>(<span class="string">&#x27;yellow&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@HostListener</span>(<span class="string">&#x27;mouseleave&#x27;</span>) <span class="title function_">onMouseLeave</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="title function_">highlight</span>(<span class="string">&#x27;&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">private</span> <span class="title function_">highlight</span>(<span class="params">color: <span class="built_in">string</span></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">el</span>.<span class="property">nativeElement</span>.<span class="property">style</span>.<span class="property">backgroundColor</span> = color;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>当指针悬停在 p 元素上时，背景颜色就会出现；而当指针移出时，背景颜色就会消失。</p>
-<h2 id="将值传递给属性型指令"><a href="#将值传递给属性型指令" class="headerlink" title="将值传递给属性型指令"></a>将值传递给属性型指令</h2><p>本节将引导你在应用 HighlightDirective 时设置突出显示颜色。</p>
-<ol>
-<li>在 highlight.directive.ts 中，从 @angular&#x2F;core 导入 Input。</li>
-</ol>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Directive</span>, <span class="title class_">ElementRef</span>, <span class="title class_">HostListener</span>, <span class="title class_">Input</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li><p>添加一个 appHighlight 的 @Input() 属性。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Input</span>() appHighlight = <span class="string">&#x27;&#x27;</span>;</span><br></pre></td></tr></table></figure>
-<p>@Input() 装饰器会将元数据添加到此类，以便让该指令的 appHighlight 属性可用于绑定。</p>
-</li>
-<li><p>在 app.component.ts，将 color 属性添加到 AppComponent。</p>
-</li>
-</ol>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br><span class="line">  color = <span class="string">&#x27;yellow&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>要同时应用指令和颜色，请通过 appHighlight 指令选择器使用属性绑定，将其设置为 color。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> [<span class="attr">appHighlight</span>]=<span class="string">&quot;color&quot;</span>&gt;</span>Highlight me!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>[appHighlight] 属性绑定执行两项任务：</p>
-<p>将突出显示指令应用于 <code>&lt;p&gt;</code> 元素</p>
-<p>通过属性绑定设置指令的突出显示颜色</p>
-<p>通过用户输入来设置值<br>本节指导你添加单选按钮，将你选择的颜色绑定到 appHighlight 指令。</p>
-<p>将标记添加到 app.component.html 以选择颜色，如下所示：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>My First Attribute Directive<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>Pick a highlight color<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;colors&quot;</span> (<span class="attr">click</span>)=<span class="string">&quot;color=&#x27;lightgreen&#x27;&quot;</span>&gt;</span>Green</span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;colors&quot;</span> (<span class="attr">click</span>)=<span class="string">&quot;color=&#x27;yellow&#x27;&quot;</span>&gt;</span>Yellow</span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">name</span>=<span class="string">&quot;colors&quot;</span> (<span class="attr">click</span>)=<span class="string">&quot;color=&#x27;cyan&#x27;&quot;</span>&gt;</span>Cyan</span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> [<span class="attr">appHighlight</span>]=<span class="string">&quot;color&quot;</span>&gt;</span>Highlight me!<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>修改 AppComponent.color，使其没有初始值。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br><span class="line">  color = <span class="string">&#x27;&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在 highlight.directive.ts 中，修改 onMouseEnter 方法，让它首先尝试使用 appHighlight 进行高亮显示，如果 appHighlight 是 undefined，则回退为 red。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@HostListener</span>(<span class="string">&#x27;mouseenter&#x27;</span>) <span class="title function_">onMouseEnter</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">highlight</span>(<span class="variable language_">this</span>.<span class="property">appHighlight</span> || <span class="string">&#x27;red&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>启动本应用的开发服务器，以验证用户可以通过单选按钮选择颜色。</p>
-<h2 id="绑定到第二个属性"><a href="#绑定到第二个属性" class="headerlink" title="绑定到第二个属性"></a>绑定到第二个属性</h2><p>本节将指导你配置应用程序，以便开发人员可以设置默认颜色。</p>
-<ol>
-<li>将第二个 Input() 属性 defaultColor 添加到 HighlightDirective。</li>
-</ol>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Input</span>() defaultColor = <span class="string">&#x27;&#x27;</span>;</span><br></pre></td></tr></table></figure>
-<ol start="2">
-<li>修改指令的 onMouseEnter，使其首先尝试使用 appHighlight 进行突出显示，然后尝试 defaultColor，如果两个属性都 undefined，则变回 red。<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@HostListener</span>(<span class="string">&#x27;mouseenter&#x27;</span>) <span class="title function_">onMouseEnter</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="title function_">highlight</span>(<span class="variable language_">this</span>.<span class="property">appHighlight</span> || <span class="variable language_">this</span>.<span class="property">defaultColor</span> || <span class="string">&#x27;red&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-若要绑定到 AppComponent.color 并回退为默认颜色“紫罗兰（violet）”，请添加以下 HTML。在这里，defaultColor 绑定没有使用方括号 []，因为它是静态的。<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> [<span class="attr">appHighlight</span>]=<span class="string">&quot;color&quot;</span> <span class="attr">defaultColor</span>=<span class="string">&quot;violet&quot;</span>&gt;</span></span><br><span class="line">  Highlight me too!</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
-与组件一样，你可以将指令的多个属性绑定添加到宿主元素上。</li>
-</ol>
-<p>如果没有默认颜色（defaultColor）绑定，则默认为红色。当用户选择一种颜色时，所选的颜色将成为突出显示的颜色。</p>
-<h1 id="ElementRef"><a href="#ElementRef" class="headerlink" title="ElementRef"></a>ElementRef</h1><p>对视图中某个原生元素的包装器。</p>
-<p>ElementRef 的背后是一个可渲染的具体元素。在浏览器中，它通常是一个 DOM 元素。</p>
-<h1 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h1><p>组件 (component) 类及其关联的模板 (template)定义了一个视图。 </p>
-<p>视图是可显示元素的最小分组单位，它们会被同时创建和销毁。 Angular 在一个或多个指令 (directive) 的控制下渲染视图。</p>
-<p>具体实现上，视图由一个与该组件相关的 ViewRef 实例表示。 直属于某个组件的视图叫做宿主视图。 通常会把视图组织成一些视图树（view hierarchies）。</p>
-<h2 id="ViewRef"><a href="#ViewRef" class="headerlink" title="ViewRef"></a>ViewRef</h2><p>表示一个 Angular 视图</p>
-<h2 id="视图树（View-hierarchy）"><a href="#视图树（View-hierarchy）" class="headerlink" title="视图树（View hierarchy）"></a>视图树（View hierarchy）</h2><p>一棵相关视图的树，它们可以作为一个整体行动。其根视图就是组件的宿主视图。宿主视图可以是内嵌视图树的根，它被收集到了宿主组件上的一个视图容器（ViewContainerRef）中。视图树是 Angular 变更检测的关键部件之一。</p>
-<p>视图树和组件树并不是一一对应的。那些嵌入到指定视图树上下文中的视图也可能是其它组件的宿主视图。那些组件可能和宿主组件位于同一个 NgModule 中，也可能属于其它 NgModule。</p>
-<h2 id="EmbeddedViewRef"><a href="#EmbeddedViewRef" class="headerlink" title="EmbeddedViewRef"></a>EmbeddedViewRef</h2><p>表示视图容器中的 Angular 视图。嵌入视图可以从在模板中定义它的宿主组件之外的组件中引用，也可以由 TemplateRef 进行独立定义。</p>
-<h3 id="使用说明"><a href="#使用说明" class="headerlink" title="使用说明"></a>使用说明</h3><p>以下模板分为两个单独的 TemplateRef 实例，一个外部实例和一个内部实例。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Count: &#123;&#123;items.length&#125;&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> *<span class="attr">ngFor</span>=<span class="string">&quot;let  item of items&quot;</span>&gt;</span>&#123;&#123;item&#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>这是外部 TemplateRef ：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">Count: &#123;&#123;items.length&#125;&#125;</span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ng-template</span> <span class="attr">ngFor</span> <span class="attr">let-item</span> [<span class="attr">ngForOf</span>]=<span class="string">&quot;items&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">ng-template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>这是内部的 TemplateRef ：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;&#123;item&#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>外部和内部 TemplateRef 实例按如下方式组装到视图中：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- ViewRef: outer-0 --&gt;</span></span><br><span class="line">Count: 2</span><br><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ng-template</span> <span class="attr">view-container-ref</span>&gt;</span><span class="tag">&lt;/<span class="name">ng-template</span>&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- ViewRef: inner-1 --&gt;</span><span class="tag">&lt;<span class="name">li</span>&gt;</span>first<span class="tag">&lt;/<span class="name">li</span>&gt;</span><span class="comment">&lt;!-- /ViewRef: inner-1 --&gt;</span></span><br><span class="line">  <span class="comment">&lt;!-- ViewRef: inner-2 --&gt;</span><span class="tag">&lt;<span class="name">li</span>&gt;</span>second<span class="tag">&lt;/<span class="name">li</span>&gt;</span><span class="comment">&lt;!-- /ViewRef: inner-2 --&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br><span class="line"><span class="comment">&lt;!-- /ViewRef: outer-0 --&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h3 id="TemplateRef"><a href="#TemplateRef" class="headerlink" title="TemplateRef"></a>TemplateRef</h3><p>表示一个内嵌模板，它可用于实例化内嵌的视图。 要想根据模板实例化内嵌的视图，请使用 ViewContainerRef 的 createEmbeddedView() 方法。</p>
-<p>通过把一个指令放在 <code>&lt;ng-template&gt;</code> 元素（或一个带 * 前缀的指令）上，可以访问 TemplateRef 的实例。 内嵌视图的 TemplateRef 实例会以 TemplateRef 作为令牌，注入到该指令的构造函数中。</p>
-<p>你还可以使用 Query 来找出与某个组件或指令相关的 TemplateRef。</p>
-<h2 id="ViewContainerRef"><a href="#ViewContainerRef" class="headerlink" title="ViewContainerRef"></a>ViewContainerRef</h2><p>表示可以将一个或多个视图附着到组件中的容器。</p>
-<p>可以包含宿主视图（当用 createComponent() 方法实例化组件时创建）和内嵌视图（当用 createEmbeddedView() 方法实例化 TemplateRef 时创建）。</p>
-<p>视图容器的实例还可以包含其它视图容器，以创建层次化视图。</p>
-<p>可以在元素上放置注入了 ViewContainerRef 的 Directive 来访问元素的 ViewContainerRef。也可以使用 ViewChild 进行查询。</p>
-<h2 id="ViewChild"><a href="#ViewChild" class="headerlink" title="ViewChild"></a>ViewChild</h2><p>属性装饰器，用于配置一个视图查询。 变更检测器会在视图的 DOM 中查找能匹配上该选择器的第一个元素或指令。 如果视图的 DOM 发生了变化，出现了匹配该选择器的新的子节点，该属性就会被更新。</p>
-<h1 id="结构型指令"><a href="#结构型指令" class="headerlink" title="结构型指令"></a>结构型指令</h1><h2 id="结构型指令简写形式"><a href="#结构型指令简写形式" class="headerlink" title="结构型指令简写形式"></a>结构型指令简写形式</h2><p>应用结构指令时，它们通常以星号 * 为前缀，例如 *ngIf。本约定是 Angular 解释并转换为更长形式的速记。Angular 会将结构指令前面的星号转换为围绕宿主元素及其后代的 <code>&lt;ng-template&gt;</code>。</p>
-<h2 id="创建结构型指令"><a href="#创建结构型指令" class="headerlink" title="创建结构型指令"></a>创建结构型指令</h2><p>本节将指导你创建 UnlessDirective 以及如何设置 condition 值。UnlessDirective 与 NgIf 相反，并且 condition 值可以设置为 true 或 false。NgIf 为 true 时显示模板内容；而 UnlessDirective 在这个条件为 false 时显示内容。</p>
-<p>以下是应用于 p 元素的 UnlessDirective 选择器 appUnless 当 condition 为 false，浏览器将显示该句子。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> *<span class="attr">appUnless</span>=<span class="string">&quot;condition&quot;</span>&gt;</span>Show this sentence unless the condition is true.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>使用 Angular CLI，运行以下命令，其中 unless 是伪指令的名称：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ng generate directive unless</span><br></pre></td></tr></table></figure>
-<p>Angular 会创建指令类，并指定 CSS 选择器 appUnless，它会在模板中标识指令。</p>
-<p>导入 Input、TemplateRef 和 ViewContainerRef。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Directive</span>, <span class="title class_">Input</span>, <span class="title class_">TemplateRef</span>, <span class="title class_">ViewContainerRef</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Directive</span>(&#123; <span class="attr">selector</span>: <span class="string">&#x27;[appUnless]&#x27;</span>&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">UnlessDirective</span> &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>在指令的构造函数中将 TemplateRef 和 ViewContainerRef 注入成私有变量。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">constructor</span>(<span class="params"></span></span><br><span class="line"><span class="params">  <span class="keyword">private</span> templateRef: TemplateRef&lt;<span class="built_in">any</span>&gt;,</span></span><br><span class="line"><span class="params">  <span class="keyword">private</span> viewContainer: ViewContainerRef</span>) &#123; &#125;</span><br></pre></td></tr></table></figure>
-<p>UnlessDirective 会通过 Angular 生成的 <code>&lt;ng-template&gt;</code> 创建一个嵌入的视图，然后将该视图插入到该指令的原始<code>&lt;p&gt;</code>宿主元素紧后面的视图容器中。</p>
-<p>TemplateRef可帮助你获取 <code>&lt;ng-template&gt; </code>的内容，而 ViewContainerRef 可以访问视图容器。</p>
-<p>添加一个带 setter 的 @Input() 属性 appUnless。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Input</span>() <span class="keyword">set</span> <span class="title function_">appUnless</span>(<span class="params">condition: <span class="built_in">boolean</span></span>) &#123;</span><br><span class="line">  <span class="keyword">if</span> (!condition &amp;&amp; !<span class="variable language_">this</span>.<span class="property">hasView</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">viewContainer</span>.<span class="title function_">createEmbeddedView</span>(<span class="variable language_">this</span>.<span class="property">templateRef</span>);</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">hasView</span> = <span class="literal">true</span>;</span><br><span class="line">  &#125; <span class="keyword">else</span> <span class="keyword">if</span> (condition &amp;&amp; <span class="variable language_">this</span>.<span class="property">hasView</span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">viewContainer</span>.<span class="title function_">clear</span>();</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">hasView</span> = <span class="literal">false</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>每当条件的值更改时，Angular 都会设置 appUnless 属性。</p>
-<p>如果条件是假值，并且 Angular 以前尚未创建视图，则此 setter 会导致视图容器从模板创建出嵌入式视图。</p>
-<p>如果条件为真值，并且当前正显示着视图，则此 setter 会清除容器，这会导致销毁该视图。</p>
-<p>完整的指令如下：</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Directive</span>, <span class="title class_">Input</span>, <span class="title class_">TemplateRef</span>, <span class="title class_">ViewContainerRef</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * Add the template content to the DOM unless the condition is true.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@Directive</span>(&#123; <span class="attr">selector</span>: <span class="string">&#x27;[appUnless]&#x27;</span>&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">UnlessDirective</span> &#123;</span><br><span class="line">  <span class="keyword">private</span> hasView = <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span></span><br><span class="line"><span class="params">    <span class="keyword">private</span> templateRef: TemplateRef&lt;<span class="built_in">any</span>&gt;,</span></span><br><span class="line"><span class="params">    <span class="keyword">private</span> viewContainer: ViewContainerRef</span>) &#123; &#125;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Input</span>() <span class="keyword">set</span> <span class="title function_">appUnless</span>(<span class="params">condition: <span class="built_in">boolean</span></span>) &#123;</span><br><span class="line">    <span class="keyword">if</span> (!condition &amp;&amp; !<span class="variable language_">this</span>.<span class="property">hasView</span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">viewContainer</span>.<span class="title function_">createEmbeddedView</span>(<span class="variable language_">this</span>.<span class="property">templateRef</span>);</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">hasView</span> = <span class="literal">true</span>;</span><br><span class="line">    &#125; <span class="keyword">else</span> <span class="keyword">if</span> (condition &amp;&amp; <span class="variable language_">this</span>.<span class="property">hasView</span>) &#123;</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">viewContainer</span>.<span class="title function_">clear</span>();</span><br><span class="line">      <span class="variable language_">this</span>.<span class="property">hasView</span> = <span class="literal">false</span>;</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/03/20/angular/%E6%A8%A1%E6%9D%BF/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="InfoPool">
-      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | InfoPool">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/03/20/angular/%E6%A8%A1%E6%9D%BF/" class="post-title-link" itemprop="url">模板</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2023-03-20 12:15:32 / 修改时间：17:33:02" itemprop="dateCreated datePublished" datetime="2023-03-20T12:15:32+08:00">2023-03-20</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>在 Angular 中，模板是用户界面 (UI) 片段的蓝图。模板是用 HTML 编写的，可以在模板中使用特殊语法来构建 Angular 的许多特性。</p>
-<p>为了消除脚本注入攻击的风险，Angular 不支持模板中使用<br> script 元素。Angular 会忽略 script  标记，并向浏览器控制台输出一条警告。</p>
-<h1 id="插值语法"><a href="#插值语法" class="headerlink" title="插值语法"></a>插值语法</h1><p>插值是指将表达式嵌入到被标记的文本中。默认情况下，插值使用双花括号  作为定界符。</p>
-<p>在以下示例中，Angular 会求出 title 和 itemImageUrl 属性的值，以显示一些标题文本和图像。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123;title&#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">img</span> <span class="attr">alt</span>=<span class="string">&quot;item&quot;</span> <span class="attr">src</span>=<span class="string">&quot;&#123;&#123;itemImageUrl&#125;&#125;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="模板语句"><a href="#模板语句" class="headerlink" title="模板语句"></a>模板语句</h1><p>模板语句是可在 HTML 中用于响应用户事件的方法或属性。</p>
-<p>在以下示例中，模板语句 deleteHero() 出现在 &#x3D; 号右侧的引号中，(event)&#x3D;”statement”。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> (<span class="attr">click</span>)=<span class="string">&quot;deleteHero()&quot;</span>&gt;</span>Delete hero<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>当用户单击 Delete hero 按钮时，Angular 就会调用组件类中 deleteHero() 方法。</p>
-<p>可以将模板语句与元素、组件或指令一起使用以响应事件。</p>
-<h2 id="语句的上下文"><a href="#语句的上下文" class="headerlink" title="语句的上下文"></a>语句的上下文</h2><p>语句上下文还可以引用模板自身的上下文属性。在下面的示例中，组件的事件处理方法 onSave() 将模板自己的 $event 对象用作参数。在接下来的两行中，deleteHero() 方法接收了模板输入变量 hero 作为参数，而 onSubmit() 接收了模板引用变量 #heroForm 作为参数。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> (<span class="attr">click</span>)=<span class="string">&quot;onSave($event)&quot;</span>&gt;</span>Save<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> *<span class="attr">ngFor</span>=<span class="string">&quot;let hero of heroes&quot;</span> (<span class="attr">click</span>)=<span class="string">&quot;deleteHero(hero)&quot;</span>&gt;</span>&#123;&#123;hero.name&#125;&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">form</span> #<span class="attr">heroForm</span> (<span class="attr">ngSubmit</span>)=<span class="string">&quot;onSubmit(heroForm)&quot;</span>&gt;</span> ... <span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>在这个例子中，$event 对象、hero 和 #heroForm 的上下文都是其模板。</p>
-<p>模板上下文中的名称优先于组件上下文中的名称。前面 deleteHero(hero) 中的 hero 是模板输入变量，而不是组件的 hero 属性。</p>
-<blockquote>
-<p>模板语句的上下文可以是组件类实例或模板。因此，模板语句无法引用全局名称空间中的任何内容，比如 window 或 document。比如，模板语句不能调用 console.log() 或 Math.max()。</p>
-</blockquote>
-<h1 id="绑定"><a href="#绑定" class="headerlink" title="绑定"></a>绑定</h1><p>在 Angular 模板中，绑定会在从模板创建的一部分 UI（DOM 元素、指令或组件）与模型（模板所属的组件实例）之间创建实时连接。此连接可用于将视图与模型同步、在视图中发生事件或用户操作时通知模型，或两者兼而有之。Angular 的变更检测算法负责保持视图和模型的同步。</p>
-<p>模板表达式类似于 JavaScript 表达式。许多 JavaScript 表达式都是合法的模板表达式，但以下例外。</p>
-<p>你不能使用那些具有或可能引发副作用的 JavaScript 表达式，包括：</p>
-<ul>
-<li><p>赋值 (&#x3D;, +&#x3D;, -&#x3D;, …)</p>
-</li>
-<li><p>运算符，比如 new、typeof 或 instanceof 等。</p>
-</li>
-<li><p>链接表达式;或，</p>
-</li>
-<li><p>自增和自减运算符：++ 和 –</p>
-</li>
-<li><p>一些 ES2015+ 版本的运算符</p>
-</li>
-</ul>
-<p>和 JavaScript 语法的其它显著差异包括：</p>
-<ul>
-<li><p>不支持位运算，比如 | 和 &amp;</p>
-</li>
-<li><p>新的模板表达式运算符，比如 |</p>
-</li>
-</ul>
-<h2 id="表达式上下文"><a href="#表达式上下文" class="headerlink" title="表达式上下文"></a>表达式上下文</h2><p>插值表达式具有上下文 —— 表达式所属应用中的特定部分。通常，此上下文就是组件实例。</p>
-<p>在下面的代码片段中，表达式 recommended 和 itemImageUrl2 表达式所引用的都是 AppComponent 中的属性。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h4</span>&gt;</span>&#123;&#123;recommended&#125;&#125;<span class="tag">&lt;/<span class="name">h4</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">alt</span>=<span class="string">&quot;item 2&quot;</span> [<span class="attr">src</span>]=<span class="string">&quot;itemImageUrl2&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>表达式还可以引用模板上下文中的属性，比如模板输入变量或模板引用变量。</p>
-<p>下面的例子就使用了模板输入变量 customer。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">li</span> *<span class="attr">ngFor</span>=<span class="string">&quot;let customer of customers&quot;</span>&gt;</span>&#123;&#123;customer.name&#125;&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>接下来的例子使用了模板引用变量 #customerInput。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">label</span>&gt;</span>Type something:</span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> #<span class="attr">customerInput</span>&gt;</span>&#123;&#123;customerInput.value&#125;&#125;</span><br><span class="line"><span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="防止命名冲突"><a href="#防止命名冲突" class="headerlink" title="防止命名冲突"></a>防止命名冲突</h2><p>表达式估算的上下文是模板变量、指令的上下文对象（如果有）和组件成员的并集。如果你引用的名称属于这些命名空间之一，则 Angular 会应用以下优先逻辑来确定上下文：</p>
-<p>模板变量的名称。</p>
-<p>指令上下文中的名称。</p>
-<p>组件成员的名称。</p>
-<p>为避免变量遮盖另一个上下文中的变量，请保持变量名称唯一。在以下示例中，AppComponent 模板在问候 customer Padma。</p>
-<p>然后，一个 ngFor 列出了 customers 数组中的每个 customer。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">template</span>: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;div&gt;</span></span><br><span class="line"><span class="string">      &lt;!-- Hello, Padma --&gt;</span></span><br><span class="line"><span class="string">      &lt;h1&gt;Hello, &#123;&#123;customer&#125;&#125;&lt;/h1&gt;</span></span><br><span class="line"><span class="string">      &lt;ul&gt;</span></span><br><span class="line"><span class="string">        &lt;!-- Ebony and Chiho in a list--&gt;</span></span><br><span class="line"><span class="string">        &lt;li *ngFor=&quot;let customer of customers&quot;&gt;&#123;&#123; customer.value &#125;&#125;&lt;/li&gt;</span></span><br><span class="line"><span class="string">      &lt;/ul&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;</span></span><br><span class="line"><span class="string">  `</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br><span class="line">  customers = [&#123;<span class="attr">value</span>: <span class="string">&#x27;Ebony&#x27;</span>&#125;, &#123;<span class="attr">value</span>: <span class="string">&#x27;Chiho&#x27;</span>&#125;];</span><br><span class="line">  customer = <span class="string">&#x27;Padma&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>ngFor 中的 customer 处于一个 <ng-template> 的上下文中，所以它指向的是 customers 数组中的 customer，在这里是 Ebony 和 Chiho。此列表中不包含 Padma，因为那个 customer 位于 ngFor 以外的另一个上下文中。反之，<h1> 中的 customer 不包括 Ebony 或 Chiho，因为该 customer 的上下文是组件类，而这个类中 customer 的值是 Padma。</h1></ng-template></p>
-<h1 id="属性绑定-Property"><a href="#属性绑定-Property" class="headerlink" title="属性绑定(Property)"></a>属性绑定(Property)</h1><p>Angular 中的属性绑定可帮助你设置 HTML 元素或指令的属性值。使用属性绑定，可以执行诸如切换按钮、以编程方式设置路径，以及在组件之间共享值之类的功能。</p>
-<h2 id="绑定到属性"><a href="#绑定到属性" class="headerlink" title="绑定到属性"></a>绑定到属性</h2><p>要绑定到元素的属性 ，请将其括在方括号 [] 内，这会将此属性标为目标属性。目标属性就是你要对其进行赋值的 DOM 属性 。</p>
-<p>要为 image 元素的目标属性（src）赋值，请键入以下代码：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">img</span> <span class="attr">alt</span>=<span class="string">&quot;item&quot;</span> [<span class="attr">src</span>]=<span class="string">&quot;itemImageUrl&quot;</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>在大多数情况下，目标名称是 Property（属性）名称，即使它看起来是 Attribute（属性）名称。</p>
-<p>在这个例子中，src 就是 <img> 元素的 Property 名称。</p>
-<blockquote>
-<p>方括号 [] 使 Angular 将等号的右侧看作动态表达式进行求值。</p>
-</blockquote>
-<blockquote>
-<p>如果不使用方括号，Angular 就会将右侧视为字符串字面量并将此属性设置为该静态值。</p>
-</blockquote>
-<p>要将字符串赋值给属性，请键入以下代码：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">app-item-detail</span> <span class="attr">childItem</span>=<span class="string">&quot;parentItem&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">app-item-detail</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>省略方括号就会渲染出字符串 parentItem，而不是 parentItem 的值。</p>
-<h1 id="Attribute-绑定"><a href="#Attribute-绑定" class="headerlink" title="Attribute 绑定"></a>Attribute 绑定</h1><p>Attribute 绑定语法类似于 Property 绑定，但不是直接在方括号之间放置元素的 Property，而是在 Attribute 名称前面加上前缀 attr，后跟一个点 .。然后，使用解析为字符串的表达式设置 Attribute 值。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">p</span> [<span class="attr">attr.attribute-you-are-targeting</span>]=<span class="string">&quot;expression&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<blockquote>
-<p>当表达式解析为 null 或 undefined 时，Angular 会完全删除该 Attribute。</p>
-</blockquote>
-<h2 id="绑定到-colspan"><a href="#绑定到-colspan" class="headerlink" title="绑定到 colspan"></a>绑定到 colspan</h2><p>Attribute 绑定的另一个常见用例是绑定到表格中的 colspan Attribute。colspan Attribute 可帮助你以编程方式让表格保持动态。根据应用中用来填充表的数据量，某一行要跨越的列数可能会发生变化。</p>
-<p>要将 Attribute 绑定到 <td> 的 colspan Attribute</td></p>
-<p>使用以下语法指定 colspan：[attr.colspan]。</p>
-<p>将 [attr.colspan] 设置为等于某个表达式。</p>
-<p>在下面的示例中，我们将 colspan Attribute 绑定到表达式 1 + 1。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!--  expression calculates colspan=2 --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">tr</span>&gt;</span><span class="tag">&lt;<span class="name">td</span> [<span class="attr">attr.colspan</span>]=<span class="string">&quot;1 + 1&quot;</span>&gt;</span>One-Two<span class="tag">&lt;/<span class="name">td</span>&gt;</span><span class="tag">&lt;/<span class="name">tr</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>此绑定会导致 <tr> 跨越两列。</tr></p>
-<h1 id="样式-class和style-绑定"><a href="#样式-class和style-绑定" class="headerlink" title="样式(class和style)绑定"></a>样式(class和style)绑定</h1><p>使用类和样式绑定从元素的 class 属性中添加和删除 CSS 类名，以及动态设置样式。</p>
-<h2 id="绑定到单个-CSS-class"><a href="#绑定到单个-CSS-class" class="headerlink" title="绑定到单个 CSS class"></a>绑定到单个 CSS class</h2><p>要创建单个类绑定，请键入以下内容：</p>
-<p>[class.sale]&#x3D;”onSale”</p>
-<p>当绑定表达式 onSale 为真值时，Angular 会添加类，当表达式为假值时，它会删除类 —— undefined 除外。</p>
-<h2 id="绑定到多个-CSS-类"><a href="#绑定到多个-CSS-类" class="headerlink" title="绑定到多个 CSS 类"></a>绑定到多个 CSS 类</h2><p>要绑定到多个类，请键入以下内容：</p>
-<p>[class]&#x3D;”classExpression”</p>
-<p>表达式可以是以下之一：</p>
-<ul>
-<li><p>用空格分隔的类名字符串。</p>
-</li>
-<li><p>以类名作为键名并将真或假表达式作为值的对象。</p>
-</li>
-<li><p>类名的数组。</p>
-</li>
-</ul>
-<p>对于对象格式，Angular 会在其关联的值为真时才添加类。</p>
-<p>如果同一类名有多个绑定，Angular 会根据样式优先级来确定要使用的绑定。</p>
-<p>下表是各种类绑定语法的小结。</p>
-<table>
-<thead>
-<tr>
-<th>绑定类型</th>
-<th>语法</th>
-<th>输入属性</th>
-<th>范例输入值</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>单一类绑定</td>
-<td>[class.sale]&#x3D;”onSale”</td>
-<td>boolean,undefined,null</td>
-<td>true, false</td>
-</tr>
-<tr>
-<td>多重类绑定</td>
-<td>[class]&#x3D;”classExpression”</td>
-<td>string</td>
-<td>“my-class-1 my-class-2 my-class-3”</td>
-</tr>
-<tr>
-<td>多重类绑定</td>
-<td>[class]&#x3D;”classExpression”</td>
-<td>Record&lt;string, ‘boolean,undefined,null’&gt;</td>
-<td>{foo: true, bar: false}</td>
-</tr>
-<tr>
-<td>多重类绑定</td>
-<td>[class]&#x3D;”classExpression”</td>
-<td><code>Array&lt;string&gt;</code></td>
-<td>[‘foo’, ‘bar’]</td>
-</tr>
-</tbody></table>
-<h2 id="绑定到单一样式"><a href="#绑定到单一样式" class="headerlink" title="绑定到单一样式"></a>绑定到单一样式</h2><p>要创建单个样式绑定，请使用 style 前缀，后跟一个点和 CSS 样式的名称。</p>
-<p>比如，要设置 ‘width’ 样式，请键入以下内容：[style.width]&#x3D;”width”</p>
-<p>Angular 将该属性设置为绑定表达式的值，这通常是一个字符串。（可选）你可以添加单位扩展名，比如 em 或 %，这需要数字类型。</p>
-<h2 id="绑定到多个样式"><a href="#绑定到多个样式" class="headerlink" title="绑定到多个样式"></a>绑定到多个样式</h2><p>要切换多个样式，请绑定到 [style] Attribute，比如 [style]&#x3D;”styleExpression”。styleExpression 可以是如下格式之一：</p>
-<p>样式的字符串列表，比如 “width: 100px; height: 100px; background-color: cornflowerblue;”。</p>
-<p>一个对象，其键名是样式名，其值是样式值，比如 {width: ‘100px’, height: ‘100px’, backgroundColor: ‘cornflowerblue’}。</p>
-<p>注意，不支持把数组绑定给 [style]</p>
-<blockquote>
-<p>当把 [style] 绑定到对象表达式时，该对象的引用必须改变，这样 Angular 才能更新这个类列表。在不改变对象引用的情况下更新其属性值是不会生效的。</p>
-</blockquote>
-<h2 id="单样式和多样式绑定示例"><a href="#单样式和多样式绑定示例" class="headerlink" title="单样式和多样式绑定示例"></a>单样式和多样式绑定示例</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;app-nav-bar&#x27;</span>,</span><br><span class="line">  <span class="attr">template</span>: <span class="string">`</span></span><br><span class="line"><span class="string">&lt;nav [style]=&#x27;navStyle&#x27;&gt;</span></span><br><span class="line"><span class="string">  &lt;a [style.text-decoration]=&quot;activeLinkStyle&quot;&gt;Home Page&lt;/a&gt;</span></span><br><span class="line"><span class="string">  &lt;a [style.text-decoration]=&quot;linkStyle&quot;&gt;Login&lt;/a&gt;</span></span><br><span class="line"><span class="string">&lt;/nav&gt;`</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">NavBarComponent</span> &#123;</span><br><span class="line">  navStyle = <span class="string">&#x27;font-size: 1.2rem; color: cornflowerblue;&#x27;</span>;</span><br><span class="line">  linkStyle = <span class="string">&#x27;underline&#x27;</span>;</span><br><span class="line">  activeLinkStyle = <span class="string">&#x27;overline&#x27;</span>;</span><br><span class="line">  <span class="comment">/* . . . */</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>下表是各种样式绑定语法的小结。</p>
-<table>
-<thead>
-<tr>
-<th>绑定类型</th>
-<th>语法</th>
-<th>输入属性</th>
-<th>范例输入值</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>单一样式绑定</td>
-<td>[style.width]&#x3D;”width”</td>
-<td>string, undefined,null</td>
-<td>“100px”</td>
-</tr>
-<tr>
-<td>带单位的单一样式绑定</td>
-<td>[style.width.px]&#x3D;”width”</td>
-<td>number,undefined,null</td>
-<td>100</td>
-</tr>
-<tr>
-<td>多重样式绑定</td>
-<td>[style]&#x3D;”styleExpression”</td>
-<td>string</td>
-<td>“width: 100px; height: 100px”</td>
-</tr>
-<tr>
-<td>多重样式绑定</td>
-<td>[style]&#x3D;”styleExpression”</td>
-<td>Record&lt;string, string,undefined,null&gt;</td>
-<td>{width: ‘100px’, height: ‘100px’}</td>
-</tr>
-</tbody></table>
-<h1 id="事件绑定"><a href="#事件绑定" class="headerlink" title="事件绑定"></a>事件绑定</h1><p>通过事件绑定，你可以侦听并响应用户操作，比如按键、鼠标移动、点击和触摸。</p>
-<h2 id="绑定到事件"><a href="#绑定到事件" class="headerlink" title="绑定到事件"></a>绑定到事件</h2><p>要绑定到事件，你可以使用 Angular 事件绑定语法。此语法由等号左侧括号中的目标事件名称和右侧带引号的模板语句组成。</p>
-<p>创建以下示例；目标事件名是 click，模板语句是 onSave()。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">button</span> (<span class="attr">click</span>)=<span class="string">&quot;onSave()&quot;</span>&gt;</span>Save<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>事件绑定侦听按钮的单击事件，并在发生单击时调用组件的 onSave()。</p>
-<h2 id="绑定到被动事件"><a href="#绑定到被动事件" class="headerlink" title="绑定到被动事件"></a>绑定到被动事件</h2><p>这是一项高级技术，对于大多数应用程序来说不是必需的。如果你想优化导致性能问题的频繁发生的事件，可能会发现这很有用。</p>
-<p>Angular 还支持被动事件侦听器。比如，使用以下步骤使滚动事件变为被动的。</p>
-<p>在 src 目录下创建一个文件 zone-flags.ts。</p>
-<p>将以下行添加到此文件中。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(<span class="variable language_">window</span> <span class="keyword">as</span> <span class="built_in">any</span>)[<span class="string">&#x27;__zone_symbol__PASSIVE_EVENTS&#x27;</span>] = [<span class="string">&#x27;scroll&#x27;</span>];</span><br></pre></td></tr></table></figure>
-
-<p>在 src&#x2F;polyfills.ts 文件中，在导入 zone.js 之前，先导入新创建的 zone-flags。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&#x27;./zone-flags&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> <span class="string">&#x27;zone.js&#x27;</span>;  <span class="comment">// Included with Angular CLI.</span></span><br></pre></td></tr></table></figure>
-<p>在这些步骤之后，如果你为 scroll 事件添加事件侦听器，侦听器就会是 passive 的。</p>
-<h2 id="绑定到键盘事件"><a href="#绑定到键盘事件" class="headerlink" title="绑定到键盘事件"></a>绑定到键盘事件</h2><p>你可以用 Angular 的绑定语法绑定到键盘事件。你可以指定要绑定到键盘事件的键值或代码。它们的 key 和 code 字段是浏览器键盘事件对象的原生部分。默认情况下，事件绑定假定你要使用键盘事件上的 key 字段。你还可以用 code 字段。</p>
-<p>键的组合可以用点（.）分隔。例如， keydown.enter 将允许你将事件绑定到 enter 键。你还可以用修饰键，例如 shift 、 alt 、 control 和 Mac 中的 command 键。以下示例展示了如何将键盘事件绑定到 keydown.shift.t 。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> (<span class="attr">keydown.shift.t</span>)=<span class="string">&quot;onKeydown($event)&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<p>根据操作系统的不同，某些组合键可能会创建特殊字符，而不是你期望的组合键。例如，当你同时使用 option 和 shift 键时，MacOS 会创建特殊字符。如果你绑定到 keydown.shift.alt.t ，在 macOS 上，该组合会生成 ˇ 而不是 t ，它与绑定不匹配，也不会触发你的事件处理程序。要绑定到 macOS 上的 keydown.shift.alt.t ，请使用 code 键盘事件字段来获取正确的行为，例如此示例中显示的 keydown.code.shiftleft.altleft.keyt 。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> (<span class="attr">keydown.code.shiftleft.altleft.keyt</span>)=<span class="string">&quot;onKeydown($event)&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<p>code 字段比 key 字段更具体。 key 字段总是会报告 shift ，而 code 字段将指明 leftshift 或 rightshift 。使用 code 字段时，你可能需要添加单独的绑定以捕获你想要的所有行为。使用 code 字段时无需处理操作系统特有的行为，例如 macOS 上的 shift + option 行为。</p>
-<p>有关更多信息，请访问键值和键码的完整参考，以帮助你构建事件字符串。</p>
-<h1 id="双向绑定（组件）"><a href="#双向绑定（组件）" class="headerlink" title="双向绑定（组件）"></a>双向绑定（组件）</h1><p>双向绑定为应用中的组件提供了一种共享数据的方式。使用双向绑定绑定来侦听事件并在父组件和子组件之间同步更新值。</p>
-<h2 id="添加双向数据绑定"><a href="#添加双向数据绑定" class="headerlink" title="添加双向数据绑定"></a>添加双向数据绑定</h2><p>Angular 的双向绑定语法是方括号和圆括号的组合 [()]。[] 进行属性绑定，() 进行事件绑定，如下所示。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">app-sizer</span> [(<span class="attr">size</span>)]=<span class="string">&quot;fontSizePx&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">app-sizer</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="双向绑定工作原理"><a href="#双向绑定工作原理" class="headerlink" title="双向绑定工作原理"></a>双向绑定工作原理</h2><p>为了使双向数据绑定有效，@Output() 属性的名字必须遵循 inputChange 模式，其中 input 是相应 @Input() 属性的名字。比如，如果 @Input() 属性为 size，则 @Output() 属性必须为 sizeChange。</p>
-<p>后面的 sizerComponent 具有值属性 size 和事件属性 sizeChange。size 属性是 @Input()，因此数据可以流入 sizerComponent。sizeChange 事件是一个 @Output()，它允许数据从 sizerComponent 流出到父组件。</p>
-<p>接下来，有两个方法，dec() 用于减小字体大小，inc() 用于增大字体大小。这两种方法使用 resize() 在最小&#x2F;最大值的约束内更改 size 属性的值，并发出带有新 size 值的事件。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">SizerComponent</span> &#123;</span><br><span class="line"></span><br><span class="line">  <span class="meta">@Input</span>()  size!: <span class="built_in">number</span> | <span class="built_in">string</span>;</span><br><span class="line">  <span class="meta">@Output</span>() sizeChange = <span class="keyword">new</span> <span class="title class_">EventEmitter</span>&lt;<span class="built_in">number</span>&gt;();</span><br><span class="line"></span><br><span class="line">  <span class="title function_">dec</span>(<span class="params"></span>) &#123; <span class="variable language_">this</span>.<span class="title function_">resize</span>(-<span class="number">1</span>); &#125;</span><br><span class="line">  <span class="title function_">inc</span>(<span class="params"></span>) &#123; <span class="variable language_">this</span>.<span class="title function_">resize</span>(+<span class="number">1</span>); &#125;</span><br><span class="line"></span><br><span class="line">  <span class="title function_">resize</span>(<span class="params">delta: <span class="built_in">number</span></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">size</span> = <span class="title class_">Math</span>.<span class="title function_">min</span>(<span class="number">40</span>, <span class="title class_">Math</span>.<span class="title function_">max</span>(<span class="number">8</span>, +<span class="variable language_">this</span>.<span class="property">size</span> + delta));</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">sizeChange</span>.<span class="title function_">emit</span>(<span class="variable language_">this</span>.<span class="property">size</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>sizerComponent 模板有两个按钮，分别将 click 事件绑定到 inc() 和 dec() 方法。当用户单击按钮之一时，sizerComponent 调用相应的方法。inc() 和 dec() 这两个方法分别使用 +1 或 -1 调用 resize() 方法，它使用新的 size 值引发 sizeChange 事件。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> (<span class="attr">click</span>)=<span class="string">&quot;dec()&quot;</span> <span class="attr">title</span>=<span class="string">&quot;smaller&quot;</span>&gt;</span>-<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> (<span class="attr">click</span>)=<span class="string">&quot;inc()&quot;</span> <span class="attr">title</span>=<span class="string">&quot;bigger&quot;</span>&gt;</span>+<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">span</span> [<span class="attr">style.font-size.px</span>]=<span class="string">&quot;size&quot;</span>&gt;</span>FontSize: &#123;&#123;size&#125;&#125;px<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>在 AppComponent 模板中，fontSizePx 被双向绑定到 SizerComponent。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">app-sizer</span> [(<span class="attr">size</span>)]=<span class="string">&quot;fontSizePx&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">app-sizer</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> [<span class="attr">style.font-size.px</span>]=<span class="string">&quot;fontSizePx&quot;</span>&gt;</span>Resizable Text<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>在 AppComponent 中，通过将 fontSizePx 的值设置为 16 来设置初始 SizerComponent.size 值。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fontSizePx = <span class="number">16</span>;</span><br></pre></td></tr></table></figure>
-<p>单击这些按钮将更新 AppComponent.fontSizePx。修改后的 AppComponent.fontSizePx 值将更新样式绑定，从而使显示的文本变大或变小。</p>
-<p>双向绑定语法是属性绑定和事件绑定的组合的简写形式。拆成单独的属性绑定和事件绑定形式的 SizerComponent 代码如下。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">app-sizer</span> [<span class="attr">size</span>]=<span class="string">&quot;fontSizePx&quot;</span> (<span class="attr">sizeChange</span>)=<span class="string">&quot;fontSizePx=$event&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">app-sizer</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>$event 变量包含 SizerComponent.sizeChange 事件的数据。当用户单击按钮时，Angular 将 $event 赋值给 AppComponent.fontSizePx。</p>
-<h1 id="表单中的双向绑定"><a href="#表单中的双向绑定" class="headerlink" title="表单中的双向绑定"></a>表单中的双向绑定</h1><p>因为没有任何原生 HTML 元素遵循了 x 值和 xChange 事件的命名模式，所以与表单元素进行双向绑定需要使用 NgModel。</p>
-<h1 id="模板变量"><a href="#模板变量" class="headerlink" title="模板变量"></a>模板变量</h1><p>模板变量可以帮助你在模板的另一部分使用这个部分的数据。使用模板变量，你可以执行某些任务，比如响应用户输入或微调应用的表单。</p>
-<p>模板变量可以引用这些东西：</p>
-<ul>
-<li><p>模板中的 DOM 元素</p>
-</li>
-<li><p>指令或组件</p>
-</li>
-<li><p>来自 ng-template 的 TemplateRef</p>
-</li>
-<li><p>Web 组件</p>
-</li>
-</ul>
-<p>在模板中，要使用井号 # 来声明一个模板变量。下列模板变量 #phone 声明了一个名为 phone 的变量，其值为此 <code>&lt;input&gt;</code> 元素。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> #<span class="attr">phone</span> <span class="attr">placeholder</span>=<span class="string">&quot;phone number&quot;</span> /&gt;</span></span><br></pre></td></tr></table></figure>
-<p>可以在组件模板中的任何地方引用某个模板变量。这里的 <code>&lt;button&gt; </code>就引用了 phone 变量。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> #<span class="attr">phone</span> <span class="attr">placeholder</span>=<span class="string">&quot;phone number&quot;</span> /&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- lots of other elements --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">&lt;!-- phone refers to the input element; pass its `value` to an event handler --&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;button&quot;</span> (<span class="attr">click</span>)=<span class="string">&quot;callPhone(phone.value)&quot;</span>&gt;</span>Call<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<h2 id="Angular-是如何为模板变量赋值的"><a href="#Angular-是如何为模板变量赋值的" class="headerlink" title="Angular 是如何为模板变量赋值的"></a>Angular 是如何为模板变量赋值的</h2><p>Angular 根据你所声明的变量的位置给模板变量赋值：</p>
-<ul>
-<li><p>如果在组件上声明变量，该变量就会引用该组件实例。</p>
-</li>
-<li><p>如果在标准的 HTML 标记上声明变量，该变量就会引用该元素。</p>
-</li>
-<li><p>如果你在 <ng-template> 元素上声明变量，该变量就会引用一个 TemplateRef 实例来代表此模板。</ng-template></p>
-</li>
-</ul>
-<h2 id="指定名称的变量"><a href="#指定名称的变量" class="headerlink" title="指定名称的变量"></a>指定名称的变量</h2><p>如果该变量在右侧指定了一个名字，比如 #var&#x3D;”ngModel”，那么该变量就会引用所在元素上具有这个 exportAs 名字的指令或组件。</p>
-<h3 id="将-NgForm-与模板变量一起使用"><a href="#将-NgForm-与模板变量一起使用" class="headerlink" title="将 NgForm 与模板变量一起使用"></a>将 NgForm 与模板变量一起使用</h3><p>在大多数情况下，Angular 会把模板变量的值设置为它所在的元素。在前面的例子中，phone 引用的是电话号码 <code>&lt;input&gt;</code>。该按钮的 click 处理程序会把这个 <code>&lt;input&gt;</code> 的值传给该组件的 callPhone() 方法。</p>
-<p>这里的 NgForm 指令演示了如何通过引用指令的的 exportAs 名字来引用不同的值。在下面的例子中，模板变量 itemForm 在 HTML 中分别出现了三次。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">form</span> #<span class="attr">itemForm</span>=<span class="string">&quot;ngForm&quot;</span> (<span class="attr">ngSubmit</span>)=<span class="string">&quot;onSubmit(itemForm)&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">label</span> <span class="attr">for</span>=<span class="string">&quot;name&quot;</span>&gt;</span>Name<span class="tag">&lt;/<span class="name">label</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">id</span>=<span class="string">&quot;name&quot;</span> <span class="attr">class</span>=<span class="string">&quot;form-control&quot;</span> <span class="attr">name</span>=<span class="string">&quot;name&quot;</span> <span class="attr">ngModel</span> <span class="attr">required</span> /&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">button</span> <span class="attr">type</span>=<span class="string">&quot;submit&quot;</span>&gt;</span>Submit<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">form</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">div</span> [<span class="attr">hidden</span>]=<span class="string">&quot;!itemForm.form.valid&quot;</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">p</span>&gt;</span>&#123;&#123; submitMessage &#125;&#125;<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>如果没有 ngForm 这个属性值，itemForm 引用的值将是 HTMLFormElement 也就是 <code>&lt;form&gt;</code> 元素。如果某元素是一个 Angular 组件，则不带属性值的引用会自动引用此组件的实例。否则，不带属性值的引用会引用此 DOM 元素，而不管此元素上有一个或多个指令。</p>
-<h2 id="模板变量的作用域"><a href="#模板变量的作用域" class="headerlink" title="模板变量的作用域"></a>模板变量的作用域</h2><p>就像 JavaScript 或 TypeScript 代码中的变量一样，模板变量的范围为声明它们的模板。</p>
-<p>同样，诸如 *ngIf 和 *ngFor 类的结构指令或 <code>&lt;ng-template&gt;</code> 声明会创建一个新的嵌套模板范围，就像 JavaScript 的控制流语句（例如 if 和 for 创建新的词法范围。你不能从边界外访问这些结构指令之一中的模板变量。</p>
-<h2 id="在嵌套模板中访问"><a href="#在嵌套模板中访问" class="headerlink" title="在嵌套模板中访问"></a>在嵌套模板中访问</h2><p>内部模板可以访问外模板定义的模板变量。</p>
-<p>在下面的例子中，修改 <code>&lt;input&gt;</code> 中的文本值也会改变 <code>&lt;span&gt;</code> 中的值，因为 Angular 会立即通过模板变量 ref1 来更新这种变化。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> #<span class="attr">ref1</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> [(<span class="attr">ngModel</span>)]=<span class="string">&quot;firstExample&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span> *<span class="attr">ngIf</span>=<span class="string">&quot;true&quot;</span>&gt;</span>Value: &#123;&#123; ref1.value &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>在这种情况下，<code>&lt;span&gt;</code> 上的 *ngIf 会创建一个新的模板范围，其中包括其父范围中的 ref1 变量。</p>
-<p>但是，从外部的父模板访问子范围中的变量是行不通的。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">input</span> *<span class="attr">ngIf</span>=<span class="string">&quot;true&quot;</span> #<span class="attr">ref2</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> [(<span class="attr">ngModel</span>)]=<span class="string">&quot;secondExample&quot;</span> /&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">span</span>&gt;</span>Value: &#123;&#123; ref2?.value &#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span> <span class="comment">&lt;!-- doesn&#x27;t work --&gt;</span></span><br></pre></td></tr></table></figure>
-<p>在这里，ref2 是在 *ngIf 创建的子范围中声明的，并且无法从父模板访问。</p>
-<h2 id="模板输入变量"><a href="#模板输入变量" class="headerlink" title="模板输入变量"></a>模板输入变量</h2><p>模板输入变量是一个具有在创建该模板实例时设置的值的变量。</p>
-<p>可以在 NgFor 的长格式用法中看到模板输入变量的作用：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ng-template</span> <span class="attr">ngFor</span> <span class="attr">let-hero</span> [<span class="attr">ngForOf</span>]=<span class="string">&quot;heroes&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;&#123;hero.name&#125;&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">ng-template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
-<p>NgFor 指令将实例化此为 hero 数组中的每个 heroes 一次，并将为每个实例相应地设置 hero 变量。</p>
-<p>实例化 <code>&lt;ng-template&gt;</code> 时，可以传递多个命名值，这些值可以绑定到不同的模板输入变量。输入变量的 let- 声明的右侧可以指定应该用于该变量的值。</p>
-<p>例如，NgFor 还提供了对数组中每个英雄的 index 的访问：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ul</span>&gt;</span></span><br><span class="line">  <span class="tag">&lt;<span class="name">ng-template</span> <span class="attr">ngFor</span> <span class="attr">let-hero</span> <span class="attr">let-i</span>=<span class="string">&quot;index&quot;</span> [<span class="attr">ngForOf</span>]=<span class="string">&quot;heroes&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">li</span>&gt;</span>Hero number &#123;&#123;i&#125;&#125;: &#123;&#123;hero.name&#125;&#125;</span><br><span class="line">  <span class="tag">&lt;/<span class="name">ng-template</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
 
       
     </div>
