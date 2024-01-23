@@ -118,7 +118,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -152,6 +152,467 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/08/23/angular/Angular%E8%B7%AF%E7%94%B1/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/08/23/angular/Angular%E8%B7%AF%E7%94%B1/" class="post-title-link" itemprop="url">Angular路由</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-08-23 11:42:36" itemprop="dateCreated datePublished" datetime="2023-08-23T11:42:36+08:00">2023-08-23</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-08-24 10:24:13" itemprop="dateModified" datetime="2023-08-24T10:24:13+08:00">2023-08-24</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="什么是路由"><a href="#什么是路由" class="headerlink" title="什么是路由"></a>什么是路由</h1><p>路由允许您从应用程序的一部分移动到另一部分，或者从一个视图移动到另一个视图。</p>
+<p>在Angular中，路由由Angular路由器模块处理。</p>
+<p>路由器是Angular中的一个独立模块。它在@angular&#x2F;router包中。Angular Router提供了应用程序视图中导航所需的服务和指令。</p>
+<p>使用Angular Router，您可以</p>
+<ul>
+<li>通过在地址栏中键入URL导航到特定视图</li>
+<li>将可选参数（查询参数）传递到视图</li>
+<li>将可单击元素绑定到视图，并在用户执行应用程序任务时加载视图</li>
+<li>处理浏览器的后退和前进按钮</li>
+<li>允许您动态加载视图</li>
+<li>使用路由保护程序保护路由不受未经授权的用户的攻击</li>
+</ul>
+<h1 id="Angular路由组件"><a href="#Angular路由组件" class="headerlink" title="Angular路由组件"></a>Angular路由组件</h1><h2 id="Router"><a href="#Router" class="headerlink" title="Router"></a>Router</h2><p>Angular  Router 是服务(service)（Angular Router API），它允许用户在执行应用程序任务时从一个组件导航到下一个组件，如单击菜单链接和按钮，或单击浏览器上的后退&#x2F;前进按钮。我们可以访问router对象，并使用其方法（如navigate（）或navigateByUrl（））来导航到路由.</p>
+<h2 id="Route"><a href="#Route" class="headerlink" title="Route"></a>Route</h2><p>当用户单击链接或将URL粘贴到浏览器地址栏时，Route 告诉Angular Router要显示哪个视图。每个Route都由一个路径和映射到的组件组成。Router对象使用Route解析并构建最终的URL.</p>
+<p><img src="516766e8960da632098beec85bb388cea2abc787145632fefa2a6b4b16f2792e.png" alt="图 0">  </p>
+<h2 id="Routes"><a href="#Routes" class="headerlink" title="Routes"></a>Routes</h2><p>Routes是应用程序支持的Route对象的数组</p>
+<h2 id="RouterOutlet"><a href="#RouterOutlet" class="headerlink" title="RouterOutlet"></a>RouterOutlet</h2><p>RouterOutlet是一个用作占位符的指令（＜router-outlet＞），路由器应在其中显示视图</p>
+<h3 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h3><p>router-outlet</p>
+<h3 id="模板变量参考手册"><a href="#模板变量参考手册" class="headerlink" title="模板变量参考手册"></a>模板变量参考手册</h3><p>outlet #myTemplateVar&#x3D;”outlet”</p>
+<p>每当新组件实例化之后，路由出口就会发出一个激活事件；在销毁时则发出取消激活的事件。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;router-outlet</span><br><span class="line">  (activate)=&#x27;onActivate($event)&#x27;</span><br><span class="line">  (deactivate)=&#x27;onDeactivate($event)&#x27;</span><br><span class="line">  (attach)=&#x27;onAttach($event)&#x27;</span><br><span class="line">  (detach)=&#x27;onDetach($event)&#x27;&gt;&lt;/router-outlet&gt;</span><br></pre></td></tr></table></figure>
+
+<p>每个出口可以具有唯一的名称，该 name 由可选的 name 属性确定。该名称不能动态设置或更改。如果未设置，则默认值为 “primary”。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">router-outlet</span>&gt;</span><span class="tag">&lt;/<span class="name">router-outlet</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">router-outlet</span> <span class="attr">name</span>=<span class="string">&#x27;left&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">router-outlet</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">router-outlet</span> <span class="attr">name</span>=<span class="string">&#x27;right&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">router-outlet</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">path</span>: &lt;base-path&gt;, <span class="attr">component</span>: &lt;component&gt;, <span class="attr">outlet</span>: &lt;target_outlet_name&gt;&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用命名的出口和辅助路由，你可以在同一 RouterLink 指令中定位多个出口。</p>
+<p>路由器在导航树中跟踪每个命名出口的单独分支，并在 URL 中生成该树的表示形式。辅助路由的 URL 使用以下语法同时指定主要路由和辅助路由：</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://base-path/<span class="built_in">primary-route-path</span>(outlet-name:route-path)</span><br></pre></td></tr></table></figure>
+
+<h2 id="RouterLink"><a href="#RouterLink" class="headerlink" title="RouterLink"></a>RouterLink</h2><p>RouterLink是一个将HTML元素绑定到Route的指令。单击绑定到RouterLink的HTML元素，将导航到Route。RouterLink可能包含要传递给路由组件的参数。</p>
+<p>给定路由配置 </p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123; <span class="attr">path</span>: <span class="string">&#x27;user/:name&#x27;</span>, <span class="attr">component</span>: <span class="title class_">UserCmp</span> &#125;]</span><br></pre></td></tr></table></figure>
+<p>，以下内容将创建一个到该路由的静态链接：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">routerLink</span>=<span class="string">&quot;/user/bob&quot;</span>&gt;</span>link to user component<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>你也可以使用动态值来生成链接。对于动态链接，请传递路径段数组，然后传递每个段的参数。比如，<br><code>[&#39;/team&#39;, teamId, &#39;user&#39;, userName, &#123;details: true&#125;] </code>生成到 <code>/team/11/user/bob;details=true</code>。</p>
+<p>多个静态段可以合并为一个词，并与动态段组合。比如，<code>[&#39;/team/11/user&#39;, userName, &#123;details: true&#125;]</code></p>
+<p>你提供给链接的输入将被视为当前 URL 的增量。比如，假设当前 URL 是 <code>/user/(box//aux:team)</code>。则链接 <code>&lt;a [routerLink]=&quot;[&#39;/user/jim&#39;]&quot;&gt;Jim&lt;/a&gt; </code>会创建<code> URL /user/(jim//aux:team)</code> 。</p>
+<p>你可以在链接中使用绝对或相对路径、设置查询参数、控制如何处理参数以及保留导航状态的历史记录。</p>
+<h2 id="RouterLinkActive"><a href="#RouterLinkActive" class="headerlink" title="RouterLinkActive"></a>RouterLinkActive</h2><p>RouterLinkActive是用于从绑定到RouterLink的HTML元素中添加或删除CSS样式的指令。使用此指令，我们可以根据当前RouterState切换RouterLinks的CSS样式</p>
+<h2 id="ActivatedRoute"><a href="#ActivatedRoute" class="headerlink" title="ActivatedRoute"></a>ActivatedRoute</h2><p>ActivatedRoute是一个对象，表示与加载的组件关联的当前激活的路由。</p>
+<h2 id="RouterState"><a href="#RouterState" class="headerlink" title="RouterState"></a>RouterState</h2><h1 id="如何使用-Angular路由"><a href="#如何使用-Angular路由" class="headerlink" title="如何使用 Angular路由"></a>如何使用 Angular路由</h1><p>以下几步来配置使用路由</p>
+<ul>
+<li>设置<base href></li>
+<li>定义视图的管线</li>
+<li>向Routes注册路由器服务</li>
+<li>将HTML元素操作映射到路由</li>
+<li>选择要显示视图的位置</li>
+</ul>
+<h1 id="路由策略"><a href="#路由策略" class="headerlink" title="路由策略"></a>路由策略</h1><p>在Angular中支持两种不同的路由策略。一个是PathlocationStrategy，另一个是HashLocationStrategy。HashLocationStrategy使用Hash风格的路由，而PathlocationStrategy使用HTML5路由。</p>
+<ul>
+<li>HashLocationStrategy： URL格式 <a target="_blank" rel="noopener" href="http://localhost:4200/#/product">http://localhost:4200/#/product</a></li>
+<li>PathLocationStrategy：URL格式 <a target="_blank" rel="noopener" href="http://localhost:4200/product">http://localhost:4200/product</a></li>
+</ul>
+<p>我们建议使用HTML5样式（PathLocationStrategy）作为定位策略。因为</p>
+<ul>
+<li>它产生干净和SEO友好的URL，用户更容易理解和记住。</li>
+<li>可以利用服务器端渲染，这将使我们的应用程序加载更快，方法是在将页面交付给客户端之前先在服务器中渲染页面</li>
+</ul>
+<p>只有当软件必须支持较旧的浏览器时，才使用哈希位置策略。</p>
+<h1 id="路由参数"><a href="#路由参数" class="headerlink" title="路由参数"></a>路由参数</h1><h2 id="定义路由"><a href="#定义路由" class="headerlink" title="定义路由"></a>定义路由</h2><p>我们可以通过添加’&#x2F;:’和一个占位符（id）来定义参数，如下所示</p>
+<p><code>&#123; path: &#39;product/:id&#39;, component: ProductDetailComponent &#125;</code></p>
+<p>其中id是路由的动态部分。<br>现在，上面的路径与URL &#x2F;product&#x2F;1、&#x2F;product&#x2F;2等相匹配。</p>
+<p>如果您有多个参数，那么您可以通过继续添加占位符来扩展它</p>
+<p><code>&#123; path: &#39;product/:id/:id1/:id2&#39;, component: ProductDetailComponent &#125;</code></p>
+<p>名称id、id1和id2是参数的占位符。我们将在检索参数值时使用它们。</p>
+<h2 id="定义导航"><a href="#定义导航" class="headerlink" title="定义导航"></a>定义导航</h2><p>我们现在需要提供带有路径和路由参数的routerLink指令。通过将产品的id作为第二个元素添加到routerLink参数数组中来完成，如下所示</p>
+<p><code>&lt;a [routerLink]=&quot;[&#39;/Product&#39;, ‘2’]&quot;&gt;&#123;&#123;product.name&#125;&#125; &lt;/a&gt;</code></p>
+<p>编译为URL &#x2F;product&#x2F;2</p>
+<p><code>&lt;a [routerLink]=&quot;[&#39;/Product&#39;, product.productID]&quot;&gt;&#123;&#123;product.name&#125;&#125; &lt;/a&gt;</code></p>
+<p>动态地从产品对象中获取id的值。</p>
+<p>您也可以使用路由器对象的导航方法</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">goProduct</span>(<span class="params"></span>) &#123;     </span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">router</span>.<span class="title function_">navigate</span>(</span><br><span class="line">        [<span class="string">&#x27;/products&#x27;</span>. product.<span class="property">productID</span>] &#125;</span><br><span class="line">    ); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="获取路由参数"><a href="#获取路由参数" class="headerlink" title="获取路由参数"></a>获取路由参数</h2><h3 id="ActviatedRoute"><a href="#ActviatedRoute" class="headerlink" title="ActviatedRoute"></a>ActviatedRoute</h3><p>ActivatedRoute是一项服务，用于跟踪与加载的组件相关联的当前激活的路由。</p>
+<p><code>constructor(private _Activatedroute:ActivatedRoute)</code></p>
+<p>ActviatedRoute路由提供了两个属性含Route参数。</p>
+<ul>
+<li>ParamMap</li>
+<li>Params</li>
+</ul>
+<h4 id="ParamMap"><a href="#ParamMap" class="headerlink" title="ParamMap"></a>ParamMap</h4><p>Angular将所有路由参数的映射添加到ParamMap对象中，该对象可以从ActivatedRoute服务访问</p>
+<p>ParamMap有三种方法，可以更容易地使用参数。</p>
+<ul>
+<li>get方法检索给定参数的值。</li>
+<li>getAll方法检索所有参数</li>
+<li>has 如果ParamMap包含给定的参数，则has方法返回true，否则返回false</li>
+</ul>
+<h4 id="Params"><a href="#Params" class="headerlink" title="Params"></a>Params</h4><p>ActviatedRoute还维护“参数数组“Params。Params数组是一个参数值列表，按名称进行索引。</p>
+<h2 id="读取参数"><a href="#读取参数" class="headerlink" title="读取参数"></a>读取参数</h2><p>使用ActivatedRoute有两种方法从ParamMap对象获取参数值。</p>
+<ul>
+<li>使用ActivatedRoute的Snapshot属性</li>
+<li>订阅ActivatedRoute的paramMap或params observable属性</li>
+</ul>
+<h3 id="使用-Snapshot"><a href="#使用-Snapshot" class="headerlink" title="使用 Snapshot"></a>使用 Snapshot</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">id</span>=<span class="variable language_">this</span>.<span class="property">_Activatedroute</span>.<span class="property">snapshot</span>.<span class="property">paramMap</span>.<span class="title function_">get</span>(<span class="string">&quot;id&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">id</span>=<span class="variable language_">this</span>.<span class="property">_Activatedroute</span>.<span class="property">snapshot</span>.<span class="property">params</span>[<span class="string">&quot;id&quot;</span>];</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h3 id="使用-Observable"><a href="#使用-Observable" class="headerlink" title="使用 Observable"></a>使用 Observable</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">_Activatedroute</span>.<span class="property">paramMap</span>.<span class="title function_">subscribe</span>(<span class="function"><span class="params">paramMap</span> =&gt;</span> &#123; </span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">id</span> = paramMap.<span class="title function_">get</span>(<span class="string">&#x27;id&#x27;</span>); </span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">_Activatedroute</span>.<span class="property">params</span>.<span class="title function_">subscribe</span>(<span class="function"><span class="params">params</span> =&gt;</span> &#123; </span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">id</span> = params[<span class="string">&#x27;id&#x27;</span>]; </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+
+<h1 id="ActivatedRoute-1"><a href="#ActivatedRoute-1" class="headerlink" title="ActivatedRoute"></a>ActivatedRoute</h1><p>ActivatedRoute服务提供了大量有用的信息，包括：</p>
+<p>url：此属性返回url Segment对象的数组，每个对象描述url中与当前路由匹配的单个段。<br>params：此属性返回一个params对象，该对象描述按名称索引的URL参数。<br>queryParams：此属性返回一个Params对象，该对象描述按名称索引的URL查询参数。<br>fragment：此属性返回一个包含URL片段的字符串。<br>snapshot：此路由的初始快照<br>data：包含为路线提供的数据对象的Observable<br>component：路由的组件。这是一个常数<br>outlet：用于渲染路由的RouterOutlet的名称。对于未命名的出口，为primary。<br>routeConfig：用于包含原始路径的路由的路由配置。<br>parent:ActivatedRoute，包含使用子路由时来自父路由的信息。<br>firstChild：包含子路由列表中的第一个ActivatedRoute。<br>children：包含在当前路线下激活的所有子路线<br>pathFromRoot：从路由器状态树的根到该路由的路径</p>
+<h1 id="路由Query参数"><a href="#路由Query参数" class="headerlink" title="路由Query参数"></a>路由Query参数</h1><p>Query参数是在 URL中的 ？右侧的键值对，多个Query参数之间由&amp;分隔。</p>
+<p><code>/product?page=2&amp;filter=all</code></p>
+<p>在上面的例子中，page&#x3D;2和filter&#x3D;all是Query参数。它包含两个Query参数。一个是Page，其值为2，另一个是Filter，其值是all。</p>
+<h2 id="添加Query参数"><a href="#添加Query参数" class="headerlink" title="添加Query参数"></a>添加Query参数</h2><p>Query参数不是路由的一部分。因此，您不会像路由参数那样在 routes 中定义它们。有两种方法可以将Query参数传递给路由</p>
+<ul>
+<li>使用routerlink指令</li>
+<li>使用router.navigation方法。</li>
+<li>使用router.navigateByUrl方法</li>
+</ul>
+<h2 id="在模板中使用-routerlink-指令"><a href="#在模板中使用-routerlink-指令" class="headerlink" title="在模板中使用 routerlink 指令"></a>在模板中使用 routerlink 指令</h2><p>我们使用routerlink指令的queryParams属性来添加Query参数。我们将此指令添加到模板文件中。</p>
+<p><code>&lt;a [routerLink]=&quot;[&#39;product&#39;]&quot; [queryParams]=&quot;&#123; page:2 &#125;&quot;&gt;Page 2&lt;/a&gt;</code></p>
+<p>路由器将URL构造为</p>
+<p><code>/product?page=2</code></p>
+<p>您可以传递多个Query参数，如下所示</p>
+<p><code>&lt;a [routerLink]=&quot;[&#39;products&#39;]&quot; [queryParams]=&quot;&#123; color:&#39;blue&#39; , sort:&#39;name&#39;&#125;&quot;&gt;Products&lt;/a&gt;</code></p>
+<p>路由器将URL构造为</p>
+<p><code>/products?color=blue&amp;sort=name</code></p>
+<h2 id="在组件中使用-router-navigate"><a href="#在组件中使用-router-navigate" class="headerlink" title="在组件中使用 router.navigate"></a>在组件中使用 router.navigate</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">goTo</span>(<span class="params"></span>) &#123;     </span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">router</span>.<span class="title function_">navigate</span>(</span><br><span class="line">        [<span class="string">&#x27;/products&#x27;</span>], </span><br><span class="line">        &#123; <span class="attr">queryParams</span>: &#123; <span class="attr">page</span>: <span class="number">2</span>, <span class="attr">sort</span>:<span class="string">&#x27;name&#x27;</span>&#125; &#125;</span><br><span class="line">    ); </span><br><span class="line">&#125;</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
+<p>路由器将URL构造为</p>
+<p><code>/products?page=2&amp;sort=name</code></p>
+<h2 id="在组件中使用-router-navigateByUrl"><a href="#在组件中使用-router-navigateByUrl" class="headerlink" title="在组件中使用 router.navigateByUrl"></a>在组件中使用 router.navigateByUrl</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">router</span>.<span class="title function_">navigateByUrl</span>(<span class="string">&#x27;product?pageNum=2&#x27;</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="读取-路由Query参数"><a href="#读取-路由Query参数" class="headerlink" title="读取 路由Query参数"></a>读取 路由Query参数</h2><p>读取Query参数类似于读取Router参数。有两种方法可以检索查询参数。</p>
+<ul>
+<li>订阅queryParamMap或queryParams observable</li>
+<li>使用snapshot属性的queryParamMap或queryParams属性</li>
+</ul>
+<p>以上两项都是ActivatedRoute服务的一部分。因此，我们需要将它注入到我们的组件类中。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">sub</span> = <span class="variable language_">this</span>.<span class="property">Activatedroute</span>.<span class="property">queryParamMap</span></span><br><span class="line">       .<span class="title function_">subscribe</span>(<span class="function"><span class="params">params</span> =&gt;</span> &#123;</span><br><span class="line">             <span class="variable language_">this</span>.<span class="property">pageNum</span> = +params.<span class="title function_">get</span>(<span class="string">&#x27;pageNum&#x27;</span>)||<span class="number">0</span>;     </span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">sub</span> = <span class="variable language_">this</span>.<span class="property">Activatedroute</span>.<span class="property">queryParams</span></span><br><span class="line">       .<span class="title function_">subscribe</span>(<span class="function"><span class="params">params</span> =&gt;</span> &#123;</span><br><span class="line">             <span class="variable language_">this</span>.<span class="property">pageNum</span> = +params.[<span class="string">&#x27;pageNum&#x27;</span>]||<span class="number">0</span>;     </span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">Activatedroute</span>.<span class="property">snapshot</span></span><br><span class="line">       .<span class="property">queryParamMap</span>.<span class="title function_">get</span>(<span class="string">&#x27;pageNum&#x27;</span>)||<span class="number">0</span>;;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">Activatedroute</span>.<span class="property">snapshot</span></span><br><span class="line">       .<span class="property">queryParams</span>[<span class="string">&#x27;pageNum&#x27;</span>]||<span class="number">0</span>;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/07/28/css/Grid%E5%B8%83%E5%B1%80%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/07/28/css/Grid%E5%B8%83%E5%B1%80%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/" class="post-title-link" itemprop="url">Grid布局基础概念</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-07-28 11:45:19 / 修改时间：17:48:05" itemprop="dateCreated datePublished" datetime="2023-07-28T11:45:19+08:00">2023-07-28</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="网格容器"><a href="#网格容器" class="headerlink" title="网格容器"></a>网格容器</h1><p>我们通过在元素上声明 display：grid 或 display：inline-grid 来创建一个网格容器。一旦我们这样做，这个元素的所有直系子元素将成为网格元素。</p>
+<h1 id="网格轨道"><a href="#网格轨道" class="headerlink" title="网格轨道"></a>网格轨道</h1><p>我们通过 grid-template-columns 和 grid-template-rows 属性来定义网格中的行和列。这些属性定义了网格的轨道。一个网格轨道就是网格中任意两条线之间的空间。</p>
+<h2 id="fr-单位"><a href="#fr-单位" class="headerlink" title="fr 单位"></a>fr 单位</h2><p>轨道可以使用任何长度单位进行定义。网格还引入了一个另外的长度单位来帮助我们创建灵活的网格轨道。新的fr单位代表网格容器中可用空间的一等份。下一个网格定义将创建三个相等宽度的轨道，这些轨道会随着可用空间增长和收缩。</p>
+<h1 id="网格线"><a href="#网格线" class="headerlink" title="网格线"></a>网格线</h1><p>应该注意的是，当我们定义网格时，我们定义的是网格轨道，而不是网格线。Grid 会为我们创建编号的网格线来让我们来定位每一个网格元素。</p>
+<p>网格线的编号顺序取决于文章的书写模式。在从左至右书写的语言中，编号为 1 的网格线位于最左边。在从右至左书写的语言中，编号为 1 的网格线位于最右边。网格线也可以被命名，我们将在稍后的教程中看到如何完成这一操作。</p>
+<h1 id="网格间距"><a href="#网格间距" class="headerlink" title="网格间距"></a>网格间距</h1><p>在两个网格单元之间的 网格横向间距 或 网格纵向间距 可使用 grid-column-gap 和 grid-row-gap  属性来创建，或者直接使用两个合并的缩写形式 grid-gap。间距使用的空间会在 使用弹性长度 fr 的轨道的空间计算前就被留出来，间距的尺寸定义行为和普通轨道一致，但不同的是你不能向其中插入任何内容。</p>
+<h1 id="使用-z-index-控制层级"><a href="#使用-z-index-控制层级" class="headerlink" title="使用 z-index 控制层级"></a>使用 z-index 控制层级</h1><p>多个网格项目可以占用同一个网格单位。如果我们回到之前根据网格线编号放置网格项目的话，我们可以更改此项来使两个网格项目重叠，其覆盖顺序遵循文档流的原始顺序（后来居上）。</p>
+<p>我们可以在网格项目发生重叠时使用 z-index 属性控制重叠的顺序——就像放置网格项目一样。如果我们给 box2 设定一个低于 box1 的 z-index 值的话，box2 将会显示在 box1 的下方。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/07/26/css/flex%E5%85%83%E7%B4%A0%E5%9C%A8%E4%B8%BB%E8%BD%B4%E4%B8%8A%E7%9A%84%E6%AF%94%E4%BE%8B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/07/26/css/flex%E5%85%83%E7%B4%A0%E5%9C%A8%E4%B8%BB%E8%BD%B4%E4%B8%8A%E7%9A%84%E6%AF%94%E4%BE%8B/" class="post-title-link" itemprop="url">flex元素在主轴上的比例</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2023-07-26 18:57:30" itemprop="dateCreated datePublished" datetime="2023-07-26T18:57:30+08:00">2023-07-26</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2023-09-14 10:47:51" itemprop="dateModified" datetime="2023-09-14T10:47:51+08:00">2023-09-14</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>我们将探索应用于弹性（flex）元素的三个属性，它们能使我们在主轴方向上控制弹性元素的尺寸和伸缩性——flex-grow、flex-shrink 和 flex-basis。</p>
+<p>这三个属性控制弹性元素的以下几个方面的灵活性：</p>
+<ul>
+<li>flex-grow：该元素(拉伸)获得多少正可用空间</li>
+<li>flex-shrink：该元素(收缩)要消除多少负可用空间</li>
+<li>flex-basis：在该元素未拉伸和收缩之前，它所占空间</li>
+</ul>
+<p>在考虑 flex 属性如何在主轴方向上控制比率之前，有一些概念值得我们去深究。这涉及到弹性元素在任何伸缩之前的自然尺寸，以及可用空间（free space）的概念。</p>
+<h1 id="弹性元素的尺寸"><a href="#弹性元素的尺寸" class="headerlink" title="弹性元素的尺寸"></a>弹性元素的尺寸</h1><p>在 CSS 中还有 min-content 和 max-content 这两个概念；这两个关键字可以用来代替长度单位。</p>
+<ul>
+<li>min-content：本质上讲，就是字符串中最长的单词长度决定的大小。</li>
+<li>max-content：代表了内容的最大宽度或最大高度。对于文本内容而言，这意味着内容即便溢出也不会被换行。</li>
+</ul>
+<h1 id="正负可用空间"><a href="#正负可用空间" class="headerlink" title="正负可用空间"></a>正负可用空间</h1><p>当一个弹性容器有正可用空间时，它就有更多的空间用于在容器内显示弹性元素。比如说，如果我们有 500px 宽的容器，flex-direction 属性值为 row，三个 100px 宽的弹性元素，那么我们还有 200px 的正可用空间，如果我们想要填充整个容器，则可将其分配到元素中。</p>
+<p><img src="013a3fcd15f1a891c7f058aea7734ce4fdaa5e25b84b142c6cf36af095021eee.png" alt="图 0">  </p>
+<p>当弹性元素的自然尺寸加起来比弹性容器内的可用空间大时，我们产生了负可用空间。比如我们有一个像上面那样的 500px 宽的容器，但是三个弹性元素每个都为 200px 宽，那我们就一共需要 600px 宽，因此就有了 100px 的负可用空间。这可以从弹性元素中删除以使其能适应容器。</p>
+<p><img src="/../images/77d3b003f9cdced2c3bc092a7beeb5fcbe5e02dc8af2c236f1423fb1e3c5f030.png" alt="图 1">  </p>
+<h1 id="flex-basis-属性"><a href="#flex-basis-属性" class="headerlink" title="flex-basis 属性"></a>flex-basis 属性</h1><p>flex-basis 属性在任何空间分配发生之前初始化弹性元素的尺寸。此属性的初始值为 auto。如果 flex-basis 设置为 auto，浏览器会先检查元素的主尺寸是否设置了绝对值再计算出它们的初始值。比如说你已经给你的元素设置了 200px 的宽，则 200px 就是这个元素的 flex-basis。</p>
+<p>如果你的元素为自动调整大小，则 auto 会解析为其内容的大小。此时你所熟知的 min-content 和 max-content 大小会变得有用，弹性盒子会将元素的 max-content 大小作为 flex-basis。</p>
+<p>空间分配时，如果你想要弹性盒子完全忽略元素的尺寸就需要设置 flex-basis 为 0。这显式地说明弹性盒子可用抢占所有空间，并按比例进行分配。</p>
+<p>flex-basis属性会覆盖项目的width属性（当主轴方向水平时）或height属性（当主轴方向垂直时），然而，flex-basis属性仍然受max-width&#x2F;max-height和min-width&#x2F;min-height属性的约束。</p>
+<h1 id="flex-grow-属性"><a href="#flex-grow-属性" class="headerlink" title="flex-grow 属性"></a>flex-grow 属性</h1><p>flex-grow 属性指定了弹性增长因子（flex grow factor），这决定了在分配正可用空间时，弹性元素相对于弹性容器中的其余弹性元素的增长程度。</p>
+<p>如果 flex-grow 的值全部相同，并且在弹性容器中还有正可用空间，那么它就会被平均地分配给所有元素。</p>
+<h1 id="flex-shrink-属性"><a href="#flex-shrink-属性" class="headerlink" title="flex-shrink 属性"></a>flex-shrink 属性</h1><p>flex-shrink 属性指定了弹性收缩因子（flex shrink factor），它确定在分配负可用空间时，弹性元素相对于弹性容器中其余弹性元素收缩的程度。</p>
+<h1 id="掌握弹性元素的大小"><a href="#掌握弹性元素的大小" class="headerlink" title="掌握弹性元素的大小"></a>掌握弹性元素的大小</h1><h2 id="什么设置了元素的基本大小？"><a href="#什么设置了元素的基本大小？" class="headerlink" title="什么设置了元素的基本大小？"></a>什么设置了元素的基本大小？</h2><ol>
+<li>flex-basis 设置为 auto，且元素设置了宽度，元素的大小将会基于设置的宽度。</li>
+<li>flex-basis 设置为 auto 或 content（在支持的浏览器中），元素的大小为原始大小。</li>
+<li>flex-basis 设置为 非0的长度，那这就是元素的大小。</li>
+<li>flex-basis 设为了 0，则元素的大小不在空间分配计算的考虑之内。</li>
+</ol>
+<h2 id="我们有可用空间吗？"><a href="#我们有可用空间吗？" class="headerlink" title="我们有可用空间吗？"></a>我们有可用空间吗？</h2><ol>
+<li>元素没有正可用空间就不会增长，没有负可用空间就不会缩小。</li>
+<li>如果我们把所有元素的宽度相加（如果在列方向工作则为高度），总和小于容器的总宽度（或高度），那么你有正可用空间，并且 flex-grow 会发挥作用。</li>
+<li>如果我们把所有的元素的宽度相加（如果在列方向工作则为高度），总和大于容器的总宽度（或高度），那么你有负可用空间，并且 flex-shrink 会发挥作用。</li>
+</ol>
+<h2 id="关于flex-grow属性的计算过程为"><a href="#关于flex-grow属性的计算过程为" class="headerlink" title="关于flex-grow属性的计算过程为"></a>关于flex-grow属性的计算过程为</h2><ol>
+<li>flex-grow属性小于等于0的项目不受影响，不会伸长。</li>
+<li>对剩余项目的flex-grow属性进行求和，将结果记为sum。</li>
+<li>分以下情况进行讨论。</li>
+</ol>
+<p><strong>sum ≥ 1 时 计算过程：</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">800px</span>;</span><br><span class="line">  <span class="selector-class">.item1</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">50px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.item2</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">flex-grow</span>: <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.item3</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">150px</span>;</span><br><span class="line">    <span class="attribute">flex-grow</span>: <span class="number">3</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.item4</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">flex-grow</span>: <span class="number">6</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol>
+<li>计算剩余宽度：剩余宽度 &#x3D; 容器宽度 - 项目总宽度，所以：剩余宽度 &#x3D; 800px - 500px &#x3D; 300px。</li>
+<li>计算各项目权重占比：权重 &#x3D; <flex-grow>，所以：<ol>
+<li>总权重 &#x3D; sum &#x3D; 1 + 3 + 6 &#x3D; 10。</li>
+<li>项目2权重 &#x3D; 1，项目2权重占比 &#x3D; 1 &#x2F; 10 &#x3D; 0.1。</li>
+<li>项目3权重 &#x3D; 3，项目3权重占比 &#x3D; 3 &#x2F; 10 &#x3D; 0.3。</li>
+<li>项目4权重 &#x3D; 6，项目4权重占比 &#x3D; 6 &#x2F; 10 &#x3D; 0.6。</li>
+</ol>
+</flex-grow></li>
+<li>计算各项目伸长宽度：伸长宽度 &#x3D; 权重占比 * 剩余宽度，所以：<ol>
+<li>项目2伸长宽度 &#x3D; 0.1 * 300px &#x3D; 30px。</li>
+<li>项目3伸长宽度 &#x3D; 0.3 * 300px &#x3D; 90px。</li>
+<li>项目4伸长宽度 &#x3D; 0.6 * 300px &#x3D; 180px。</li>
+</ol>
+</li>
+<li>计算各项目伸长后宽度：伸长后宽度 &#x3D; <flex-basis> + 伸长宽度，所以：<ol>
+<li>项目2伸长后宽度 &#x3D; 100px + 30px &#x3D; 130px。</li>
+<li>项目3伸长后宽度 &#x3D; 150px + 90px &#x3D; 240px。</li>
+<li>项目4伸长后宽度 &#x3D; 200px + 180px &#x3D; 380px。</li>
+</ol>
+</flex-basis></li>
+</ol>
+<p><strong>sum &lt; 1 时</strong></p>
+<blockquote>
+<p>计算过程基本与sum &gt; 1时的情况相同，但在第 3 步中，各项目的伸长宽度为sum * 权重占比 * 剩余宽度。</p>
+</blockquote>
+<h2 id="关于flex-shrink属性的计算过程为"><a href="#关于flex-shrink属性的计算过程为" class="headerlink" title="关于flex-shrink属性的计算过程为"></a>关于flex-shrink属性的计算过程为</h2><ol>
+<li>flex-shrink属性小于等于0的项目不受影响，不会缩短。</li>
+<li>对剩余项目的flex-shrink属性进行求和，将结果记为sum。</li>
+<li>分以下情况进行讨论。</li>
+</ol>
+<p><strong>sum ≥ 1 时</strong></p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">800px</span>;</span><br><span class="line">  <span class="selector-class">.item1</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">100px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.item2</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">flex-shrink</span>: <span class="number">6</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.item3</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">300px</span>;</span><br><span class="line">    <span class="attribute">flex-shrink</span>: <span class="number">3</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.item4</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">400px</span>;</span><br><span class="line">    <span class="attribute">flex-shrink</span>: <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol>
+<li>计算溢出宽度：溢出宽度 &#x3D; 项目总宽度 - 容器宽度，所以：溢出宽度 &#x3D; 800px - 1000px &#x3D; 200px。</li>
+<li>计算各项目权重占比：权重 &#x3D; <flex-shrink> * <flex-basis>，所以：<ol>
+<li>总权重 &#x3D; 1200 + 900 + 400 &#x3D; 2500。</li>
+<li>项目2权重 &#x3D; 1200，项目2权重占比 &#x3D; 1200 &#x2F; 2500 &#x3D; 0.48。</li>
+<li>项目3权重 &#x3D; 900，项目3权重占比 &#x3D; 900 &#x2F; 2500 &#x3D; 0.36。</li>
+<li>项目4权重 &#x3D; 400，项目4权重占比 &#x3D; 400 &#x2F; 2500 &#x3D; 0.16。</li>
+</ol>
+</flex-basis></flex-shrink></li>
+<li>计算各项目缩短宽度：缩短宽度 &#x3D; 权重占比 * 溢出宽度，所以：<ol>
+<li>项目2伸长宽度 &#x3D; 0.48 * 200px &#x3D; 96px。</li>
+<li>项目3伸长宽度 &#x3D; 0.36 * 200px &#x3D; 72px。</li>
+<li>项目4伸长宽度 &#x3D; 0.16 * 200px &#x3D; 32px。</li>
+</ol>
+</li>
+<li>计算各项目缩短后宽度：缩短后宽度 &#x3D; 原始宽度 - 缩短宽度，所以：<ol>
+<li>项目2缩短后宽度 &#x3D; 200px - 96px &#x3D; 104px。</li>
+<li>项目3缩短后宽度 &#x3D; 300px - 72px &#x3D; 228px。</li>
+<li>项目4缩短后宽度 &#x3D; 400px - 32px &#x3D; 368px。</li>
+</ol>
+</li>
+</ol>
+<p><strong>sum &lt; 1 时</strong></p>
+<blockquote>
+<p>计算过程基本与sum &gt; 1时的情况相同，但在第 3 步中，各项目的缩短宽度为sum * 权重占比 * 溢出宽度。</p>
+</blockquote>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -1687,378 +2148,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/04/13/angular/Angular%E8%A3%85%E9%A5%B0%E5%99%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="InfoPool">
-      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | InfoPool">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/04/13/angular/Angular%E8%A3%85%E9%A5%B0%E5%99%A8/" class="post-title-link" itemprop="url">Angular装饰器</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2023-04-13 15:29:52 / 修改时间：17:28:50" itemprop="dateCreated datePublished" datetime="2023-04-13T15:29:52+08:00">2023-04-13</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>我们使用装饰器为Angular中的类声明、方法、访问器、属性和参数提供元数据。我们使用它来装饰组件、指令、模块等。在本文中，让我们了解什么是装饰器，为什么需要它，以及如何创建自定义装饰器。我们还要了解Angular支持的内置装饰器。</p>
-<h1 id="Angular-装饰器"><a href="#Angular-装饰器" class="headerlink" title="Angular 装饰器"></a>Angular 装饰器</h1><p>Angular 装饰器是一个函数，我们使用它将元数据附加到类、方法、访问器、属性或参数。</p>
-<p>我们以@expression形式使用装饰器，其中expression是装饰器的名称。</p>
-<p>例如，@Component是一个装饰器，我们将其附加到一个Angular组件。当Angular看到@Component装饰器应用于一个类时，它将该类视为一个组件类。在下面的示例中，正是@Component装饰器使AppComponent成为一个Angular组件。如果没有装饰器，AppComponent就像其他类一样。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br><span class="line">  title = <span class="string">&#x27;app&#x27;</span>;</span><br><span class="line">&#125; </span><br></pre></td></tr></table></figure>
-
-<p>decorator装饰器是一个Typescript特性，它仍然不是Javascript的一部分。它仍处于提案阶段。</p>
-<p>要启用Angular 装饰器，我们需要将experialDecorators添加到tsconfig.json文件中。ng-new命令会自动为我们添加此内容。</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  <span class="attr">&quot;compilerOptions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span></span><br><span class="line">    <span class="attr">&quot;target&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ES5&quot;</span><span class="punctuation">,</span></span><br><span class="line">    <span class="attr">&quot;experimentalDecorators&quot;</span><span class="punctuation">:</span> <span class="keyword">true</span></span><br><span class="line">  <span class="punctuation">&#125;</span></span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="创建新的装饰器"><a href="#创建新的装饰器" class="headerlink" title="创建新的装饰器"></a>创建新的装饰器</h1><p>在下面的例子中，我们创建了一个函数simpleDecorator。我们将使用它来装饰AppComponent类。该函数不接受任何参数。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>, <span class="variable constant_">VERSION</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@simpleDecorator</span>      </span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;my-app&#x27;</span>,</span><br><span class="line">  <span class="attr">templateUrl</span>: <span class="string">&#x27;./app.component.html&#x27;</span>,</span><br><span class="line">  <span class="attr">styleUrls</span>: [<span class="string">&#x27;./app.component.css&#x27;</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br><span class="line">  name = <span class="string">&#x27;Angular &#x27;</span> + <span class="variable constant_">VERSION</span>.<span class="property">major</span>;</span><br><span class="line"> </span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Hello from Class constructor&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  <span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>((<span class="variable language_">this</span> <span class="keyword">as</span> <span class="built_in">any</span>).<span class="property">value1</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>((<span class="variable language_">this</span> <span class="keyword">as</span> <span class="built_in">any</span>).<span class="property">value2</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">function</span> <span class="title function_">simpleDecorator</span>(<span class="params">target: <span class="built_in">any</span></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Hello from Decorator&#x27;</span>);</span><br><span class="line"> </span><br><span class="line">  <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(target.<span class="property"><span class="keyword">prototype</span></span>, <span class="string">&#x27;value1&#x27;</span>, &#123;</span><br><span class="line">    <span class="attr">value</span>: <span class="number">100</span>,</span><br><span class="line">    <span class="attr">writable</span>: <span class="literal">false</span></span><br><span class="line">  &#125;);</span><br><span class="line"> </span><br><span class="line">  <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(target.<span class="property"><span class="keyword">prototype</span></span>, <span class="string">&#x27;value2&#x27;</span>, &#123;</span><br><span class="line">    <span class="attr">value</span>: <span class="number">200</span>,</span><br><span class="line">    <span class="attr">writable</span>: <span class="literal">false</span></span><br><span class="line">  &#125;);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line"> </span><br><span class="line">**** <span class="title class_">Console</span> ***</span><br><span class="line"> </span><br><span class="line"><span class="title class_">Hello</span> <span class="keyword">from</span> <span class="title class_">Decorator</span></span><br><span class="line"><span class="title class_">Hello</span> <span class="keyword">from</span> <span class="title class_">Class</span> constructor</span><br><span class="line"><span class="number">100</span></span><br><span class="line"><span class="number">200</span></span><br></pre></td></tr></table></figure>
-
-<p>正如我们前面所说，d装饰器 是一个常规的JavaScript函数。由于我们在类上使用它，因此它获取AppComponent的实例作为参数（目标）</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">simpleDecorator</span>(<span class="params">target: <span class="built_in">any</span></span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Hello from Decorator&#x27;</span>);</span><br><span class="line"> </span><br><span class="line"><span class="comment">//target is instance of AppComponent</span></span><br></pre></td></tr></table></figure>
-
-<p>在函数内部，我们将两个自定义属性value1和value2添加到AppComponent。请注意，我们使用defineProperty属性向组件类添加一个新属性。此外，我们将其添加到类的原型属性中。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(target.<span class="property"><span class="keyword">prototype</span></span>, <span class="string">&#x27;value1&#x27;</span>, &#123;</span><br><span class="line">    <span class="attr">value</span>: <span class="number">100</span>,</span><br><span class="line">    <span class="attr">writable</span>: <span class="literal">false</span></span><br><span class="line">  &#125;);</span><br><span class="line"> </span><br><span class="line">  <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(target.<span class="property"><span class="keyword">prototype</span></span>, <span class="string">&#x27;value2&#x27;</span>, &#123;</span><br><span class="line">    <span class="attr">value</span>: <span class="number">200</span>,</span><br><span class="line">    <span class="attr">writable</span>: <span class="literal">false</span></span><br><span class="line">  &#125;);</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
-<p>现在，我们可以使用它来装饰我们的AppComponent</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@simpleDecorator</span></span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;my-app&#x27;</span>,</span><br><span class="line">  <span class="attr">templateUrl</span>: <span class="string">&#x27;./app.component.html&#x27;</span>,</span><br><span class="line">  <span class="attr">styleUrls</span>: [<span class="string">&#x27;./app.component.css&#x27;</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br></pre></td></tr></table></figure>
-<p>在组件内部，我们可以使用关键字“this”访问新的属性。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>((<span class="variable language_">this</span> <span class="keyword">as</span> <span class="built_in">any</span>).<span class="property">value1</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>((<span class="variable language_">this</span> <span class="keyword">as</span> <span class="built_in">any</span>).<span class="property">value2</span>);</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="带参数的装饰器"><a href="#带参数的装饰器" class="headerlink" title="带参数的装饰器"></a>带参数的装饰器</h1><p>要创建一个带参数的装饰器，我们需要创建一个工厂函数，该函数返回装饰器函数。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">Component</span>, <span class="variable constant_">VERSION</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br><span class="line"> </span><br><span class="line"><span class="meta">@simpleDecorator</span>(&#123;</span><br><span class="line">  <span class="attr">value1</span>: <span class="string">&#x27;100&#x27;</span>,</span><br><span class="line">  <span class="attr">value2</span>: <span class="string">&#x27;200&#x27;</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">  <span class="attr">selector</span>: <span class="string">&#x27;my-app&#x27;</span>,</span><br><span class="line">  <span class="attr">templateUrl</span>: <span class="string">&#x27;./app.component.html&#x27;</span>,</span><br><span class="line">  <span class="attr">styleUrls</span>: [<span class="string">&#x27;./app.component.css&#x27;</span>]</span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AppComponent</span> &#123;</span><br><span class="line">  name = <span class="string">&#x27;Angular &#x27;</span> + <span class="variable constant_">VERSION</span>.<span class="property">major</span>;</span><br><span class="line"> </span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Hello from Class constructor&#x27;</span>);</span><br><span class="line">  &#125;</span><br><span class="line"> </span><br><span class="line">  <span class="title function_">ngOnInit</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>((<span class="variable language_">this</span> <span class="keyword">as</span> <span class="built_in">any</span>).<span class="property">value1</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>((<span class="variable language_">this</span> <span class="keyword">as</span> <span class="built_in">any</span>).<span class="property">value2</span>);</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="keyword">function</span> <span class="title function_">simpleDecorator</span>(<span class="params">args</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(args);</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span>(<span class="params">target: <span class="built_in">any</span></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;Hello from Decorator&#x27;</span>);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="keyword">typeof</span> target);</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(target);</span><br><span class="line"> </span><br><span class="line">    <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(target.<span class="property"><span class="keyword">prototype</span></span>, <span class="string">&#x27;value1&#x27;</span>, &#123;</span><br><span class="line">      <span class="attr">value</span>: args.<span class="property">value1</span>,</span><br><span class="line">      <span class="attr">writable</span>: <span class="literal">false</span></span><br><span class="line">    &#125;);</span><br><span class="line"> </span><br><span class="line">    <span class="title class_">Object</span>.<span class="title function_">defineProperty</span>(target.<span class="property"><span class="keyword">prototype</span></span>, <span class="string">&#x27;value2&#x27;</span>, &#123;</span><br><span class="line">      <span class="attr">value</span>: args.<span class="property">value2</span>,</span><br><span class="line">      <span class="attr">writable</span>: <span class="literal">false</span></span><br><span class="line">    &#125;);</span><br><span class="line">  &#125;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p> simpleDecorator将args作为参数，并返回 装饰器函数。除了使用参数填充财产之外，其余代码与上面的代码相同。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">simpleDecorator</span>(<span class="params">args</span>) &#123;</span><br><span class="line">  <span class="variable language_">console</span>.<span class="title function_">log</span>(args);</span><br><span class="line"> </span><br><span class="line">  <span class="keyword">return</span> <span class="keyword">function</span>(<span class="params">target: <span class="built_in">any</span></span>) &#123;</span><br></pre></td></tr></table></figure>
-
-<p> 我们在组件上应用simpleDecorator，如下所示</p>
-<h1 id="Angular-装饰器-列表"><a href="#Angular-装饰器-列表" class="headerlink" title="Angular 装饰器 列表"></a>Angular 装饰器 列表</h1><p>Angular提供了几个内置的装饰器。我们可以把它们分为四类</p>
-<p>以下是Angular中装饰器的完整列表。</p>
-<ul>
-<li>类装饰器<ul>
-<li>@NgModule</li>
-<li>@Component</li>
-<li>@Injectable</li>
-<li>@Directive</li>
-<li>@Pipe</li>
-</ul>
-</li>
-<li>属性装饰器<ul>
-<li>@Input</li>
-<li>@Output</li>
-<li>@HostBinding</li>
-<li>@ContentChild</li>
-<li>@ContentChildren</li>
-<li>@ViewChild</li>
-<li>@ViewChildren</li>
-</ul>
-</li>
-<li>方法装饰器<ul>
-<li>@HostListener</li>
-</ul>
-</li>
-<li>参数装饰器<ul>
-<li>@Inject</li>
-<li>@Self</li>
-<li>@SkipSelf</li>
-<li>@Optional</li>
-<li>@Host</li>
-</ul>
-</li>
-</ul>
-<h1 id="类装饰器"><a href="#类装饰器" class="headerlink" title="类装饰器"></a>类装饰器</h1>
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/04/08/angular/Angular%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="InfoPool">
-      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | InfoPool">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/04/08/angular/Angular%E7%94%9F%E5%91%BD%E5%91%A8%E6%9C%9F%E9%92%A9%E5%AD%90/" class="post-title-link" itemprop="url">Angular生命周期钩子</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-04-08 18:56:06" itemprop="dateCreated datePublished" datetime="2023-04-08T18:56:06+08:00">2023-04-08</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-06-28 09:22:51" itemprop="dateModified" datetime="2023-06-28T09:22:51+08:00">2023-06-28</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>AfterViewInit、AfterContentInit、AfterViewChecked和AfterContentChecked是生命周期钩子。Angular在组件的生命周期中，调用它们。在本教程中，我们将了解它们是什么以及Angular何时调用它们。我们还了解了AfterViewInit和AfterContentInit与AfterViewChecked和AfterContentChecked之间的差异。</p>
-<h1 id="生命周期回顾"><a href="#生命周期回顾" class="headerlink" title="生命周期回顾"></a>生命周期回顾</h1><p>当Angular实例化组件时，组件（或指令）的生命就开始了。实例化从调用组件的构造函数开始，并通过依赖注入服务。</p>
-<p>一旦Angular实例化了组件，它就会启动组件的变更检测，它检查并更新组件的输入数据绑定属性，并初始化组件。然后，它会引发以下生命周期钩子。</p>
-<p>Onchanges,如果Angular检测到Input属性的任何更改或angular检测到输入变化时，Onchanges都会被运行。</p>
-<p>OnInit，它告诉我们组件已经准备好了。这个钩子让我们有机会运行初始化逻辑，更新属性等。这个钩子只运行一次。</p>
-<p>DoCheck，这允许我们运行自定义更改检测，因为更改检测可能会忽略一些更改。该挂钩在每个变化检测周期中运行。</p>
-<p>在此之后，Angular又调用了四个钩子。它们是AfterContentInit、AfterContentChecked、AfterViewInit和AfterViewChecked。我们将详细研究它们。</p>
-<p>最后，当我们移除组件时，Angular调用ngOnDestroy钩子，销毁组件。</p>
-<h1 id="Content-Vs-View"><a href="#Content-Vs-View" class="headerlink" title="Content Vs View"></a>Content Vs View</h1><p>在深入研究这些挂钩之前，我们需要了解内容(Content)和视图(View)之间的区别。钩子AfterConentInit和AfterContentChecked处理内容(Content)，而AfterViewInit、AfterViewChecked处理视图(View)。</p>
-<h2 id="内容"><a href="#内容" class="headerlink" title="内容"></a>内容</h2><p>内容是指使用内容投影注入到该组件中的外部内容。<br>内容投影是将HTML内容从父组件传递到子组件的一种方式。子组件将在指定位置显示传入的内容。我们使用ng-content在子组件的模板中创建一个点，如下所示。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h2</span>&gt;</span>Child Component<span class="tag">&lt;/<span class="name">h2</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">ng-content</span>&gt;</span><span class="tag">&lt;/<span class="name">ng-content</span>&gt;</span>   <span class="comment">&lt;!-- place hodler for content from parent --&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>父元素在开始元素和结束元素之间注入内容。Angular将此内容传递给子组件。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">h1</span>&gt;</span>Parent Component<span class="tag">&lt;/<span class="name">h1</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">app-child</span>&gt;</span> This <span class="tag">&lt;<span class="name">b</span>&gt;</span>content<span class="tag">&lt;/<span class="name">b</span>&gt;</span> is injected from parent<span class="tag">&lt;/<span class="name">app-child</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="视图"><a href="#视图" class="headerlink" title="视图"></a>视图</h2><p>视图是指组件的模板。</p>
-<h1 id="AfterContentInit"><a href="#AfterContentInit" class="headerlink" title="AfterContentInit"></a>AfterContentInit</h1><p>AfterContentInit是在组件的内容完全初始化并注入组件视图后，angular调用的生命周期挂钩。</p>
-<p>Angular在调用AfterContentInit之前，先更新被ContentChild和ContentChildren装饰的属性。</p>
-<p>即使组件中没有使用内容投影，Angular也会调用AfterContentInit，此挂钩在ngDoCheck挂钩之后启动。</p>
-<p>AfterContentInit仅调用一次(在组件创建后第一个变更检测后)。</p>
-<h1 id="AfterContentChecked"><a href="#AfterContentChecked" class="headerlink" title="AfterContentChecked"></a>AfterContentChecked</h1><p>AfterContentChecked 在 ngDoCheck 和 AfterContentInit调用之后触发。<br>Angular在调用AfterContentChecked之前，先更新被ContentChild和ContentChildren装饰的属性。</p>
-<h1 id="AfterViewInit"><a href="#AfterViewInit" class="headerlink" title="AfterViewInit"></a>AfterViewInit</h1><p>仅在组件创建后的第一个变更检测周期内触发一次。</p>
-<p>Angular 在完成组件视图及其子视图的初始化后，在变更检测期间调用的生命周期挂钩。</p>
-<p>在引发AfterViewInit之前，Angular 还会更新用 ViewChild 和 ViewChildren 属性装饰的属性。</p>
-<h1 id="AfterViewChecked"><a href="#AfterViewChecked" class="headerlink" title="AfterViewChecked"></a>AfterViewChecked</h1><p>在变更检测器完成对组件视图和子视图变更的检查后，Angular 调用的生命周期挂钩。</p>
-<p>在引发此挂钩之前，Angular 还会更新用 ViewChild 和 ViewChildren 属性装饰的属性。</p>
-<h1 id="Init-Vs-Checked"><a href="#Init-Vs-Checked" class="headerlink" title="Init Vs Checked"></a>Init Vs Checked</h1><p>当第一次初始化内容或视图时，Angular 会触发 AfterContentInit 和 AfterViewInit 钩子。 这发生在第一个变化检测周期中，Angular在组件实例化后立即调用。</p>
-<p>Angular 触发 AfterContentChecked 和 AfterViewChecked 钩子，Angular 在其中检查内容或视图是否已更改。 即先前呈现的内容或视图与当前内容或视图相同。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/04/06/angular/%E4%BD%BF%E7%94%A8Renderer2%E6%93%8D%E4%BD%9CDOM%E5%85%83%E7%B4%A0/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="InfoPool">
-      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | InfoPool">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/04/06/angular/%E4%BD%BF%E7%94%A8Renderer2%E6%93%8D%E4%BD%9CDOM%E5%85%83%E7%B4%A0/" class="post-title-link" itemprop="url">使用Renderer2操作DOM元素</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2023-04-06 15:13:47 / 修改时间：18:50:29" itemprop="dateCreated datePublished" datetime="2023-04-06T15:13:47+08:00">2023-04-06</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>Renderer2允许我们在不直接访问DOM的情况下操作DOM元素。它在DOM元素和组件代码之间提供了一层抽象。使用Renderer2，我们可以创建一个元素，向其中添加一个文本节点，使用appendchild方法附加子元素。我们还可以添加或删除样式、HTML属性、CSS类和属性等。我们还可以附加和侦听DOM事件。</p>
-<h1 id="为什么不直接使用-ElementRef"><a href="#为什么不直接使用-ElementRef" class="headerlink" title="为什么不直接使用 ElementRef"></a>为什么不直接使用 ElementRef</h1><p>ElelemtRef的nativeElement属性包含对底层DOM对象的引用，这使我们可以绕过Angular直接访问DOM，我们可以使用nativeElement属性来直接操作DOM元素。但由于以下原因，直接操作DOM是不建议的。</p>
-<ol>
-<li>Angular使用模板、数据绑定和更改检测等保持组件和视图同步。当我们直接更新DOM时，所有这些都会被绕过。</li>
-<li>DOM操作仅适用于浏览器。您将无法在其他平台中使用该应用程序，例如在服务器（服务器端渲染）、桌面或移动应用程序等中。</li>
-<li>DOM API不会对数据进行净化。因此，可以通过注入脚本，打开我们的应用程序，成为XSS注入攻击的目标。</li>
-</ol>
-<h1 id="使用-Renderer2"><a href="#使用-Renderer2" class="headerlink" title="使用 Renderer2"></a>使用 Renderer2</h1><p>首先从  @angular&#x2F;core 导入 Renderer2.</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;<span class="title class_">Component</span>, <span class="title class_">Renderer2</span>, <span class="title class_">ElementRef</span>, <span class="title class_">ViewChild</span>, <span class="title class_">AfterViewInit</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;@angular/core&#x27;</span>;</span><br></pre></td></tr></table></figure>
-
-<p>在组件中注入 Renderer2</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">constructor</span>(<span class="params"><span class="keyword">private</span> renderer:Renderer2</span>) &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>使用 ElementRef &amp; ViewChild 获取我们想操作的DOM元素实例</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ViewChild</span>(<span class="string">&#x27;hello&#x27;</span>, &#123; <span class="attr">static</span>: <span class="literal">false</span> &#125;) <span class="attr">divHello</span>: <span class="title class_">ElementRef</span>;</span><br></pre></td></tr></table></figure>
-
-<p>使用setProperty、setStyle等方法更改元素的属性和样式，如下所示</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">setProperty</span>(<span class="variable language_">this</span>.<span class="property">divHello</span>.<span class="property">nativeElement</span>,<span class="string">&#x27;innerHTML&#x27;</span>,<span class="string">&quot;Hello Angular&quot;</span>)</span><br><span class="line"> </span><br><span class="line"><span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">setStyle</span>(<span class="variable language_">this</span>.<span class="property">divHello</span>.<span class="property">nativeElement</span>, <span class="string">&#x27;color&#x27;</span>, <span class="string">&#x27;red&#x27;</span>);</span><br></pre></td></tr></table></figure>
-
-<h1 id="设置-amp-移除-Styles"><a href="#设置-amp-移除-Styles" class="headerlink" title="设置&amp;移除 Styles"></a>设置&amp;移除 Styles</h1><p>使用setStyle和RemoveStyle添加或删除样式，它接受四个参数。第一个参数是我们要应用样式的元素，第二个参数是样式的名称，第三个参数是样式的值，最后一个参数是可选的，他是样式变量的标志</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="title function_">setStyle</span>(<span class="attr">el</span>: <span class="built_in">any</span>, <span class="attr">style</span>: <span class="built_in">string</span>, <span class="attr">value</span>: <span class="built_in">any</span>, flags?: <span class="title class_">RendererStyleFlags2</span>): <span class="built_in">void</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">abstract</span> <span class="title function_">removeStyle</span>(<span class="attr">el</span>: <span class="built_in">any</span>, <span class="attr">style</span>: <span class="built_in">string</span>, flags?: <span class="title class_">RendererStyleFlags2</span>): <span class="built_in">void</span></span><br></pre></td></tr></table></figure>
-
-<p>例如：</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Template</span></span><br><span class="line">&lt;div #hello&gt;<span class="title class_">Hello</span> !&lt;/div&gt;</span><br><span class="line"> </span><br><span class="line"><span class="comment">//Component</span></span><br><span class="line"><span class="meta">@ViewChild</span>(<span class="string">&#x27;hello&#x27;</span>, &#123; <span class="attr">static</span>: <span class="literal">false</span> &#125;) <span class="attr">divHello</span>: <span class="title class_">ElementRef</span>;</span><br><span class="line"> </span><br><span class="line"><span class="title function_">setStyle</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">setStyle</span>(<span class="variable language_">this</span>.<span class="property">divHello</span>.<span class="property">nativeElement</span>, <span class="string">&#x27;color&#x27;</span>, <span class="string">&#x27;blue&#x27;</span>);</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="title function_">removeStyle</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">removeStyle</span>(<span class="variable language_">this</span>.<span class="property">divHello</span>.<span class="property">nativeElement</span>, <span class="string">&#x27;color&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用最后一个选项RendererStyleFlags2指定渲染器特有样式修饰符</p>
-<h1 id="添加-amp-删除CSS-样式"><a href="#添加-amp-删除CSS-样式" class="headerlink" title="添加&amp;删除CSS 样式"></a>添加&amp;删除CSS 样式</h1><p>使用 addClass &#x2F; removeClass 添加&amp;删除CSS样式。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="title function_">addClass</span>(<span class="attr">el</span>: <span class="built_in">any</span>, <span class="attr">name</span>: <span class="built_in">string</span>): <span class="built_in">void</span></span><br><span class="line"> </span><br><span class="line"><span class="keyword">abstract</span> <span class="title function_">removeClass</span>(<span class="attr">el</span>: <span class="built_in">any</span>, <span class="attr">name</span>: <span class="built_in">string</span>): <span class="built_in">void</span></span><br></pre></td></tr></table></figure>
-
-<p>例如：</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Template</span></span><br><span class="line">&lt;div #hello&gt;<span class="title class_">Hello</span> !&lt;/div&gt;</span><br><span class="line"></span><br><span class="line"><span class="comment">//Component</span></span><br><span class="line"><span class="meta">@ViewChild</span>(<span class="string">&#x27;hello&#x27;</span>, &#123; <span class="attr">static</span>: <span class="literal">false</span> &#125;) <span class="attr">divHello</span>: <span class="title class_">ElementRef</span>;</span><br><span class="line"> </span><br><span class="line"><span class="title function_">addClass</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">addClass</span>(<span class="variable language_">this</span>.<span class="property">divHello</span>.<span class="property">nativeElement</span>, <span class="string">&#x27;blackborder&#x27;</span> );</span><br><span class="line">&#125;</span><br><span class="line"> </span><br><span class="line"><span class="title function_">removeClass</span>(<span class="params"></span>) &#123;</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">removeClass</span>(<span class="variable language_">this</span>.<span class="property">divHello</span>.<span class="property">nativeElement</span>, <span class="string">&#x27;blackborder&#x27;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h1 id="添加删除-Attributes"><a href="#添加删除-Attributes" class="headerlink" title="添加删除 Attributes"></a>添加删除 Attributes</h1><p>使用 setAttribute &amp; removeAttribute 添加&amp;移除 attribute样式。</p>
-<blockquote>
-<p>元素没有此 attribute，也可以添加上去<br>attribute，还可以做动词，表示赋予，属于人为赋予的可改变的属性</p>
-</blockquote>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">setAttribute</span>(<span class="attr">el</span>: <span class="built_in">any</span>, <span class="attr">name</span>: <span class="built_in">string</span>, <span class="attr">value</span>: <span class="built_in">string</span>, <span class="keyword">namespace</span>?: string): void</span><br><span class="line"> </span><br><span class="line">removeAttribute(el: any, name: string, <span class="keyword">namespace</span>?: string): void</span><br></pre></td></tr></table></figure>
-
-<h1 id="设置Property"><a href="#设置Property" class="headerlink" title="设置Property"></a>设置Property</h1><p>使用setProperty方法设置DOM元素的任何属性。</p>
-<blockquote>
-<p>元素没有此 property 不会添加上去<br>property是 物体本身自带属性，不能改变的（一旦改了就是另外一个东西了）</p>
-</blockquote>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">setProperty</span>(<span class="attr">el</span>: <span class="built_in">any</span>, <span class="attr">name</span>: <span class="built_in">string</span>, <span class="attr">value</span>: <span class="built_in">any</span>): <span class="built_in">void</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="AppendChild-createElement-createText"><a href="#AppendChild-createElement-createText" class="headerlink" title="AppendChild createElement createText"></a>AppendChild createElement createText</h1><p>使用appendChild将一个新元素（子元素）附加到任何现有元素（父元素）。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">appendChild</span>(<span class="attr">parent</span>: <span class="built_in">any</span>, <span class="attr">newChild</span>: <span class="built_in">any</span>): <span class="built_in">void</span></span><br></pre></td></tr></table></figure>
-<p>它接受两个参数。第一个参数是父节点(我们希望在其中附加一个新的子节点)。第二个参数是要添加的子节点。</p>
-<h2 id="创建一个新元素"><a href="#创建一个新元素" class="headerlink" title="创建一个新元素"></a>创建一个新元素</h2><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> div = <span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;div&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> text = <span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">createText</span>(<span class="string">&#x27;Inserted at bottom&#x27;</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">appendChild</span>(div, text);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">appendChild</span>(<span class="variable language_">this</span>.<span class="property">div</span>.<span class="property">nativeElement</span>, div);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h1 id="InsertBefore"><a href="#InsertBefore" class="headerlink" title="InsertBefore"></a>InsertBefore</h1><p>我们还可以使用insertBefore方法在DOM元素中的元素之前插入新元素。insertBefore的语法如下所示</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">insertBefore</span>(<span class="attr">parent</span>: <span class="built_in">any</span>, <span class="attr">newChild</span>: <span class="built_in">any</span>, <span class="attr">refChild</span>: <span class="built_in">any</span>): <span class="built_in">void</span></span><br></pre></td></tr></table></figure>
-<p>parent是父节点,newChild是要插入的新节点,refChild是插入newChild之前的现有子节点。</p>
-<h1 id="添加注释"><a href="#添加注释" class="headerlink" title="添加注释"></a>添加注释</h1><p>createComment创建注释节点。它接受注释作为自变量。然后可以使用appendChild或insertBefore将其插入DOM中的任何位置。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">createComment</span>(<span class="attr">value</span>: <span class="built_in">string</span>): <span class="built_in">any</span></span><br></pre></td></tr></table></figure>
-
-<h1 id="ParentNode-amp-NextSibling"><a href="#ParentNode-amp-NextSibling" class="headerlink" title="ParentNode &amp; NextSibling"></a>ParentNode &amp; NextSibling</h1><p>ParentNode方法返回宿主元素DOM中给定节点的父节点。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">/<span class="title class_">Returns</span> the parent <span class="title class_">Node</span> <span class="keyword">of</span> div3</span><br><span class="line"><span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">parentNode</span>(<span class="variable language_">this</span>.<span class="property">div3</span>.<span class="property">nativeElement</span>);</span><br></pre></td></tr></table></figure>
-<p>nextSibling方法返回宿主元素DOM中给定节点的下一个同级节点。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//Returns the next Sibling node of div2</span></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">renderer</span>.<span class="title function_">nextSibling</span>(<span class="variable language_">this</span>.<span class="property">div2</span>.<span class="property">nativeElement</span>);</span><br></pre></td></tr></table></figure>
-
-<h1 id="SelectRootElement"><a href="#SelectRootElement" class="headerlink" title="SelectRootElement"></a>SelectRootElement</h1><p>我们也可以使用selectRoomElement来选择基于选择器的节点元素。</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">selectRootElement</span>(<span class="attr">selectorOrNode</span>: <span class="built_in">any</span>, preserveContent?: <span class="built_in">boolean</span>)</span><br></pre></td></tr></table></figure>
-<p>第一个参数是选择器或节点。Renderer2使用选择器来搜索DOM元素并返回它。</p>
-<p>第二个参数是preserveContent，如果是no或undefined，renderer2将删除所有子节点。如果是yes，则不会删除子节点。</p>
-<h1 id="监听-DOM-事件"><a href="#监听-DOM-事件" class="headerlink" title="监听 DOM 事件"></a>监听 DOM 事件</h1><p>您也可以使用listen方法来侦听DOM事件。</p>
-<p>listen方法接受三个参数，第一个参数是DOM元素（目标），第二个参数是事件的名称（eventName），第三个参数是回调函数</p>
-<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">abstract</span> <span class="title function_">listen</span>(<span class="attr">target</span>: <span class="built_in">any</span>, <span class="attr">eventName</span>: <span class="built_in">string</span>, <span class="attr">callback</span>: <span class="function">(<span class="params">event: <span class="built_in">any</span></span>) =&gt;</span> <span class="built_in">boolean</span> | <span class="built_in">void</span>): <span class="function">() =&gt;</span> <span class="built_in">void</span></span><br></pre></td></tr></table></figure>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="page-number current">2</span><a class="page-number" href="/page/3/">3</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/3/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>
@@ -2070,7 +2161,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>

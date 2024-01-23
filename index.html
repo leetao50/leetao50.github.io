@@ -118,7 +118,7 @@
   <nav class="site-state">
       <div class="site-state-item site-state-posts">
         <a href="/archives/">
-          <span class="site-state-item-count">49</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -152,6 +152,430 @@
 
 
     <div class="main-inner index posts-expand">
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2024/01/11/angular/Angular%E4%B8%AD%E5%B8%B8%E7%94%A8Ref%E6%80%BB%E7%BB%93/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2024/01/11/angular/Angular%E4%B8%AD%E5%B8%B8%E7%94%A8Ref%E6%80%BB%E7%BB%93/" class="post-title-link" itemprop="url">Angular中常用Ref总结</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-01-11 15:47:53" itemprop="dateCreated datePublished" datetime="2024-01-11T15:47:53+08:00">2024-01-11</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-01-22 10:09:10" itemprop="dateModified" datetime="2024-01-22T10:09:10+08:00">2024-01-22</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <h1 id="ApplicationRef"><a href="#ApplicationRef" class="headerlink" title="ApplicationRef"></a>ApplicationRef</h1><p>两个主要个作用：</p>
+<p>（1）可以通过appRef.tick()来全局性调用变化检测；</p>
+<p>   ApplicationRef.tick() - 检查所有组件树</p>
+<p>（2）可以将视图用attachView()包含到变化检测中 用detachView()将视图移除变化检测 ；</p>
+<p>  不用ViewContainerRef，动态插入一个组件到一个特定的DOM节点：</p>
+<h1 id="ComponentRef"><a href="#ComponentRef" class="headerlink" title="ComponentRef"></a>ComponentRef</h1><p>表示组件的实例。</p>
+<p>ComponentRef提供对组件实例的访问以及与此组件实例相关的其他对象，并允许您通过destroy方法销毁组件实例。</p>
+<p>抽象类定义如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">abstract <span class="keyword">class</span> <span class="title class_">ComponentRef</span>&lt;C&gt; &#123;</span><br><span class="line">  abstract <span class="attr">location</span>: <span class="title class_">ElementRef</span> <span class="comment">// 组件实例的宿主元素所在的位置</span></span><br><span class="line">  abstract <span class="attr">injector</span>: <span class="title class_">Injector</span> <span class="comment">// 组件实例存在的注射器</span></span><br><span class="line">  abstract <span class="attr">instance</span>: C <span class="comment">// 组件实例</span></span><br><span class="line">  abstract <span class="attr">hostView</span>: <span class="title class_">ViewRef</span> <span class="comment">// 组件实例的宿主视图ViewRef</span></span><br><span class="line">  abstract <span class="attr">changeDetectorRef</span>: <span class="title class_">ChangeDetectorRef</span> <span class="comment">// 组件的ChangeDetectorRef</span></span><br><span class="line">  abstract <span class="attr">componentType</span>: <span class="title class_">Type</span>&lt;any&gt; <span class="comment">// 组件类型</span></span><br><span class="line">  abstract <span class="title function_">destroy</span>(): <span class="keyword">void</span> <span class="comment">// 销毁组件实例及其附加数据</span></span><br><span class="line">  abstract <span class="title function_">onDestroy</span>(<span class="attr">callback</span>: <span class="title class_">Function</span>): <span class="keyword">void</span> <span class="comment">// 允许注册将在组件销毁时调用的回调。</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="injector-Injector"><a href="#injector-Injector" class="headerlink" title="injector: Injector"></a>injector: Injector</h2><p>我们在使用一个命令式引导一个Component之前需要在NgModule中的declarations部分声明这个Component，在使用这个Component时，通过依赖注入为Component提供的Service实际上是在NgModule声明，并且由NgModule提供的——NgModule就是Injector。</p>
+<p>所以这个Injector一般就是你在使用这个Component时所在的NgModule。 </p>
+<p>总结一句话，就是在动态加载Component时，你需要在哪个宿主（Component Host）下工作，那就获取哪个宿主的Injector，让宿主的Injector为你提供服务（provide service）。</p>
+<h2 id="location-ElementRef"><a href="#location-ElementRef" class="headerlink" title="location: ElementRef"></a>location: ElementRef</h2><p>这个命名很容易让人困惑。实际上它是需要被动态加载的组件（Component）的视图（View）部分。它的其中一个属性叫做rootNodes，就是一个Native Element。</p>
+<h2 id="hostView-ViewRef"><a href="#hostView-ViewRef" class="headerlink" title="hostView: ViewRef"></a>hostView: ViewRef</h2><p>上面已经存在一个ElementRef是为了提供视图的，而这个ViewRef看起来更像是视图的引用。没错，这很容易混淆。实际上ViewRef是用来提供数据检测和视图更新的。我们来看一下ViewRef的定义。</p>
+<p>这三个部分就是一个Component最重要的组成部分：injector提供服务，location管理原生视图，hostView负责数据-视图更新。</p>
+<h1 id="TemplateRef"><a href="#TemplateRef" class="headerlink" title="TemplateRef"></a>TemplateRef</h1><p>在介绍 TemplateRef 前，我们先来了解一下 HTML 模板元素template。模板元素是一种机制，允许包含加载页面时不渲染，但又可以随后通过 JavaScript 进行实例化的客户端内容。我们可以将模板视作为存储在页面上稍后使用的一小段内容。</p>
+<p>用于表示内嵌的template模板元素，通过TemplateRef实例，我们可以方便的创建内嵌视图（Embedded Views），且可以轻松地访问到通过 ElementRef 封装后的 nativeElement。需要注意的是组件视图中的 template 模板元素，经过渲染后会被替换成 comment 元素。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">abstract <span class="keyword">class</span> <span class="title class_">TemplateRef</span>&lt;C&gt; &#123;</span><br><span class="line">  abstract <span class="attr">elementRef</span>: <span class="title class_">ElementRef</span></span><br><span class="line">  abstract <span class="title function_">createEmbeddedView</span>(<span class="attr">context</span>: C): <span class="title class_">EmbeddedViewRef</span>&lt;C&gt;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p> templateRef创建Embedded Views视图的方法如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">@<span class="title class_">ViewChild</span>(<span class="string">&#x27;tp1&#x27;</span>) <span class="attr">tp1</span>: <span class="title class_">TemplateRef</span>&lt;any&gt;;</span><br><span class="line"><span class="keyword">const</span> view = <span class="variable language_">this</span>.<span class="property">tp1</span>.<span class="title function_">createEmbeddedView</span>(<span class="literal">null</span>);</span><br></pre></td></tr></table></figure>
+
+<h1 id="ViewContainerRef"><a href="#ViewContainerRef" class="headerlink" title="ViewContainerRef"></a>ViewContainerRef</h1><p>动态视图的核心是视图容器，它决定了视图的插入位置，用 ViewContainerRef 类表示。要创建它很简单，假设组件视图中有：<code>&lt;ng-container #dynamicHost&gt;&lt;/ng-container&gt;</code> 通过 <code>@ViewChild</code> 装饰器读取即可：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@<span class="title class_">ViewChild</span>(<span class="string">&#x27;dynamicHost&#x27;</span>, &#123; <span class="attr">read</span>: <span class="title class_">ViewContainerRef</span> &#125;) container!: <span class="title class_">ViewContainerRef</span>;</span><br></pre></td></tr></table></figure>
+<p>这段代码的注意点有：</p>
+<ul>
+<li><code>@ViewChild</code> 用来从组件视图中获取元素的引用，可以是 DOM 对象、子组件或者指令的实例、或是某个依赖注入的 Provider。</li>
+<li>第二个参数中的 read 指示具体获取哪个类型，例如从 <code>&lt;button mat-button&gt; </code>可以获取到这个 button 元素对象，也可以是这个标签上添加的 Material 按钮指令。</li>
+<li>要获取一个容器，并非只能使用 <code>&lt;ng-container&gt;</code>，<code>&lt;ng-template&gt;</code> 、组件或者别的 DOM 标签都可以。</li>
+<li>虽然是叫容器，不过插入的内容可不是在这个 <code>&lt;ng-container&gt; </code>标签内，而是在它的下方（类似 <code>&lt;router-outlet&gt;</code>）。所以使用 <code>ng-container</code> 是为了不渲染多余的 DOM。</li>
+</ul>
+<p>ViewContainerRef 实例可以创建、插入、移除、移动或是销毁它其中的视图（ViewRef）。视图代表着 Angular中可显示元素的最小分组单位，它由组件或者模板定义。多个视图构造成了 Angular 应用的视图树。</p>
+<p>简明起见，后文都将 ViewContainerRef 实例称之为 “视图容器”</p>
+<h2 id="以代码方式插入"><a href="#以代码方式插入" class="headerlink" title="以代码方式插入"></a>以代码方式插入</h2><p>视图容器有两个方法（createComponent，createEmbeddedView），用来动态创建组件视图和模板视图。</p>
+<h3 id="动态插入组件"><a href="#动态插入组件" class="headerlink" title="动态插入组件"></a>动态插入组件</h3><figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span>(&#123;</span><br><span class="line">    <span class="attr">template</span>: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;div class=&quot;alert-container mat-elevation-z2&quot; [class]=&quot;classConfig()&quot;&gt;</span></span><br><span class="line"><span class="string">        &lt;span class=&quot;message&quot;&gt;&#123;&#123;message&#125;&#125;&lt;/span&gt;</span></span><br><span class="line"><span class="string">        &lt;button mat-button (click)=&quot;emitCloseEvent()&quot;&gt;关闭&lt;/button&gt;</span></span><br><span class="line"><span class="string">    &lt;/div&gt;`</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AlertComponent</span> &#123;</span><br><span class="line">    <span class="meta">@Input</span>() message = <span class="string">&#x27;空消息提示&#x27;</span>;</span><br><span class="line">    <span class="meta">@Input</span>() <span class="keyword">type</span> = <span class="string">&#x27;success&#x27;</span>;</span><br><span class="line">    <span class="meta">@Output</span>() closeAlert = <span class="keyword">new</span> <span class="title class_">EventEmitter</span>();</span><br><span class="line">    <span class="title function_">classConfig</span>(<span class="params"></span>) &#123;</span><br><span class="line">        <span class="keyword">return</span> &#123;</span><br><span class="line">            <span class="attr">success</span>: <span class="variable language_">this</span>.<span class="property">type</span> === <span class="string">&#x27;success&#x27;</span>,</span><br><span class="line">            <span class="attr">warning</span>: <span class="variable language_">this</span>.<span class="property">type</span> === <span class="string">&#x27;warning&#x27;</span></span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">const</span></span><br><span class="line"></span><br><span class="line">    <span class="title function_">emitCloseEvent</span>(): <span class="built_in">void</span> &#123;</span><br><span class="line">        <span class="variable language_">this</span>.<span class="property">closeAlert</span>.<span class="title function_">emit</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这个组件有两个输入属性，一个输出事件。以便演示动态创建的组件，如何和外界交互。</p>
+<p>通知组件写好后，就可以创建并动态插入，将这个对象传入视图容器的 createComponent 方法。通过 createComponent 方法，就可以将这个组件插入到视图中了，并返回这个组件实例。</p>
+<p>有了组件实例，和这个通知组件交互也就不成问题了：</p>
+<ul>
+<li>输入属性传值：componentRef.instance.message &#x3D; “外部传入的警告信息”。</li>
+<li>绑定输出事件：</li>
+</ul>
+<figure class="highlight ts"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">componentRef.<span class="property">instance</span>.<span class="property">closeAlert</span>.<span class="title function_">subscribe</span>(<span class="function">() =&gt;</span> &#123;</span><br><span class="line">  <span class="keyword">const</span> index = <span class="variable language_">this</span>.<span class="property">container</span>.<span class="title function_">indexOf</span>(componentRef.<span class="property">hostView</span>);</span><br><span class="line">  <span class="variable language_">this</span>.<span class="property">container</span>.<span class="title function_">remove</span>(index);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p><img src="1bfc4fcb11e137fc961c037e86d5fd241f46f27317e712ddeee7128fbdd6cbb6.png" alt="图 0">  </p>
+<h3 id="动态插入模板"><a href="#动态插入模板" class="headerlink" title="动态插入模板"></a>动态插入模板</h3><p>和 createComponent 类似的，通过 createEmbeddedView 就可以插入模板。</p>
+<p>首先先创建一个模板示例，这个模板根据上下文对象声明了一个 “param” 属性：</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ng-template</span> #<span class="attr">templateView</span> <span class="attr">let-param</span>=<span class="string">&quot;message&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">section</span> <span class="attr">class</span>=<span class="string">&quot;template-wrapper&quot;</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span>&gt;</span>来自 ng-template 的动态内容<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;&#123;param&#125;&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">section</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">ng-template</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>要插入一个带上下文数据的模板，具体分为三步：</p>
+<ol>
+<li><p>获取模板的引用对象：<br><code>@ViewChild(&#39;templateView&#39;, &#123; read: TemplateRef &#125;) template!: TemplateRef&lt;any&gt;;</code></p>
+</li>
+<li><p>声明上下文对象：</p>
+</li>
+</ol>
+<p><code>templateContext = &#123; message: &#39;来自模板上下文的值&#39; &#125;;</code></p>
+<ol start="3">
+<li><p>通过视图容器的 createEmbeddedView 方法插入模板：</p>
+<p><code>const embeddedViewRef = this.container.createEmbeddedView(this.template, this.templateContext);</code></p>
+</li>
+</ol>
+<p>方法创建一个 EmbeddedViewRef 对象，并将它放入。通过这个对象，视图容器可以查找它的索引，所以也可以和之前组件视图的引用一样，在容器内移动顺序、移除渲染、或是被销毁。</p>
+<p><img src="6a1365efdf41b72059b52cbc5896f47936453faf94ca1dfc203f5446cdc00fac.png" alt="图 1">  </p>
+<h3 id="以指令方式插入"><a href="#以指令方式插入" class="headerlink" title="以指令方式插入"></a>以指令方式插入</h3><p>除了使用视图容器的两个方法来创建和插入视图，Angular 还提供了两个指令来简化工作。</p>
+<h4 id="ngComponentOutlet"><a href="#ngComponentOutlet" class="headerlink" title="ngComponentOutlet"></a>ngComponentOutlet</h4><p>首先，再创建另一个示例组件，和前面的哪个通知组件不同，它没有输入输出属性，但是多了一个需要注入的依赖项，以便演示带依赖注入的组件插入：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">@<span class="title class_">Component</span>(&#123;</span><br><span class="line">    <span class="attr">template</span>: <span class="string">`</span></span><br><span class="line"><span class="string">    &lt;section class=&quot;template-wrapper&quot;&gt;</span></span><br><span class="line"><span class="string">        &lt;span&gt;来自另一个动态组件：&#123;&#123;param.message&#125;&#125;&lt;/span&gt;</span></span><br><span class="line"><span class="string">    &lt;/section&gt;`</span></span><br><span class="line">&#125;)</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">AnotherComponent</span> &#123;</span><br><span class="line">    <span class="title function_">constructor</span>(<span class="params">public param: ExampleService</span>) &#123; &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用指令的方式创建组件就简单多了，只需要两步：</p>
+<ol>
+<li><p>引入这个组件类，并赋值给一个属性：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; <span class="title class_">AnotherComponent</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;../shared/another-component&#x27;</span>;</span><br><span class="line"><span class="keyword">export</span> <span class="keyword">class</span> <span class="title class_">ViewContainerExampleComponent</span> implements <span class="title class_">OnInit</span>, <span class="title class_">OnDestroy</span> &#123;</span><br><span class="line">     public anotherComponent = <span class="title class_">AnotherComponent</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在视图中声明即可：</p>
+</li>
+</ol>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">ng-container</span> *<span class="attr">ngComponentOutlet</span>=<span class="string">&quot;anotherComponent&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">ng-container</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p><strong>传入依赖注入器</strong></p>
+<p>正常情况下，这样就把组件插入指定位置了，不过如果动态组件所声明的依赖项，需要由这个组件本身提供呢？</p>
+<p>这里就要再给这个组件传入注入对象:</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;ng-container *ngComponentOutlet=&quot;anotherComponent;injector:costumeInjector&quot;&gt;</span><br></pre></td></tr></table></figure>
+<p>这个 costumeInjector 可以通过 Injector 类的静态方法创建：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="title function_">constructor</span>(<span class="params"></span></span><br><span class="line"><span class="params">    injector: Injector</span></span><br><span class="line"><span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">costumeInjector</span> = <span class="title class_">Injector</span>.<span class="title function_">create</span>(&#123; </span><br><span class="line">        <span class="attr">providers</span>: [&#123; <span class="attr">provide</span>: <span class="title class_">ExampleService</span>, <span class="attr">deps</span>: [] &#125;], </span><br><span class="line">        <span class="attr">parent</span>: injector </span><br><span class="line">    &#125;);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这样一来，每个动态创建的组件，都会拥有一个独立的 ExampleService 实例。</p>
+<p>✨ 视图容器的 createComponent 方法同样可以指定依赖注入器，效果是一样的，前面只是为了简明而省略。</p>
+<p>当然，常见的情况依旧是给 ExampleService 的装饰器声明为全局服务：@Injectable({ providedIn:’root’})</p>
+<p><strong>传入内容映射</strong></p>
+<p>除了可以指定注入器，还可以传入内容映射。</p>
+<p>先给组件做一点小修改，新增一个 <ng-content> 标记，使得这个组件可以接收外部内容映射：</ng-content></p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">&lt;section class=&quot;template-wrapper&quot;&gt;</span><br><span class="line">    &lt;span&gt;来自另一个动态组件：&#123;&#123;param.message&#125;&#125;&lt;/span&gt;</span><br><span class="line">    &lt;ng-content&gt;&lt;/ng-content&gt;</span><br><span class="line">&lt;/section&gt;`</span><br></pre></td></tr></table></figure>
+<p>要插入映射的 DOM 内容，只需要额外给指令的表达式再传一个参数：<br><code>&lt;ng-container *ngComponentOutlet=&quot;anotherComponent;content:costumeContent&quot;&gt;</code></p>
+<p>这个 costumeContent 是一个数组，因为组件内可以有多个 ng-content。数组内每项也是一个数组，因为每个 ng-content 位置，可以插入多个 DOM 内容块。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> spanContent = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;span&#x27;</span>);</span><br><span class="line"><span class="keyword">const</span> divContent = <span class="variable language_">document</span>.<span class="title function_">createElement</span>(<span class="string">&#x27;div&#x27;</span>);</span><br><span class="line">spanContent.<span class="property">innerHTML</span> = <span class="string">&#x27;hello, world&#x27;</span>;</span><br><span class="line">divContent.<span class="property">innerHTML</span> = <span class="string">&#x27;&lt;span&gt;locotor&lt;/span&gt;&#x27;</span>;</span><br><span class="line"><span class="variable language_">this</span>.<span class="property">costumeContent</span> = [[spanContent, divContent]];</span><br></pre></td></tr></table></figure>
+
+<p><strong>ngTemplateOutlet</strong></p>
+<p>模板的指令只有两个输入属性：模板的引用对象、模板的上下文对象。</p>
+<p>所以要插入一个带上下文数据的模板，具体步骤如下：</p>
+<ol>
+<li>给模板添加引用名：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&lt;ng-template #templateView let-param=&quot;message&quot;&gt;</span><br><span class="line">     &lt;!-- 省略内容 --&gt;</span><br><span class="line">&lt;/ng-template&gt;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>声明上下文对象：<br><code>templateContext = &#123; message: &#39;来自模板上下文的值&#39; &#125;;</code></li>
+<li>传入 ngTemplateOutlet 指令中：</li>
+</ol>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;ng-container *ngTemplateOutlet=&quot;templateView; context: templateContext&quot;&gt;&lt;/ng-container&gt;</span><br></pre></td></tr></table></figure>
+
+
+
+<h1 id="ElementRef"><a href="#ElementRef" class="headerlink" title="ElementRef"></a>ElementRef</h1><p>Angular 的口号是 - “一套框架，多种平台，即同时适用手机与桌面。在应用层直接操作 DOM，就会造成应用层与渲染层之间强耦合，导致我们的应用无法运行在不同环境，通过 ElementRef 我们就可以封装不同平台下视图层中的 native 元素 (在浏览器环境中，native 元素通常是指 DOM 元素)，最后借助于 Angular 提供的强大的依赖注入特性，我们就可以轻松地访问到 native 元素。</p>
+<p>ElementRef定义如下：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">class</span> <span class="title class_">ElementRef</span>&lt;T&gt; &#123;</span><br><span class="line">  <span class="title function_">constructor</span>(<span class="params">nativeElement: T</span>)</span><br><span class="line">  <span class="attr">nativeElement</span>: T</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="ViewRef"><a href="#ViewRef" class="headerlink" title="ViewRef"></a>ViewRef</h1><p>抽象类定义：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">abstract <span class="keyword">class</span> <span class="title class_">ViewRef</span> <span class="keyword">extends</span> <span class="title class_ inherited__">ChangeDetectorRef</span> &#123;</span><br><span class="line">  abstract <span class="attr">destroyed</span>: boolean</span><br><span class="line">  abstract <span class="title function_">destroy</span>(): <span class="keyword">void</span></span><br><span class="line">  abstract <span class="title function_">onDestroy</span>(<span class="attr">callback</span>: <span class="title class_">Function</span>): any</span><br><span class="line"> </span><br><span class="line">  <span class="comment">// 继承自 core/ChangeDetectorRef</span></span><br><span class="line">  abstract <span class="title function_">markForCheck</span>(): <span class="keyword">void</span></span><br><span class="line">  abstract <span class="title function_">detach</span>(): <span class="keyword">void</span></span><br><span class="line">  abstract <span class="title function_">detectChanges</span>(): <span class="keyword">void</span></span><br><span class="line">  abstract <span class="title function_">checkNoChanges</span>(): <span class="keyword">void</span></span><br><span class="line">  abstract <span class="title function_">reattach</span>(): <span class="keyword">void</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p> ViewRef 用于表示 Angular View(视图)，视图是可视化的 UI 界面。EmbeddedViewRef 继承于 ViewRef，用于表示 <template> 模板元素中定义的 UI 元素。</template></p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/11/22/css/%E6%8B%96%E6%8B%BD/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/11/22/css/%E6%8B%96%E6%8B%BD/" class="post-title-link" itemprop="url">拖拽</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-11-22 10:19:45 / 修改时间：19:06:59" itemprop="dateCreated datePublished" datetime="2023-11-22T10:19:45+08:00">2023-11-22</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          <p>HTML 拖放（Drag and Drop）接口使应用程序能够在浏览器中使用拖放功能。例如，用户可使用鼠标选择可拖拽（draggable）元素，将元素拖拽到可放置（droppable）元素，并释放鼠标按钮以放置这些元素。拖拽操作期间，会有一个可拖拽元素的半透明快照跟随着鼠标指针。</p>
+<h1 id="拖拽事件"><a href="#拖拽事件" class="headerlink" title="拖拽事件"></a>拖拽事件</h1><p>HTML 的 drag &amp; drop 使用了 DOM event model 以及从 mouse events 继承而来的 drag events。一个典型的拖拽操作是这样的：用户选中一个<em>可拖拽的（draggable）元素，并将其拖拽（鼠标不放开）到一个可放置的（droppable）</em>元素，然后释放鼠标。</p>
+<p>在操作期间，会触发一些事件类型，有一些事件类型可能会被多次触发（比如drag 和 dragover 事件类型）。</p>
+<p>下面的表格提供了一个简短的事件类型描述，以及一个相关文档的链接。</p>
+<table>
+<thead>
+<tr>
+<th>事件</th>
+<th>事件处理程序</th>
+<th>触发时刻</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>drag</td>
+<td>ondrag</td>
+<td>当拖拽元素或选中的文本时触发</td>
+</tr>
+<tr>
+<td>dragend</td>
+<td>ondragend</td>
+<td>当拖拽操作结束时触发 (比如松开鼠标按键或敲“Esc”键)</td>
+</tr>
+<tr>
+<td>dragenter</td>
+<td>ondragenter</td>
+<td>当拖拽元素或选中的文本到一个可释放目标时触发</td>
+</tr>
+<tr>
+<td>dragleave</td>
+<td>ondragleave</td>
+<td>当拖拽元素或选中的文本离开一个可释放目标时触发</td>
+</tr>
+<tr>
+<td>dragover</td>
+<td>ondragover</td>
+<td>当元素或选中的文本被拖到一个可释放目标上时触发（每 100 毫秒触发一次）</td>
+</tr>
+<tr>
+<td>dragstart</td>
+<td>ondragstart</td>
+<td>当用户开始拖拽一个元素或选中的文本时触发</td>
+</tr>
+<tr>
+<td>drop</td>
+<td>ondrop</td>
+<td>当元素或选中的文本在可释放目标上被释放时触发</td>
+</tr>
+</tbody></table>
+<p><strong>注意：</strong>当从操作系统向浏览器中拖拽文件时，不会触发 dragstart 和dragend 事件。</p>
+<h1 id="基础"><a href="#基础" class="headerlink" title="基础"></a>基础</h1><h2 id="确定什么是可拖拽的"><a href="#确定什么是可拖拽的" class="headerlink" title="确定什么是可拖拽的"></a>确定什么是可拖拽的</h2><p>让一个元素被拖拽需要添加 draggable 属性，再加上事件处理函数 ondragstart;</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">function</span> <span class="title function_">dragstart_handler</span>(<span class="params">ev</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// Add the target element&#x27;s id to the data transfer object</span></span></span><br><span class="line"><span class="language-javascript">    ev.<span class="property">dataTransfer</span>.<span class="title function_">setData</span>(<span class="string">&quot;text/plain&quot;</span>, ev.<span class="property">target</span>.<span class="property">id</span>);</span></span><br><span class="line"><span class="language-javascript">    ev.<span class="property">dataTransfer</span>.<span class="title function_">setData</span>(</span></span><br><span class="line"><span class="language-javascript">    <span class="string">&quot;text/uri-list&quot;</span>,</span></span><br><span class="line"><span class="language-javascript">    ev.<span class="property">target</span>.<span class="property">ownerDocument</span>.<span class="property">location</span>.<span class="property">href</span>,</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&quot;DOMContentLoaded&quot;</span>, <span class="function">() =&gt;</span> &#123;</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// Get the element by id</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">const</span> element = <span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;p1&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// Add the ondragstart event listener</span></span></span><br><span class="line"><span class="language-javascript">    element.<span class="title function_">addEventListener</span>(<span class="string">&quot;dragstart&quot;</span>, dragstart_handler);</span></span><br><span class="line"><span class="language-javascript">  &#125;);</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span> <span class="attr">id</span>=<span class="string">&quot;p1&quot;</span> <span class="attr">draggable</span>=<span class="string">&quot;true&quot;</span>&gt;</span>This element is draggable.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="定义拖拽数据"><a href="#定义拖拽数据" class="headerlink" title="定义拖拽数据"></a>定义拖拽数据</h2><p>每个 dragevent 都有一个dataTransfer 属性，其中保存着事件的数据。这个属性也有管理拖拽数据的方法。setData() 方法为拖拽数据添加一个项，如下面的示例代码所示：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 添加拖拽数据</span></span><br><span class="line">ev.<span class="property">dataTransfer</span>.<span class="title function_">setData</span>(<span class="string">&quot;text/plain&quot;</span>, ev.<span class="property">target</span>.<span class="property">innerText</span>);</span><br><span class="line">ev.<span class="property">dataTransfer</span>.<span class="title function_">setData</span>(<span class="string">&quot;text/html&quot;</span>, ev.<span class="property">target</span>.<span class="property">outerHTML</span>);</span><br><span class="line">ev.<span class="property">dataTransfer</span>.<span class="title function_">setData</span>(</span><br><span class="line">  <span class="string">&quot;text/uri-list&quot;</span>,</span><br><span class="line">  ev.<span class="property">target</span>.<span class="property">ownerDocument</span>.<span class="property">location</span>.<span class="property">href</span>,</span><br></pre></td></tr></table></figure>
+
+<p>如果你试图以相同的格式添加两次数据，那么新的数据将替换旧的数据。你可以使用 clearData() 方法清除这些数据，该方法接收一个参数，即要删除的数据类型。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">event.<span class="property">dataTransfer</span>.<span class="title function_">clearData</span>(<span class="string">&quot;text/uri-list&quot;</span>);</span><br></pre></td></tr></table></figure>
+<p>clearData()方法的 type 参数是可选的。如果没有声明type，则所有类型的数据都会被删除。如果拖拽不包含拖拽数据项，或者所有的数据项都被清除，那么就不会出现拖拽行为。</p>
+<h2 id="定义拖拽图像"><a href="#定义拖拽图像" class="headerlink" title="定义拖拽图像"></a>定义拖拽图像</h2><p>拖拽过程中，浏览器会在鼠标旁显示一张默认图片。当然，应用程序也可以通过 setDragImage() 方法自定义一张图片</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> img = <span class="keyword">new</span> <span class="title class_">Image</span>();</span><br><span class="line">img.<span class="property">src</span> = <span class="string">&quot;example.gif&quot;</span>;</span><br><span class="line">ev.<span class="property">dataTransfer</span>.<span class="title function_">setDragImage</span>(img, <span class="number">10</span>, <span class="number">10</span>);</span><br></pre></td></tr></table></figure>
+
+<h2 id="定义拖拽效果"><a href="#定义拖拽效果" class="headerlink" title="定义拖拽效果"></a>定义拖拽效果</h2><p>dropEffect 属性用来控制拖放操作中用户给予的反馈。它会影响到拖拽过程中浏览器显示的鼠标样式。比如，当用户悬停在目标元素上的时候，浏览器鼠标也许要反映拖放操作的类型。</p>
+<p><strong>有以下效果可以定义：</strong></p>
+<ol>
+<li>copy 表明被拖拽的数据将从它原本的位置拷贝到目标的位置。</li>
+<li>move 表明被拖拽的数据将被移动。</li>
+<li>link 表明在拖拽源位置和目标位置之间将会创建一些关系表格或是连接。</li>
+<li>none 不允许操作</li>
+</ol>
+<p>属性默认允许以上所有的操作（all），所以你不需要调整这个属性，除非你想要排除某个特定操作。在拖拽过程中，拖拽效果也许会被修改以用于表明在具体位置上具体效果是否被允许，如果允许，在该位置则被允许放置。</p>
+<p><strong>可以使用 none 表示在这个位置不允许任何放置</strong></p>
+<p><code>  ev.dataTransfer.dropEffect = &quot;copy&quot;;</code></p>
+<h2 id="指定放置目标"><a href="#指定放置目标" class="headerlink" title="指定放置目标"></a>指定放置目标</h2><p>当拖拽一个项目到 HTML 元素中时，浏览器默认不会有任何响应。想要让一个元素变成可释放区域，该元素必须设置 ondragover和ondrop事件处理程序属性。</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">function</span> <span class="title function_">dragover_handler</span>(<span class="params">ev</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">    ev.<span class="title function_">preventDefault</span>();</span></span><br><span class="line"><span class="language-javascript">    ev.<span class="property">dataTransfer</span>.<span class="property">dropEffect</span> = <span class="string">&quot;move&quot;</span>;</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript">  <span class="keyword">function</span> <span class="title function_">drop_handler</span>(<span class="params">ev</span>) &#123;</span></span><br><span class="line"><span class="language-javascript">    ev.<span class="title function_">preventDefault</span>();</span></span><br><span class="line"><span class="language-javascript">    <span class="comment">// Get the id of the target and add the moved element to the target&#x27;s DOM</span></span></span><br><span class="line"><span class="language-javascript">    <span class="keyword">var</span> data = ev.<span class="property">dataTransfer</span>.<span class="title function_">getData</span>(<span class="string">&quot;text/plain&quot;</span>);</span></span><br><span class="line"><span class="language-javascript">    ev.<span class="property">target</span>.<span class="title function_">appendChild</span>(<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(data));</span></span><br><span class="line"><span class="language-javascript">  &#125;</span></span><br><span class="line"><span class="language-javascript"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">p</span></span></span><br><span class="line"><span class="tag">  <span class="attr">id</span>=<span class="string">&quot;target&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">ondrop</span>=<span class="string">&quot;drop_handler(event)&quot;</span></span></span><br><span class="line"><span class="tag">  <span class="attr">ondragover</span>=<span class="string">&quot;dragover_handler(event)&quot;</span>&gt;</span></span><br><span class="line">  Drop Zone</span><br><span class="line"><span class="tag">&lt;/<span class="name">p</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>如果你想要允许放置，你必须取消 dragenter 和 dragover 事件来阻止默认的处理。你可以在属性定义的事件监听程序返回 false，或者调用事件的 preventDefault() 方法来实现这一点。</p>
+<p>在 dragenter 和 dragover 事件中调用 preventDefault() 方法将表明在该位置允许放置。但是，你通常希望只在某些情况下调用 preventDefault() 方法（如只当拖拽的是链接时）。</p>
+<p>要做到这一点，调用一个函数以检查条件，并且只在满足条件时取消事件。如果条件未满足，则不取消事件，此时用户释放鼠标按钮不会执行放置。</p>
+<p>最常见的是根据数据传输中拖拽数据的类型来接受或拒绝放置——例如，允许放置图像或链接，或者都允许。你可以检查 dataTransfer 属性的 types 属性来查看哪些类型允许放置。types 属性返回一个字符串类型的数组，这些字符串类型是在拖拽开始时添加的，顺序是从最重要到最不重要。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">contains</span>(<span class="params">list, value</span>) &#123;</span><br><span class="line">  <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>; i &lt; list.<span class="property">length</span>; ++i) &#123;</span><br><span class="line">    <span class="keyword">if</span> (list[i] === value) <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">false</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">function</span> <span class="title function_">doDragOver</span>(<span class="params">event</span>) &#123;</span><br><span class="line">  <span class="keyword">var</span> isLink = <span class="title function_">contains</span>(event.<span class="property">dataTransfer</span>.<span class="property">types</span>, <span class="string">&quot;text/uri-list&quot;</span>);</span><br><span class="line">  <span class="keyword">if</span> (isLink) &#123;</span><br><span class="line">    event.<span class="title function_">preventDefault</span>();</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如果你希望更具体地限制操作类型，你可能还需要设置 effectAllowed 或 dropEffect 属性，或者两者都设置。当然，如果你不取消这个事件，改变这两个属性不会有任何效果。</p>
+<h2 id="放置反馈"><a href="#放置反馈" class="headerlink" title="放置反馈"></a>放置反馈</h2><p>你还可以根据需要更新用户界面，如添加一个插入标记或使用高亮显示。对于简单的高亮显示，你可以在放置目标上使用 -moz-drag-over CSS 伪类。</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.droparea</span>:-moz-drag-over &#123;</span><br><span class="line">  <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在这个例子中，当带有 droparea 类的元素是一个有效的放置目标时，即在该元素的 dragenter 事件中调用 preventDefault() 方法时，元素会出现一个 1 像素的黑色轮廓。</p>
+<p>要使这个伪类生效，你必须在 dragenter 事件中调用 preventDefault() 方法，因为这个伪类状态不会检查 dragover 事件（译者注：即在 dragover 事件中调用 preventDefault() 方法也不会使伪类生效，尽管这个伪类叫做“-moz-drag-over”）。</p>
+<p>你可以在 dragenter 事件中执行其他操作。例如在放置位置插入一个元素，这样的元素可以表示一个插入标记，或表示被拖拽的元素移动到了新位置。为此你可以在 dragenter 事件中创建一个新元素，然后将其插入到文档中。</p>
+<p>dragover 事件在鼠标指向的元素上触发。自然，你可能需要将插入标记移动到事件发生的位置附近。你可以使用事件的 clientX 和 clientY 属性，还有其他鼠标事件的属性来确定鼠标的位置。</p>
+<p>最后，dragleave 事件会在拖拽离开元素时在该元素上触发。这是移除插入标记或高亮的好时机。你不需要取消这个事件（译者注：即不需要使用 preventDefault()）。使用 -moz-drag-over 伪类设置的高亮或其他视觉效果会被自动移除。即使拖拽被取消了，dragleave 事件也会照常触发，所以你可以确保在这个事件中对任何插入标记的清除操作都一定可以完成。</p>
+<h2 id="执行放置"><a href="#执行放置" class="headerlink" title="执行放置"></a>执行放置</h2><p>如果在有效的放置目标元素上放开鼠标，放置会成功实现，drop 事件在目标元素上被触发。否则，拖拽会被取消，不会触发 drop 事件。</p>
+<p>在所有拖拽操作相关的事件中，事件的 dataTransfer 属性会一直保存着拖拽数据。可使用 getData() 方法来取回数据。</p>
+<figure class="highlight typescript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">function</span> <span class="title function_">onDrop</span>(<span class="params">event</span>) &#123;</span><br><span class="line">  <span class="keyword">const</span> data = event.<span class="property">dataTransfer</span>.<span class="title function_">getData</span>(<span class="string">&quot;text/plain&quot;</span>);</span><br><span class="line">  event.<span class="property">target</span>.<span class="property">textContent</span> = data;</span><br><span class="line">  event.<span class="title function_">preventDefault</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="完成拖拽"><a href="#完成拖拽" class="headerlink" title="完成拖拽"></a>完成拖拽</h2><p>拖拽操作结束时，在源元素（开始拖拽时的目标元素）上触发 dragend 事件。不管拖拽是完成还是被取消这个事件都会被触发。dragend 事件处理程序可以检查dropEffect 属性的值来确认拖拽成功与否。</p>
+<p>如果在 dragend 事件中，dropEffect 属性值为 none，则拖拽会被取消。</p>
+
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
+
+    
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/11/21/angular/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A1%A8%E5%8D%95%E6%8E%A7%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="undefined | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          <a href="/2023/11/21/angular/%E8%87%AA%E5%AE%9A%E4%B9%89%E8%A1%A8%E5%8D%95%E6%8E%A7%E4%BB%B6/" class="post-title-link" itemprop="url">自定义表单控件</a>
+        </h2>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+      
+
+      <time title="创建时间：2023-11-21 16:37:37 / 修改时间：16:53:30" itemprop="dateCreated datePublished" datetime="2023-11-21T16:37:37+08:00">2023-11-21</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+          
+      
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+</div>
+
+
+
 
     
 
@@ -975,469 +1399,8 @@
 
 
 
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/08/23/angular/Angular%E8%B7%AF%E7%94%B1/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="InfoPool">
-      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | InfoPool">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/08/23/angular/Angular%E8%B7%AF%E7%94%B1/" class="post-title-link" itemprop="url">Angular路由</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-08-23 11:42:36" itemprop="dateCreated datePublished" datetime="2023-08-23T11:42:36+08:00">2023-08-23</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-08-24 10:24:13" itemprop="dateModified" datetime="2023-08-24T10:24:13+08:00">2023-08-24</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="什么是路由"><a href="#什么是路由" class="headerlink" title="什么是路由"></a>什么是路由</h1><p>路由允许您从应用程序的一部分移动到另一部分，或者从一个视图移动到另一个视图。</p>
-<p>在Angular中，路由由Angular路由器模块处理。</p>
-<p>路由器是Angular中的一个独立模块。它在@angular&#x2F;router包中。Angular Router提供了应用程序视图中导航所需的服务和指令。</p>
-<p>使用Angular Router，您可以</p>
-<ul>
-<li>通过在地址栏中键入URL导航到特定视图</li>
-<li>将可选参数（查询参数）传递到视图</li>
-<li>将可单击元素绑定到视图，并在用户执行应用程序任务时加载视图</li>
-<li>处理浏览器的后退和前进按钮</li>
-<li>允许您动态加载视图</li>
-<li>使用路由保护程序保护路由不受未经授权的用户的攻击</li>
-</ul>
-<h1 id="Angular路由组件"><a href="#Angular路由组件" class="headerlink" title="Angular路由组件"></a>Angular路由组件</h1><h2 id="Router"><a href="#Router" class="headerlink" title="Router"></a>Router</h2><p>Angular  Router 是服务(service)（Angular Router API），它允许用户在执行应用程序任务时从一个组件导航到下一个组件，如单击菜单链接和按钮，或单击浏览器上的后退&#x2F;前进按钮。我们可以访问router对象，并使用其方法（如navigate（）或navigateByUrl（））来导航到路由.</p>
-<h2 id="Route"><a href="#Route" class="headerlink" title="Route"></a>Route</h2><p>当用户单击链接或将URL粘贴到浏览器地址栏时，Route 告诉Angular Router要显示哪个视图。每个Route都由一个路径和映射到的组件组成。Router对象使用Route解析并构建最终的URL.</p>
-<p><img src="516766e8960da632098beec85bb388cea2abc787145632fefa2a6b4b16f2792e.png" alt="图 0">  </p>
-<h2 id="Routes"><a href="#Routes" class="headerlink" title="Routes"></a>Routes</h2><p>Routes是应用程序支持的Route对象的数组</p>
-<h2 id="RouterOutlet"><a href="#RouterOutlet" class="headerlink" title="RouterOutlet"></a>RouterOutlet</h2><p>RouterOutlet是一个用作占位符的指令（＜router-outlet＞），路由器应在其中显示视图</p>
-<h3 id="选择器"><a href="#选择器" class="headerlink" title="选择器"></a>选择器</h3><p>router-outlet</p>
-<h3 id="模板变量参考手册"><a href="#模板变量参考手册" class="headerlink" title="模板变量参考手册"></a>模板变量参考手册</h3><p>outlet #myTemplateVar&#x3D;”outlet”</p>
-<p>每当新组件实例化之后，路由出口就会发出一个激活事件；在销毁时则发出取消激活的事件。</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;router-outlet</span><br><span class="line">  (activate)=&#x27;onActivate($event)&#x27;</span><br><span class="line">  (deactivate)=&#x27;onDeactivate($event)&#x27;</span><br><span class="line">  (attach)=&#x27;onAttach($event)&#x27;</span><br><span class="line">  (detach)=&#x27;onDetach($event)&#x27;&gt;&lt;/router-outlet&gt;</span><br></pre></td></tr></table></figure>
-
-<p>每个出口可以具有唯一的名称，该 name 由可选的 name 属性确定。该名称不能动态设置或更改。如果未设置，则默认值为 “primary”。</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">router-outlet</span>&gt;</span><span class="tag">&lt;/<span class="name">router-outlet</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">router-outlet</span> <span class="attr">name</span>=<span class="string">&#x27;left&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">router-outlet</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">router-outlet</span> <span class="attr">name</span>=<span class="string">&#x27;right&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">router-outlet</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&#123;<span class="attr">path</span>: &lt;base-path&gt;, <span class="attr">component</span>: &lt;component&gt;, <span class="attr">outlet</span>: &lt;target_outlet_name&gt;&#125;</span><br></pre></td></tr></table></figure>
-
-<p>使用命名的出口和辅助路由，你可以在同一 RouterLink 指令中定位多个出口。</p>
-<p>路由器在导航树中跟踪每个命名出口的单独分支，并在 URL 中生成该树的表示形式。辅助路由的 URL 使用以下语法同时指定主要路由和辅助路由：</p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">http://base-path/<span class="built_in">primary-route-path</span>(outlet-name:route-path)</span><br></pre></td></tr></table></figure>
-
-<h2 id="RouterLink"><a href="#RouterLink" class="headerlink" title="RouterLink"></a>RouterLink</h2><p>RouterLink是一个将HTML元素绑定到Route的指令。单击绑定到RouterLink的HTML元素，将导航到Route。RouterLink可能包含要传递给路由组件的参数。</p>
-<p>给定路由配置 </p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">[&#123; <span class="attr">path</span>: <span class="string">&#x27;user/:name&#x27;</span>, <span class="attr">component</span>: <span class="title class_">UserCmp</span> &#125;]</span><br></pre></td></tr></table></figure>
-<p>，以下内容将创建一个到该路由的静态链接：</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">a</span> <span class="attr">routerLink</span>=<span class="string">&quot;/user/bob&quot;</span>&gt;</span>link to user component<span class="tag">&lt;/<span class="name">a</span>&gt;</span></span><br></pre></td></tr></table></figure>
-
-<p>你也可以使用动态值来生成链接。对于动态链接，请传递路径段数组，然后传递每个段的参数。比如，<br><code>[&#39;/team&#39;, teamId, &#39;user&#39;, userName, &#123;details: true&#125;] </code>生成到 <code>/team/11/user/bob;details=true</code>。</p>
-<p>多个静态段可以合并为一个词，并与动态段组合。比如，<code>[&#39;/team/11/user&#39;, userName, &#123;details: true&#125;]</code></p>
-<p>你提供给链接的输入将被视为当前 URL 的增量。比如，假设当前 URL 是 <code>/user/(box//aux:team)</code>。则链接 <code>&lt;a [routerLink]=&quot;[&#39;/user/jim&#39;]&quot;&gt;Jim&lt;/a&gt; </code>会创建<code> URL /user/(jim//aux:team)</code> 。</p>
-<p>你可以在链接中使用绝对或相对路径、设置查询参数、控制如何处理参数以及保留导航状态的历史记录。</p>
-<h2 id="RouterLinkActive"><a href="#RouterLinkActive" class="headerlink" title="RouterLinkActive"></a>RouterLinkActive</h2><p>RouterLinkActive是用于从绑定到RouterLink的HTML元素中添加或删除CSS样式的指令。使用此指令，我们可以根据当前RouterState切换RouterLinks的CSS样式</p>
-<h2 id="ActivatedRoute"><a href="#ActivatedRoute" class="headerlink" title="ActivatedRoute"></a>ActivatedRoute</h2><p>ActivatedRoute是一个对象，表示与加载的组件关联的当前激活的路由。</p>
-<h2 id="RouterState"><a href="#RouterState" class="headerlink" title="RouterState"></a>RouterState</h2><h1 id="如何使用-Angular路由"><a href="#如何使用-Angular路由" class="headerlink" title="如何使用 Angular路由"></a>如何使用 Angular路由</h1><p>以下几步来配置使用路由</p>
-<ul>
-<li>设置<base href></li>
-<li>定义视图的管线</li>
-<li>向Routes注册路由器服务</li>
-<li>将HTML元素操作映射到路由</li>
-<li>选择要显示视图的位置</li>
-</ul>
-<h1 id="路由策略"><a href="#路由策略" class="headerlink" title="路由策略"></a>路由策略</h1><p>在Angular中支持两种不同的路由策略。一个是PathlocationStrategy，另一个是HashLocationStrategy。HashLocationStrategy使用Hash风格的路由，而PathlocationStrategy使用HTML5路由。</p>
-<ul>
-<li>HashLocationStrategy： URL格式 <a target="_blank" rel="noopener" href="http://localhost:4200/#/product">http://localhost:4200/#/product</a></li>
-<li>PathLocationStrategy：URL格式 <a target="_blank" rel="noopener" href="http://localhost:4200/product">http://localhost:4200/product</a></li>
-</ul>
-<p>我们建议使用HTML5样式（PathLocationStrategy）作为定位策略。因为</p>
-<ul>
-<li>它产生干净和SEO友好的URL，用户更容易理解和记住。</li>
-<li>可以利用服务器端渲染，这将使我们的应用程序加载更快，方法是在将页面交付给客户端之前先在服务器中渲染页面</li>
-</ul>
-<p>只有当软件必须支持较旧的浏览器时，才使用哈希位置策略。</p>
-<h1 id="路由参数"><a href="#路由参数" class="headerlink" title="路由参数"></a>路由参数</h1><h2 id="定义路由"><a href="#定义路由" class="headerlink" title="定义路由"></a>定义路由</h2><p>我们可以通过添加’&#x2F;:’和一个占位符（id）来定义参数，如下所示</p>
-<p><code>&#123; path: &#39;product/:id&#39;, component: ProductDetailComponent &#125;</code></p>
-<p>其中id是路由的动态部分。<br>现在，上面的路径与URL &#x2F;product&#x2F;1、&#x2F;product&#x2F;2等相匹配。</p>
-<p>如果您有多个参数，那么您可以通过继续添加占位符来扩展它</p>
-<p><code>&#123; path: &#39;product/:id/:id1/:id2&#39;, component: ProductDetailComponent &#125;</code></p>
-<p>名称id、id1和id2是参数的占位符。我们将在检索参数值时使用它们。</p>
-<h2 id="定义导航"><a href="#定义导航" class="headerlink" title="定义导航"></a>定义导航</h2><p>我们现在需要提供带有路径和路由参数的routerLink指令。通过将产品的id作为第二个元素添加到routerLink参数数组中来完成，如下所示</p>
-<p><code>&lt;a [routerLink]=&quot;[&#39;/Product&#39;, ‘2’]&quot;&gt;&#123;&#123;product.name&#125;&#125; &lt;/a&gt;</code></p>
-<p>编译为URL &#x2F;product&#x2F;2</p>
-<p><code>&lt;a [routerLink]=&quot;[&#39;/Product&#39;, product.productID]&quot;&gt;&#123;&#123;product.name&#125;&#125; &lt;/a&gt;</code></p>
-<p>动态地从产品对象中获取id的值。</p>
-<p>您也可以使用路由器对象的导航方法</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">goProduct</span>(<span class="params"></span>) &#123;     </span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">router</span>.<span class="title function_">navigate</span>(</span><br><span class="line">        [<span class="string">&#x27;/products&#x27;</span>. product.<span class="property">productID</span>] &#125;</span><br><span class="line">    ); </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="获取路由参数"><a href="#获取路由参数" class="headerlink" title="获取路由参数"></a>获取路由参数</h2><h3 id="ActviatedRoute"><a href="#ActviatedRoute" class="headerlink" title="ActviatedRoute"></a>ActviatedRoute</h3><p>ActivatedRoute是一项服务，用于跟踪与加载的组件相关联的当前激活的路由。</p>
-<p><code>constructor(private _Activatedroute:ActivatedRoute)</code></p>
-<p>ActviatedRoute路由提供了两个属性含Route参数。</p>
-<ul>
-<li>ParamMap</li>
-<li>Params</li>
-</ul>
-<h4 id="ParamMap"><a href="#ParamMap" class="headerlink" title="ParamMap"></a>ParamMap</h4><p>Angular将所有路由参数的映射添加到ParamMap对象中，该对象可以从ActivatedRoute服务访问</p>
-<p>ParamMap有三种方法，可以更容易地使用参数。</p>
-<ul>
-<li>get方法检索给定参数的值。</li>
-<li>getAll方法检索所有参数</li>
-<li>has 如果ParamMap包含给定的参数，则has方法返回true，否则返回false</li>
-</ul>
-<h4 id="Params"><a href="#Params" class="headerlink" title="Params"></a>Params</h4><p>ActviatedRoute还维护“参数数组“Params。Params数组是一个参数值列表，按名称进行索引。</p>
-<h2 id="读取参数"><a href="#读取参数" class="headerlink" title="读取参数"></a>读取参数</h2><p>使用ActivatedRoute有两种方法从ParamMap对象获取参数值。</p>
-<ul>
-<li>使用ActivatedRoute的Snapshot属性</li>
-<li>订阅ActivatedRoute的paramMap或params observable属性</li>
-</ul>
-<h3 id="使用-Snapshot"><a href="#使用-Snapshot" class="headerlink" title="使用 Snapshot"></a>使用 Snapshot</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">id</span>=<span class="variable language_">this</span>.<span class="property">_Activatedroute</span>.<span class="property">snapshot</span>.<span class="property">paramMap</span>.<span class="title function_">get</span>(<span class="string">&quot;id&quot;</span>);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">id</span>=<span class="variable language_">this</span>.<span class="property">_Activatedroute</span>.<span class="property">snapshot</span>.<span class="property">params</span>[<span class="string">&quot;id&quot;</span>];</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h3 id="使用-Observable"><a href="#使用-Observable" class="headerlink" title="使用 Observable"></a>使用 Observable</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">_Activatedroute</span>.<span class="property">paramMap</span>.<span class="title function_">subscribe</span>(<span class="function"><span class="params">paramMap</span> =&gt;</span> &#123; </span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">id</span> = paramMap.<span class="title function_">get</span>(<span class="string">&#x27;id&#x27;</span>); </span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">_Activatedroute</span>.<span class="property">params</span>.<span class="title function_">subscribe</span>(<span class="function"><span class="params">params</span> =&gt;</span> &#123; </span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">id</span> = params[<span class="string">&#x27;id&#x27;</span>]; </span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
-
-<h1 id="ActivatedRoute-1"><a href="#ActivatedRoute-1" class="headerlink" title="ActivatedRoute"></a>ActivatedRoute</h1><p>ActivatedRoute服务提供了大量有用的信息，包括：</p>
-<p>url：此属性返回url Segment对象的数组，每个对象描述url中与当前路由匹配的单个段。<br>params：此属性返回一个params对象，该对象描述按名称索引的URL参数。<br>queryParams：此属性返回一个Params对象，该对象描述按名称索引的URL查询参数。<br>fragment：此属性返回一个包含URL片段的字符串。<br>snapshot：此路由的初始快照<br>data：包含为路线提供的数据对象的Observable<br>component：路由的组件。这是一个常数<br>outlet：用于渲染路由的RouterOutlet的名称。对于未命名的出口，为primary。<br>routeConfig：用于包含原始路径的路由的路由配置。<br>parent:ActivatedRoute，包含使用子路由时来自父路由的信息。<br>firstChild：包含子路由列表中的第一个ActivatedRoute。<br>children：包含在当前路线下激活的所有子路线<br>pathFromRoot：从路由器状态树的根到该路由的路径</p>
-<h1 id="路由Query参数"><a href="#路由Query参数" class="headerlink" title="路由Query参数"></a>路由Query参数</h1><p>Query参数是在 URL中的 ？右侧的键值对，多个Query参数之间由&amp;分隔。</p>
-<p><code>/product?page=2&amp;filter=all</code></p>
-<p>在上面的例子中，page&#x3D;2和filter&#x3D;all是Query参数。它包含两个Query参数。一个是Page，其值为2，另一个是Filter，其值是all。</p>
-<h2 id="添加Query参数"><a href="#添加Query参数" class="headerlink" title="添加Query参数"></a>添加Query参数</h2><p>Query参数不是路由的一部分。因此，您不会像路由参数那样在 routes 中定义它们。有两种方法可以将Query参数传递给路由</p>
-<ul>
-<li>使用routerlink指令</li>
-<li>使用router.navigation方法。</li>
-<li>使用router.navigateByUrl方法</li>
-</ul>
-<h2 id="在模板中使用-routerlink-指令"><a href="#在模板中使用-routerlink-指令" class="headerlink" title="在模板中使用 routerlink 指令"></a>在模板中使用 routerlink 指令</h2><p>我们使用routerlink指令的queryParams属性来添加Query参数。我们将此指令添加到模板文件中。</p>
-<p><code>&lt;a [routerLink]=&quot;[&#39;product&#39;]&quot; [queryParams]=&quot;&#123; page:2 &#125;&quot;&gt;Page 2&lt;/a&gt;</code></p>
-<p>路由器将URL构造为</p>
-<p><code>/product?page=2</code></p>
-<p>您可以传递多个Query参数，如下所示</p>
-<p><code>&lt;a [routerLink]=&quot;[&#39;products&#39;]&quot; [queryParams]=&quot;&#123; color:&#39;blue&#39; , sort:&#39;name&#39;&#125;&quot;&gt;Products&lt;/a&gt;</code></p>
-<p>路由器将URL构造为</p>
-<p><code>/products?color=blue&amp;sort=name</code></p>
-<h2 id="在组件中使用-router-navigate"><a href="#在组件中使用-router-navigate" class="headerlink" title="在组件中使用 router.navigate"></a>在组件中使用 router.navigate</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="title function_">goTo</span>(<span class="params"></span>) &#123;     </span><br><span class="line">    <span class="variable language_">this</span>.<span class="property">router</span>.<span class="title function_">navigate</span>(</span><br><span class="line">        [<span class="string">&#x27;/products&#x27;</span>], </span><br><span class="line">        &#123; <span class="attr">queryParams</span>: &#123; <span class="attr">page</span>: <span class="number">2</span>, <span class="attr">sort</span>:<span class="string">&#x27;name&#x27;</span>&#125; &#125;</span><br><span class="line">    ); </span><br><span class="line">&#125;</span><br><span class="line"> </span><br></pre></td></tr></table></figure>
-<p>路由器将URL构造为</p>
-<p><code>/products?page=2&amp;sort=name</code></p>
-<h2 id="在组件中使用-router-navigateByUrl"><a href="#在组件中使用-router-navigateByUrl" class="headerlink" title="在组件中使用 router.navigateByUrl"></a>在组件中使用 router.navigateByUrl</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">router</span>.<span class="title function_">navigateByUrl</span>(<span class="string">&#x27;product?pageNum=2&#x27;</span>);</span><br></pre></td></tr></table></figure>
-
-<h2 id="读取-路由Query参数"><a href="#读取-路由Query参数" class="headerlink" title="读取 路由Query参数"></a>读取 路由Query参数</h2><p>读取Query参数类似于读取Router参数。有两种方法可以检索查询参数。</p>
-<ul>
-<li>订阅queryParamMap或queryParams observable</li>
-<li>使用snapshot属性的queryParamMap或queryParams属性</li>
-</ul>
-<p>以上两项都是ActivatedRoute服务的一部分。因此，我们需要将它注入到我们的组件类中。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable language_">this</span>.<span class="property">sub</span> = <span class="variable language_">this</span>.<span class="property">Activatedroute</span>.<span class="property">queryParamMap</span></span><br><span class="line">       .<span class="title function_">subscribe</span>(<span class="function"><span class="params">params</span> =&gt;</span> &#123;</span><br><span class="line">             <span class="variable language_">this</span>.<span class="property">pageNum</span> = +params.<span class="title function_">get</span>(<span class="string">&#x27;pageNum&#x27;</span>)||<span class="number">0</span>;     </span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">sub</span> = <span class="variable language_">this</span>.<span class="property">Activatedroute</span>.<span class="property">queryParams</span></span><br><span class="line">       .<span class="title function_">subscribe</span>(<span class="function"><span class="params">params</span> =&gt;</span> &#123;</span><br><span class="line">             <span class="variable language_">this</span>.<span class="property">pageNum</span> = +params.[<span class="string">&#x27;pageNum&#x27;</span>]||<span class="number">0</span>;     </span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">Activatedroute</span>.<span class="property">snapshot</span></span><br><span class="line">       .<span class="property">queryParamMap</span>.<span class="title function_">get</span>(<span class="string">&#x27;pageNum&#x27;</span>)||<span class="number">0</span>;;</span><br><span class="line"></span><br><span class="line"><span class="variable language_">this</span>.<span class="property">Activatedroute</span>.<span class="property">snapshot</span></span><br><span class="line">       .<span class="property">queryParams</span>[<span class="string">&#x27;pageNum&#x27;</span>]||<span class="number">0</span>;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/07/28/css/Grid%E5%B8%83%E5%B1%80%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="InfoPool">
-      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | InfoPool">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/07/28/css/Grid%E5%B8%83%E5%B1%80%E5%9F%BA%E7%A1%80%E6%A6%82%E5%BF%B5/" class="post-title-link" itemprop="url">Grid布局基础概念</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-      
-
-      <time title="创建时间：2023-07-28 11:45:19 / 修改时间：17:48:05" itemprop="dateCreated datePublished" datetime="2023-07-28T11:45:19+08:00">2023-07-28</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <h1 id="网格容器"><a href="#网格容器" class="headerlink" title="网格容器"></a>网格容器</h1><p>我们通过在元素上声明 display：grid 或 display：inline-grid 来创建一个网格容器。一旦我们这样做，这个元素的所有直系子元素将成为网格元素。</p>
-<h1 id="网格轨道"><a href="#网格轨道" class="headerlink" title="网格轨道"></a>网格轨道</h1><p>我们通过 grid-template-columns 和 grid-template-rows 属性来定义网格中的行和列。这些属性定义了网格的轨道。一个网格轨道就是网格中任意两条线之间的空间。</p>
-<h2 id="fr-单位"><a href="#fr-单位" class="headerlink" title="fr 单位"></a>fr 单位</h2><p>轨道可以使用任何长度单位进行定义。网格还引入了一个另外的长度单位来帮助我们创建灵活的网格轨道。新的fr单位代表网格容器中可用空间的一等份。下一个网格定义将创建三个相等宽度的轨道，这些轨道会随着可用空间增长和收缩。</p>
-<h1 id="网格线"><a href="#网格线" class="headerlink" title="网格线"></a>网格线</h1><p>应该注意的是，当我们定义网格时，我们定义的是网格轨道，而不是网格线。Grid 会为我们创建编号的网格线来让我们来定位每一个网格元素。</p>
-<p>网格线的编号顺序取决于文章的书写模式。在从左至右书写的语言中，编号为 1 的网格线位于最左边。在从右至左书写的语言中，编号为 1 的网格线位于最右边。网格线也可以被命名，我们将在稍后的教程中看到如何完成这一操作。</p>
-<h1 id="网格间距"><a href="#网格间距" class="headerlink" title="网格间距"></a>网格间距</h1><p>在两个网格单元之间的 网格横向间距 或 网格纵向间距 可使用 grid-column-gap 和 grid-row-gap  属性来创建，或者直接使用两个合并的缩写形式 grid-gap。间距使用的空间会在 使用弹性长度 fr 的轨道的空间计算前就被留出来，间距的尺寸定义行为和普通轨道一致，但不同的是你不能向其中插入任何内容。</p>
-<h1 id="使用-z-index-控制层级"><a href="#使用-z-index-控制层级" class="headerlink" title="使用 z-index 控制层级"></a>使用 z-index 控制层级</h1><p>多个网格项目可以占用同一个网格单位。如果我们回到之前根据网格线编号放置网格项目的话，我们可以更改此项来使两个网格项目重叠，其覆盖顺序遵循文档流的原始顺序（后来居上）。</p>
-<p>我们可以在网格项目发生重叠时使用 z-index 属性控制重叠的顺序——就像放置网格项目一样。如果我们给 box2 设定一个低于 box1 的 z-index 值的话，box2 将会显示在 box1 的下方。</p>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
-    
-
-
-<div class="post-block">
-  
-  
-
-  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="">
-    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2023/07/26/css/flex%E5%85%83%E7%B4%A0%E5%9C%A8%E4%B8%BB%E8%BD%B4%E4%B8%8A%E7%9A%84%E6%AF%94%E4%BE%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="InfoPool">
-      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
-    </span>
-
-    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
-      <meta itemprop="name" content="undefined | InfoPool">
-      <meta itemprop="description" content="">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          <a href="/2023/07/26/css/flex%E5%85%83%E7%B4%A0%E5%9C%A8%E4%B8%BB%E8%BD%B4%E4%B8%8A%E7%9A%84%E6%AF%94%E4%BE%8B/" class="post-title-link" itemprop="url">flex元素在主轴上的比例</a>
-        </h2>
-
-        <div class="post-meta-container">
-          <div class="post-meta">
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar"></i>
-      </span>
-      <span class="post-meta-item-text">发表于</span>
-
-      <time title="创建时间：2023-07-26 18:57:30" itemprop="dateCreated datePublished" datetime="2023-07-26T18:57:30+08:00">2023-07-26</time>
-    </span>
-    <span class="post-meta-item">
-      <span class="post-meta-item-icon">
-        <i class="far fa-calendar-check"></i>
-      </span>
-      <span class="post-meta-item-text">更新于</span>
-      <time title="修改时间：2023-09-14 10:47:51" itemprop="dateModified" datetime="2023-09-14T10:47:51+08:00">2023-09-14</time>
-    </span>
-
-  
-</div>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-          <p>我们将探索应用于弹性（flex）元素的三个属性，它们能使我们在主轴方向上控制弹性元素的尺寸和伸缩性——flex-grow、flex-shrink 和 flex-basis。</p>
-<p>这三个属性控制弹性元素的以下几个方面的灵活性：</p>
-<ul>
-<li>flex-grow：该元素(拉伸)获得多少正可用空间</li>
-<li>flex-shrink：该元素(收缩)要消除多少负可用空间</li>
-<li>flex-basis：在该元素未拉伸和收缩之前，它所占空间</li>
-</ul>
-<p>在考虑 flex 属性如何在主轴方向上控制比率之前，有一些概念值得我们去深究。这涉及到弹性元素在任何伸缩之前的自然尺寸，以及可用空间（free space）的概念。</p>
-<h1 id="弹性元素的尺寸"><a href="#弹性元素的尺寸" class="headerlink" title="弹性元素的尺寸"></a>弹性元素的尺寸</h1><p>在 CSS 中还有 min-content 和 max-content 这两个概念；这两个关键字可以用来代替长度单位。</p>
-<ul>
-<li>min-content：本质上讲，就是字符串中最长的单词长度决定的大小。</li>
-<li>max-content：代表了内容的最大宽度或最大高度。对于文本内容而言，这意味着内容即便溢出也不会被换行。</li>
-</ul>
-<h1 id="正负可用空间"><a href="#正负可用空间" class="headerlink" title="正负可用空间"></a>正负可用空间</h1><p>当一个弹性容器有正可用空间时，它就有更多的空间用于在容器内显示弹性元素。比如说，如果我们有 500px 宽的容器，flex-direction 属性值为 row，三个 100px 宽的弹性元素，那么我们还有 200px 的正可用空间，如果我们想要填充整个容器，则可将其分配到元素中。</p>
-<p><img src="013a3fcd15f1a891c7f058aea7734ce4fdaa5e25b84b142c6cf36af095021eee.png" alt="图 0">  </p>
-<p>当弹性元素的自然尺寸加起来比弹性容器内的可用空间大时，我们产生了负可用空间。比如我们有一个像上面那样的 500px 宽的容器，但是三个弹性元素每个都为 200px 宽，那我们就一共需要 600px 宽，因此就有了 100px 的负可用空间。这可以从弹性元素中删除以使其能适应容器。</p>
-<p><img src="/../images/77d3b003f9cdced2c3bc092a7beeb5fcbe5e02dc8af2c236f1423fb1e3c5f030.png" alt="图 1">  </p>
-<h1 id="flex-basis-属性"><a href="#flex-basis-属性" class="headerlink" title="flex-basis 属性"></a>flex-basis 属性</h1><p>flex-basis 属性在任何空间分配发生之前初始化弹性元素的尺寸。此属性的初始值为 auto。如果 flex-basis 设置为 auto，浏览器会先检查元素的主尺寸是否设置了绝对值再计算出它们的初始值。比如说你已经给你的元素设置了 200px 的宽，则 200px 就是这个元素的 flex-basis。</p>
-<p>如果你的元素为自动调整大小，则 auto 会解析为其内容的大小。此时你所熟知的 min-content 和 max-content 大小会变得有用，弹性盒子会将元素的 max-content 大小作为 flex-basis。</p>
-<p>空间分配时，如果你想要弹性盒子完全忽略元素的尺寸就需要设置 flex-basis 为 0。这显式地说明弹性盒子可用抢占所有空间，并按比例进行分配。</p>
-<p>flex-basis属性会覆盖项目的width属性（当主轴方向水平时）或height属性（当主轴方向垂直时），然而，flex-basis属性仍然受max-width&#x2F;max-height和min-width&#x2F;min-height属性的约束。</p>
-<h1 id="flex-grow-属性"><a href="#flex-grow-属性" class="headerlink" title="flex-grow 属性"></a>flex-grow 属性</h1><p>flex-grow 属性指定了弹性增长因子（flex grow factor），这决定了在分配正可用空间时，弹性元素相对于弹性容器中的其余弹性元素的增长程度。</p>
-<p>如果 flex-grow 的值全部相同，并且在弹性容器中还有正可用空间，那么它就会被平均地分配给所有元素。</p>
-<h1 id="flex-shrink-属性"><a href="#flex-shrink-属性" class="headerlink" title="flex-shrink 属性"></a>flex-shrink 属性</h1><p>flex-shrink 属性指定了弹性收缩因子（flex shrink factor），它确定在分配负可用空间时，弹性元素相对于弹性容器中其余弹性元素收缩的程度。</p>
-<h1 id="掌握弹性元素的大小"><a href="#掌握弹性元素的大小" class="headerlink" title="掌握弹性元素的大小"></a>掌握弹性元素的大小</h1><h2 id="什么设置了元素的基本大小？"><a href="#什么设置了元素的基本大小？" class="headerlink" title="什么设置了元素的基本大小？"></a>什么设置了元素的基本大小？</h2><ol>
-<li>flex-basis 设置为 auto，且元素设置了宽度，元素的大小将会基于设置的宽度。</li>
-<li>flex-basis 设置为 auto 或 content（在支持的浏览器中），元素的大小为原始大小。</li>
-<li>flex-basis 设置为 非0的长度，那这就是元素的大小。</li>
-<li>flex-basis 设为了 0，则元素的大小不在空间分配计算的考虑之内。</li>
-</ol>
-<h2 id="我们有可用空间吗？"><a href="#我们有可用空间吗？" class="headerlink" title="我们有可用空间吗？"></a>我们有可用空间吗？</h2><ol>
-<li>元素没有正可用空间就不会增长，没有负可用空间就不会缩小。</li>
-<li>如果我们把所有元素的宽度相加（如果在列方向工作则为高度），总和小于容器的总宽度（或高度），那么你有正可用空间，并且 flex-grow 会发挥作用。</li>
-<li>如果我们把所有的元素的宽度相加（如果在列方向工作则为高度），总和大于容器的总宽度（或高度），那么你有负可用空间，并且 flex-shrink 会发挥作用。</li>
-</ol>
-<h2 id="关于flex-grow属性的计算过程为"><a href="#关于flex-grow属性的计算过程为" class="headerlink" title="关于flex-grow属性的计算过程为"></a>关于flex-grow属性的计算过程为</h2><ol>
-<li>flex-grow属性小于等于0的项目不受影响，不会伸长。</li>
-<li>对剩余项目的flex-grow属性进行求和，将结果记为sum。</li>
-<li>分以下情况进行讨论。</li>
-</ol>
-<p><strong>sum ≥ 1 时 计算过程：</strong></p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">800px</span>;</span><br><span class="line">  <span class="selector-class">.item1</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">50px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.item2</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">100px</span>;</span><br><span class="line">    <span class="attribute">flex-grow</span>: <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.item3</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">150px</span>;</span><br><span class="line">    <span class="attribute">flex-grow</span>: <span class="number">3</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.item4</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">flex-grow</span>: <span class="number">6</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<ol>
-<li>计算剩余宽度：剩余宽度 &#x3D; 容器宽度 - 项目总宽度，所以：剩余宽度 &#x3D; 800px - 500px &#x3D; 300px。</li>
-<li>计算各项目权重占比：权重 &#x3D; <flex-grow>，所以：<ol>
-<li>总权重 &#x3D; sum &#x3D; 1 + 3 + 6 &#x3D; 10。</li>
-<li>项目2权重 &#x3D; 1，项目2权重占比 &#x3D; 1 &#x2F; 10 &#x3D; 0.1。</li>
-<li>项目3权重 &#x3D; 3，项目3权重占比 &#x3D; 3 &#x2F; 10 &#x3D; 0.3。</li>
-<li>项目4权重 &#x3D; 6，项目4权重占比 &#x3D; 6 &#x2F; 10 &#x3D; 0.6。</li>
-</ol>
-</flex-grow></li>
-<li>计算各项目伸长宽度：伸长宽度 &#x3D; 权重占比 * 剩余宽度，所以：<ol>
-<li>项目2伸长宽度 &#x3D; 0.1 * 300px &#x3D; 30px。</li>
-<li>项目3伸长宽度 &#x3D; 0.3 * 300px &#x3D; 90px。</li>
-<li>项目4伸长宽度 &#x3D; 0.6 * 300px &#x3D; 180px。</li>
-</ol>
-</li>
-<li>计算各项目伸长后宽度：伸长后宽度 &#x3D; <flex-basis> + 伸长宽度，所以：<ol>
-<li>项目2伸长后宽度 &#x3D; 100px + 30px &#x3D; 130px。</li>
-<li>项目3伸长后宽度 &#x3D; 150px + 90px &#x3D; 240px。</li>
-<li>项目4伸长后宽度 &#x3D; 200px + 180px &#x3D; 380px。</li>
-</ol>
-</flex-basis></li>
-</ol>
-<p><strong>sum &lt; 1 时</strong></p>
-<blockquote>
-<p>计算过程基本与sum &gt; 1时的情况相同，但在第 3 步中，各项目的伸长宽度为sum * 权重占比 * 剩余宽度。</p>
-</blockquote>
-<h2 id="关于flex-shrink属性的计算过程为"><a href="#关于flex-shrink属性的计算过程为" class="headerlink" title="关于flex-shrink属性的计算过程为"></a>关于flex-shrink属性的计算过程为</h2><ol>
-<li>flex-shrink属性小于等于0的项目不受影响，不会缩短。</li>
-<li>对剩余项目的flex-shrink属性进行求和，将结果记为sum。</li>
-<li>分以下情况进行讨论。</li>
-</ol>
-<p><strong>sum ≥ 1 时</strong></p>
-<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-class">.container</span> &#123;</span><br><span class="line">  <span class="attribute">display</span>: flex;</span><br><span class="line">  <span class="attribute">width</span>: <span class="number">800px</span>;</span><br><span class="line">  <span class="selector-class">.item1</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">100px</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.item2</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">200px</span>;</span><br><span class="line">    <span class="attribute">flex-shrink</span>: <span class="number">6</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.item3</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">300px</span>;</span><br><span class="line">    <span class="attribute">flex-shrink</span>: <span class="number">3</span>;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="selector-class">.item4</span> &#123;</span><br><span class="line">    <span class="attribute">flex-basis</span>: <span class="number">400px</span>;</span><br><span class="line">    <span class="attribute">flex-shrink</span>: <span class="number">1</span>;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ol>
-<li>计算溢出宽度：溢出宽度 &#x3D; 项目总宽度 - 容器宽度，所以：溢出宽度 &#x3D; 800px - 1000px &#x3D; 200px。</li>
-<li>计算各项目权重占比：权重 &#x3D; <flex-shrink> * <flex-basis>，所以：<ol>
-<li>总权重 &#x3D; 1200 + 900 + 400 &#x3D; 2500。</li>
-<li>项目2权重 &#x3D; 1200，项目2权重占比 &#x3D; 1200 &#x2F; 2500 &#x3D; 0.48。</li>
-<li>项目3权重 &#x3D; 900，项目3权重占比 &#x3D; 900 &#x2F; 2500 &#x3D; 0.36。</li>
-<li>项目4权重 &#x3D; 400，项目4权重占比 &#x3D; 400 &#x2F; 2500 &#x3D; 0.16。</li>
-</ol>
-</flex-basis></flex-shrink></li>
-<li>计算各项目缩短宽度：缩短宽度 &#x3D; 权重占比 * 溢出宽度，所以：<ol>
-<li>项目2伸长宽度 &#x3D; 0.48 * 200px &#x3D; 96px。</li>
-<li>项目3伸长宽度 &#x3D; 0.36 * 200px &#x3D; 72px。</li>
-<li>项目4伸长宽度 &#x3D; 0.16 * 200px &#x3D; 32px。</li>
-</ol>
-</li>
-<li>计算各项目缩短后宽度：缩短后宽度 &#x3D; 原始宽度 - 缩短宽度，所以：<ol>
-<li>项目2缩短后宽度 &#x3D; 200px - 96px &#x3D; 104px。</li>
-<li>项目3缩短后宽度 &#x3D; 300px - 72px &#x3D; 228px。</li>
-<li>项目4缩短后宽度 &#x3D; 400px - 32px &#x3D; 368px。</li>
-</ol>
-</li>
-</ol>
-<p><strong>sum &lt; 1 时</strong></p>
-<blockquote>
-<p>计算过程基本与sum &gt; 1时的情况相同，但在第 3 步中，各项目的缩短宽度为sum * 权重占比 * 溢出宽度。</p>
-</blockquote>
-
-      
-    </div>
-
-    
-    
-    
-
-    <footer class="post-footer">
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-</div>
-
-
-
-
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 </div>
@@ -1449,7 +1412,7 @@
 
 <div class="copyright">
   &copy; 
-  <span itemprop="copyrightYear">2023</span>
+  <span itemprop="copyrightYear">2024</span>
   <span class="with-love">
     <i class="fa fa-heart"></i>
   </span>
