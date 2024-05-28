@@ -1986,9 +1986,15 @@
         <i class="far fa-calendar"></i>
       </span>
       <span class="post-meta-item-text">发表于</span>
-      
 
-      <time title="创建时间：2024-04-29 12:02:15 / 修改时间：14:50:17" itemprop="dateCreated datePublished" datetime="2024-04-29T12:02:15+08:00">2024-04-29</time>
+      <time title="创建时间：2024-04-29 12:02:15" itemprop="dateCreated datePublished" datetime="2024-04-29T12:02:15+08:00">2024-04-29</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-05-28 16:11:19" itemprop="dateModified" datetime="2024-05-28T16:11:19+08:00">2024-05-28</time>
     </span>
 
   
@@ -2004,8 +2010,14 @@
           <p>RocketMQ主要由 Producer、Broker、Consumer 三部分组成，其中Producer 负责生产消息，Consumer 负责消费消息，Broker 负责存储消息。Broker 在实际部署过程中对应一台服务器，每个 Broker 可以存储多个Topic的消息，每个Topic的消息也可以分片存储于不同的 Broker。Message Queue 用于存储消息的物理地址，每个Topic中的消息地址存储于多个 Message Queue 中。ConsumerGroup 由多个Consumer 实例构成。</p>
 <h1 id="RocketMQ-网络部署特点"><a href="#RocketMQ-网络部署特点" class="headerlink" title="RocketMQ 网络部署特点"></a>RocketMQ 网络部署特点</h1><p><img src="42ff55f8bd0348f9e371087a39ccf917c358093b440fb488f62168773975c1bb.png" alt="图 0">  </p>
 <h2 id="RocketMQ架构上主要分为四部分"><a href="#RocketMQ架构上主要分为四部分" class="headerlink" title="RocketMQ架构上主要分为四部分"></a>RocketMQ架构上主要分为四部分</h2><ol>
-<li><p>NameServer：是一个几乎无状态节点，可集群部署，节点之间无任何信息同步。是一个非常简单的Topic路由注册中心，其角色类似Dubbo中的zookeeper，支持Broker的动态注册与发现。主要包括两个功能：Broker管理，NameServer接受Broker集群的注册信息并且保存下来作为路由信息的基本数据。然后提供心跳检测机制，检查Broker是否还存活；路由信息管理，每个NameServer将保存关于Broker集群的整个路由信息和用于客户端查询的队列信息。然后Producer和Conumser通过NameServer就可以知道整个Broker集群的路由信息，从而进行消息的投递和消费。NameServer通常也是集群的方式部署，各实例间相互不进行信息通讯。Broker是向每一台NameServer注册自己的路由信息，所以每一个NameServer实例上面都保存一份完整的路由信息。当某个NameServer因某种原因下线了，Broker仍然可以向其它NameServer同步其路由信息，Producer,Consumer仍然可以动态感知Broker的路由的信息。</p>
+<li>NameServer：是一个几乎无状态节点，可集群部署，节点之间无任何信息同步。是一个非常简单的Topic路由注册中心，其角色类似Dubbo中的zookeeper，支持Broker的动态注册与发现。<br>主要包括两个功能：<ul>
+<li>Broker管理，NameServer接受Broker集群的注册信息并且保存下来作为路由信息的基本数据。然后提供心跳检测机制，检查Broker是否还存活；</li>
+<li>路由信息管理，每个NameServer将保存关于Broker集群的整个路由信息和用于客户端查询的队列信息。然后Producer和Conumser通过NameServer就可以知道整个Broker集群的路由信息，从而进行消息的投递和消费。</li>
+</ul>
 </li>
+</ol>
+<p>NameServer通常也是集群的方式部署，各实例间相互不进行信息通讯。Broker是向每一台NameServer注册自己的路由信息，所以每一个NameServer实例上面都保存一份完整的路由信息。当某个NameServer因某种原因下线了，Broker仍然可以向其它NameServer同步其路由信息，Producer,Consumer仍然可以动态感知Broker的路由的信息。</p>
+<ol>
 <li><p>Broker部署相对复杂，Broker分为Master与Slave，一个Master可以对应多个Slave，但是一个Slave只能对应一个Master，Master与Slave 的对应关系通过指定相同的BrokerName，不同的BrokerId 来定义，BrokerId为0表示Master，非0表示Slave。Master也可以部署多个。每个Broker与NameServer集群中的所有节点建立长连接，定时注册Topic信息到所有NameServer。 </p>
 <blockquote>
 <p>注意：当前RocketMQ版本在部署架构上支持一Master多Slave，但只有BrokerId&#x3D;1的从服务器才会参与消息的读负载。</p>
