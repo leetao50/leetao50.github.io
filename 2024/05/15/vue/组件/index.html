@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leetao50.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="一个 Vue 组件在使用前需要先被“注册”，这样 Vue 才能在渲染模板时找到其对应的实现。组件注册有两种方式：全局注册和局部注册。 全局注册我们可以使用 Vue 应用实例的 .component() 方法，让组件在当前 Vue 应用中全局可用。 1234567891011121314151617181920212223242526272829303132import &amp;#123; createA">
+<meta property="og:type" content="article">
+<meta property="og:title" content="组件">
+<meta property="og:url" content="https://leetao50.github.io/2024/05/15/vue/%E7%BB%84%E4%BB%B6/index.html">
+<meta property="og:site_name" content="InfoPool">
+<meta property="og:description" content="一个 Vue 组件在使用前需要先被“注册”，这样 Vue 才能在渲染模板时找到其对应的实现。组件注册有两种方式：全局注册和局部注册。 全局注册我们可以使用 Vue 应用实例的 .component() 方法，让组件在当前 Vue 应用中全局可用。 1234567891011121314151617181920212223242526272829303132import &amp;#123; createA">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-05-15T02:46:19.000Z">
+<meta property="article:modified_time" content="2024-05-17T09:16:12.612Z">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://leetao50.github.io/2024/05/15/vue/%E7%BB%84%E4%BB%B6/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leetao50.github.io/2024/05/15/vue/%E7%BB%84%E4%BB%B6/","path":"2024/05/15/vue/组件/","title":"组件"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>组件 | InfoPool</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">InfoPool</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">私人信息记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%85%A8%E5%B1%80%E6%B3%A8%E5%86%8C"><span class="nav-number">1.</span> <span class="nav-text">全局注册</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%B1%80%E9%83%A8%E6%B3%A8%E5%86%8C"><span class="nav-number">2.</span> <span class="nav-text">局部注册</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description">记录信息来源网络，内容只为方便查找，非公开信息，非请勿入</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2024/05/15/vue/%E7%BB%84%E4%BB%B6/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="组件 | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          组件
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-05-15 10:46:19" itemprop="dateCreated datePublished" datetime="2024-05-15T10:46:19+08:00">2024-05-15</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-05-17 17:16:12" itemprop="dateModified" datetime="2024-05-17T17:16:12+08:00">2024-05-17</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>一个 Vue 组件在使用前需要先被“注册”，这样 Vue 才能在渲染模板时找到其对应的实现。组件注册有两种方式：全局注册和局部注册。</p>
+<h1 id="全局注册"><a href="#全局注册" class="headerlink" title="全局注册"></a>全局注册</h1><p>我们可以使用 Vue 应用实例的 .component() 方法，让组件在当前 Vue 应用中全局可用。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; createApp &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> app = <span class="title function_">createApp</span>(&#123;&#125;)</span><br><span class="line"></span><br><span class="line">app.<span class="title function_">component</span>(</span><br><span class="line">  <span class="comment">// 注册的名字</span></span><br><span class="line">  <span class="string">&#x27;MyComponent&#x27;</span>,</span><br><span class="line">  <span class="comment">// 组件的实现</span></span><br><span class="line">  &#123;</span><br><span class="line">    <span class="comment">/* ... */</span></span><br><span class="line">  &#125;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="comment">//---//</span></span><br><span class="line"></span><br><span class="line"><span class="comment">//如果使用单文件组件，你可以注册被导入的 .vue 文件：</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">MyComponent</span> <span class="keyword">from</span> <span class="string">&#x27;./App.vue&#x27;</span></span><br><span class="line"></span><br><span class="line">app.<span class="title function_">component</span>(<span class="string">&#x27;MyComponent&#x27;</span>, <span class="title class_">MyComponent</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//.component() 方法可以被链式调用：</span></span><br><span class="line">app</span><br><span class="line">  .<span class="title function_">component</span>(<span class="string">&#x27;ComponentA&#x27;</span>, <span class="title class_">ComponentA</span>)</span><br><span class="line">  .<span class="title function_">component</span>(<span class="string">&#x27;ComponentB&#x27;</span>, <span class="title class_">ComponentB</span>)</span><br><span class="line">  .<span class="title function_">component</span>(<span class="string">&#x27;ComponentC&#x27;</span>, <span class="title class_">ComponentC</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//全局注册的组件可以在此应用的任意组件的模板中使用：</span></span><br><span class="line"><span class="comment">//&lt;!-- 这在当前应用的任意组件中都可用 --&gt;</span></span><br><span class="line">&lt;<span class="title class_">ComponentA</span>/&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">ComponentB</span>/&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">ComponentC</span>/&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<p>所有的子组件也可以使用全局注册的组件，这意味着这三个组件也都可以在彼此内部使用。</p>
+<h1 id="局部注册"><a href="#局部注册" class="headerlink" title="局部注册"></a>局部注册</h1><p><strong>全局注册虽然很方便，但有以下几个问题：</strong></p>
+<ul>
+<li><p>全局注册，但并没有被使用的组件无法在生产打包时被自动移除 (也叫“tree-shaking”)。如果你全局注册了一个组件，即使它并没有被实际使用，它仍然会出现在打包后的 JS 文件中。</p>
+</li>
+<li><p>全局注册在大型项目中使项目的依赖关系变得不那么明确。在父组件中使用子组件时，不太容易定位子组件的实现。和使用过多的全局变量一样，这可能会影响应用长期的可维护性。</p>
+</li>
+</ul>
+<p>相比之下，局部注册的组件需要在使用它的父组件中显式导入，并且只能在该父组件中使用。它的优点是使组件之间的依赖关系更加明确，并且对 tree-shaking 更加友好。</p>
+<p>在使用 <script setup> 的单文件组件中，导入的组件可以直接在模板中使用，无需注册：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">&lt;script setup&gt;</span><br><span class="line"><span class="keyword">import</span> <span class="title class_">ComponentA</span> <span class="keyword">from</span> <span class="string">&#x27;./ComponentA.vue&#x27;</span></span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">template</span>&gt;</span></span></span><br><span class="line"><span class="language-xml">  <span class="tag">&lt;<span class="name">ComponentA</span> /&gt;</span></span></span><br><span class="line"><span class="language-xml"><span class="tag">&lt;/<span class="name">template</span>&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//如果没有使用 &lt;script setup&gt;，则需要使用 components 选项来显式注册：</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">ComponentA</span> <span class="keyword">from</span> <span class="string">&#x27;./ComponentA.js&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">components</span>: &#123;</span><br><span class="line">    <span class="title class_">ComponentA</span></span><br><span class="line">  &#125;,</span><br><span class="line">  <span class="title function_">setup</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>对于每个 components 对象里的属性，它们的 key 名就是注册的组件名，而值就是相应组件的实现。上面的例子中使用的是 ES2015 的缩写语法，等价于：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">  <span class="attr">components</span>: &#123;</span><br><span class="line">    <span class="title class_">ComponentA</span>: <span class="title class_">ComponentA</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="组件名格式"><a href="#组件名格式" class="headerlink" title="组件名格式"></a>组件名格式</h1><p>在整个指引中，我们都使用 PascalCase 作为组件名的注册格式，这是因为：</p>
+<ul>
+<li><p>PascalCase 是合法的 JavaScript 标识符。这使得在 JavaScript 中导入和注册组件都很容易，同时 IDE 也能提供较好的自动补全。</p>
+</li>
+<li><p><code>&lt;PascalCase /&gt; </code>在模板中更明显地表明了这是一个 Vue 组件，而不是原生 HTML 元素。同时也能够将 Vue 组件和自定义元素 (web components) 区分开来。</p>
+</li>
+</ul>
+<p>在单文件组件和内联字符串模板中，我们都推荐这样做。但是，PascalCase 的标签名在 DOM 内模板中是不可用的，详情参见 DOM 内模板解析注意事项。</p>
+<p>为了方便，Vue 支持将模板中使用 kebab-case 的标签解析为使用 PascalCase 注册的组件。这意味着一个以 MyComponent 为名注册的组件，在模板中可以通过 <code>&lt;MyComponent&gt; 或 &lt;my-component&gt;</code> 引用。这让我们能够使用同样的 JavaScript 组件注册代码来配合不同来源的模板。</p>
+</script></p>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/05/09/Spring/RestTemplate/" rel="prev" title="RestTemplate">
+                  <i class="fa fa-chevron-left"></i> RestTemplate
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/05/22/nginx/location%E5%8C%B9%E9%85%8D%E8%A7%84%E5%88%99/" rel="next" title="Nginx中location 匹配规则">
+                  Nginx中location 匹配规则 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

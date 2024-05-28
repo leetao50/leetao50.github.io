@@ -1,0 +1,771 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leetao50.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="location 匹配的变量Nginx 的 location 规则匹配的变量是 $uri, 所以不用管后面的参数 $query_string (或者 $args) location 匹配的种类匹配格式: 123location [空格 | &#x3D; | ~ | ~* | ^~ | @ ] &#x2F;uri&#x2F; &amp;#123;  ...&amp;#125; 上面匹配格式分为三部分:  修饰符匹配规则[空格 | &#x3D; | ~ |">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Nginx中location 匹配规则">
+<meta property="og:url" content="https://leetao50.github.io/2024/05/22/nginx/location%E5%8C%B9%E9%85%8D%E8%A7%84%E5%88%99/index.html">
+<meta property="og:site_name" content="InfoPool">
+<meta property="og:description" content="location 匹配的变量Nginx 的 location 规则匹配的变量是 $uri, 所以不用管后面的参数 $query_string (或者 $args) location 匹配的种类匹配格式: 123location [空格 | &#x3D; | ~ | ~* | ^~ | @ ] &#x2F;uri&#x2F; &amp;#123;  ...&amp;#125; 上面匹配格式分为三部分:  修饰符匹配规则[空格 | &#x3D; | ~ |">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-05-22T07:20:26.000Z">
+<meta property="article:modified_time" content="2024-05-24T10:11:53.630Z">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://leetao50.github.io/2024/05/22/nginx/location%E5%8C%B9%E9%85%8D%E8%A7%84%E5%88%99/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leetao50.github.io/2024/05/22/nginx/location%E5%8C%B9%E9%85%8D%E8%A7%84%E5%88%99/","path":"2024/05/22/nginx/location匹配规则/","title":"Nginx中location 匹配规则"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>Nginx中location 匹配规则 | InfoPool</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">InfoPool</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">私人信息记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#location-%E5%8C%B9%E9%85%8D%E7%9A%84%E5%8F%98%E9%87%8F"><span class="nav-number">1.</span> <span class="nav-text">location 匹配的变量</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#location-%E5%8C%B9%E9%85%8D%E7%9A%84%E7%A7%8D%E7%B1%BB"><span class="nav-number">2.</span> <span class="nav-text">location 匹配的种类</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E4%BF%AE%E9%A5%B0%E7%AC%A6%E5%8C%B9%E9%85%8D%E8%A7%84%E5%88%99"><span class="nav-number">3.</span> <span class="nav-text">修饰符匹配规则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BF%AE%E9%A5%B0%E7%AC%A6%E7%9A%84%E5%8C%B9%E9%85%8D%E9%A1%BA%E5%BA%8F"><span class="nav-number">3.1.</span> <span class="nav-text">修饰符的匹配顺序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90"><span class="nav-number">3.2.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%9F%E8%B0%A3-%E6%AF%94-%E4%BC%98%E5%85%88%E7%BA%A7%E9%AB%98"><span class="nav-number">3.3.</span> <span class="nav-text">辟谣 ~ 比 ~* 优先级高</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E8%BE%9F%E8%B0%A3%E4%B9%8B-%E4%BF%AE%E9%A5%B0%E7%AC%A6-%E5%8C%85%E5%90%AB-%E5%92%8C"><span class="nav-number">3.4.</span> <span class="nav-text">辟谣之  修饰符 包含 !~ 和 !~*</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%89%8D%E7%BC%80%E7%9A%84%E5%91%BD%E5%90%8D%E5%8C%B9%E9%85%8D"><span class="nav-number">3.5.</span> <span class="nav-text">@前缀的命名匹配</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#location-uri%E5%8C%B9%E9%85%8D%E8%A7%84%E5%88%99"><span class="nav-number">4.</span> <span class="nav-text">location uri匹配规则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BE%8B%E5%AD%90-1"><span class="nav-number">4.1.</span> <span class="nav-text">例子</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%90%8E%E9%99%84%E4%B8%8A%E5%8F%AF%E4%BB%A5%E7%94%A8%E4%BD%9C%E5%88%A4%E6%96%AD%E7%9A%84%E5%85%A8%E5%B1%80%E5%8F%98%E9%87%8F"><span class="nav-number">4.2.</span> <span class="nav-text">最后附上可以用作判断的全局变量</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E8%B7%AF%E7%94%B1%E8%BD%AC%E5%8F%91"><span class="nav-number">5.</span> <span class="nav-text">路由转发</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Rewrite%E8%AF%AD%E6%B3%95%E8%A7%84%E5%88%99"><span class="nav-number">6.</span> <span class="nav-text">Rewrite语法规则</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#last-%E5%92%8C-break%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">6.1.</span> <span class="nav-text">last 和 break的区别</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#redirect-%E5%92%8C-permanent"><span class="nav-number">6.2.</span> <span class="nav-text">redirect 和 permanent</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rewrite-%E5%90%8E%E7%9A%84%E8%AF%B7%E6%B1%82%E5%8F%82%E6%95%B0"><span class="nav-number">6.3.</span> <span class="nav-text">rewrite 后的请求参数</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#rewrite-log"><span class="nav-number">6.4.</span> <span class="nav-text">rewrite_log</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#return"><span class="nav-number">6.5.</span> <span class="nav-text">return</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#break"><span class="nav-number">6.6.</span> <span class="nav-text">break</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description">记录信息来源网络，内容只为方便查找，非公开信息，非请勿入</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2024/05/22/nginx/location%E5%8C%B9%E9%85%8D%E8%A7%84%E5%88%99/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="Nginx中location 匹配规则 | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          Nginx中location 匹配规则
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-05-22 15:20:26" itemprop="dateCreated datePublished" datetime="2024-05-22T15:20:26+08:00">2024-05-22</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-05-24 18:11:53" itemprop="dateModified" datetime="2024-05-24T18:11:53+08:00">2024-05-24</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="location-匹配的变量"><a href="#location-匹配的变量" class="headerlink" title="location 匹配的变量"></a>location 匹配的变量</h1><p>Nginx 的 location 规则匹配的变量是 $uri, 所以不用管后面的参数 $query_string (或者 $args)</p>
+<h1 id="location-匹配的种类"><a href="#location-匹配的种类" class="headerlink" title="location 匹配的种类"></a>location 匹配的种类</h1><p>匹配格式:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location <span class="punctuation">[</span>空格 | = | ~ | ~* | ^~ | @ <span class="punctuation">]</span> /uri/ <span class="punctuation">&#123;</span></span><br><span class="line">  ...</span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>上面匹配格式分为三部分:</p>
+<ol>
+<li>修饰符匹配规则<br><code>[空格 | = | ~ | ~* | ^~ | @ ]</code></li>
+<li>uri匹配规则<br><code>/uri/</code></li>
+<li>大括号内的路由转发<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="punctuation">&#123;</span></span><br><span class="line">  ...</span><br><span class="line"><span class="punctuation">&#125;</span></span><br></pre></td></tr></table></figure></li>
+</ol>
+<h1 id="修饰符匹配规则"><a href="#修饰符匹配规则" class="headerlink" title="修饰符匹配规则"></a>修饰符匹配规则</h1><p>格式:<br><code>[空格 | ^~ |  = | ~ | ~* |@ ]</code></p>
+<p>接下来解释一下，这些都表示啥意思:</p>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>解释</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>空格</td>
+<td>无修饰符的前缀匹配，匹配前缀是 你配置的（比如说你配的是 &#x2F;aaa） 的url</td>
+</tr>
+<tr>
+<td>^~</td>
+<td>常规字符串匹配（跟空格类似，但是它优先级比空格高）。^表示“非”，即不查询正则表达式。如果匹配成功，并且所匹配的字符串是最长的， 则不再匹配其他location。</td>
+</tr>
+<tr>
+<td>&#x3D;</td>
+<td>表示精确匹配，如果找到，立即停止搜索并立即处理此请求。</td>
+</tr>
+<tr>
+<td>~</td>
+<td>表示执行一个正则匹配，区分大小写</td>
+</tr>
+<tr>
+<td><code>~*</code></td>
+<td>表示执行一个正则匹配，不区分大小写。注意，如果是运行 Nginx server 的系统本身对大小写不敏感，比如 Windows ，那么 ~* 和 ~ 这两个表现是一样的</td>
+</tr>
+<tr>
+<td>@</td>
+<td>用于定义一个 Location块，且该块不能被外部Client 所访问，只能被Nginx内部配置指令所访问，比如try_files 或 error_page</td>
+</tr>
+</tbody></table>
+<h2 id="修饰符的匹配顺序"><a href="#修饰符的匹配顺序" class="headerlink" title="修饰符的匹配顺序"></a>修饰符的匹配顺序</h2><ol>
+<li>优先查找精确匹配，精确匹配 (&#x3D;) 的 location 如果匹配请求 URI 的话，此 location 被马上使用，匹配过程结束。</li>
+<li>接下来进行常规字符串匹配(空格 和 <del>^), 如果发现匹配最长的那个是 ^</del> 前缀, 那么也停止搜索并且马上使用，匹配过程结束。 否则继续往下走。</li>
+<li>如果常规字符串匹配失败，或者匹配的最长字符串不是 ^~ 前缀 (比如是空格匹配)，那么继续搜索正则表达式匹配， 这时候就根据在配置文件定义的顺序，取最上面的配置(正则匹配跟匹配长度没关系，只跟位置有关系，只取顺序最上面的匹配)</li>
+<li>如果第三步找到了，那么就用第三步的匹配，否则就用第二步的匹配(字符匹配最长的空格匹配)</li>
+</ol>
+<p>简单的来说就是顺序如下:<br><code>精确匹配 &gt; 字符串匹配( 长 &gt; 短 [ 注: ^~ 匹配则停止匹配 ]) &gt; 正则匹配( 上 &gt; 下 )</code></p>
+<p>换成符号的优先级就是:<br><code>[=] &gt; [^~] &gt; [~/~*] &gt; [空格]</code></p>
+<p><strong>注意几个细节:</strong></p>
+<ol>
+<li>常规字符串匹配类型。是按前缀匹配(从根开始)。 而正则表达式匹配是包含匹配，只要包含就可以匹配</li>
+<li><del>和</del>*的优先级一样，取决于在配置文件中的位置，最上面的为主，跟匹配的字符串长度没关系，所以在写的时候，应该越精准的要放在越前面</li>
+<li>空格匹配和^~都是字符串匹配，所以如果两个后面的匹配字符串一样，是会报错的，因为 nginx 会认为两者的匹配规则一致，所以会有冲突</li>
+<li>^~, &#x3D;, ~, ~* 这些修饰符和后面的 URI 字符串中间可以不使用空格隔开(大部分都是用空格隔开)。但是 @ 修饰符必须和 URI 字符串直接连接。</li>
+</ol>
+<h2 id="例子"><a href="#例子" class="headerlink" title="例子"></a>例子</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">200</span> <span class="string">&#x27;404&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">location ~ /hello &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">200</span> <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">location ^~ /hello &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">200</span> <span class="string">&#x27;2&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">location = /hello &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">200</span> <span class="string">&#x27;3&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">location ~* /hello &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">200</span> <span class="string">&#x27;4&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个是测试结果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_156_200_centos ~]<span class="comment"># curl 127.0.0.1/hello  #精确匹配，直接结束</span></span><br><span class="line"><span class="number">3</span></span><br><span class="line">[root@VM_156_200_centos ~]<span class="comment"># curl 127.0.0.1/hello11 #字符串匹配，并且最大长度的匹配是 ^~,直接结束</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line">[root@VM_156_200_centos ~]<span class="comment"># curl 127.0.0.1/hello/22 #字符串匹配，并且最大长度的匹配是 ~^,直接结束</span></span><br><span class="line"><span class="number">2</span></span><br><span class="line">[root@VM_156_200_centos ~]<span class="comment"># curl 127.0.0.1/11/hello/ #字符串不匹配(前缀匹配)，正则匹配有两个，取最上面的那个</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line">[root@VM_156_200_centos ~]<span class="comment"># curl 127.0.0.1/11/Hello/ #字符串不匹配(前缀匹配)，正则匹配有一个(大小写不敏感)，取最上面的那个</span></span><br><span class="line"><span class="number">4</span></span><br><span class="line">[root@VM_156_200_centos ~]<span class="comment"># curl 127.0.0.1/11/Hell #都不匹配，有设置通用匹配，取通用匹配</span></span><br><span class="line"><span class="number">404</span></span><br></pre></td></tr></table></figure>
+
+<p>配置文件配置:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">location /images/test.png &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">200</span>  <span class="string">&#x27;1&#x27;</span>;     </span><br><span class="line">&#125;        </span><br><span class="line"></span><br><span class="line">location ^~ /images/ &#123; </span><br><span class="line">  <span class="keyword">return</span> <span class="number">200</span>  <span class="string">&#x27;2&#x27;</span>;      </span><br><span class="line">&#125;    </span><br><span class="line"></span><br><span class="line">location ~ /images/ &#123;        </span><br><span class="line">  <span class="keyword">return</span> <span class="number">200</span>  <span class="string">&#x27;3&#x27;</span>;   </span><br><span class="line">&#125; </span><br><span class="line"></span><br><span class="line">location ~ /images/test.png &#123;        </span><br><span class="line">  <span class="keyword">return</span> <span class="number">200</span>  <span class="string">&#x27;4&#x27;</span>;   </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这个是测试结果</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_156_200_centos ~]<span class="comment">#  curl http://127.0.0.1/images/test.png </span></span><br><span class="line"><span class="number">3</span></span><br><span class="line">[root@VM_156_200_centos ~]<span class="comment">#  curl http://127.0.0.1/images/1 </span></span><br><span class="line"><span class="number">2</span></span><br></pre></td></tr></table></figure>
+<p>第一个返回 3 是因为本例是 普通匹配和正则匹配都存在， 并且因为 ^~ 匹配不是最长的话，那么就取 正则匹配， 正则匹配满足条件的有两个， 取最上面那个， 所以是 3， (本例的字符串最长匹配是空格匹配)。(对于本例来说，如果去掉后面的两个正则匹配，那么返回的就是 1， 因为空格匹配的字符串是最长的)<br>第二个返回 2 是因为普通匹配和正则匹配都存在，但是这个^~ 匹配是最长的，所以就是 2。</p>
+<p>普通字符串的匹配冲突<br>如果我这样子写:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">location /images/test.png &#123;</span><br><span class="line">     <span class="keyword">return</span> <span class="number">200</span>  <span class="string">&#x27;1&#x27;</span>;     </span><br><span class="line"> &#125;        </span><br><span class="line"></span><br><span class="line"> location ^~ /images/test.png &#123; </span><br><span class="line">      <span class="keyword">return</span> <span class="number">200</span>  <span class="string">&#x27;2&#x27;</span>;      </span><br><span class="line"> &#125;  </span><br></pre></td></tr></table></figure>
+
+<p>这时候我 reload 是会报错的:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">root@VM_156_200_centos sbin]<span class="comment"># ./nginx -s reload</span></span><br><span class="line">nginx: [emerg] duplicate location <span class="string">&quot;/images/test.png&quot;</span> <span class="keyword">in</span> /usr/local/nginx/conf/nginx.conf:<span class="number">20</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="辟谣-比-优先级高"><a href="#辟谣-比-优先级高" class="headerlink" title="辟谣 ~ 比 ~* 优先级高"></a>辟谣 ~ 比 ~* 优先级高</h2><p>之前也有在网上看到这种说法，就是匹配顺序的时候，如果都匹配了，那么 ~ 比 ~* 优先级高，其实这个说法是错误的，这哥俩并没有谁比谁高贵，根据上面的匹配顺序，如果都是正则匹配，那么就是谁排在前面，就采用谁。 做个实践, 我的执行顺序是这样子的:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">location ~* \.jpG$ &#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="number">200</span>  <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">location ~ \.jpg$ &#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="number">200</span>  <span class="string">&#x27;2&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>我的测试结果如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_156_200_centos ~]<span class="comment"># curl 127.0.0.1/1.jpg</span></span><br><span class="line"><span class="number">1</span></span><br><span class="line">[root@VM_156_200_centos ~]<span class="comment"># curl 127.0.0.1/1.JPG</span></span><br><span class="line"><span class="number">1</span></span><br></pre></td></tr></table></figure>
+<p>只要有匹配，肯定是最上面的那个 1。</p>
+<h2 id="辟谣之-修饰符-包含-和"><a href="#辟谣之-修饰符-包含-和" class="headerlink" title="辟谣之  修饰符 包含 !~ 和 !~*"></a>辟谣之  修饰符 包含 !~ 和 !~*</h2><p>我看到有些网上的文章说 nginx 的 location modifier 还包含 !~ 和 !~* 这两个，其实是不对的(也有可能是旧版本的，至少我的最新版本的 nginx 不支持)， 如果你这样子:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location !~ \.(gif|jpg)$ &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">200</span>  <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>那么在 reload 的时候， nginx 会报这个错误:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">nginx: [emerg] invalid location modifier <span class="string">&quot;!~&quot;</span> <span class="keyword">in</span> /usr/local/nginx/conf/nginx.conf:<span class="number">25</span></span><br></pre></td></tr></table></figure>
+<p>不过因为 Nginx 的正则是使用PCRE（Perl Compatible Regular Expressions）, 所以我们可以这样子写来达到我们想要的目的:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location ~ \.*(?&lt;!(gif|jpg))$ &#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="number">200</span>  <span class="string">&#x27;1&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>做个实践，假设我的路由是这样子: 如果后缀含有 gif 或者是 jpg， 那么就会返回 200， 否则就会返回 404</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">200</span> <span class="string">&#x27;404&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">location ~ \.(gif|jpg)$ &#123;</span><br><span class="line"> <span class="keyword">return</span> <span class="number">200</span>  <span class="string">&#x27;200&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>测试结果如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_156_200_centos ~]<span class="comment"># curl 127.0.0.1/1.gif</span></span><br><span class="line"><span class="number">200</span></span><br><span class="line">[root@VM_156_200_centos ~]<span class="comment"># curl 127.0.0.1/1.jpg</span></span><br><span class="line"><span class="number">200</span></span><br><span class="line">[root@VM_156_200_centos ~]<span class="comment"># curl 127.0.0.1/1.js</span></span><br><span class="line"><span class="number">404</span></span><br><span class="line">[root@VM_156_200_centos ~]<span class="comment"># curl 127.0.0.1/1.css</span></span><br><span class="line"><span class="number">404</span></span><br></pre></td></tr></table></figure>
+<p>这个结果是对的。 那么就换成，如果后缀不是 gif 或者是 jpg，那么才返回 200， 否则就返回 404 (相当于上述的 !~):</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">200</span> <span class="string">&#x27;404&#x27;</span>;</span><br><span class="line">&#125;</span><br><span class="line">location ~ \.*(?&lt;!(gif|jpg))$ &#123;</span><br><span class="line">  <span class="keyword">return</span> <span class="number">200</span>  <span class="string">&#x27;200&#x27;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>可以看到，同样的结果，结果相反了:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_156_200_centos ~]<span class="comment"># curl 127.0.0.1/1.gif</span></span><br><span class="line"><span class="number">404</span></span><br><span class="line">[root@VM_156_200_centos ~]<span class="comment"># curl 127.0.0.1/1.jpg</span></span><br><span class="line"><span class="number">404</span></span><br><span class="line">[root@VM_156_200_centos ~]<span class="comment"># curl 127.0.0.1/1.js</span></span><br><span class="line"><span class="number">200</span></span><br><span class="line">[root@VM_156_200_centos ~]<span class="comment"># curl 127.0.0.1/1.css</span></span><br><span class="line"><span class="number">200</span></span><br></pre></td></tr></table></figure>
+<p>所以是可以实现这种效果的。</p>
+<h2 id="前缀的命名匹配"><a href="#前缀的命名匹配" class="headerlink" title="@前缀的命名匹配"></a>@前缀的命名匹配</h2><p>这个主要是内部定义一个 location 块，举个例子，因为 location 只验证 uri，参数是没有验证的，如果我们要验证参数，并且要根据不同的参数来进行不同的操作的话，就可以用这个内部定义块，举个例子:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">    error_page <span class="number">418</span> = @queryone;</span><br><span class="line">    error_page <span class="number">419</span> = @querytwo;</span><br><span class="line">    error_page <span class="number">420</span> = @querythree;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span> ( $args ~ <span class="string">&quot;service=one&quot;</span> ) &#123; <span class="keyword">return</span> <span class="number">418</span>; &#125;</span><br><span class="line">    <span class="keyword">if</span> ( $args ~ <span class="string">&quot;service=two&quot;</span> ) &#123; <span class="keyword">return</span> <span class="number">419</span>; &#125;</span><br><span class="line">    <span class="keyword">if</span> ( $args ~ <span class="string">&quot;service=three&quot;</span> ) &#123; <span class="keyword">return</span> <span class="number">420</span>; &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment"># do the remaining stuff</span></span><br><span class="line">    <span class="comment"># ex: try_files $uri =404;</span></span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  location @queryone &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">200</span> <span class="string">&#x27;do stuff for one&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  location @querytwo &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">200</span> <span class="string">&#x27;do stuff for two&#x27;</span>;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  location @querythree &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">200</span> <span class="string">&#x27;do stuff for three&#x27;</span>;</span><br><span class="line">  &#125;</span><br></pre></td></tr></table></figure>
+<p>测试结果如下:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[root@VM_156_200_centos ~]<span class="comment">#  curl http://127.0.0.1/?service=one</span></span><br><span class="line">do stuff <span class="keyword">for</span> one</span><br><span class="line"></span><br><span class="line">[root@VM_156_200_centos ~]<span class="comment">#  curl http://127.0.0.1/?service=two</span></span><br><span class="line">do stuff <span class="keyword">for</span> two</span><br><span class="line"></span><br><span class="line">[root@VM_156_200_centos ~]<span class="comment">#  curl http://127.0.0.1/?service=three</span></span><br><span class="line">do stuff <span class="keyword">for</span> three</span><br></pre></td></tr></table></figure>
+
+<h1 id="location-uri匹配规则"><a href="#location-uri匹配规则" class="headerlink" title="location uri匹配规则"></a>location uri匹配规则</h1><p>根据前面的符号，这里可以填写精确到 path 路径，也可以填正则表达式，Nginx 用的是 PCRE正则表达式语法，下表是在PCRE中元字符及其在正则表达式上下文中的行为的一个完整列表：</p>
+<table>
+<thead>
+<tr>
+<th>字符</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>|将下一个字符标记为一个特殊字符、或一个原义字符、或一个向后引用、或一个八进制转义符。例如，\n 匹配 \n。\n 匹配换行符。序列 \ 匹配 \ , 而 ( 则匹配 (。即相当于多种编程语言中都有的转义字符的概念。</td>
+<td></td>
+</tr>
+<tr>
+<td>^</td>
+<td>匹配输入字符串的开始位置。如果设置了 RegExp 对象的 Multiline 属性，^ 也匹配\n 或 \r 之后的位置。</td>
+</tr>
+<tr>
+<td>$</td>
+<td>匹配输入字符串的结束位置。如果设置了 RegExp 对象的 Multiline 属性，$ 也匹配\n 或 \r 之前的位置。</td>
+</tr>
+<tr>
+<td><code>*</code></td>
+<td>匹配前面的子表达式零次或多次。例如，zo* 能匹配 z 以及zoo。 * 等价于 {0,}。</td>
+</tr>
+<tr>
+<td>+</td>
+<td>匹配前面的子表达式一次或多次。例如，zo+ 能匹配 zo 以及 zoo，但不能匹配 z。+ 等价于 {1,}。</td>
+</tr>
+<tr>
+<td>?</td>
+<td>匹配前面的子表达式零次或一次。例如，do(es)? 可以匹配 does 或 do。? 等价于 {0,1}。</td>
+</tr>
+<tr>
+<td>{n}</td>
+<td>n 是一个非负整数。匹配确定的n次。例如，o{2} 不能匹配 Bob 中的 o，但是能匹配 food 中的两个o。</td>
+</tr>
+<tr>
+<td>{n,}</td>
+<td>n 是一个非负整数。至少匹配n次。例如，o{2,} 不能匹配 Bob 中的 o，但能匹配 foooood 中的所有o。o{1,} 等价于 o+ 。o{0,} 则等价于 o*。</td>
+</tr>
+<tr>
+<td>{n,m}</td>
+<td>m和n均为非负整数，其中n&lt;&#x3D;m。最少匹配n次且最多匹配m次。例如，o{1,3} 将匹配 fooooood 中的前三个o。o{0,1} 等价于o?。 请注意在逗号和两个数之间不能有空格。</td>
+</tr>
+<tr>
+<td>?</td>
+<td>当该字符紧跟在任何一个其他限制符（*,+,?，{n}，{n,}，{n,m}）后面时，匹配模式是非贪婪的。非贪婪模式尽可能少的匹配所搜索的字符串，而默认的贪婪模式则尽可能多的匹配所搜索的字符串。例如，对于字符串oooo，o+? 将匹配单个 o，而 o+ 将匹配所有 o。</td>
+</tr>
+<tr>
+<td>.</td>
+<td>匹配除\n和\r之外的任何单个字符。要匹配包括\n和\r在内的任何字符，请使用像[\s\S]的模式。</td>
+</tr>
+<tr>
+<td>(pattern)</td>
+<td>匹配pattern并获取这一匹配。所获取的匹配可以从产生的 Matches 集合得到，在 VBScript 中使用 SMatches 集合，在JScript中则使用 0…0…0…9 属性。要匹配圆括号字符，请使用( 或 )。</td>
+</tr>
+<tr>
+<td>(?:pattern)</td>
+<td>匹配 pattern 但不获取匹配结果，也就是说这是一个非获取匹配，不进行存储供以后使用。这在使用或字符 “(</td>
+</tr>
+<tr>
+<td>(?&#x3D;pattern)</td>
+<td>非获取匹配，正向肯定预查，在任何匹配 pattern 的字符串开始处匹配查找字符串。这是一个非获取匹配，也就是说，该匹配不需要获取供以后使用。例如，”Windows(?&#x3D;95</td>
+</tr>
+<tr>
+<td>(?!pattern)</td>
+<td>非获取匹配，正向否定预查，在任何不匹配 pattern 的字符串开始处匹配查找字符串。这是一个非获取匹配，也就是说，该匹配不需要获取供以后使用。例如”Windows(?!95</td>
+</tr>
+<tr>
+<td>(?&lt;&#x3D;pattern)</td>
+<td>非获取匹配，反向肯定预查，与正向肯定预查类似，只是方向相反。例如，”(?&lt;&#x3D;95</td>
+</tr>
+<tr>
+<td>(?&lt;!pattern)</td>
+<td>非获取匹配，反向否定预查，与正向否定预查类似，只是方向相反。例如 “(?&lt;!95</td>
+</tr>
+<tr>
+<td>x</td>
+<td>y</td>
+</tr>
+<tr>
+<td>[xyz]</td>
+<td>字符集合。匹配所包含的任意一个字符。例如，[abc] 可以匹配 plain 中的 a。</td>
+</tr>
+<tr>
+<td>[^xyz]</td>
+<td>否定字符集合。匹配未包含的任意字符。例如，[^abc] 可以匹配 plain 中的 p。</td>
+</tr>
+<tr>
+<td>[a-z]</td>
+<td>字符范围。匹配指定范围内的任意字符。例如，[a-z] 可以匹配 a 到 z 范围内的任意小写字母字符。</td>
+</tr>
+<tr>
+<td>[^a-z]</td>
+<td>否定字符范围。匹配任何不在指定范围内的任意字符。例如，[^a-z] 可以匹配任何不在 a 到 z 范围内的任意字符。</td>
+</tr>
+<tr>
+<td>\b</td>
+<td>匹配一个单词边界，也就是指单词和空格间的位置。例如，er\b 可以匹配 never 中的 er ，但不能匹配 verb 中的 er。\b1_ 可以匹配1_23中的1_，但不能匹配21_3中的1_。</td>
+</tr>
+<tr>
+<td>\B</td>
+<td>匹配非单词边界。er\B 能匹配 verb 中的 er ，但不能匹配never 中的 er。</td>
+</tr>
+<tr>
+<td>\cx</td>
+<td>匹配由x指明的控制字符。例如，\cM 匹配一个Control-M 或 回车符。x 的值必须为A-Z或a-z之一。否则，将c视为一个原义的c字符。</td>
+</tr>
+<tr>
+<td>\d</td>
+<td>匹配一个数字字符。等价于 [0-9]。</td>
+</tr>
+<tr>
+<td>\D</td>
+<td>匹配一个非数字字符。等价于[^0-9]。</td>
+</tr>
+<tr>
+<td>\f</td>
+<td>匹配一个换页符。等价于\x0c和\cL。</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>匹配一个换行符。等价于\x0a和\cJ。</td>
+</tr>
+<tr>
+<td>\r</td>
+<td>匹配一个回车符。等价于\x0d和\cM。</td>
+</tr>
+<tr>
+<td>\t</td>
+<td>匹配一个制表符。等价于\x09和\cI。</td>
+</tr>
+<tr>
+<td>\v</td>
+<td>匹配一个垂直制表符。等价于\x0b和\cK。</td>
+</tr>
+<tr>
+<td>\s</td>
+<td>匹配任何空白字符，包括空格、制表符、换页符等等。等价于[\f\n\r\t\v]。</td>
+</tr>
+<tr>
+<td>\S</td>
+<td>匹配任何非空白字符。等价于[^\f\n\r\t\v]。</td>
+</tr>
+<tr>
+<td>\w</td>
+<td>匹配包括下划线的任何单词字符。类似但不等价于[A-Za-z0-9_]，这里的单词字符使用Unicode字符集。</td>
+</tr>
+<tr>
+<td>\W</td>
+<td>匹配任何非单词字符。等价于[^A-Za-z0-9_]。</td>
+</tr>
+<tr>
+<td>\xn</td>
+<td>匹配n，其中n为十六进制转义值。十六进制转义值必须为确定的两个数字长。例如，\x41匹配A。\x041则等价于\x04&amp;1。正則表达式中可以使用ASCII编码。</td>
+</tr>
+<tr>
+<td>\num</td>
+<td>匹配num，其中num是一个正整数。对所获取的匹配的引用。例如，(.)\1匹配两个连续的相同字符。</td>
+</tr>
+<tr>
+<td>\n</td>
+<td>标识一个八进制转义值或一个向后引用。如果\n之前至少 n 个获取的子表达式，则 n 为向后引用。否则，如果 n 为八进制数字（0-7），则 n 为一个八进制转义值。</td>
+</tr>
+<tr>
+<td>\nm</td>
+<td>标识一个八进制转义值或一个向后引用。如果\nm之前至少有 nm 个获得子表达式，则 nm 为向后引用。如果\nm 之前至少有 n 个获取，则 n 为一个后跟文字m的向后引用。如果前面的条件都不满足，若n和m均为八进制数字（0-7），则\nm将匹配八进制转义值nm。</td>
+</tr>
+<tr>
+<td>\nml</td>
+<td>如果n为八进制数字（0-7），且m和l均为八进制数字（0-7），则匹配八进制转义值nml。</td>
+</tr>
+<tr>
+<td>\un</td>
+<td>匹配n，其中n是一个用四个十六进制数字表示的Unicode字符。例如，\u00A9 匹配版权符号（©）。</td>
+</tr>
+</tbody></table>
+<h2 id="例子-1"><a href="#例子-1" class="headerlink" title="例子"></a>例子</h2><ol>
+<li><p>判断是不是 IP 白名单:</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#定义初始值</span></span><br><span class="line"><span class="built_in">set</span> $my_ip <span class="number">0</span>;</span><br><span class="line"></span><br><span class="line"><span class="comment">#判断是否为指定的白名单</span></span><br><span class="line"><span class="keyword">if</span> ( $http_x_forwarded_for ~* <span class="string">&quot;10.0.0.1|172.16.0.1&quot;</span> )&#123;</span><br><span class="line">    <span class="built_in">set</span> $my_ip <span class="number">1</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">#不是白名单的IP进行重定向跳转</span></span><br><span class="line"><span class="keyword">if</span> ( $my_ip = <span class="number">0</span> )&#123;</span><br><span class="line">    rewrite ^/$ /40x.html;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>如果页面有多语言，但是这个多语言所在的文件找不到，那么就将多语言路径去掉，重新跳转</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">    <span class="keyword">if</span> (!-e $request_filename) &#123;</span><br><span class="line">        rewrite ^/([A-Za-z0-9_-]+)/(.*) /$<span class="number">2</span> permanent;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>比如你请求是这样子的 <a target="_blank" rel="noopener" href="https://foo.com/zh-cn/a.html">https://foo.com/zh-cn/a.html</a> 这时候服务端找不到这个文件，那么就会重定向到 <a target="_blank" rel="noopener" href="https://foo.com/a.html%E3%80%82">https://foo.com/a.html。</a> 这个很适合那种有多语言静态页面的站点</p>
+</li>
+<li><p>如果是一些特殊的静态文件，那么额外配置</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location ~* \.(gif|jpg|jpeg|png|css|js|ico)$ &#123;</span><br><span class="line">    root /webroot/res/;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>针对国内的搜索爬虫，返回中文的页面</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">set</span> $chinaspider <span class="string">&quot;0&quot;</span>;</span><br><span class="line"><span class="keyword">if</span> ($http_user_agent ~* <span class="string">&quot;Baiduspider|Sogou spider|Sogou web spider&quot;</span>) &#123;</span><br><span class="line">    <span class="built_in">set</span> $chinaspider <span class="string">&quot;1&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> ($chinaspider = <span class="number">1</span>) &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">301</span> https://$server_name/zh-cn;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li><p>禁止以&#x2F;data开头的文件</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location ~ ^/data &#123;</span><br><span class="line">  deny <span class="built_in">all</span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>文件反盗链并设置过期时间</p>
+ <figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">location ~* ^.+\.(jpg|jpeg|gif|png|swf|rar|<span class="built_in">zip</span>|css|js)$ &#123;</span><br><span class="line">   valid_referers none blocked *.domain.com *.domain.net localhost <span class="number">208.97</span><span class="number">.167</span><span class="number">.194</span>;</span><br><span class="line">    <span class="keyword">if</span> ($invalid_referer) &#123;</span><br><span class="line">       rewrite ^/ http://error.domain.com/error.gif;</span><br><span class="line">       <span class="keyword">return</span> <span class="number">412</span>;</span><br><span class="line">       <span class="keyword">break</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    access_log  off;</span><br><span class="line">    root /opt/lampp/htdocs/web;</span><br><span class="line">    expires 3d;</span><br><span class="line">    <span class="keyword">break</span>;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+<p>这里的 return 412 为自定义的 http 状态码，默认为403，方便找出正确的盗链的请求</p>
+</li>
+</ol>
+<ul>
+<li>rewrite ^&#x2F; <a target="_blank" rel="noopener" href="http://error.domain.com/error.gif;%E6%98%BE%E7%A4%BA%E4%B8%80%E5%BC%A0%E9%98%B2%E7%9B%97%E9%93%BE%E5%9B%BE%E7%89%87">http://error.domain.com/error.gif;显示一张防盗链图片</a></li>
+<li>access_log off;不记录访问日志，减轻压力</li>
+<li>expires 3d所有文件3天的浏览器缓存</li>
+</ul>
+<h2 id="最后附上可以用作判断的全局变量"><a href="#最后附上可以用作判断的全局变量" class="headerlink" title="最后附上可以用作判断的全局变量"></a>最后附上可以用作判断的全局变量</h2><table>
+<thead>
+<tr>
+<th>全局变量</th>
+<th>内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>$remote_addr</td>
+<td>获取客户端ip</td>
+</tr>
+<tr>
+<td>$binary_remote_addr</td>
+<td>客户端ip（二进制)</td>
+</tr>
+<tr>
+<td>$remote_port</td>
+<td>客户端port，如：50472</td>
+</tr>
+<tr>
+<td>$remote_user</td>
+<td>已经经过Auth Basic Module验证的用户名</td>
+</tr>
+<tr>
+<td>$host</td>
+<td>请求主机头字段，否则为服务器名称，如:blog.sakmon.com$request用户请求信息，如：GET ?a&#x3D;1&amp;b&#x3D;2 HTTP&#x2F;1.1</td>
+</tr>
+<tr>
+<td>$request_filename</td>
+<td>当前请求的文件的路径名，由root或alias和URI request组合而成，如：&#x2F;2013&#x2F;81.html</td>
+</tr>
+<tr>
+<td>$status</td>
+<td>请求的响应状态码,如:200</td>
+</tr>
+<tr>
+<td>$body_bytes_sent</td>
+<td>响应时送出的body字节数数量。即使连接中断，这个数据也是精确的,如：40</td>
+</tr>
+<tr>
+<td>$content_length</td>
+<td>等于请求行的Content_Length的值</td>
+</tr>
+<tr>
+<td>$content_type</td>
+<td>等于请求行的Content_Type的值</td>
+</tr>
+<tr>
+<td>$http_referer</td>
+<td>引用地址</td>
+</tr>
+<tr>
+<td>$http_user_agent</td>
+<td>客户端agent信息,如：Mozilla&#x2F;5.0 (Windows NT 5.1) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;29.0.1547.76 Safari&#x2F;537.36</td>
+</tr>
+<tr>
+<td>$args</td>
+<td>与 $query_string 相同 等于当中URL的参数(GET)，如a&#x3D;1&amp;b&#x3D;2</td>
+</tr>
+<tr>
+<td>$document_uri</td>
+<td>与$uri相同, 这个变量指当前的请求URI，不包括任何参数(见$args) 如:&#x2F;2013&#x2F;81.html</td>
+</tr>
+<tr>
+<td>$document_root</td>
+<td>针对当前请求的根路径设置值</td>
+</tr>
+<tr>
+<td>$hostname</td>
+<td>如：centos53.localdomain</td>
+</tr>
+<tr>
+<td>$http_cookie</td>
+<td>客户端cookie信息</td>
+</tr>
+<tr>
+<td>$cookie_COOKIEcookie</td>
+<td>COOKIE变量的值</td>
+</tr>
+<tr>
+<td>$is_args</td>
+<td>如果有$args参数，这个变量等于 ”?”，否则等于””</td>
+</tr>
+<tr>
+<td>$limit_rate</td>
+<td>这个变量可以限制连接速率，0 表示不限速</td>
+</tr>
+<tr>
+<td>$query_string</td>
+<td>与$args相同,等于当中URL的参数(GET)，如a&#x3D;1&amp;b&#x3D;2</td>
+</tr>
+<tr>
+<td>$request_body</td>
+<td>记录POST过来的数据信息</td>
+</tr>
+<tr>
+<td>$request_body_file</td>
+<td>客户端请求主体信息的临时文件名</td>
+</tr>
+<tr>
+<td>$request_method</td>
+<td>客户端请求的动作，通常为GET或POST,如：GET</td>
+</tr>
+<tr>
+<td>$request_uri</td>
+<td>包含请求参数的原始URI，不包含主机名，如：&#x2F;2013&#x2F;81.html?a&#x3D;1&amp;b&#x3D;2</td>
+</tr>
+<tr>
+<td>$scheme</td>
+<td>HTTP方法（如http，https）,如：http</td>
+</tr>
+<tr>
+<td>$uri</td>
+<td>这个变量指当前的请求URI，不包括任何参数(见$args) 如:&#x2F;2013&#x2F;81.html</td>
+</tr>
+<tr>
+<td>$request_completion</td>
+<td>如果请求结束，设置为OK。当请求未结束或如果该请求不是请求链串的最后一个时，为空(Empty)，如：OK</td>
+</tr>
+<tr>
+<td>$server_protocol</td>
+<td>请求使用的协议，通常是HTTP&#x2F;1.0或HTTP&#x2F;1.1，如：HTTP&#x2F;1.1</td>
+</tr>
+<tr>
+<td>$server_addr</td>
+<td>服务器IP地址，在完成一次系统调用后可以确定这个值</td>
+</tr>
+<tr>
+<td>$server_name</td>
+<td>服务器名称，如：blog.sakmon.com</td>
+</tr>
+<tr>
+<td>$server_port</td>
+<td>请求到达服务器的端口号,如：80</td>
+</tr>
+</tbody></table>
+<h1 id="路由转发"><a href="#路由转发" class="headerlink" title="路由转发"></a>路由转发</h1><h1 id="Rewrite语法规则"><a href="#Rewrite语法规则" class="headerlink" title="Rewrite语法规则"></a>Rewrite语法规则</h1><p>rewrite功能就是，使用nginx提供的全局变量或自己设置的变量，结合正则表达式和标志位实现url重写以及重定向。rewrite只能放在server{},location{},if{}中，并且只能对域名后边的除去传递的参数外的字符串起作用，例如<a target="_blank" rel="noopener" href="http://seanlook.com/a/we/index.php?id=1&amp;u=str">http://seanlook.com/a/we/index.php?id=1&amp;u=str</a> 只对&#x2F;a&#x2F;we&#x2F;index.php重写。</p>
+<p>如果想修改域名或参数字符串，可以使用全局变量匹配，也可以使用proxy_pass反向代理。</p>
+<p>rewrite和location功能有点像，都能实现跳转，主要区别在于rewrite是在同一域名内更改获取资源的路径，而location是对一类路径做控制访问或反向代理，可以proxy_pass到其他机器。</p>
+<p>rewrite语法：<code>rewrite 正则表达式 要替换的内容 [flag];</code></p>
+<p>其中flag有如下几个值：</p>
+<ol>
+<li>last – 本条规则匹配完成后，立即发起新一轮的location 匹配规则</li>
+<li>break – 本条规则匹配完成即终止，不再匹配后面的任何规则</li>
+<li>redirect – 返回302临时重定向，浏览器地址会显示跳转新的URL地址</li>
+<li>permanent – 返回301永久重定向。浏览器地址会显示跳转新的URL地址</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">rewrite 后面没有任何 flag 时就顺序执行</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">当 location 中没有 rewrite 模块指令可被执行时 就重写发起新一轮location匹配</span></span><br><span class="line">location / &#123;</span><br><span class="line">    # 顺序执行如下两条rewrite指令 </span><br><span class="line">    rewrite ^/test1 /test2;</span><br><span class="line">    rewrite ^/test2 /test3;  # 此处发起新一轮location匹配 uri为/test3</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">location = /test2 &#123;</span><br><span class="line">    return 200 &quot;/test2&quot;;</span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">location = /test3 &#123;</span><br><span class="line">    return 200 &quot;/test3&quot;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">发送如下请求</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">curl 127.0.0.1:8080/test1</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">/test3</span></span><br></pre></td></tr></table></figure>
+<p><strong>很多情况下rewrite也会写在location里，它们的执行顺序是：</strong></p>
+<ol>
+<li>顺序执行server块中的rewrite模块指令，得到rewrite后的请求URI</li>
+<li>执行location匹配 </li>
+<li>执行选定的location中的rewrite指令 </li>
+<li>如果其中某步URI被重写，则重新循环执行1-3，直到找到真实存在的文件；</li>
+<li>循环超过10次，则返回500 Internal Server Error错误。</li>
+</ol>
+<h2 id="last-和-break的区别"><a href="#last-和-break的区别" class="headerlink" title="last 和 break的区别"></a>last 和 break的区别</h2><ol>
+<li>last 和 break一样 它们都会终止此 location 中其他它rewrite模块指令的执行</li>
+<li>但是 last 立即发起新一轮的 location 匹配 而 break 则不会</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">    rewrite ^/test1 /test2;</span><br><span class="line">    rewrite ^/test2 /test3 last;  # 此处发起新一轮location匹配 uri为/test3</span><br><span class="line">    rewrite ^/test3 /test4;</span><br><span class="line">    proxy_pass http://www.baidu.com;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">location = /test2 &#123;</span><br><span class="line">    return 200 &quot;/test2&quot;;</span><br><span class="line">&#125;  </span><br><span class="line"></span><br><span class="line">location = /test3 &#123;</span><br><span class="line">    return 200 &quot;/test3&quot;;</span><br><span class="line">&#125;</span><br><span class="line">location = /test4 &#123;</span><br><span class="line">    return 200 &quot;/test4&quot;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">发送如下请求</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">curl 127.0.0.1:8080/test1</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">/test3</span> </span><br><span class="line"></span><br><span class="line">当如果将上面的 location / 改成如下代码</span><br><span class="line">location / &#123;</span><br><span class="line">    rewrite ^/test1 /test2;</span><br><span class="line">    # 此处 不会 发起新一轮location匹配；会终止执行后续rewrite 重写后的uri为 /more/index.html</span><br><span class="line">    rewrite ^/test2 /more/index.html break;  </span><br><span class="line">    rewrite /more/index\.html /test4; # 这条指令会被忽略</span><br><span class="line"></span><br><span class="line">    # 因为 proxy_pass 不是rewrite模块的指令 所以它不会被 break终止</span><br><span class="line">    proxy_pass https://www.baidu.com;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">发送如下请求</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">浏览器输入 127.0.0.1:8080/test1</span> </span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">代理到 百度产品大全页面 https://www.baidu.com/more/index.html;</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="redirect-和-permanent"><a href="#redirect-和-permanent" class="headerlink" title="redirect 和 permanent"></a>redirect 和 permanent</h2><ol>
+<li>临时重定向：对旧网址没有影响，但新网址不会有排名</li>
+<li>永久重定向：新网址完全继承旧网址，旧网址的排名等完全清零</li>
+</ol>
+<p>修改nginx.conf文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">      listen 80 default;</span><br><span class="line">      charset utf-8;</span><br><span class="line">      server_name www.hzznb-xzll.xyz hzznb-xzll.xyz;</span><br><span class="line"></span><br><span class="line">      # 临时（redirect）重定向配置 当访问 hzznb-xzll.xyz/temp_redir/ 这个请求会临时（302）重定向到百度页面</span><br><span class="line">      location /temp_redir &#123;</span><br><span class="line">          rewrite ^/(.*) https://www.baidu.com redirect;</span><br><span class="line">      &#125;</span><br><span class="line">      # 永久重定向（permanent）配置 当访问 hzznb-xzll.xyz/forever_red… 这个请求会永久（301）重定向到百度页面</span><br><span class="line">      location /forever_redir &#123;</span><br><span class="line"></span><br><span class="line">          rewrite ^/(.*) https://www.baidu.com permanent;</span><br><span class="line">      &#125;</span><br><span class="line"></span><br><span class="line">      # rewrite last配置 可以看到我们定义 访问 hzznb-xzll.xyz/1/ 的请求被替换为 hzznb-xzll.xyz/2/ 之后再被替换为 hzznb-xzll.xyz/3/  最后找到/usr/local/nginx/test/static/location_last_test.html 这个文件并返回。</span><br><span class="line">      location /1 &#123;</span><br><span class="line">        rewrite /1/(.*) /2/$1 last;</span><br><span class="line">      &#125;</span><br><span class="line">      location /2 &#123;</span><br><span class="line">        rewrite /2/(.*) /3/$1 last;</span><br><span class="line">      &#125;</span><br><span class="line">      location /3 &#123;</span><br><span class="line">        alias  &#x27;/usr/local/nginx/test/static/&#x27;;</span><br><span class="line">        index location_last_test.html;</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h2 id="rewrite-后的请求参数"><a href="#rewrite-后的请求参数" class="headerlink" title="rewrite 后的请求参数"></a>rewrite 后的请求参数</h2><p>如果替换字符串replacement包含新的请求参数，则在它们之后附加先前的请求参数。如果你不想要之前的参数，则在替换字符串 replacement 的末尾放置一个问号，避免附加它们。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash">由于最后加了个 ?，原来的请求参数将不会被追加到rewrite之后的url后面</span> </span><br><span class="line">rewrite ^/users/(.*)$ /show?user=$1? last;</span><br></pre></td></tr></table></figure>
+
+<h2 id="rewrite-log"><a href="#rewrite-log" class="headerlink" title="rewrite_log"></a>rewrite_log</h2><p>开启或者关闭 rewrite模块指令执行的日志，如果开启，则重写将记录下notice 等级的日志到nginx 的 error_log 中，默认为关闭 off</p>
+<p><code>Syntax: rewrite_log on | off;</code></p>
+<h2 id="return"><a href="#return" class="headerlink" title="return"></a>return</h2><p>格式：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">return code [text];</span><br><span class="line">return code URL;</span><br><span class="line">return URL;</span><br></pre></td></tr></table></figure>
+<p>停止处理并将指定的code码返回给客户端。 非标准code码 444 关闭连接而不发送响应报头。</p>
+<p>从0.8.42版本开始， return 语句可以指定重定向 url (状态码可以为如下几种 301,302,303,307),也可以为其他状态码指定响应的文本内容，并且重定向的url和响应的文本可以包含变量。</p>
+<p>有一种特殊情况，就是重定向的url可以指定为此服务器本地的uri，这样的话，nginx会依据请求的协议$scheme， server_name_in_redirect 和 port_in_redirect自动生成完整的 url </p>
+<p><strong>此处要说明的是server_name_in_redirect和port_in_redirect 指令是表示是否将server块中的 server_name 和 listen 的端口 作为redirect用 ）</strong></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">return</span> code [text]; 返回 ok 给客户端</span></span><br><span class="line">location = /ok &#123;</span><br><span class="line">    return 200 &quot;ok&quot;;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">return</span> code URL; 临时重定向到 百度</span></span><br><span class="line">location = /redirect &#123;</span><br><span class="line">    return 302 http://www.baidu.com;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash"><span class="built_in">return</span> URL; 和上面一样 默认也是临时重定向</span></span><br><span class="line">location = /redirect &#123;</span><br><span class="line">    return http://www.baidu.com;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="break"><a href="#break" class="headerlink" title="break"></a>break</h2><p>停止执行 ngx_http_rewrite_module 的指令集，但是其他模块指令是不受影响的</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 8080;</span><br><span class="line">    # 此处 break 会停止执行 server 块的 return 指令(return 指令属于rewrite模块)</span><br><span class="line">    # 如果把它注释掉 则所有请求进来都返回 ok</span><br><span class="line">    break;</span><br><span class="line">    return 200 &quot;ok&quot;;</span><br><span class="line">    location = /testbreak &#123;</span><br><span class="line">        break;</span><br><span class="line">        return 200 $request_uri;</span><br><span class="line">        proxy_pass http://127.0.0.1:8080/other;</span><br><span class="line">    &#125;</span><br><span class="line">    location / &#123;</span><br><span class="line">        return 200 $request_uri;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">发送请求如下</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">curl 127.0.0.1:8080/testbreak</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">/other</span></span><br><span class="line"><span class="meta prompt_"></span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">可以看到 返回 `/other` 而不是 `/testbreak`，说明 `proxy_pass` 指令还是被执行了</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">也就是说 其他模块的指令是不会被 <span class="built_in">break</span> 中断执行的</span></span><br><span class="line"><span class="meta prompt_"># </span><span class="language-bash">(proxy_pass是ngx_http_proxy_module的指令)</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/05/15/vue/%E7%BB%84%E4%BB%B6/" rel="prev" title="组件">
+                  <i class="fa fa-chevron-left"></i> 组件
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/05/23/sundries/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F-%E7%8E%AF%E8%A7%86/" rel="next" title="正则表达式-环视">
+                  正则表达式-环视 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

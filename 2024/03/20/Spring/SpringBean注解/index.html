@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leetao50.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="@BeanBean可以说是Spring当中最为重要的概念之一了。简单来说，Bean就是一个对象，只不过这个对象是由Spring容器来初始化，装配，管理的，因此也可以叫做Spring Bean。 123456789101112131415161718192021@Target(&amp;#123;ElementType.METHOD, ElementType.ANNOTATION_TYPE&amp;#125;)@R">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringBean注解">
+<meta property="og:url" content="https://leetao50.github.io/2024/03/20/Spring/SpringBean%E6%B3%A8%E8%A7%A3/index.html">
+<meta property="og:site_name" content="InfoPool">
+<meta property="og:description" content="@BeanBean可以说是Spring当中最为重要的概念之一了。简单来说，Bean就是一个对象，只不过这个对象是由Spring容器来初始化，装配，管理的，因此也可以叫做Spring Bean。 123456789101112131415161718192021@Target(&amp;#123;ElementType.METHOD, ElementType.ANNOTATION_TYPE&amp;#125;)@R">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-03-20T10:16:11.000Z">
+<meta property="article:modified_time" content="2024-03-21T01:56:28.504Z">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://leetao50.github.io/2024/03/20/Spring/SpringBean%E6%B3%A8%E8%A7%A3/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leetao50.github.io/2024/03/20/Spring/SpringBean%E6%B3%A8%E8%A7%A3/","path":"2024/03/20/Spring/SpringBean注解/","title":"SpringBean注解"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>SpringBean注解 | InfoPool</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">InfoPool</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">私人信息记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Bean"><span class="nav-number">1.</span> <span class="nav-text">@Bean</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Configuration"><span class="nav-number">2.</span> <span class="nav-text">@Configuration</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Component"><span class="nav-number">3.</span> <span class="nav-text">@Component</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Spring%E5%B8%B8%E7%94%A8%E6%B3%A8%E5%86%8CBean%E6%B3%A8%E8%A7%A3%EF%BC%9A"><span class="nav-number">3.1.</span> <span class="nav-text">Spring常用注册Bean注解：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Autowired"><span class="nav-number">4.</span> <span class="nav-text">@Autowired</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8"><span class="nav-number">4.1.</span> <span class="nav-text">使用</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Qualifier"><span class="nav-number">5.</span> <span class="nav-text">@Qualifier</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Primary"><span class="nav-number">6.</span> <span class="nav-text">@Primary</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Scope"><span class="nav-number">7.</span> <span class="nav-text">@Scope</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%9C%E7%94%A8%E5%9F%9F%E5%88%86%E4%B8%BA%EF%BC%9A"><span class="nav-number">7.1.</span> <span class="nav-text">作用域分为：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%B8%B8%E8%A7%81%E4%BD%BF%E7%94%A8%E8%AF%AF%E5%8C%BA%EF%BC%8C%E5%8D%95%E4%BE%8B%E8%B0%83%E7%94%A8%E5%A4%9A%E4%BE%8B%EF%BC%9A"><span class="nav-number">7.2.</span> <span class="nav-text">常见使用误区，单例调用多例：</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Lazy"><span class="nav-number">8.</span> <span class="nav-text">@Lazy</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Profile"><span class="nav-number">9.</span> <span class="nav-text">@Profile</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%BF%80%E6%B4%BB%E7%8E%AF%E5%A2%83"><span class="nav-number">9.1.</span> <span class="nav-text">激活环境</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ComponentScan"><span class="nav-number">10.</span> <span class="nav-text">@ComponentScan</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%80%BB%E7%BB%93"><span class="nav-number">11.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#ConfigurationProperties"><span class="nav-number">12.</span> <span class="nav-text">@ConfigurationProperties</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#EnableConfigurationProperties"><span class="nav-number">13.</span> <span class="nav-text">@EnableConfigurationProperties</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Value"><span class="nav-number">14.</span> <span class="nav-text">@Value</span></a></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description">记录信息来源网络，内容只为方便查找，非公开信息，非请勿入</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2024/03/20/Spring/SpringBean%E6%B3%A8%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="SpringBean注解 | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SpringBean注解
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-03-20 18:16:11" itemprop="dateCreated datePublished" datetime="2024-03-20T18:16:11+08:00">2024-03-20</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-03-21 09:56:28" itemprop="dateModified" datetime="2024-03-21T09:56:28+08:00">2024-03-21</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <h1 id="Bean"><a href="#Bean" class="headerlink" title="@Bean"></a>@Bean</h1><p>Bean可以说是Spring当中最为重要的概念之一了。简单来说，Bean就是一个对象，只不过这个对象是由Spring容器来初始化，装配，管理的，因此也可以叫做Spring Bean。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Target(&#123;ElementType.METHOD, ElementType.ANNOTATION_TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Bean &#123;</span><br><span class="line">    <span class="meta">@AliasFor(&quot;name&quot;)</span></span><br><span class="line">    String[] value() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AliasFor(&quot;value&quot;)</span></span><br><span class="line">    String[] name() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/** <span class="doctag">@deprecated</span> */</span></span><br><span class="line">    <span class="meta">@Deprecated</span></span><br><span class="line">    Autowire <span class="title function_">autowire</span><span class="params">()</span> <span class="keyword">default</span> Autowire.NO;</span><br><span class="line"></span><br><span class="line">    <span class="type">boolean</span> <span class="title function_">autowireCandidate</span><span class="params">()</span> <span class="keyword">default</span> <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    String <span class="title function_">initMethod</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    String <span class="title function_">destroyMethod</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;(inferred)&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>注：当注解中只传入value一个属性的时候，value属性的名称可以省略；即：@Bean(value&#x3D;”myBean”)等同于@Bean(“myBean”)；Alias是别名的意思，因此使用@Bean(name&#x3D;”myBean”)也是一样的效果。</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AppConfig</span> &#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> FooService <span class="title function_">fooService</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">FooService</span>(fooRepository());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> FooRepository <span class="title function_">fooRepository</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">JdbcFooRepository</span>(datasource());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在上面的代码中，我们向Spring容器中注入了两个Bean，当没有显式命名时，自动注册的名称为方法名。</p>
+<p>使用name属性显式命名如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean(&#123;&quot;b1&quot;, &quot;b2&quot;&#125;)</span> <span class="comment">// Bean可以用&#x27;b1&#x27;或者&#x27;b2&#x27;取到，而非&#x27;myBean&#x27;</span></span><br><span class="line"><span class="keyword">public</span> MyBean <span class="title function_">myBean</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="comment">// 此处初始化和配置MyBean对象</span></span><br><span class="line">    <span class="keyword">return</span> obj;</span><br><span class="line">&#125;  </span><br></pre></td></tr></table></figure>
+
+<h1 id="Configuration"><a href="#Configuration" class="headerlink" title="@Configuration"></a>@Configuration</h1><p>@Bean注解往往和@Configuration配合，前者标注在方法上，后者标注在类上；两者搭配，将Bean注册到容器中。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Configuration &#123;</span><br><span class="line">    <span class="meta">@AliasFor(</span></span><br><span class="line"><span class="meta">        annotation = Component.class</span></span><br><span class="line"><span class="meta">    )</span></span><br><span class="line">    String <span class="title function_">value</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="type">boolean</span> <span class="title function_">proxyBeanMethods</span><span class="params">()</span> <span class="keyword">default</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>我们可以从源码中可以看到，它实质上也是一个@Component注解，所以该注解标记的类本身也会被注册成一个Bean</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">AppConfig</span> &#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> MyBean <span class="title function_">myBean</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// instance, configure and return bean</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>它指示类生成一个或者多个@Bean方法，可以由Spring容器处理，在运行时为这些Bean生成BeanDefination和服务请求。</p>
+<h1 id="Component"><a href="#Component" class="headerlink" title="@Component"></a>@Component</h1><p>从前面我们知道，所谓的Bean其实就是一个个对象；但是@Bean注解是标注在方法上的，意思就是通过方法返回一个对象，那么有没有直接通过类获取对象的呢？当然有，那就是@Component，被该注解标注的类会被注册到当前容器，bean的id就是类名转换为小驼峰。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Indexed</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Component &#123;</span><br><span class="line">    String <span class="title function_">value</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>直接标注在类上，Spring扫描时会将其加入容器。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span> <span class="comment">// or @Component(&quot;myBean&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyClass</span> &#123;</span><br><span class="line">    <span class="comment">// write your bean here...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="Spring常用注册Bean注解："><a href="#Spring常用注册Bean注解：" class="headerlink" title="Spring常用注册Bean注解："></a>Spring常用注册Bean注解：</h2><ul>
+<li>@Component, @Service, @Repository, @Controller四个注解作用于类上，实质上是一样的，注册类到当前容器，value属性就是BeanName</li>
+<li>@Configuration注解也作用于类上，该注解通常与@Bean配合使用</li>
+<li>@Bean用于方法上，该方法需要在@Configutation标注的类里面，且方法必须为public</li>
+<li>@Component注解的效果与@Bean的效果类似，也是单例模式。可以搭配的注解也类似，例如@Scope, @Profile, @Primary等等。</li>
+</ul>
+<h1 id="Autowired"><a href="#Autowired" class="headerlink" title="@Autowired"></a>@Autowired</h1><p>我们使用@Bean(或者@Component)注解将Bean注册到了Spring容器；我们创建这些Bean的目的，最终还是为了使用，@Autowired注解可以将bean自动注入到类的属性中。@Autowired注解可以直接标注在属性上，也可以标注在构造器，方法，甚至是传入参数上，其实质都是调用了setter方法注入。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.CONSTRUCTOR, ElementType.METHOD, ElementType.PARAMETER, ElementType.FIELD, ElementType.ANNOTATION_TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Autowired &#123;</span><br><span class="line">    <span class="type">boolean</span> <span class="title function_">required</span><span class="params">()</span> <span class="keyword">default</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>当自动注入的Bean不存在时，Spring会报错；如果希望Bean存在时才注入，可以使用@Autowired(required&#x3D;false)。</p>
+</blockquote>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="meta">@Autowired</span> <span class="comment">//标注在属性上</span></span><br><span class="line"><span class="keyword">private</span> MyBean myBean;</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="meta">@Autowired</span> <span class="comment">//标注在方法上</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setMyBean</span><span class="params">(MyBean myBean)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.myBean = myBean;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br><span class="line"></span><br><span class="line"><span class="meta">@Autowired</span><span class="comment">//标注在构造函数上</span></span><br><span class="line"><span class="keyword">public</span> <span class="title function_">MyClass</span><span class="params">(MyBean myBean)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.myBean = myBean;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br><span class="line"><span class="comment">//标注在方法参数上</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setMyBean</span><span class="params">(<span class="meta">@Autowired</span> MyBean myBean)</span> &#123;</span><br><span class="line">    <span class="built_in">this</span>.myBean = myBean;</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>@Autowired和@Resource注解都是作为bean对象注入时使用的，@Autowired是Spring提供的注解，而@Resource是J2EE本身提供的。</li>
+<li>@Autowired首先根据类型去寻找注入的对象，如果有多个再根据名字匹配。</li>
+<li>当名字也无法区分时可以通过@Qulifier显式指定，如：<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="meta">@Qualifier(&quot;userServiceImpl1&quot;)</span></span><br><span class="line"><span class="keyword">private</span> UserService userService;</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h1 id="Qualifier"><a href="#Qualifier" class="headerlink" title="@Qualifier"></a>@Qualifier</h1><p>当同一个类型的Bean创建了多个时，我们可以通过搭配@Autowired和@Qualifier来确定需要注入的Bean解决混淆。除此以外，@Qualifier还可以标注在Bean上实现逻辑分组。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER, ElementType.TYPE, ElementType.ANNOTATION_TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Inherited</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Qualifier &#123;</span><br><span class="line">    String <span class="title function_">value</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>标注在单个属性上，是根据name去获取Bean:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="meta">@Qualifier(&quot;bean2&quot;)</span></span><br><span class="line"><span class="keyword">private</span> MyBean mybean;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> MyBean <span class="title function_">bean1</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">MyBean</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> MyBean <span class="title function_">bean2</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">MyBean</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>标注在集合上，则可以筛选出被@Qualifier标注的Bean</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> List&lt;User&gt; users; <span class="comment">// user1, user2, user3</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="meta">@Qualifier</span></span><br><span class="line"><span class="keyword">private</span> List&lt;User&gt; usersQualifier; <span class="comment">// user2, user3</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> User <span class="title function_">user1</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">User</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Bean</span> </span><br><span class="line"><span class="meta">@Qualifier</span></span><br><span class="line"><span class="keyword">public</span> User <span class="title function_">user2</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">User</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@Qualifier</span></span><br><span class="line"><span class="keyword">public</span> User <span class="title function_">user3</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">User</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="Primary"><a href="#Primary" class="headerlink" title="@Primary"></a>@Primary</h1><p>当一个接口有多个实现时，我们可以通过给@Autowired注解搭配@Qualifier来注入我们想要的Bean。这里还有另一种情况：Bean之前分优先级顺序，一般情况下我们只会注入默认实现；这个时候可以采用@Primary注解，该注解标注于Bean上，指示了优先注入的类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE, ElementType.METHOD&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Primary &#123;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用时直接标注在返回Bean的方法上</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="meta">@Autowired</span></span><br><span class="line"><span class="keyword">private</span> MyBean <span class="title function_">myBean</span><span class="params">()</span>; <span class="comment">// 注入myBean1</span></span><br><span class="line"></span><br><span class="line"><span class="meta">@Primary</span></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> MyBean <span class="title function_">myBean1</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">MyBean</span>();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="keyword">public</span> MyBean <span class="title function_">myBean2</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">MyBean</span>();</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<p>也可以标注在@Component的类上(@Controller, @Service, @Repository也是一样的)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Primary</span></span><br><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyBean</span> &#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Scope"><a href="#Scope" class="headerlink" title="@Scope"></a>@Scope</h1><p>Spring中的Bean默认是单例模式，在代码各处注入的一个Bean都是同一个实例；我们将在Spring IoC创建的Bean对象的请求可见范围称为作用域。注解@Scope可用于更改Bean的作用域。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE, ElementType.METHOD&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Scope &#123;</span><br><span class="line">    <span class="meta">@AliasFor(&quot;scopeName&quot;)</span></span><br><span class="line">    String <span class="title function_">value</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AliasFor(&quot;value&quot;)</span></span><br><span class="line">    String <span class="title function_">scopeName</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    ScopedProxyMode <span class="title function_">proxyMode</span><span class="params">()</span> <span class="keyword">default</span> ScopedProxyMode.DEFAULT;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>传入作用域类型时直接传入字符串，例如：@Scope(“prototype”)，但这种方法字符串拼写错误不容易发现；Spring提供了默认的参数：ConfigurableBeanFactory.SCOPE_PROTOTYPE, ConfigurableBeanFactory.SCOPE_SINGLETON, WebApplicationContext.SCOPE_REQUEST, WebApplicationContext.SCOPE_SESSION<br>proxyMode也提供了参数：ScopedProxyMode.INTERFACES, ScopedProxyMode.TARGET_CLASS</p>
+</blockquote>
+<h2 id="作用域分为："><a href="#作用域分为：" class="headerlink" title="作用域分为："></a>作用域分为：</h2><ul>
+<li>基本作用域(singleton, prototype)</li>
+<li>Web作用域(request, session, globalssion)<br>由于默认为单例模式，所以需要标注时一般都是使用prototype<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@Scope(&quot;prototype&quot;)</span>  <span class="comment">// @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)</span></span><br><span class="line"><span class="keyword">public</span> MyBean <span class="title function_">myBean</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">MyBean</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+prototype是原型模式，具体可以看设计模式中的”原型模式”，每次通过容器的getBean方法获取Bean时，都将产生一个新的Bean实例。</li>
+</ul>
+<h2 id="常见使用误区，单例调用多例："><a href="#常见使用误区，单例调用多例：" class="headerlink" title="常见使用误区，单例调用多例："></a>常见使用误区，单例调用多例：</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SingletonBean</span> &#123;</span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">private</span> PrototypeBean bean;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)</span></span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>上面的代码中，外面的SingletonBean默认单例模式，里面的PrototypeBean设置成原型模式。<br>这里并不能达到我们每次创建返回新实例的效果。<br>因为@Autowired只会在单例SingletonBean初始化的时候注入一次，再次调用SingletonBean的时候，PrototypeBean不会再创建了(注入时创建，而注入只有一次)。<br>解决方法1：不使用@Autowired，每次调用多例的时候，直接调用Bean;<br>解决方法2：Spring的解决办法：设置proxyMode, 每次请求的时候实例化。</p>
+<blockquote>
+<p>两种代理模式的区别：<br>ScopedProxyMode.INTERFACES: 创建一个JDK代理模式<br>ScopedProxyMode.TARGET_CLASS: 基于类的代理模式<br>前者只能将其注入一个接口，后者可以将其注入类。</p>
+</blockquote>
+<h1 id="Lazy"><a href="#Lazy" class="headerlink" title="@Lazy"></a>@Lazy</h1><p>Spring Boot中Bean默认的作用域为单例模式；而Spring IoC容器会在启动的时候实例化所有单例Bean。熟悉单例模式的朋友也许立刻想到了饿汉模式和懒汉模式。在Spring Boot中，@Lazy用于指定Bean是否取消预初始化，该注解可以用于直接或者间接用了@Component注解的类，或使用了@Bean的方法。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE, ElementType.METHOD, ElementType.CONSTRUCTOR, ElementType.PARAMETER, ElementType.FIELD&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Lazy &#123;</span><br><span class="line">    <span class="type">boolean</span> <span class="title function_">value</span><span class="params">()</span> <span class="keyword">default</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>@Lazy注解使用在@Bean方法上：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@Lazy</span></span><br><span class="line"><span class="keyword">public</span> MyBean <span class="title function_">myBean</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">MyBean</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>也可以在@Comfiguration类上使用，该类中所有的@Bean方法都会延迟初始化</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Lazy</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyConfig</span>() &#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> MyBean <span class="title function_">myBean1</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">MyBean</span>();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> MyBean <span class="title function_">myBean2</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">MyBean</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在标注了@Lazy的@Configuration类内，在某个@Bean方法上标注@Lazy(false)，表明这个bean立即初始化。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Lazy</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyConfig</span>() &#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="meta">@Lazy(false)</span></span><br><span class="line">    <span class="keyword">public</span> MyBean <span class="title function_">myBean1</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">MyBean</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Profile"><a href="#Profile" class="headerlink" title="@Profile"></a>@Profile</h1><p>@Profile注解在前面的的文章中提到过，这是一个直接用英文翻译比较难理解的词；profile本身的意思是”轮廓”，”侧写”，在编程的其他领域，这个词有针对每个用户的数据存储的意思。而在Spring Boot当中，这个词用于区分不同的环境，如开发环境，测试环境，生产环境。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE, ElementType.METHOD&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Conditional(&#123;ProfileCondition.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Profile &#123;</span><br><span class="line">    String[] value();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>该注解可以传入多个字符串，@Profile(“prod”), @Profile({“test”,”master”})都是合法的使用，如果有多个条件，需要同时满足</p>
+<p>一般在@Configuration下使用，标注在能返回Bean的类或者方法上，标注的时候填入一个字符串，作为一个场景或者一个区分。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Profile(&quot;dev&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyConfig</span> &#123;</span><br><span class="line">    <span class="comment">// your beans here</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>当Profile为dev时，上面的代码才会在Spring中注册MyConfig这个类。</p>
+<p>在Profile的名字前加”!”，即Profile不激活才注册相应的Bean。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="meta">@Bean</span></span><br><span class="line"><span class="meta">@Profile(&quot;!test&quot;)</span> <span class="comment">// test不激活才创建该Bean</span></span><br><span class="line"><span class="keyword">public</span> MyBean <span class="title function_">myBean</span><span class="params">()</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">MyBean</span>();</span><br><span class="line">&#125;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+<h2 id="激活环境"><a href="#激活环境" class="headerlink" title="激活环境"></a>激活环境</h2><p>最推荐的方式是在计算机中配置环境变量：export SPRING_PROFILES_ACTIVE&#x3D;prod，这样注册的环境就和计算机绑定在一起。<br>也可以设置启动参数-Dspring.profiles.active&#x3D;test<br>允许同时激活多个环境，如：-Dspring.profiles.active&#x3D;test,master<br>也可以在application.yml中配置，或者使用@ActiveProfiles注解，但是它们直接写在了源代码中，失去了灵活性，这里就不展开说了。</p>
+<blockquote>
+<p>prod, dev, test等都是常用的缩写, 属于自己定义的内容而非Spring提供的定义</p>
+</blockquote>
+<h1 id="ComponentScan"><a href="#ComponentScan" class="headerlink" title="@ComponentScan"></a>@ComponentScan</h1><p>标注了@Component等注解的类会被注册为Bean。那么@ComponentScan自然就是用于开启包扫描，将Bean注册到Spring IoC环境中的注解。该注解标注在启动类上，它定义了扫描路径，从中找到标识了需要装配的类，自动将其装配到环境中。</p>
+<blockquote>
+<p>在Spring Boot中，我们常常见到的是复合注解@SpringBootApplication，这个注解的功能之一等效于使用了@ComponentScan，因此我们前面没有显式提到要使用@ComponentScan</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Repeatable(ComponentScans.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> ComponentScan &#123;</span><br><span class="line">    <span class="meta">@AliasFor(&quot;basePackages&quot;)</span></span><br><span class="line">    String[] value() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AliasFor(&quot;value&quot;)</span></span><br><span class="line">    String[] basePackages() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    Class&lt;?&gt;[] basePackageClasses() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    Class&lt;? <span class="keyword">extends</span> <span class="title class_">BeanNameGenerator</span>&gt; nameGenerator() <span class="keyword">default</span> BeanNameGenerator.class;</span><br><span class="line"></span><br><span class="line">    Class&lt;? <span class="keyword">extends</span> <span class="title class_">ScopeMetadataResolver</span>&gt; scopeResolver() <span class="keyword">default</span> AnnotationScopeMetadataResolver.class;</span><br><span class="line"></span><br><span class="line">    ScopedProxyMode <span class="title function_">scopedProxy</span><span class="params">()</span> <span class="keyword">default</span> ScopedProxyMode.DEFAULT;</span><br><span class="line"></span><br><span class="line">    String <span class="title function_">resourcePattern</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;**/*.class&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="type">boolean</span> <span class="title function_">useDefaultFilters</span><span class="params">()</span> <span class="keyword">default</span> <span class="literal">true</span>;</span><br><span class="line"></span><br><span class="line">    ComponentScan.Filter[] includeFilters() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    ComponentScan.Filter[] excludeFilters() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">    <span class="type">boolean</span> <span class="title function_">lazyInit</span><span class="params">()</span> <span class="keyword">default</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line">    <span class="meta">@Target(&#123;&#125;)</span></span><br><span class="line">    <span class="keyword">public</span> <span class="meta">@interface</span> Filter &#123;</span><br><span class="line">        FilterType <span class="title function_">type</span><span class="params">()</span> <span class="keyword">default</span> FilterType.ANNOTATION;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@AliasFor(&quot;classes&quot;)</span></span><br><span class="line">        Class&lt;?&gt;[] value() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">        <span class="meta">@AliasFor(&quot;value&quot;)</span></span><br><span class="line">        Class&lt;?&gt;[] classes() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br><span class="line">        String[] pattern() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>@ComponentScan标注在启动类上，如果不传入basePackages属性，那么扫描的路径默认为当前包以及当前路径下的子包，这也是启动类为什么一般放在源代码最外层的原因。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ComponentScan</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyApplication</span> &#123;</span><br><span class="line">    <span class="comment">// 启动类</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>includeFilters和excludeFilters两个属性的行为比较理解，就是包含或者排除哪些特殊情况，但Filter类值得讲一讲。<br>FilterType有五种类型：注解类型FilterType.ANNOTATION, 指定固定类FilterType.ASSIGNABLE_TYPE, 切入点类型FilterType.ASPECTJ, 正则表达式FilterType.REGEX, 自定义类型FilterType.CUSTOM<br>首先说注解类型，比如我们知道@Controller会被注册为Bean，我们可以将其排除。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ComponentScan(</span></span><br><span class="line"><span class="meta">    excludeFilters=&#123;@Filter(type=FilterType.ANNOTATION,classes=&#123;Controller.class&#125;)&#125;</span></span><br><span class="line"><span class="meta">)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyApplication</span> &#123;</span><br><span class="line">    <span class="comment">// 启动类</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>使用includeFilters将未标注的自定义类注册进容器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ComponentScan(</span></span><br><span class="line"><span class="meta">    includeFilters=&#123;@Filter(type=FilterType.ASSIGNABLE_TYPE, classes=&#123;MyClass.class&#125;)&#125;</span></span><br><span class="line"><span class="meta">)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyApplication</span> &#123;</span><br><span class="line">    <span class="comment">// 启动类</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>我们对Spring注解的学习整理也完成了第一阶段。别的文章往往一开始都会介绍@SpringBootApplication，而我们仅仅只让它在第十篇文章内露了一下面。看似我们的文章组织的没有章法，实际上也是无可奈何，平级的知识之间的关系就如同网状，起步阶段总是感觉备受困扰，我已经按照我认为最容易理解的顺序组织内容。如果看的不太懂，不妨先去找找DEMO，上手敲一敲。<br>回到我们的文章上来，第一阶段的主题是Bean装配，想要将Bean注册到Spring IoC容器。一般有两种思路：<br>①使用@Configuration标注在类上, 正如其名字所表达的那样，在这个配置类中，我们可以在返回Bean的方法上标注@Bean；<br>②直接在类上标注@Component，那么这个类就会被注册到容器中。<br>Bean被注册到了容器中，但我们并不能直接使用，否则那岂不是成了全局变量，开了历史的倒车？<br>@Autowired能够将Bean注入到成员变量中，它实际上调用了setter方法，所以需要注入的字段，需要声明public的setter方法。<br>自动注入时类型必须匹配，必须是对应的类或者子类。当对应的类只有一个时自然不必烦恼。当有多个实例时则根据名字匹配。但为了自动匹配上而强迫自己按照Bean的名字命名字段对象无异于削足适履，还好，@Qualifier和@Primary能解决我们的问题。Spring会根据@Qualifier内传入的名字去匹配相应的Bean；而@Primary更加适用于Bean之间有优先级顺序的情况，像主从数据库就是一个很好的例子。<br>之后，我们需要对Bean有着更加细粒度的控制。比如@Scope来决定Bean的作用域。@Lazy来决定Bean是否懒加载。@Profile让我们根据条件决定Bean是否装配。<br>最后，是十分重要常常被提到，却往往沦为@SpringBootApplication的背景板的@ComponentScan，它开启了包扫描，是我们Bean被装配到容器中的最大功臣。</p>
+<h1 id="ConfigurationProperties"><a href="#ConfigurationProperties" class="headerlink" title="@ConfigurationProperties"></a>@ConfigurationProperties</h1><p>即便现在简化了配置，但是一个独立的配置文件总是易于理解而且使人安心的。Spring在构建完项目后，会默认在resources文件夹下创建一个application.properties文件，application.yml也是一样的效果。@ConfigurationProperties可以获取配置文件中的数据，将其注入类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE, ElementType.METHOD&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> ConfigurationProperties &#123;</span><br><span class="line">    <span class="meta">@AliasFor(&quot;prefix&quot;)</span></span><br><span class="line">    String <span class="title function_">value</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@AliasFor(&quot;value&quot;)</span></span><br><span class="line">    String <span class="title function_">prefix</span><span class="params">()</span> <span class="keyword">default</span> <span class="string">&quot;&quot;</span>;</span><br><span class="line"></span><br><span class="line">    <span class="type">boolean</span> <span class="title function_">ignoreInvalidFields</span><span class="params">()</span> <span class="keyword">default</span> <span class="literal">false</span>;</span><br><span class="line"></span><br><span class="line">    <span class="type">boolean</span> <span class="title function_">ignoreUnknownFields</span><span class="params">()</span> <span class="keyword">default</span> <span class="literal">true</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>向注解中传入配置文件中的前缀名，如果配置文件如下：</p>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">myConfigs:</span></span><br><span class="line">  <span class="attr">config1:</span></span><br><span class="line">    <span class="attr">field1:</span> <span class="string">f1</span></span><br><span class="line">    <span class="attr">field2:</span> <span class="string">f2</span></span><br><span class="line">    <span class="attr">field3:</span> <span class="string">f3</span></span><br></pre></td></tr></table></figure>
+<p>那么代码中的配置类应该这样写：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Component</span></span><br><span class="line"><span class="meta">@ConfigurationProperties(&quot;myConfigs.config1&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyConfig1</span> &#123;</span><br><span class="line">    String field1;</span><br><span class="line">    String field2;</span><br><span class="line">    String field3;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>如上所示，field1, field2, field3三个属性就被绑定到了对象上。</p>
+<p>ignoreInvalidFields默认为false，不合法的属性的属性会默认抛出异常；<br>ignoreUnknownFields默认为true, 未能识别的属性会被忽略(所以打错了名字就会被忽略了)</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ConfigurationProperties(prefix=&quot;config.prefix&quot;, ignoreInvalidFields=true, ignoreUnknownFields=false)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyConfig</span> &#123;</span><br><span class="line">    <span class="comment">// fields</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>Spring Boot的绑定规则相当宽松，myField, my-field, my_field等都能识别绑定到myField上。</p>
+<p>可以给字段设定默认值，这样配置中没有传入时会使用默认值。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@ConfigurationProperties(&quot;your.prefix&quot;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">YourConfig</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="type">String</span> <span class="variable">field</span> <span class="operator">=</span> <span class="string">&quot;Default&quot;</span></span><br><span class="line">    <span class="comment">// setter</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>类的字段必须要有public访问权限的setter方法。</p>
+<h1 id="EnableConfigurationProperties"><a href="#EnableConfigurationProperties" class="headerlink" title="@EnableConfigurationProperties"></a>@EnableConfigurationProperties</h1><p>我们从前面大概知道，在Spring中，想让一个类被扫描进入IoC容器中，一般有两种方法：一是在这个类上添加@Component；二是在配置类上指定类。第二类的方法对应到实际中就是大多以Enable开头，例如@EnableConfigurationProperties就是和@ConfigurationProperties搭配使用。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="meta">@Import(&#123;EnableConfigurationPropertiesRegistrar.class&#125;)</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> EnableConfigurationProperties &#123;</span><br><span class="line">    <span class="type">String</span> <span class="variable">VALIDATOR_BEAN_NAME</span> <span class="operator">=</span> <span class="string">&quot;configurationPropertiesValidator&quot;</span>;</span><br><span class="line"></span><br><span class="line">    Class&lt;?&gt;[] value() <span class="keyword">default</span> &#123;&#125;;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>使用使用时要加载配置类上，启动类也是一种配置类。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableConfigurationProperties(YouConfigurationProperties.class)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyConfig</span> &#123;</span><br><span class="line">    <span class="comment">// ...</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="Value"><a href="#Value" class="headerlink" title="@Value"></a>@Value</h1><p> 使用@ConfigurationProperties能够将配置注入到整个类中，而@Value注解能够将配置注入到字段中，进行更为细粒度的控制。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Target(&#123;ElementType.FIELD, ElementType.METHOD, ElementType.PARAMETER, ElementType.ANNOTATION_TYPE&#125;)</span></span><br><span class="line"><span class="meta">@Retention(RetentionPolicy.RUNTIME)</span></span><br><span class="line"><span class="meta">@Documented</span></span><br><span class="line"><span class="keyword">public</span> <span class="meta">@interface</span> Value &#123;</span><br><span class="line">    String <span class="title function_">value</span><span class="params">()</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>注意：注解修饰的字段不能为static或者final。</p>
+</blockquote>
+<p>使用上有两种形式：<br>@Value(“${}”)，用来加载外部文件中的值；<br>@Value(“#{}”)，用于执行SpEl表达式，并将内容赋值给属性。<br>我们可以获取Spring Boot配置文件(.yml或.properties)中的属性值并将其赋值给指定变量。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Value(&quot;$&#123;my.config.field&#125;&quot;)</span></span><br><span class="line"><span class="keyword">private</span> String value;</span><br><span class="line">...</span><br></pre></td></tr></table></figure>
+
+<p>SpEL是一种表达式语言，能够动态的运行语句。<br>如果有使用Thymeleaf，会感到一种熟悉感。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">...</span><br><span class="line"><span class="meta">@Value(&quot;#&#123;1 + 1&#125;&quot;)</span></span><br><span class="line"><span class="keyword">private</span> Integer value; <span class="comment">// 2</span></span><br><span class="line">...</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/03/20/Spring/Spring%E6%B3%A8%E8%A7%A3/" rel="prev" title="Spring注解">
+                  <i class="fa fa-chevron-left"></i> Spring注解
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/04/29/rocketmq/RocketMQ%E7%AE%80%E4%BB%8B/" rel="next" title="RocketMQ简介">
+                  RocketMQ简介 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>

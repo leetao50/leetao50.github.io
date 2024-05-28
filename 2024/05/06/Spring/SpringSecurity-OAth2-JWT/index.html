@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<meta name="theme-color" content="#222"><meta name="generator" content="Hexo 6.1.0">
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.1.1/css/all.min.css" integrity="sha256-DfWjNxDkM94fVBWx1H5BMMp0Zq7luBlV8QRcSES7s+0=" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/animate.css@3.1.1/animate.min.css" integrity="sha256-PR7ttpcvz8qrF57fur/yAx1qXMFJeJFiA6pSzWi0OIE=" crossorigin="anonymous">
+
+<script class="next-config" data-name="main" type="application/json">{"hostname":"leetao50.github.io","root":"/","images":"/images","scheme":"Muse","darkmode":false,"version":"8.11.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12},"copycode":false,"bookmark":{"enable":false,"color":"#222","save":"auto"},"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"stickytabs":false,"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"fadeInDown","post_body":"fadeInDown","coll_header":"fadeInLeft","sidebar":"fadeInUp"}},"prism":false,"i18n":{"placeholder":"搜索...","empty":"没有找到任何搜索结果：${query}","hits_time":"找到 ${hits} 个搜索结果（用时 ${time} 毫秒）","hits":"找到 ${hits} 个搜索结果"}}</script><script src="/js/config.js"></script>
+
+    <meta name="description" content="微服务中使用Spring Security + OAuth 2.0 + JWT 搭建认证授权服务 OAuth 是一种用来规范令牌（Token）发放的授权机制，主要包含了四种授权模式：  授权码模式 简化模式 密码模式 客户端模式  引入依赖spring-cloud-starter-oauth2 已经包含了 spring-cloud-starter-security、spring-security-">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SpringSecurity+OAth2+JWT">
+<meta property="og:url" content="https://leetao50.github.io/2024/05/06/Spring/SpringSecurity-OAth2-JWT/index.html">
+<meta property="og:site_name" content="InfoPool">
+<meta property="og:description" content="微服务中使用Spring Security + OAuth 2.0 + JWT 搭建认证授权服务 OAuth 是一种用来规范令牌（Token）发放的授权机制，主要包含了四种授权模式：  授权码模式 简化模式 密码模式 客户端模式  引入依赖spring-cloud-starter-oauth2 已经包含了 spring-cloud-starter-security、spring-security-">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2024-05-06T08:00:17.000Z">
+<meta property="article:modified_time" content="2024-05-07T03:37:02.603Z">
+<meta name="twitter:card" content="summary">
+
+
+<link rel="canonical" href="https://leetao50.github.io/2024/05/06/Spring/SpringSecurity-OAth2-JWT/">
+
+
+
+<script class="next-config" data-name="page" type="application/json">{"sidebar":"","isHome":false,"isPost":true,"lang":"zh-CN","comments":true,"permalink":"https://leetao50.github.io/2024/05/06/Spring/SpringSecurity-OAth2-JWT/","path":"2024/05/06/Spring/SpringSecurity-OAth2-JWT/","title":"SpringSecurity+OAth2+JWT"}</script>
+
+<script class="next-config" data-name="calendar" type="application/json">""</script>
+<title>SpringSecurity+OAth2+JWT | InfoPool</title>
+  
+
+
+
+
+
+  <noscript>
+    <link rel="stylesheet" href="/css/noscript.css">
+  </noscript>
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" class="use-motion">
+  <div class="headband"></div>
+
+  <main class="main">
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏" role="button">
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <i class="logo-line"></i>
+      <p class="site-title">InfoPool</p>
+      <i class="logo-line"></i>
+    </a>
+      <p class="site-subtitle" itemprop="description">私人信息记录</p>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+</div>
+        
+  
+  <div class="toggle sidebar-toggle" role="button">
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+    <span class="toggle-line"></span>
+  </div>
+
+  <aside class="sidebar">
+
+    <div class="sidebar-inner sidebar-nav-active sidebar-toc-active">
+      <ul class="sidebar-nav">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <div class="sidebar-panel-container">
+        <!--noindex-->
+        <div class="post-toc-wrap sidebar-panel">
+            <div class="post-toc animated"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%BC%95%E5%85%A5%E4%BE%9D%E8%B5%96"><span class="nav-number">1.</span> <span class="nav-text">引入依赖</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C"><span class="nav-number">2.</span> <span class="nav-text">准备工作</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E8%AE%A4%E8%AF%81%E6%8E%88%E6%9D%83%E6%9C%8D%E5%8A%A1%E5%99%A8"><span class="nav-number">3.</span> <span class="nav-text">配置认证授权服务器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E5%AE%A2%E6%88%B7%E7%AB%AF%E8%AF%A6%E7%BB%86%E4%BF%A1%E6%81%AF-ClientDetailsServiceConfigurer"><span class="nav-number">3.1.</span> <span class="nav-text">配置客户端详细信息 ClientDetailsServiceConfigurer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%8E%88%E6%9D%83%E4%BB%A4%E7%89%8C%E7%AB%AF%E7%82%B9%E5%8F%8A%E6%9C%8D%E5%8A%A1-AuthorizationServerEndpointsConfigurer"><span class="nav-number">3.2.</span> <span class="nav-text">配置授权令牌端点及服务 AuthorizationServerEndpointsConfigurer</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E9%85%8D%E7%BD%AE%E6%8E%88%E6%9D%83%E4%BB%A4%E7%89%8C%E5%AE%89%E5%85%A8%E7%BA%A6%E6%9D%9F-AuthorizationServerSecurityConfigurer"><span class="nav-number">3.3.</span> <span class="nav-text">配置授权令牌安全约束 AuthorizationServerSecurityConfigurer</span></a></li></ol></li></ol></div>
+        </div>
+        <!--/noindex-->
+
+        <div class="site-overview-wrap sidebar-panel">
+          <div class="site-author site-overview-item animated" itemprop="author" itemscope itemtype="http://schema.org/Person">
+  <p class="site-author-name" itemprop="name"></p>
+  <div class="site-description" itemprop="description">记录信息来源网络，内容只为方便查找，非公开信息，非请勿入</div>
+</div>
+<div class="site-state-wrap site-overview-item animated">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+        <a href="/archives/">
+          <span class="site-state-item-count">65</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-tags">
+        <span class="site-state-item-count">2</span>
+        <span class="site-state-item-name">标签</span>
+      </div>
+  </nav>
+</div>
+
+
+
+        </div>
+      </div>
+    </div>
+  </aside>
+  <div class="sidebar-dimmer"></div>
+
+
+    </header>
+
+    
+  <div class="back-to-top" role="button" aria-label="返回顶部">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+<noscript>
+  <div class="noscript-warning">Theme NexT works best with JavaScript enabled</div>
+</noscript>
+
+
+    <div class="main-inner post posts-expand">
+
+
+  
+
+
+<div class="post-block">
+  
+  
+
+  <article itemscope itemtype="http://schema.org/Article" class="post-content" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://leetao50.github.io/2024/05/06/Spring/SpringSecurity-OAth2-JWT/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.gif">
+      <meta itemprop="name" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="InfoPool">
+      <meta itemprop="description" content="记录信息来源网络，内容只为方便查找，非公开信息，非请勿入">
+    </span>
+
+    <span hidden itemprop="post" itemscope itemtype="http://schema.org/CreativeWork">
+      <meta itemprop="name" content="SpringSecurity+OAth2+JWT | InfoPool">
+      <meta itemprop="description" content="">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          SpringSecurity+OAth2+JWT
+        </h1>
+
+        <div class="post-meta-container">
+          <div class="post-meta">
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar"></i>
+      </span>
+      <span class="post-meta-item-text">发表于</span>
+
+      <time title="创建时间：2024-05-06 16:00:17" itemprop="dateCreated datePublished" datetime="2024-05-06T16:00:17+08:00">2024-05-06</time>
+    </span>
+    <span class="post-meta-item">
+      <span class="post-meta-item-icon">
+        <i class="far fa-calendar-check"></i>
+      </span>
+      <span class="post-meta-item-text">更新于</span>
+      <time title="修改时间：2024-05-07 11:37:02" itemprop="dateModified" datetime="2024-05-07T11:37:02+08:00">2024-05-07</time>
+    </span>
+
+  
+</div>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+        <p>微服务中使用Spring Security + OAuth 2.0 + JWT 搭建认证授权服务</p>
+<p>OAuth 是一种用来规范令牌（Token）发放的授权机制，主要包含了四种授权模式：</p>
+<ol>
+<li>授权码模式</li>
+<li>简化模式</li>
+<li>密码模式</li>
+<li>客户端模式</li>
+</ol>
+<h1 id="引入依赖"><a href="#引入依赖" class="headerlink" title="引入依赖"></a>引入依赖</h1><p>spring-cloud-starter-oauth2 已经包含了 spring-cloud-starter-security、spring-security-oauth2、spring-security-jwt 这3个依赖，只需引入 spring-cloud-starter-oauth2 即可。</p>
+<h1 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h1><ol>
+<li>新建 UserDTO 类，实现 org.springframework.security.core.userdetails.UserDetails 接口</li>
+</ol>
+<p>nec-common:Account</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Data</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserDTO</span> <span class="keyword">implements</span> <span class="title class_">Serializable</span>, UserDetails &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">long</span> <span class="variable">serialVersionUID</span> <span class="operator">=</span> <span class="number">5538522337801286424L</span>;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String userName;</span><br><span class="line">    <span class="keyword">private</span> String password;</span><br><span class="line">    <span class="keyword">private</span> Set&lt;SimpleGrantedAuthority&gt; authorities;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> Collection&lt;? <span class="keyword">extends</span> <span class="title class_">GrantedAuthority</span>&gt; getAuthorities() &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.authorities;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getPassword</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.password;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">getUsername</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">this</span>.userName;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isAccountNonExpired</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isAccountNonLocked</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isCredentialsNonExpired</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">isEnabled</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">true</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>新建类 UserDetailsServiceImpl，实现 org.springframework.security.core.userdetails.UserDetailsService 接口，用于校验用户凭据。</li>
+</ol>
+<p>nec-auth:NecUserDetailService</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Service</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserDetailsServiceImpl</span> <span class="keyword">implements</span> <span class="title class_">UserDetailsService</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> PasswordEncoder passwordEncoder;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setPasswordEncoder</span><span class="params">(PasswordEncoder passwordEncoder)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.passwordEncoder = passwordEncoder;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> UserDetails <span class="title function_">loadUserByUsername</span><span class="params">(String username)</span> <span class="keyword">throws</span> UsernameNotFoundException &#123;</span><br><span class="line">        <span class="comment">// TODO 实际开发中，这里请修改从数据库中查询...</span></span><br><span class="line">        <span class="type">UserDTO</span> <span class="variable">user</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UserDTO</span>();</span><br><span class="line">        user.setUserName(username);</span><br><span class="line">        <span class="comment">// 密码为 123456 ，且加密</span></span><br><span class="line">        user.setPassword(passwordEncoder.encode(<span class="string">&quot;123456&quot;</span>));</span><br><span class="line">        <span class="keyword">return</span> user;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h1 id="配置认证授权服务器"><a href="#配置认证授权服务器" class="headerlink" title="配置认证授权服务器"></a>配置认证授权服务器</h1><ol>
+<li>新建类 Oauth2ServerConfig，继承 org.springframework.security.oauth2.config.annotation.web.configuration.AuthorizationServerConfigurerAdapter 类；在 Oauth2ServerConfig 类上 添加注解 @EnableAuthorizationServer 。</li>
+</ol>
+<p>nec-auth:AuthorizationServer</p>
+<p>框架提供了几个默认的端点：</p>
+<ul>
+<li>&#x2F;oauth&#x2F;authorize：授权端点</li>
+<li>&#x2F;oauth&#x2F;token：获取令牌端点</li>
+<li>&#x2F;oauth&#x2F;confirm_access：用户确认授权端点</li>
+<li>&#x2F;oauth&#x2F;check_token：校验令牌端点</li>
+<li>&#x2F;oauth&#x2F;error：用于在授权服务器中呈现错误</li>
+<li>&#x2F;oauth&#x2F;token_key：获取 jwt 公钥端点</li>
+</ul>
+<ol start="2">
+<li>继承 AuthorizationServerConfigurerAdapter 类后，我们需要重写以下三个方法扩展实现我们的需求。</li>
+</ol>
+<ul>
+<li>configure(ClientDetailsServiceConfigurer clients) ：用于定义、初始化客户端信息</li>
+<li>configure(AuthorizationServerEndpointsConfigurer endpoints)：用于定义授权令牌端点及服务</li>
+<li>configure(AuthorizationServerSecurityConfigurer security)：用于定义令牌端点的安全约束</li>
+</ul>
+<h2 id="配置客户端详细信息-ClientDetailsServiceConfigurer"><a href="#配置客户端详细信息-ClientDetailsServiceConfigurer" class="headerlink" title="配置客户端详细信息 ClientDetailsServiceConfigurer"></a>配置客户端详细信息 ClientDetailsServiceConfigurer</h2><p>用于定义 内存 中或 基于JDBC存储实现 的客户端，其重要的几个属性有：</p>
+<ol>
+<li>clientId：客户端id，必填；</li>
+<li>clientSecret：客户端密钥；</li>
+<li>authorizedGrantTypes：客户端授权类型，有 5 种模式： authorization_code、password、client_credentials、implicit、refresh_token；</li>
+<li>scope：授权范围；</li>
+<li>accessTokenValiditySeconds：access_token 有效时间，单位为秒，默认为 12 小时；</li>
+<li>refreshTokenValiditySeconds：refresh_token 有效时间，单位为秒，默认为 30 天；</li>
+</ol>
+<p>客户端信息一般保存在 Redis 或 数据库中</p>
+<ol>
+<li><p>使用以下 SQL（适用于MySQL） 来建表：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `oauth_client_details`  (</span><br><span class="line">  `client_id` <span class="type">varchar</span>(<span class="number">256</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci <span class="keyword">NOT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `resource_ids` <span class="type">varchar</span>(<span class="number">256</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `client_secret` <span class="type">varchar</span>(<span class="number">256</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `<span class="keyword">scope</span>` <span class="type">varchar</span>(<span class="number">256</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `authorized_grant_types` <span class="type">varchar</span>(<span class="number">256</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `web_server_redirect_uri` <span class="type">varchar</span>(<span class="number">256</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `authorities` <span class="type">varchar</span>(<span class="number">256</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `access_token_validity` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `refresh_token_validity` <span class="type">int</span>(<span class="number">11</span>) <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `additional_information` <span class="type">varchar</span>(<span class="number">4096</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  `autoapprove` <span class="type">varchar</span>(<span class="number">256</span>) <span class="type">CHARACTER</span> <span class="keyword">SET</span> utf8 <span class="keyword">COLLATE</span> utf8_general_ci <span class="keyword">NULL</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span>,</span><br><span class="line">  <span class="keyword">PRIMARY</span> KEY (`client_id`) <span class="keyword">USING</span> BTREE</span><br><span class="line">) ENGINE <span class="operator">=</span> InnoDB <span class="type">CHARACTER</span> <span class="keyword">SET</span> <span class="operator">=</span> utf8 <span class="keyword">COLLATE</span> <span class="operator">=</span> utf8_general_ci ROW_FORMAT <span class="operator">=</span> <span class="keyword">Dynamic</span>;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>添加一条客户端信息用于测试：</p>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">INSERT</span> <span class="keyword">INTO</span> `oauth_client_details` <span class="keyword">VALUES</span> (<span class="string">&#x27;auth-server&#x27;</span>, <span class="keyword">NULL</span>, <span class="string">&#x27;$2a$10$mcEwJ8qqhk2DYIle6VfhEOZHRdDbCSizAQbIwBR7tTuv9Q7Fca9Gi&#x27;</span>, <span class="string">&#x27;all&#x27;</span>, <span class="string">&#x27;password,refresh_token&#x27;</span>, <span class="string">&#x27;&#x27;</span>, <span class="keyword">NULL</span>, <span class="keyword">NULL</span>, <span class="keyword">NULL</span>, <span class="keyword">NULL</span>, <span class="keyword">NULL</span>);</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p>其中密码 123456 使用 BCryptPasswordEncoder 加密，加密后字符为 $2a$10$mcEwJ8qqhk2DYIle6VfhEOZHRdDbCSizAQbIwBR7tTuv9Q7Fca9Gi。</p>
+</li>
+<li><p>配置 ClientDetailsServiceConfigurer ，指定客户端信息：</p>
+</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableAuthorizationServer</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Oauth2ServerConfig</span> <span class="keyword">extends</span> <span class="title class_">AuthorizationServerConfigurerAdapter</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> DataSource dataSource;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> PasswordEncoder passwordEncoder;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Oauth2ServerConfig</span><span class="params">(DataSource dataSource, PasswordEncoder passwordEncoder)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.dataSource = dataSource;</span><br><span class="line">        <span class="built_in">this</span>.passwordEncoder = passwordEncoder;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">configure</span><span class="params">(ClientDetailsServiceConfigurer clients)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="comment">// 使用基于 JDBC 存储模式</span></span><br><span class="line">        <span class="type">JdbcClientDetailsService</span> <span class="variable">clientDetailsService</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JdbcClientDetailsService</span>(dataSource);</span><br><span class="line">        <span class="comment">// client_secret 加密</span></span><br><span class="line">        clientDetailsService.setPasswordEncoder(passwordEncoder);</span><br><span class="line">        clients.withClientDetails(clientDetailsService);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置授权令牌端点及服务-AuthorizationServerEndpointsConfigurer"><a href="#配置授权令牌端点及服务-AuthorizationServerEndpointsConfigurer" class="headerlink" title="配置授权令牌端点及服务 AuthorizationServerEndpointsConfigurer"></a>配置授权令牌端点及服务 AuthorizationServerEndpointsConfigurer</h2><p>需要指定 AuthenticationManager 及 UserDetailService，尤其是使用密码模式时，必须指定 AuthenticationManager，否则会报 Unsupported grant type: password 错误。</p>
+<p>新建 WebSecurityConfig 类，继承 org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter 类，重写 authenticationManagerBean() 方法，并定义需要用到的 PasswordEncoder；</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableWebSecurity</span></span><br><span class="line"><span class="meta">@EnableGlobalMethodSecurity(prePostEnabled = true)</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">WebSecurityConfig</span> <span class="keyword">extends</span> <span class="title class_">WebSecurityConfigurerAdapter</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">configure</span><span class="params">(HttpSecurity http)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        http</span><br><span class="line">                <span class="comment">// 支持跨域请求</span></span><br><span class="line">                .cors()</span><br><span class="line"></span><br><span class="line">                .and()</span><br><span class="line">                <span class="comment">// 禁用 CSRF</span></span><br><span class="line">                .csrf().disable()</span><br><span class="line"></span><br><span class="line">                .formLogin().disable()</span><br><span class="line">                .httpBasic().disable()</span><br><span class="line">                .logout().disable()</span><br><span class="line"></span><br><span class="line">                .authorizeRequests()</span><br><span class="line">                .antMatchers(<span class="string">&quot;/oauth/token&quot;</span>).permitAll();</span><br><span class="line"></span><br><span class="line">                .anyRequest().authenticated();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 重写 authenticationManagerBean()</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> AuthenticationManager <span class="title function_">authenticationManagerBean</span><span class="params">()</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">super</span>.authenticationManagerBean();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> PasswordEncoder <span class="title function_">passwordEncoder</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">BCryptPasswordEncoder</span>();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>配置 AuthorizationServerEndpointsConfigurer：</li>
+</ol>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableAuthorizationServer</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Oauth2ServerConfig</span> <span class="keyword">extends</span> <span class="title class_">AuthorizationServerConfigurerAdapter</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> UserDetailsServiceImpl userDetailsService;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 密码模式 grant_type:password 需指定 AuthenticationManager</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> AuthenticationManager authenticationManager;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Oauth2ServerConfig</span><span class="params">(UserDetailsServiceImpl userDetailsService,</span></span><br><span class="line"><span class="params">                              AuthenticationManager authenticationManager)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.userDetailsService = userDetailsService;</span><br><span class="line">        <span class="built_in">this</span>.authenticationManager = authenticationManager;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">configure</span><span class="params">(AuthorizationServerEndpointsConfigurer endpoints)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        endpoints</span><br><span class="line">                <span class="comment">// 开启密码模式授权</span></span><br><span class="line">                .authenticationManager(authenticationManager)</span><br><span class="line">                .userDetailsService(userDetailsService);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用 JWT 作为令牌格式<br>生成 JWT 密钥对<br>使用 JDK 的 keytool 工具生成 JKS 密钥对 jwt.jks，并将 jwt.jks 放到 resources 目录下。</p>
+<p>定位至 JDK 目录下的 bin 目录，执行以下命令生成密钥对，记住口令密钥，代码中需要用到密钥来读取密钥对，以下命令以 123456 为例：</p>
+<p>keytool -genkey -alias weihong -keyalg RSA -keypass 123456 -keystore jwt.jks -storepass 123456</p>
+<figure class="highlight console"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">-genkey 生成密钥</span><br><span class="line"></span><br><span class="line">-alias 别名</span><br><span class="line"></span><br><span class="line">-keyalg 密钥算法</span><br><span class="line"></span><br><span class="line">-keypass 密钥口令</span><br><span class="line"></span><br><span class="line">-keystore 生成密钥对的存储路径和名称</span><br><span class="line"></span><br><span class="line">-storepass 密钥对口令</span><br></pre></td></tr></table></figure>
+<p>定义 token 转换器<br>在 Oauth2ServerConfig 类中定义 accessTokenConverter() 及 keyPair()：<br>指定令牌存储策略为 JWT<br>配置 AuthorizationServerEndpointsConfigurer 的令牌存储策略为 JWT，指定 accessTokenConverter 为我们定义好的 accessTokenConverter()：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableAuthorizationServer</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Oauth2ServerConfig</span> <span class="keyword">extends</span> <span class="title class_">AuthorizationServerConfigurerAdapter</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> UserDetailsServiceImpl userDetailsService;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 密码模式 grant_type:password 需指定 AuthenticationManager</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> AuthenticationManager authenticationManager;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Oauth2ServerConfig</span><span class="params">(UserDetailsServiceImpl userDetailsService,</span></span><br><span class="line"><span class="params">                              AuthenticationManager authenticationManager)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.userDetailsService = userDetailsService;</span><br><span class="line">        <span class="built_in">this</span>.authenticationManager = authenticationManager;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">configure</span><span class="params">(AuthorizationServerEndpointsConfigurer endpoints)</span> &#123;</span><br><span class="line">        endpoints</span><br><span class="line">                <span class="comment">// 开启密码模式授权</span></span><br><span class="line">                .authenticationManager(authenticationManager)</span><br><span class="line">                .userDetailsService(userDetailsService)</span><br><span class="line">                <span class="comment">// 指定令牌存储策略</span></span><br><span class="line">                .accessTokenConverter(accessTokenConverter());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * token 转换器</span></span><br><span class="line"><span class="comment">     * 默认是 uuid 格式，我们在这里指定 token 格式为 jwt</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> JwtAccessTokenConverter <span class="title function_">accessTokenConverter</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">JwtAccessTokenConverter</span> <span class="variable">converter</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JwtAccessTokenConverter</span>();</span><br><span class="line">        <span class="comment">// 使用非对称加密算法对 token 签名</span></span><br><span class="line">        converter.setKeyPair(keyPair());</span><br><span class="line">        <span class="keyword">return</span> converter;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> KeyPair <span class="title function_">keyPair</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="comment">// 从 classpath 目录下的证书 jwt.jks 中获取秘钥对</span></span><br><span class="line">        <span class="type">KeyStoreKeyFactory</span> <span class="variable">keyStoreKeyFactory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">KeyStoreKeyFactory</span>(<span class="keyword">new</span> <span class="title class_">ClassPathResource</span>(<span class="string">&quot;jwt.jks&quot;</span>), <span class="string">&quot;123456&quot;</span>.toCharArray());</span><br><span class="line">        <span class="keyword">return</span> keyStoreKeyFactory.getKeyPair(<span class="string">&quot;weihong&quot;</span>, <span class="string">&quot;123456&quot;</span>.toCharArray());</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;    </span><br></pre></td></tr></table></figure>
+
+<p>扩展 JWT 存储内容</p>
+<p>有时候我们需要扩展 JWT 存储的内容，比如存储一些用户数据、权限信息等。我们可以定义 TokenEnhancer 或继承 TokenEnhancer 来实现 JWT 内容增强器：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableAuthorizationServer</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Oauth2ServerConfig</span> <span class="keyword">extends</span> <span class="title class_">AuthorizationServerConfigurerAdapter</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> UserDetailsServiceImpl userDetailsService;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> AuthenticationManager authenticationManager;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Oauth2ServerConfig</span><span class="params">(UserDetailsServiceImpl userDetailsService,</span></span><br><span class="line"><span class="params">                              AuthenticationManager authenticationManager)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.userDetailsService = userDetailsService;</span><br><span class="line">        <span class="built_in">this</span>.authenticationManager = authenticationManager;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">configure</span><span class="params">(AuthorizationServerEndpointsConfigurer endpoints)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        <span class="type">TokenEnhancerChain</span> <span class="variable">enhancerChain</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">TokenEnhancerChain</span>();</span><br><span class="line">        List&lt;TokenEnhancer&gt; delegates = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();</span><br><span class="line"></span><br><span class="line">        delegates.add(tokenEnhancer());</span><br><span class="line">        delegates.add(accessTokenConverter());</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 配置 JWT 内容增强</span></span><br><span class="line">        enhancerChain.setTokenEnhancers(delegates);</span><br><span class="line"></span><br><span class="line">        endpoints</span><br><span class="line">                <span class="comment">// 开启密码模式授权</span></span><br><span class="line">                .authenticationManager(authenticationManager)</span><br><span class="line">                .userDetailsService(userDetailsService)</span><br><span class="line">                .accessTokenConverter(accessTokenConverter())</span><br><span class="line">                .tokenEnhancer(enhancerChain);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * token 转换器</span></span><br><span class="line"><span class="comment">     * 默认是 uuid 格式，我们在这里指定 token 格式为 jwt</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> JwtAccessTokenConverter <span class="title function_">accessTokenConverter</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">JwtAccessTokenConverter</span> <span class="variable">converter</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JwtAccessTokenConverter</span>();</span><br><span class="line">        <span class="comment">// 使用非对称加密算法对 token 签名</span></span><br><span class="line">        converter.setKeyPair(keyPair());</span><br><span class="line">        <span class="keyword">return</span> converter;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> KeyPair <span class="title function_">keyPair</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="type">KeyStoreKeyFactory</span> <span class="variable">keyStoreKeyFactory</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">KeyStoreKeyFactory</span>(<span class="keyword">new</span> <span class="title class_">ClassPathResource</span>(<span class="string">&quot;jwt.jks&quot;</span>), <span class="string">&quot;123456&quot;</span>.toCharArray());</span><br><span class="line">        <span class="keyword">return</span> keyStoreKeyFactory.getKeyPair(<span class="string">&quot;weihong&quot;</span>, <span class="string">&quot;123456&quot;</span>.toCharArray());</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * JWT 内容增强器，用于扩展 JWT 内容，可以保存用户数据</span></span><br><span class="line"><span class="comment">     * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> TokenEnhancer <span class="title function_">tokenEnhancer</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> (oAuth2AccessToken, oAuth2Authentication) -&gt; &#123;</span><br><span class="line">            Map&lt;String, Object&gt; map = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;(<span class="number">1</span>);</span><br><span class="line">            <span class="type">UserDTO</span> <span class="variable">userDTO</span> <span class="operator">=</span> (UserDTO) oAuth2Authentication.getPrincipal();</span><br><span class="line">            map.put(<span class="string">&quot;userName&quot;</span>, userDTO.getUsername());</span><br><span class="line">            <span class="comment">// TODO 其他信息可以自行添加</span></span><br><span class="line">            ((DefaultOAuth2AccessToken) oAuth2AccessToken).setAdditionalInformation(map);</span><br><span class="line">            <span class="keyword">return</span> oAuth2AccessToken;</span><br><span class="line">        &#125;;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>使用 Redis 存储 token</p>
+<p>添加 token 保存至 redis 的配置:</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RedisTokenStoreConfig</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Resource</span></span><br><span class="line">    <span class="keyword">private</span> RedisConnectionFactory connectionFactory;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> TokenStore <span class="title function_">redisTokenStore</span><span class="params">()</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">RedisTokenStore</span>(connectionFactory);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>在认证服务配置中指定 token 存储方式：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@EnableAuthorizationServer</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Oauth2ServerConfig</span> <span class="keyword">extends</span> <span class="title class_">AuthorizationServerConfigurerAdapter</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> UserDetailsServiceImpl userDetailsService;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * 密码模式 grant_type:password 需指定 AuthenticationManager</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> AuthenticationManager authenticationManager;</span><br><span class="line">    </span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">final</span> TokenStore tokenStore;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Autowired</span></span><br><span class="line">    <span class="keyword">public</span> <span class="title function_">Oauth2ServerConfig</span><span class="params">(UserDetailsServiceImpl userDetailsService,</span></span><br><span class="line"><span class="params">                              AuthenticationManager authenticationManager,</span></span><br><span class="line"><span class="params">                              <span class="meta">@Qualifier(&quot;redisTokenStore&quot;)</span> TokenStore tokenStore)</span> &#123;</span><br><span class="line">        <span class="built_in">this</span>.userDetailsService = userDetailsService;</span><br><span class="line">        <span class="built_in">this</span>.authenticationManager = authenticationManager;</span><br><span class="line">        <span class="built_in">this</span>.tokenStore = tokenStore;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">configure</span><span class="params">(AuthorizationServerEndpointsConfigurer endpoints)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        endpoints</span><br><span class="line">                <span class="comment">// 开启密码模式授权</span></span><br><span class="line">                .authenticationManager(authenticationManager)</span><br><span class="line">                .userDetailsService(userDetailsService)</span><br><span class="line">                <span class="comment">// 设置 token 存储方式</span></span><br><span class="line">                .tokenStore(tokenStore);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置授权令牌安全约束-AuthorizationServerSecurityConfigurer"><a href="#配置授权令牌安全约束-AuthorizationServerSecurityConfigurer" class="headerlink" title="配置授权令牌安全约束 AuthorizationServerSecurityConfigurer"></a>配置授权令牌安全约束 AuthorizationServerSecurityConfigurer</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Override</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">configure</span><span class="params">(AuthorizationServerSecurityConfigurer security)</span> <span class="keyword">throws</span> Exception &#123;</span><br><span class="line">        security</span><br><span class="line">                <span class="comment">// 允许表单认证</span></span><br><span class="line">                .allowFormAuthenticationForClients()</span><br><span class="line">                <span class="comment">// 开放 /oauth/token_key 获取 token 加密公钥</span></span><br><span class="line">                .tokenKeyAccess(<span class="string">&quot;permitAll()&quot;</span>)</span><br><span class="line">                <span class="comment">// 开放 /oauth/check_token</span></span><br><span class="line">                .checkTokenAccess(<span class="string">&quot;permitAll()&quot;</span>);</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+
+    </div>
+
+    
+    
+    
+
+    <footer class="post-footer">
+
+        
+
+          <div class="post-nav">
+            <div class="post-nav-item">
+                <a href="/2024/05/06/lombok/Lombok%E6%B3%A8%E8%A7%A3/" rel="prev" title="Lombok注解">
+                  <i class="fa fa-chevron-left"></i> Lombok注解
+                </a>
+            </div>
+            <div class="post-nav-item">
+                <a href="/2024/05/07/Spring/EnableMethodSecurity%E6%B3%A8%E8%A7%A3/" rel="next" title="EnableMethodSecurity注解">
+                  EnableMethodSecurity注解 <i class="fa fa-chevron-right"></i>
+                </a>
+            </div>
+          </div>
+    </footer>
+  </article>
+</div>
+
+
+
+
+
+
+</div>
+  </main>
+
+  <footer class="footer">
+    <div class="footer-inner">
+
+
+<div class="copyright">
+  &copy; 
+  <span itemprop="copyrightYear">2024</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"></span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.js.org/muse/" rel="noopener" target="_blank">NexT.Muse</a> 强力驱动
+  </div>
+
+    </div>
+  </footer>
+
+  
+  <script src="https://cdn.jsdelivr.net/npm/animejs@3.2.1/lib/anime.min.js" integrity="sha256-XL2inqUJaslATFnHdJOi9GfQ60on8Wx1C2H8DYiN1xY=" crossorigin="anonymous"></script>
+<script src="/js/comments.js"></script><script src="/js/utils.js"></script><script src="/js/motion.js"></script><script src="/js/schemes/muse.js"></script><script src="/js/next-boot.js"></script>
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+</body>
+</html>
